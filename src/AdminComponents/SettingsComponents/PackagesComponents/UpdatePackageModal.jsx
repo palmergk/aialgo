@@ -172,8 +172,8 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
                                     <div className='text-xs text-center italic text-[#eb2e2e]'>- All investments under this trading plan will no longer update automatically -</div>
                                 </div>
                                 <div className='flex items-center gap-6'>
-                                    <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-lg font-medium' onClick={() => setDeleteState(false)}>cancel</button>
-                                    <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-lg font-medium' onClick={DeleteTradingPlan}>proceed</button>
+                                    <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={() => setDeleteState(false)}>cancel</button>
+                                    <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={DeleteTradingPlan}>proceed</button>
                                 </div>
                             </div>}
                         </div>

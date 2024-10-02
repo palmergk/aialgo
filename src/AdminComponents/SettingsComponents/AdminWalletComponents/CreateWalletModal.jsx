@@ -31,8 +31,8 @@ const CreateWalletModal = ({ closeView, refetchAdminWallets, cryptocurrency }) =
     const CreateWallet = async () => {
 
         if (crypto.name === 'select') return ErrorAlert('Choose cryptocurrency')
-        if (!form.network) return ErrorAlert('Enter network')
-        if (!form.address) return ErrorAlert('Enter address')
+        if (!form.network) return ErrorAlert('Enter a network')
+        if (!form.address) return ErrorAlert('Enter an address')
 
 
         const formbody = new FormData()

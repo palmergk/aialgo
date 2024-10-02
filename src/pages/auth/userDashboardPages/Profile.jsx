@@ -162,7 +162,7 @@ const Profile = () => {
 
     const DeleteAccount = async () => {
 
-        if (!form.dl_password) return ErrorAlert(`Enter password`)
+        if (!form.dl_password) return ErrorAlert(`Enter your password`)
 
         const formbody = {
             password: form.dl_password
@@ -369,8 +369,8 @@ const Profile = () => {
                             {loading && <LoadingAdmin />}
                             {screen === 2 && <div>
                                 <div className='text-center md:text-[1.1rem] text-sm text-black font-medium'>Are you sure you want to delete your account?</div>
-                                <div className='flex justify-center items-center gap-0.5 mt-1.5 text-xs text-admin-btn'>
-                                    <span className='text-center'>Action is permanent and all your assets will be lost</span>
+                                <div className='flex justify-center items-center gap-0.5 mt-2 md:text-[0.8rem] text-xs text-admin-btn'>
+                                    <span className='text-center'>This action may result in the loss of assests</span>
                                     <PiWarningCircleBold className='text-[red]' />
                                 </div>
                                 <div className='flex md:gap-16 gap-6 items-center justify-center mt-8'>
@@ -386,7 +386,7 @@ const Profile = () => {
                             </div>}
                             {screen === 3 && <div>
                                 <div className='text-center md:text-[1.1rem] text-sm text-black font-medium'>Last step to permanently delete your account!</div>
-                                <div className='flex gap-1 items-center justify-center mt-1.5 text-xs text-[red]'>
+                                <div className='flex gap-1 items-center justify-center mt-2 md:text-[0.8rem] text-xs text-[red]'>
                                     <span className='text-admin-btn'>Enter your password below to finalize action</span>
                                     <SlLockOpen />
                                 </div>

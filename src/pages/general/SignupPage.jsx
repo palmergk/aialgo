@@ -11,7 +11,6 @@ import { CookieName, ErrorAlert, MoveToTop, SuccessAlert, UserRole } from '../..
 import { Apis, UserPostApi } from '../../services/API'
 import Cookies from 'js-cookie'
 import { decodeToken } from 'react-jwt'
-import { countryApi } from '../../services/CountryAPI'
 import CountrySelector from '../../GeneralComponents/CountrySelector';
 
 
@@ -76,7 +75,7 @@ const SignupPage = () => {
     if (!form.username) return ErrorAlert('Enter a username')
     if (!form.email) return ErrorAlert('Enter an email address')
     if (usercountry.name === 'select') return ErrorAlert('Select country')
-    if (!form.password) return ErrorAlert('Enter a password')
+    if (!form.password) return ErrorAlert('Create a password')
     if (form.password.length < 6) return ErrorAlert('Password length too short')
     if (!form.confirm_password) return ErrorAlert('Confirm password')
     if (form.confirm_password !== form.password) return ErrorAlert('Passwords mismatch')
@@ -159,14 +158,14 @@ const SignupPage = () => {
             <div className='col-span-1'>
               <div className='bgs rounded-xl flex items-center lg:h-[100vh] h-fit py-16'>
                 <div className='w-11/12 mx-auto'>
-                  <div className={`bg-white h-fit rounded-[20px] py-8 w-full lg:w-[39vw] lg:absolute ${screen === 1 ? 'lg:top-[2.85rem]' : 'lg:top-[3.7rem]'}  lg:right-16 lg:shadow-sign-sha`}>
+                  <div className={`bg-white h-fit rounded-[20px] py-8 w-full lg:w-[39vw] lg:absolute ${screen === 1 ? 'lg:top-[2.8rem]' : 'lg:top-[3.7rem]'}  lg:right-16 lg:shadow-sign-sha`}>
                     <div className='relative w-full h-full'>
                       {loading && <Loading />}
                       {screen === 1 && <div className='w-11/12 md:w-[85%] mx-auto '>
                         <div className='text-center text-[1.7rem] capitalize font-[550]'>create an account</div>
                         <div className='text-sm mt-0.5 text-[#6b6a6a]  text-center font-[550]'>Start your trading journey today with the first step</div>
                         <form onSubmit={submitForm}>
-                          <div className='flex flex-col gap-[0.7rem] mt-4'>
+                          <div className='flex flex-col gap-4 mt-4'>
                             <div className='relative mx-auto'>
                               <label className='cursor-pointer'>
                                 {profile.img ?
@@ -186,18 +185,18 @@ const SignupPage = () => {
                               <div className='text-sm capitalize font-[550]'>full name:</div>
                               <input className='outline-none w-full  border-b border-[#4d4c4c] lg:text-sm text-base  ipt input-off' placeholder='Enter your full name' type='text' name='full_name' value={form.full_name} onChange={inputHandler} ></input>
                             </div>
-                            <div className='grid grid-cols-1 md:grid-cols-2 w-full md:gap-8 gap-[0.7rem]'>
+                            <div className='grid grid-cols-1 md:grid-cols-2 w-full md:gap-8 gap-4'>
                               <div className='flex flex-col gap-[0.3rem] relative'>
                                 <div className='text-sm capitalize font-[550]'>username:</div>
                                 <input className='outline-none w-full border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter a username' type='text' name='username' value={form.username} onChange={inputHandler} ></input>
                               </div>
                               <div className='flex flex-col gap-[0.3rem] relative'>
-                                <div className='text-sm capitalize font-[550]'>e-mail address:</div>
-                                <input className='outline-none w-full border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter your mail' type='email' name='email' value={form.email} onChange={inputHandler}></input>
+                                <div className='text-sm capitalize font-[550]'>email address:</div>
+                                <input className='outline-none w-full border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter your email' type='email' name='email' value={form.email} onChange={inputHandler}></input>
                               </div>
                             </div>
-                            <div className='grid grid-cols-1 md:grid-cols-2 md:gap-8 gap-[0.7rem] w-full'>
-                                <div className='flex flex-col gap-[0.1rem]'>
+                            <div className='grid grid-cols-1 md:grid-cols-2 md:gap-8 gap-4 w-full'>
+                                <div className='flex flex-col gap-[0.3rem]'>
                                   <div className='text-sm capitalize font-[550]'>country:</div>
                                   <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} />
                                 </div>

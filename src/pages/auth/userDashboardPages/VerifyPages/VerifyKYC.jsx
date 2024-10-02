@@ -110,18 +110,18 @@ const VerifyKYC = () => {
 
     const Create_Update_KYC = async () => {
 
-        if (!form.first_name) return ErrorAlert('Enter first name')
-        if (!form.last_name) return ErrorAlert('Enter last name')
-        if (gender === 'select') return ErrorAlert('Select gender')
+        if (!form.first_name) return ErrorAlert('Enter your first name')
+        if (!form.last_name) return ErrorAlert('Enter your last name')
+        if (gender === 'select') return ErrorAlert('Select a gender')
         if (marital === 'select') return ErrorAlert('Select marital status')
         if (!form.date_of_birth) return ErrorAlert('Enter date of birth')
-        if (usercountry.name === 'select') return ErrorAlert('Select Country')
-        if (!form.address) return ErrorAlert('Enter address')
-        if (!form.state) return ErrorAlert('Enter state of residence')
+        if (usercountry.name === 'select') return ErrorAlert('Select country')
+        if (!form.address) return ErrorAlert('Enter your address and city')
+        if (!form.state) return ErrorAlert('Enter your state of residence')
         if (!form.postal) return ErrorAlert('Enter postal / zipcode')
-        if (!form.phone_number) return ErrorAlert('Enter phone number')
-        if (!form.id_number) return ErrorAlert('Enter Identification number')
-        if (id === null) return ErrorAlert('Provide valid ID')
+        if (!form.phone_number) return ErrorAlert('Enter your mobile number')
+        if (!form.id_number) return ErrorAlert('Enter an identification number')
+        if (id === null) return ErrorAlert('Provide a valid ID')
 
         if (kyc.status === 'verified') return ErrorAlert('KYC is verified')
 

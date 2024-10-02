@@ -34,8 +34,8 @@ const LoginPage = () => {
     const submitForm = async event => {
         event.preventDefault()
 
-        if (!form.email) return ErrorAlert('Enter email address')
-        if (!form.password) return ErrorAlert('Enter password')
+        if (!form.email) return ErrorAlert('Enter your email address')
+        if (!form.password) return ErrorAlert('Enter your password')
 
         const formbody = {
             email: form.email,
@@ -73,7 +73,7 @@ const LoginPage = () => {
                         <div className='col-span-1'>
                             <div className='bgc rounded-xl flex items-center lg:h-[100vh] h-fit py-16'>
                                 <div className='w-11/12 mx-auto'>
-                                    <div className='bg-white h-fit rounded-[20px] w-full lg:w-[39vw] lg:absolute lg:top-[3.25rem] lg:right-16 lg:shadow-sign-sha py-16 lg:pt-16 lg:pb-24'>
+                                    <div className='bg-white h-fit rounded-[20px] w-full lg:w-[39vw] lg:absolute lg:top-[3.1rem] lg:right-16 lg:shadow-sign-sha py-16 lg:pt-16 lg:pb-24'>
                                         <div className='relative w-full h-full'>
                                             {loading && <Loading />}
                                             <div className='w-11/12 md:w-[70%] mx-auto'>
@@ -89,7 +89,7 @@ const LoginPage = () => {
                                                                 <MdMarkEmailUnread className='text-[0.9rem]' />
                                                                 <div className='text-sm capitalize font-[550]'>email address</div>
                                                             </div>
-                                                            <input placeholder='Enter email address' className=' outline-none rounded-[3px] w-full h-fit py-2 bg-[#e9e9e9] px-4 justify-center lg:text-[0.9rem] text-base ipt' type='email' value={form.email} name='email' onChange={inputHandler}></input>
+                                                            <input placeholder='Email address' className=' outline-none rounded-[3px] w-full h-fit py-2 bg-[#e9e9e9] px-4 justify-center lg:text-[0.9rem] text-base ipt' type='email' value={form.email} name='email' onChange={inputHandler}></input>
                                                         </div>
                                                     </div>
                                                     <div className='flex gap-4 mt-10 flex-col'>
@@ -98,7 +98,7 @@ const LoginPage = () => {
                                                                 <MdLock className='text-[0.9rem]' />
                                                                 <div className='text-sm capitalize font-[550]'>password</div>
                                                             </div>
-                                                            <input placeholder='Enter password' className=' outline-none rounded-[3px] w-full h-fit py-2  bg-[#e9e9e9] pl-4 pr-8 justify-center lg:text-[0.9rem] text-base ipt ' type={eye === true ? 'text' : 'password'} value={form.password} name='password' onChange={inputHandler}></input>
+                                                            <input placeholder='Password' className=' outline-none rounded-[3px] w-full h-fit py-2  bg-[#e9e9e9] pl-4 pr-8 justify-center lg:text-[0.9rem] text-base ipt ' type={eye === true ? 'text' : 'password'} value={form.password} name='password' onChange={inputHandler}></input>
                                                             <EyeIcon className='absolute top-10 right-2 cursor-pointer text-lg' onClick={() => setEye(!eye)} />
                                                         </div>
                                                     </div>

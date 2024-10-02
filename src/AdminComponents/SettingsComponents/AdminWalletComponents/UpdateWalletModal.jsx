@@ -36,8 +36,8 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
   const UpdateWallet = async () => {
     setdeleteState(false)
 
-    if (!form.network) return ErrorAlert('Enter network')
-    if (!form.address) return ErrorAlert('Enter address')
+    if (!form.network) return ErrorAlert('Enter a network')
+    if (!form.address) return ErrorAlert('Enter an address')
 
     const formbody = new FormData()
     formbody.append('wallet_id', singleWallet.id)
@@ -119,8 +119,8 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
                   <PiWarningCircleBold className='text-[red]' />
                 </div>
                 <div className='flex items-center gap-6'>
-                  <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-lg font-medium' onClick={() => setdeleteState(false)}>cancel</button>
-                  <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-lg font-medium' onClick={DeleteWallet}>proceed</button>
+                  <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={() => setdeleteState(false)}>cancel</button>
+                  <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={DeleteWallet}>proceed</button>
                 </div>
               </div>}
             </div>

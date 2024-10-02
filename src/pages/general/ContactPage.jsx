@@ -35,8 +35,8 @@ const ContactPage = () => {
   const submitForm = async event => {
     event.preventDefault()
 
-    if (!form.email) return ErrorAlert('Enter email address')
-    if (!form.message) return ErrorAlert('Enter a message')
+    if (!form.email) return ErrorAlert('Enter your email address')
+    if (!form.message) return ErrorAlert('Write a message')
 
     const formbody = {
       email: form.email,
@@ -70,15 +70,15 @@ const ContactPage = () => {
       <div className="bg-[#1E2833] py-16">
         <div className='w-11/12 mx-auto'>
           <div className='flex flex-col shlct'>
-            <div className='w-full lg:h-[80vh] h-fit grid grid-cols-1 lg:grid-cols-2'>
+            <div className='w-full h-fit grid grid-cols-1 lg:grid-cols-2'>
               <div className='col-span-1'>
                 <img src={contactimg} className='lg:h-[80vh] md:h-[50vh] h-[30vh] w-full object-cover'></img>
               </div>
-              <div className='col-span-1 lg:h-full h-fit bg-[#faf9f9] py-6 overflow-hidden relative'>
+              <div className='col-span-1 lg:h-[80vh] h-fit bg-zinc-200 py-6 overflow-hidden relative'>
                 {loading && <Loading />}
                 <div className='lg:w-10/12 w-11/12 mx-auto'>
-                  <div className='text-[2rem] capitalize text-center font-bold text-[#636262] '>get in touch</div>
-                  <div className='text-[0.85rem] capitalize font-bold text-[#636262] flex items-center justify-center gap-1'>
+                  <div className='text-[2rem] capitalize text-center font-bold '>get in touch</div>
+                  <div className='text-[0.85rem] capitalize font-bold flex items-center justify-center gap-1'>
                     <span>-</span>
                     <div>
                       send us a message; we are listening
@@ -87,24 +87,24 @@ const ContactPage = () => {
                     <span>-</span>
                   </div>
                   <form onSubmit={submitForm}>
-                    <div className='flex flex-col gap-4 mt-8'>
-                      <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+                    <div className='flex flex-col lg:gap-4 gap-6 mt-8'>
+                      <div className='grid grid-cols-1 lg:grid-cols-2 lg:gap-8 gap-6'>
                         <div className='flex flex-col gap-2'>
-                          <div className='text-xs uppercase font-bold text-[#636262]'>full name</div>
-                          <input type='text' placeholder='Enter full name' className='outline-none focus:outline-orange border-b-2 focus:border-b-0 lg:text-sm text-base capitalize pl-2 p-1 ipt input-off' name='name' value={form.name} onChange={inputHandler}></input>
+                          <div className='text-xs uppercase font-bold'>full name</div>
+                          <input type='text' placeholder='Full name' className='outline-none focus:border focus:border-orange lg:text-sm text-base px-2 lg:py-2 py-1.5 ipt rounded-sm' name='name' value={form.name} onChange={inputHandler}></input>
                         </div>
                         <div className='flex flex-col gap-2'>
-                          <div className='text-xs uppercase font-bold text-[#636262]'>email address*</div>
-                          <input type='email' placeholder='Enter Email Address' className='outline-none focus:outline-orange border-b-2 focus:border-b-0 lg:text-sm text-base  p-1 pl-2 ipt input-off' name='email' value={form.email} onChange={inputHandler}></input>
+                          <div className='text-xs uppercase font-bold'>email address*</div>
+                          <input type='email' placeholder='Email address' className='outline-none focus:border focus:border-orange lg:text-sm text-base  px-2 lg:py-2 py-1.5 ipt rounded-sm' name='email' value={form.email} onChange={inputHandler}></input>
                         </div>
                       </div>
                       <div className='flex flex-col gap-2 w-full'>
-                        <div className='text-xs uppercase font-bold text-[#636262]'>title</div>
-                        <input placeholder='Enter Message Title' className='outline-none focus:outline-orange border-b-2 focus:border-b-0 lg:text-sm text-base p-1 pl-2 ipt input-off' name='title' value={form.title} onChange={inputHandler}></input>
+                        <div className='text-xs uppercase font-bold'>title</div>
+                        <input placeholder='Message title' className='outline-none focus:border focus:border-orange lg:text-sm text-base px-2 lg:py-2 py-1.5 ipt rounded-sm' name='title' value={form.title} onChange={inputHandler}></input>
                       </div>
                       <div className='flex flex-col gap-2'>
-                        <div className='text-xs uppercase font-bold text-[#636262]'>message*</div>
-                        <textarea placeholder='Type A Message' className='p-2 h-32 lg:text-[0.9rem] text-base resize-none outline-none focus:outline-orange ipt' name='message' value={form.message} onChange={inputHandler}></textarea>
+                        <div className='text-xs uppercase font-bold'>message*</div>
+                        <textarea placeholder='Write A Message' className='p-2 h-32 lg:text-[0.9rem] text-base resize-none outline-none focus:border focus:border-orange ipt rounded-sm' name='message' value={form.message} onChange={inputHandler}></textarea>
                       </div>
                       <div className='flex justify-center mt-2'>
                         <button className='outline-none bg-orange text-[0.9rem] text-white flex gap-1 items-center justify-center w-fit h-fit px-8 py-1 rounded-[3px] capitalize font-bold'>

@@ -39,6 +39,7 @@ const VerifyEmail = () => {
         try {
             const response = await UserPostApi(Apis.user.find_email, formbody)
             if (response.status === 200) {
+                SuccessAlert('Verification code sent to email')
                 setScreen(2)
             } else {
                 ErrorAlert(response.msg)
@@ -53,7 +54,7 @@ const VerifyEmail = () => {
     const ValidateEmail = async e => {
         e.preventDefault()
 
-        if (!form.code) return ErrorAlert('Enter verification code sent to mail')
+        if (!form.code) return ErrorAlert('Enter verification code')
 
         const formbody = {
             code: form.code,

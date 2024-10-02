@@ -83,7 +83,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
         }
 
         if (suspendScreen !== 1) {
-            if (!form.password) return ErrorAlert('Enter password')
+            if (!form.password) return ErrorAlert('Enter your password')
         }
 
         const formbody = {
@@ -340,8 +340,8 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                         <div className='flex flex-col gap-8 items-center justify-center'>
                                                             <div className='flex flex-col gap-2'>
                                                                 <div className='text-center md:text-[1.1rem] text-sm text-black font-medium'>{singleUser?.suspend === 'true' ? 'Are you sure you want to unsuspend this user?' : 'Are you sure you want to suspend this user?'}</div>
-                                                                <div className='flex justify-center items-center gap-0.5  text-xs font-medium'>
-                                                                    <span className='text-center'>{singleUser?.suspend === 'true' ? 'User will be now be able to access account' : 'User will be unable to access account'}</span>
+                                                                <div className='flex justify-center items-center gap-0.5 md:text-[0.8rem] text-xs font-medium'>
+                                                                    <span className='text-center'>{singleUser?.suspend === 'true' ? 'User will regain access to account' : 'User will be unable to access account'}</span>
                                                                     <PiWarningCircleBold className='text-[red]' />
                                                                 </div>
                                                             </div>
@@ -360,7 +360,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                     {suspendScreen === 3 &&
                                                         <div className='flex flex-col gap-2 items-center justify-center'>
                                                             <div className='md:text-[1.1rem] text-sm font-medium text-center'>{singleUser?.suspend === 'true' ? `Last step to unsuspend ${singleUser?.username}'s account!` : `Last step to suspend ${singleUser?.username}'s account!`}</div>
-                                                            <div className='flex gap-1 items-center justify-center text-xs text-[red]'>
+                                                            <div className='flex gap-1 items-center justify-center md:text-[0.8rem] text-xs text-[red]'>
                                                                 <span className='text-black font-medium text-center'>Admin, enter your password to finalize action</span>
                                                                 <SlLockOpen />
                                                             </div>

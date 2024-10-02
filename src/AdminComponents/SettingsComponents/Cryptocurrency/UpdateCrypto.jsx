@@ -55,7 +55,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
     }
 
     const CreateCryptocurrency = async () => {
-        if (!form.crypto_name) return ErrorAlert('Enter crypto name')
+        if (!form.crypto_name) return ErrorAlert('Enter a crypto name')
         if (cryptoImg.img === null) return ErrorAlert('Upload crypto image')
 
         const formbody = new FormData()
@@ -80,7 +80,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
     }
 
     const UpdateCryptocurrency = async () => {
-        if (!form.crypto_name) return ErrorAlert('Enter crypto name')
+        if (!form.crypto_name) return ErrorAlert('Enter a crypto name')
         if (cryptoImg.img === null) return ErrorAlert('Upload crypto image')
 
         const formbody = new FormData()
@@ -181,8 +181,8 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                             <div className='text-xs text-center italic text-[#eb2e2e]'>- Deleting this crypto will also delete all wallet addresses under it -</div>
                         </div>
                         <div className='flex items-center gap-6'>
-                            <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-lg font-medium' onClick={() => setdeleteState(false)}>cancel</button>
-                            <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-lg font-medium' onClick={DeleteCryptocurrency}>proceed</button>
+                            <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={() => setdeleteState(false)}>cancel</button>
+                            <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={DeleteCryptocurrency}>proceed</button>
                         </div>
                     </div>}
                 </div>

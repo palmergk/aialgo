@@ -36,7 +36,7 @@ const ForgottenPassword = ({ closeView }) => {
     const FindEmail = async (e) => {
         e.preventDefault()
 
-        if (!form.email) return ErrorAlert('Enter email address')
+        if (!form.email) return ErrorAlert('Enter your email address')
 
         setLoading(true)
         try {
@@ -46,7 +46,7 @@ const ForgottenPassword = ({ closeView }) => {
 
             const response = await UserPostApi(Apis.user.find_email, formbody)
             if (response.status === 200) {
-                SuccessAlert('Verification code sent to mail')
+                SuccessAlert('Verification code sent to email')
                 setScreen(2)
             } else {
                 ErrorAlert(response.msg)
@@ -61,7 +61,7 @@ const ForgottenPassword = ({ closeView }) => {
     const VerifyEmail = async (e) => {
         e.preventDefault()
 
-        if (!form.code) return ErrorAlert('Enter verification code sent')
+        if (!form.code) return ErrorAlert('Enter verification code')
 
         setLoading(true)
         try {
@@ -86,7 +86,7 @@ const ForgottenPassword = ({ closeView }) => {
     const ChangePassword = async (e) => {
         e.preventDefault()
 
-        if (!form.new_password) return ErrorAlert('Enter a password')
+        if (!form.new_password) return ErrorAlert('Create a new password')
         if (!form.confirm_password) return ErrorAlert('Confirm password')
         if (form.confirm_password !== form.new_password) return ErrorAlert('Passwords mismatch')
 
