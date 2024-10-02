@@ -5,7 +5,7 @@ import { MdContentCopy } from 'react-icons/md'
 import { FaAngleLeft, FaCheck, FaXmark } from 'react-icons/fa6'
 import { SiBitcoincash } from 'react-icons/si'
 import Loading from '../GeneralComponents/Loading'
-import { Alert } from '../utils/utils'
+import { Alert, ErrorAlert, SuccessAlert } from '../utils/utils'
 import { Apis, imageurl, PostApi } from '../services/API'
 import nothnyet from '../assets/images/nothn.png'
 import QRCode from 'react-qr-code'
@@ -54,17 +54,17 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
         try {
             const response = await PostApi(Apis.tax.pay_tax, formbody)
             if (response.status === 200) {
+                SuccessAlert(response.msg)
                 refetchTaxes()
                 setNotifications(response.notis)
                 setUnreadNotis(response.unread)
-                Alert('Request Successful', `${response.msg}`, 'success')
                 setScreen(2)
                 closeView()
             } else {
-                Alert('Request Failed', `${response.msg}`, 'error')
+               ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }

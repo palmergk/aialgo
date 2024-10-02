@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { MdVerified } from 'react-icons/md';
 import LoadingAdmin from '../../../../GeneralComponents/LoadingAdmin';
 import { Apis, UserPostApi } from '../../../../services/API';
-import { Alert } from '../../../../utils/utils';
+import { ErrorAlert, SuccessAlert } from '../../../../utils/utils';
 import { PROFILE } from '../../../../store';
 import { useAtom } from 'jotai';
 import VerifyLayout from '../../../../UserComponents/VerifyLayout';
@@ -12,7 +12,6 @@ const VerifyEmail = () => {
 
     const [screen, setScreen] = useState(1)
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
 
     const [form, setForm] = useState({
         email: '',
@@ -29,11 +28,8 @@ const VerifyEmail = () => {
     const FindEmail = async (e) => {
         e.preventDefault()
 
-        setTimeout(() => {
-            setError(false)
-        }, 2000)
-
-        if (!form.email) return setError('email address is required')
+        if(user.email_verified === 'true') return ErrorAlert('Email address is verified')
+        if (!form.email) return ErrorAlert('Enter your email address')
 
         const formbody = {
             email: form.email
@@ -45,10 +41,10 @@ const VerifyEmail = () => {
             if (response.status === 200) {
                 setScreen(2)
             } else {
-                setError(`${response.msg}`)
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            setError(`${error.message}`)
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -57,11 +53,7 @@ const VerifyEmail = () => {
     const ValidateEmail = async e => {
         e.preventDefault()
 
-        setTimeout(() => {
-            setError('')
-        }, 2000)
-
-        if (!form.code) return setError('enter verification code sent to your email')
+        if (!form.code) return ErrorAlert('Enter verification code sent to mail')
 
         const formbody = {
             code: form.code,
@@ -72,7 +64,7 @@ const VerifyEmail = () => {
         try {
             const response = await UserPostApi(Apis.user.validate_email, formbody)
             if (response.status === 200) {
-                Alert('Request Successful', 'Email verified successfully', 'success')
+                SuccessAlert(response.msg)
                 setUser(response.msg)
                 setForm({
                     email: '',
@@ -80,10 +72,10 @@ const VerifyEmail = () => {
                 })
                 setScreen(1)
             } else {
-                setError(`${response.msg}`)
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -108,7 +100,6 @@ const VerifyEmail = () => {
                                     <div className='text-[0.85rem] capitalize text-semi-white'> email address</div>
                                     <div className='relative'>
                                         <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-semi-white ipt' type='email' placeholder='Enter your account email address' name='email' value={form.email} onChange={formHandler}></input>
-                                        <div className='text-xs  text-[#c42e2e] absolute -bottom-5 left-0'>{error}</div>
                                     </div>
                                 </div>
                                 <div className='flex items-center'>
@@ -124,7 +115,6 @@ const VerifyEmail = () => {
                                     <div className='text-[0.85rem]  text-semi-white text-center'> A six digits verification code was sent to <span className='text-[#7665D5]'>{form.email?.slice(0, 3)}*****{form.email?.slice(-10)}</span>, copy and enter below</div>
                                     <div className='relative'>
                                         <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-semi-white ipt' type='text' placeholder='Enter verification code' name='code' value={form.code} onChange={formHandler}></input>
-                                        <div className='text-xs  text-[#c42e2e] absolute -bottom-5 left-0'>{error}</div>
                                     </div>
                                 </div>
                                 <div className='flex items-center'>

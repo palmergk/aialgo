@@ -5,7 +5,7 @@ import { useAtom } from 'jotai'
 import { useNavigate } from 'react-router-dom'
 import { Apis, PostApi } from '../../services/API'
 import { WALLET } from '../../store'
-import { Alert } from '../../utils/utils'
+import { ErrorAlert, SuccessAlert } from '../../utils/utils'
 
 const BuyPlanModal = ({ setModal, buybal, setModal2 }) => {
     const [userwallet] = useAtom(WALLET)
@@ -36,14 +36,14 @@ const BuyPlanModal = ({ setModal, buybal, setModal2 }) => {
         try {
             const response = await PostApi(Apis.investment.create_investment, formbody)
             if (response.status === 200) {
-                Alert('Request Successful', `${response.msg}`, 'success')
+                SuccessAlert(response.msg)
                 setModal(false)
                 navigate('/dashboard/investment')
             } else {
-                Alert('Request Failed', `${response.msg}`, 'error')
+               ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -68,7 +68,7 @@ const BuyPlanModal = ({ setModal, buybal, setModal2 }) => {
                         {Object.values(userwallet).length !== 0 && <div>${userwallet.balance.toLocaleString()}</div>}
                     </div>
                 </div>
-                <div className='text-xs text-center font-medium'>low wallet balance? <span className='underline text-[#5BB4FD] cursor-pointer' onClick={() => {setModal(false); setModal2(true)}}>Deposit</span></div>
+                <div className='text-xs text-center font-medium'>low wallet balance? <span className='underline text-[#5BB4FD] cursor-pointer' onClick={() => { setModal(false); setModal2(true) }}>Deposit</span></div>
                 <div className='my-2 mx-auto'>
                     <button className='py-2 px-16 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={BuyPlanWithBalance}>confirm purchase</button>
                 </div>

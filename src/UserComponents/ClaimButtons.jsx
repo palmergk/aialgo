@@ -5,12 +5,13 @@ import { Apis, PostApi } from '../services/API';
 import { NOTIFICATIONS, UNREADNOTIS } from '../store';
 import { useAtom } from 'jotai';
 import moment from 'moment';
+import { ErrorAlert } from '../utils/utils';
 
 
 const ClaimButtons = ({ item, refetchInvestments, refetchInvestmentsUnclaim }) => {
     const [, setNotifications] = useAtom(NOTIFICATIONS)
     const [, setUnreadNotis] = useAtom(UNREADNOTIS)
-    
+
     const [claim, setClaim] = useState({
         id: null,
         status: ''
@@ -22,7 +23,6 @@ const ClaimButtons = ({ item, refetchInvestments, refetchInvestmentsUnclaim }) =
 
         setTimeout(() => {
             refetchInvestmentsUnclaim()
-            setError('')
         }, 1500)
 
         if (item.status !== 'completed') {
@@ -45,17 +45,17 @@ const ClaimButtons = ({ item, refetchInvestments, refetchInvestmentsUnclaim }) =
             const response = await PostApi(Apis.investment.claim_investment, formbody)
             if (response.status === 200) {
                 setClaim({
-                    id: response.msg.id,
-                    status: response.msg.claim
+                    id: response.invt.id,
+                    status: response.invt.claim
                 })
                 refetchInvestments()
                 setNotifications(response.notis)
                 setUnreadNotis(response.unread)
             } else {
-                setError(response.msg)
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            setError(error.message)
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }

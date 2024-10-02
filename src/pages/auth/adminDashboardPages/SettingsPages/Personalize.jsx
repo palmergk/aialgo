@@ -11,14 +11,13 @@ import { PiTelegramLogoLight } from "react-icons/pi";
 import { TfiInstagram } from "react-icons/tfi";
 import { GrFacebookOption } from 'react-icons/gr';
 import avatar from '../../../../assets/images/avatar.png'
-import { Alert } from '../../../../utils/utils'
+import { Alert, ErrorAlert, SuccessAlert } from '../../../../utils/utils'
 import SettingsLayout from '../../../../AdminComponents/SettingsComponents/SettingsLayout'
 
 const Personalize = () => {
   const [user, setUser] = useAtom(PROFILE)
   const [adminStore, setAdminStore] = useAtom(ADMINSTORE)
 
-  const [imageError, setImageError] = useState('')
   const [commit, setCommit] = useState(false)
   const [eye, setEye] = useState(false)
   const [eye2, setEye2] = useState(false)
@@ -59,18 +58,14 @@ const Personalize = () => {
   }
 
   const handleProfileUpload = (event) => {
-    setTimeout(() => {
-      setImageError('')
-    }, 2000)
-
     const file = event.target.files[0]
     if (file.size >= 1000000) {
       imgref.current.value = null
-      return setImageError('File size too large')
+      return ErrorAlert('File size too large')
     }
     if (!file.type.startsWith('image/')) {
       imgref.current.value = null
-      return setImageError('File error, invalid image format')
+      return ErrorAlert('File error, invalid image format')
     }
     
     setCommit(true)
@@ -119,7 +114,7 @@ const Personalize = () => {
     try {
       const response = await UserPutApi(Apis.user.update, formbody)
       if (response.status === 200) {
-        Alert('Request Successful', 'Profile updated successfully', 'success')
+        SuccessAlert('Profile updated')
         setCommit(false)
         setUser(response.msg)
         setAdminStore(response.store)
@@ -135,10 +130,10 @@ const Personalize = () => {
         })
 
       } else {
-        Alert('Request Failed', response.msg, 'error')
+       ErrorAlert(response.msg)
       }
     } catch (error) {
-      Alert('Request Failed', `${error.message}`, 'error')
+      ErrorAlert(`${error.message}`)
     } finally {
       setLoading(false)
     }
@@ -161,7 +156,6 @@ const Personalize = () => {
                 </div>
                 <input ref={imgref} type="file" onChange={handleProfileUpload} hidden></input>
               </label>
-              <div className='absolute -bottom-5 right-0 md:text-sm text-xs text-[red] font-semibold'>{imageError}</div>
             </div>
             <div>
               <div className='capitalize font-bold md:text-2xl text-lg text-center'>{user?.full_name}</div>

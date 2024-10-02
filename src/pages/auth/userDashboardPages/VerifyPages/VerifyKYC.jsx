@@ -7,10 +7,9 @@ import { useAtom } from 'jotai'
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti'
 import { countryApi } from '../../../../services/CountryAPI'
 import { PhoneCodesApi } from '../../../../services/PhoneCodes'
-import { RiErrorWarningLine } from 'react-icons/ri'
 import { FiUploadCloud } from 'react-icons/fi'
 import { Apis, PostApi, UserGetApi } from '../../../../services/API'
-import { Alert } from '../../../../utils/utils'
+import { ErrorAlert, SuccessAlert } from '../../../../utils/utils'
 
 const Genders = [
     "male",
@@ -47,7 +46,6 @@ const VerifyKYC = () => {
     const [phoneCode, setPhoneCode] = useState('+44')
     const [phoneShow, setPhoneShow] = useState(false)
     const [searchPhone, setSearchPhone] = useState('')
-    const [error, setError] = useState('')
     const idref = useRef()
     const [id, setId] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -107,16 +105,11 @@ const VerifyKYC = () => {
     }, [FetchKyc])
 
     const handleUpload = (event) => {
-        setTimeout(() => {
-            setError('')
-        }, 2000)
-
         const file = event.target.files[0]
 
         if (!file.type.startsWith('image/')) {
-            console.log('wrong')
             idref.current.value = null
-            return setError('File error, invalid image format.')
+            return ErrorAlert('File error, invalid image format.')
         }
         setId(file)
     }
@@ -144,24 +137,23 @@ const VerifyKYC = () => {
     }
 
     const Create_Update_KYC = async () => {
-        setTimeout(() => {
-            setError('')
-        }, 2000)
 
-        if (!form.first_name) return setError('Enter first name')
-        if (!form.last_name) return setError('Enter last name')
-        if (gender === 'select') return setError('Select gender')
-        if (marital === 'select') return setError('Select marital status')
-        if (!form.date_of_birth) return setError('Enter date of birth')
-        if (usercountry.name === 'select') return setError('Select Country')
-        if (!form.address) return setError('Enter address')
-        if (!form.state) return setError('Enter state of residence')
-        if (!form.postal) return setError('Enter postal / zipcode')
-        if (!form.phone_number) return setError('Enter phone number')
-        if (!form.id_number) return setError('Enter Identification number')
-        if (id === null) return setError('Provide valid ID')
+        if (!form.first_name) return ErrorAlert('Enter first name')
+        if (!form.last_name) return ErrorAlert('Enter last name')
+        if (gender === 'select') return ErrorAlert('Select gender')
+        if (marital === 'select') return ErrorAlert('Select marital status')
+        if (!form.date_of_birth) return ErrorAlert('Enter date of birth')
+        if (usercountry.name === 'select') return ErrorAlert('Select Country')
+        if (!form.address) return ErrorAlert('Enter address')
+        if (!form.state) return ErrorAlert('Enter state of residence')
+        if (!form.postal) return ErrorAlert('Enter postal / zipcode')
+        if (!form.phone_number) return ErrorAlert('Enter phone number')
+        if (!form.id_number) return ErrorAlert('Enter Identification number')
+        if (id === null) return ErrorAlert('Provide valid ID')
 
-        if (form.first_name === kyc.first_name && form.last_name === kyc.last_name && form.address === kyc.address && form.state === kyc.state && form.postal === kyc.postal && form.date_of_birth === kyc.date_of_birth && form.phone_number === kyc.phone_number && form.id_number === kyc.id_number && phoneCode === kyc.phone_code && gender === kyc.gender && marital === kyc.marital_status && usercountry.name === kyc.country && id.name === kyc.valid_id) return setError('No changes made')
+        if(kyc.status === 'verified') return ErrorAlert('KYC is verified')
+
+        if (form.first_name === kyc.first_name && form.last_name === kyc.last_name && form.address === kyc.address && form.state === kyc.state && form.postal === kyc.postal && form.date_of_birth === kyc.date_of_birth && form.phone_number === kyc.phone_number && form.id_number === kyc.id_number && phoneCode === kyc.phone_code && gender === kyc.gender && marital === kyc.marital_status && usercountry.name === kyc.country && id.name === kyc.valid_id) return ErrorAlert('No changes made')
 
         const formbody = new FormData()
         formbody.append('valid_id', id)
@@ -183,16 +175,16 @@ const VerifyKYC = () => {
         try {
             const response = await PostApi(Apis.kyc.create_update_kyc, formbody)
             if (response.status === 200) {
-                Alert('Request Successful', `${response.msg}`, 'success')
+                SuccessAlert(response.msg)
                 FetchKyc()
                 setUser(response.profile)
                 setNotifications(response.notis)
                 setUnreadNotis(response.unread)
             } else {
-                Alert('Request Failed', `${response.msg}`, 'error')
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -394,13 +386,6 @@ const VerifyKYC = () => {
                             </div>
                         </div>
                         <button className='outline-none bg-[#252525] py-2 px-8 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-[600] mt-6 mx-auto' onClick={Create_Update_KYC}>upload details</button>
-                        {error !== '' &&
-                            <div className='md:text-sm text-xs absolute bottom-10 left-2 text-[#eb2e2e] bg-white sha px-4 py-1 flex items-center gap-1 rounded-sm text-center z-10'>
-                                <RiErrorWarningLine />
-                                <span>{error}</span>
-                                <div className='error-progress2 absolute -bottom-1 left-0 rounded-sm z-10'></div>
-                            </div>
-                        }
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import Loading from '../../GeneralComponents/Loading'
 import { FaAngleLeft, FaCheck, FaXmark } from 'react-icons/fa6'
 import { MdContentCopy } from 'react-icons/md'
 import { useAtom } from 'jotai'
-import { Alert } from '../../utils/utils'
+import { ErrorAlert, SuccessAlert } from '../../utils/utils'
 import { Apis, imageurl, PostApi } from '../../services/API'
 import { ADMINCRYPTOWALLETS, ADMINSTORE, NOTIFICATIONS, UNREADNOTIS } from '../../store'
 import { SiBitcoincash } from 'react-icons/si'
@@ -56,17 +56,17 @@ const FundModal = ({ closeView, setScreen, refetchDeposits }) => {
     try {
       const response = await PostApi(Apis.deposit.create_deposit, formbody)
       if (response.status === 200) {
+        SuccessAlert(response.msg)
         refetchDeposits()
         setNotifications(response.notis)
         setUnreadNotis(response.unread)
-        Alert('Request Successful', `${response.msg}`, 'success')
         setScreen(2)
         closeView()
       } else {
-        Alert('Request Failed', `${response.msg}`, 'error')
+        ErrorAlert(response.msg)
       }
     } catch (error) {
-      Alert('Request Failed', `${error.message}`, 'error')
+      ErrorAlert(`${error.message}`)
     } finally {
       setLoading(false)
     }

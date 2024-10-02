@@ -1,14 +1,12 @@
 import React, { useRef, useState } from 'react'
-import { RiErrorWarningLine } from "react-icons/ri";
 import { PiWarningCircleBold } from "react-icons/pi";
 import ModalLayout from '../../../utils/ModalLayout';
 import Loading from '../../../GeneralComponents/Loading';
 import { Apis, PostApi, UserPutApi } from '../../../services/API';
-import { Alert } from '../../../utils/utils';
+import { ErrorAlert, SuccessAlert } from '../../../utils/utils';
 import { FaXmark } from 'react-icons/fa6';
 
 const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => {
-  const [error, setError] = useState('')
   const [deleteState, setdeleteState] = useState(false)
   const [commit, setCommit] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -36,13 +34,10 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
 
 
   const UpdateWallet = async () => {
-    setTimeout(() => {
-      setError('')
-    }, 2000)
-
     setdeleteState(false)
 
-    if (!form.network || !form.address) return setError('Enter all fields')
+    if (!form.network) return ErrorAlert('Enter network')
+    if (!form.address) return ErrorAlert('Enter address')
 
     const formbody = new FormData()
     formbody.append('wallet_id', singleWallet.id)
@@ -53,14 +48,14 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
     try {
       const response = await UserPutApi(Apis.admin.update_admin_wallet, formbody)
       if (response.status === 200) {
-        Alert('Request Successful', `${response.msg}`, 'success')
+        SuccessAlert(response.msg)
         refetchAdminWallets()
         closeView()
       } else {
-        setError(response.msg)
+        ErrorAlert(response.msg)
       }
     } catch (error) {
-      Alert('Request Failed', `${error.message}`, 'error')
+      ErrorAlert(`${error.message}`)
     } finally {
       setLoading(false)
     }
@@ -78,14 +73,14 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
     try {
       const response = await PostApi(Apis.admin.delete_admin_wallet, formbody)
       if (response.status === 200) {
-        Alert('Request Successful', `${response.msg}`, 'success')
+        SuccessAlert(response.msg)
         refetchAdminWallets()
         closeView()
       } else {
-        setError(response.msg)
+        ErrorAlert(response.msg)
       }
     } catch (error) {
-      Alert('Request Failed', `${error.message}`, 'error')
+      ErrorAlert(`${error.message}`)
     } finally {
       setLoading(false)
     }
@@ -114,13 +109,6 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
                 <div className='italic'>address:</div>
                 <input className='outline-none border border-[#c9b8eb] w-48 py-1 px-2 lg:text-sm text-base' value={form.address} name='address' onChange={inputHandler} onKeyUp={CommitHandler}></input>
               </div>
-              {error !== '' &&
-                <div className='md:text-sm text-xs absolute -bottom-5 left-0 text-[#eb2e2e] bg-white sha px-4 py-1 flex items-center gap-1 rounded-sm text-center z-10'>
-                  <RiErrorWarningLine />
-                  <span>{error}</span>
-                  <div className='error-progress absolute -bottom-1 left-0 rounded-sm z-10'></div>
-                </div>
-              }
             </div>
             <div className='flex gap-4 items-center mt-8 relative'>
               {commit && <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateWallet}>update</button>}

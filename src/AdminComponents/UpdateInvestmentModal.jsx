@@ -4,7 +4,7 @@ import moment from 'moment';
 import { FaXmark } from 'react-icons/fa6';
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import Loading from '../GeneralComponents/Loading';
-import { Alert, MoveToTopDiv } from '../utils/utils';
+import { ErrorAlert, MoveToTopDiv, SuccessAlert } from '../utils/utils';
 import avatar from '../assets/images/avatar.png'
 import ModalLayout from '../utils/ModalLayout';
 
@@ -15,8 +15,6 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
     const [loading, setLoading] = useState(false)
     const [update, setUpdate] = useState(false)
     const [beforeshow, setBeforeshow] = useState(true)
-    const [profitError, setProfitError] = useState(false)
-    const [bonusError, setBonusError] = useState(false)
     const [form, setForm] = useState({
         profit: "",
         bonus: ""
@@ -74,13 +72,9 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
     }
 
     const AdminUpdateInvestment = async () => {
-        setTimeout(() => {
-            setProfitError(false)
-            setBonusError(false)
-        }, 1000)
 
-        if (isNaN(form.profit)) return setProfitError(true)
-        if (isNaN(form.bonus)) return setBonusError(true)
+        if (isNaN(form.profit)) return ErrorAlert('Must be a number')
+        if (isNaN(form.bonus)) return ErrorAlert('Must be a number')
 
         const formbody = {
             investment_id: singleInvestment.id,
@@ -96,14 +90,14 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
             try {
                 const response = await UserPutApi(Apis.admin.update_investments, formbody)
                 if (response.status === 200) {
+                    SuccessAlert(response.msg)
                     refetchAllInvestments()
-                    Alert('Request Successful', `${response.msg}`, 'success')
                     closeView()
                 } else {
-                    Alert('Request Failed', `${response.msg}`, 'error')
+                    ErrorAlert(response.msg)
                 }
             } catch (error) {
-                Alert('Request Failed', `${error.message}`, 'error')
+                ErrorAlert(`${error.message}`)
             } finally {
                 setLoading(false)
             }
@@ -161,7 +155,7 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                                         <div className='italic '>add profit:</div>
                                         <div className='flex gap-2 items-center'>
                                             <div>
-                                                <input className={`border ${profitError ? 'border-[red]' : 'border-[#c9b8eb]'}  md:w-40 w-28 h-8 outline-none px-2 lg:text-[0.8rem] text-base rounded-sm`} name='profit' value={form.profit} onChange={inputHandler} onKeyUp={UpdateHandlerForText}></input>
+                                                <input className='border border-[#c9b8eb] md:w-40 w-28 h-8 outline-none px-2 lg:text-[0.8rem] text-base rounded-sm' name='profit' value={form.profit} onChange={inputHandler} onKeyUp={UpdateHandlerForText}></input>
                                             </div>
                                             <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-md'>
                                                 <div>so far:</div>
@@ -173,7 +167,7 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                                         <div className='italic '>add bonus:</div>
                                         <div className='flex gap-2 items-center'>
                                             <div>
-                                                <input className={`border ${bonusError ? 'border-[red]' : 'border-[#c9b8eb]'} md:w-40 w-28 h-8 outline-none px-2 lg:text-[0.8rem] text-base rounded-sm`} name='bonus' value={form.bonus} onChange={inputHandler} onKeyUp={UpdateHandlerForText}></input>
+                                                <input className='border border-[#c9b8eb] md:w-40 w-28 h-8 outline-none px-2 lg:text-[0.8rem] text-base rounded-sm' name='bonus' value={form.bonus} onChange={inputHandler} onKeyUp={UpdateHandlerForText}></input>
                                             </div>
                                             <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-md'>
                                                 <div>so far:</div>

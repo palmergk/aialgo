@@ -7,7 +7,7 @@ import { IoMdCheckmarkCircleOutline, IoMdEyeOff } from 'react-icons/io';
 import { SlLockOpen } from 'react-icons/sl';
 import { PiWarningCircleBold } from 'react-icons/pi';
 import avatar from '../../assets/images/avatar.png'
-import { Alert, MoveToTopDiv } from '../../utils/utils';
+import { ErrorAlert, MoveToTopDiv, SuccessAlert } from '../../utils/utils';
 import Loading from '../../GeneralComponents/Loading';
 import { Apis, imageurl, UserPutApi } from '../../services/API';
 import ModalLayout from '../../utils/ModalLayout';
@@ -22,7 +22,6 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
     const [fundScreen, setFundScreen] = useState(1)
     const [withdrawalScreen, setWithdrawalScreen] = useState(1)
     const [suspendScreen, setSuspendScreen] = useState(1)
-    const [error, setError] = useState('')
     const [eye, setEye] = useState(false)
     const EyeIcon = eye === true ? IoEye : IoMdEyeOff
     const [status, setStatus] = useState(Object.values(singleUser).length !== 0 && singleUser.kycUser.length !== 0 && singleUser.kycUser[0].status)
@@ -72,22 +71,19 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
     }, [MoveToBottom])
 
     const UpdateUser = async () => {
-        setTimeout(() => {
-            setError('')
-        }, 1500)
 
         if (fundScreen !== 1) {
-            if (!form.fundAmount) return setError('enter an amount')
-            if (isNaN(form.fundAmount)) return setError('must be a number')
+            if (!form.fundAmount) return ErrorAlert('Enter an amount')
+            if (isNaN(form.fundAmount)) return ErrorAlert('Must be a number')
         }
 
         if (withdrawalScreen !== 1) {
-            if (!form.minimumAmount) return setError('enter an amount')
-            if (isNaN(form.minimumAmount)) return setError('must be a number')
+            if (!form.minimumAmount) return ErrorAlert('Enter an amount')
+            if (isNaN(form.minimumAmount)) return ErrorAlert('Must be a number')
         }
 
         if (suspendScreen !== 1) {
-            if (!form.password) return setError('field cannot be void')
+            if (!form.password) return ErrorAlert('Enter password')
         }
 
         const formbody = {
@@ -101,15 +97,14 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
         try {
             const response = await UserPutApi(Apis.admin.update_users, formbody)
             if (response.status === 200) {
+                SuccessAlert(response.msg)
                 refetchAllUsers()
-                Alert('Request Successful', `${response.msg}`, 'success')
-                setSuspendScreen(1)
                 closeView()
             } else {
-                setError(`${response.msg}`)
+                ErrorAlert(`${response.msg}`)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -127,9 +122,11 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
             if (response.status === 200) {
                 refetchAllUsers()
                 setReactivate(true)
+            }else {
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            //
+            ErrorAlert(`${error.message}`)
         } finally {
             setRvtLoading(false)
         }
@@ -168,14 +165,14 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
             try {
                 const response = await UserPutApi(Apis.admin.update_kyc, formbody)
                 if (response.status === 200) {
+                    SuccessAlert(response.msg)
                     refetchAllUsers()
-                    Alert('Request Successful', `${response.msg}`, 'success')
                     closeView()
                 } else {
-                    Alert('Request Failed', `${response.msg}`, 'error')
+                    ErrorAlert(response.msg)
                 }
             } catch (error) {
-                Alert('Request Failed', `${error.message}`, 'error')
+                ErrorAlert(`${error.message}`)
             } finally {
                 setLoading(false)
             }
@@ -283,14 +280,13 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                     :
                                                     <div className='w-fit h-fit md:px-8 p-6 rounded-md bg-white adsha mx-auto  text-black relative'>
                                                         {loading && <Loading />}
-                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => setFundScreen(1)} />
+                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => {setFundScreen(1); setForm({fundAmount: ''})}} />
                                                         <div className='font-[650] border-b text-center uppercase'>Fund {singleUser?.username} account</div>
                                                         <div className='flex flex-col gap-8 items-center justify-center mt-6'>
                                                             <div className='flex flex-col gap-1'>
                                                                 <div className='text-[0.8rem] capitalize'>Enter an amount ($)</div>
                                                                 <div className='relative'>
                                                                     <input className='outline-none lg:text-[0.85rem] text-base w-full border h-8 rounded-[3px] px-1.5 bg-semi-white ipt border-[#9f7ae7]' name='fundAmount' value={form.fundAmount} onChange={formHandler}></input>
-                                                                    <div className='absolute -bottom-5 left-0 text-xs text-[red]'>{error}</div>
                                                                 </div>
                                                             </div>
                                                             <div className='mx-auto'>
@@ -308,7 +304,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                     :
                                                     <div className='w-fit h-fit md:px-8 p-6 rounded-md bg-white adsha mx-auto  text-black relative'>
                                                         {loading && <Loading />}
-                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => setWithdrawalScreen(1)} />
+                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => {setWithdrawalScreen(1); setForm({minimumAmount: ''})}} />
                                                         <div className='font-[650] border-b text-center uppercase'>set {singleUser?.username} withdrawal minimum</div>
                                                         <div className='flex flex-col gap-8 items-center justify-center mt-6'>
                                                             <div className='flex gap-4 items-center'>
@@ -316,7 +312,6 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                     <div className='text-[0.8rem] capitalize'>Enter an amount ($)</div>
                                                                     <div className='relative'>
                                                                         <input className='outline-none lg:text-[0.85rem] text-base w-full border h-8 rounded-[3px] px-1.5 bg-semi-white ipt border-[#9f7ae7]' name='minimumAmount' value={form.minimumAmount} onChange={formHandler}></input>
-                                                                        <div className='absolute -bottom-5 left-0 text-xs text-[red]'>{error}</div>
                                                                     </div>
                                                                 </div>
                                                                 <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-semibold rounded-md'>
@@ -374,10 +369,9 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                 <div className='relative'>
                                                                     <input className='outline-none border border-[#9f7ae7] bg-transparent lg:text-[0.85rem] text-base w-52 h-8 rounded-[4px] pl-2 pr-7 py-1 text-black ipt' placeholder='Enter your password' name='password' value={form.password} onChange={formHandler} type={`${eye === true ? 'text' : 'password'}`}></input>
                                                                     <EyeIcon className='absolute top-2 right-2 text-lg text-[red] cursor-pointer' onClick={() => setEye(!eye)} />
-                                                                    <div className='absolute -bottom-5 left-0 text-xs text-[red]'>{error}</div>
                                                                 </div>
                                                                 <div className='flex md:gap-16 gap-4 items-center'>
-                                                                    <button className='outline-none w-fit h-fit py-2 md:px-4 px-3 md:text-xs text-[0.7rem] text-white  bg-[#5e5d5d] rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => { setSuspendScreen(1); setPassword('') }}>
+                                                                    <button className='outline-none w-fit h-fit py-2 md:px-4 px-3 md:text-xs text-[0.7rem] text-white  bg-[#5e5d5d] rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => { setSuspendScreen(1); setForm({password: ''}) }}>
                                                                         <span>cancel action</span>
                                                                         <FaRegRectangleXmark />
                                                                     </button>

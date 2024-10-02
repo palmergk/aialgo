@@ -1,12 +1,11 @@
 import React, { useRef, useState } from 'react'
 import Loading from '../../GeneralComponents/Loading'
-import { RiErrorWarningLine } from 'react-icons/ri'
 import { Apis, PostApi } from '../../services/API'
 import { FaXmark } from 'react-icons/fa6'
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import { countryApi } from '../../services/CountryAPI'
 import ModalLayout from '../../utils/ModalLayout'
-import { Alert } from '../../utils/utils'
+import { ErrorAlert, SuccessAlert } from '../../utils/utils'
 import { useAtom } from 'jotai'
 import { NOTIFICATIONS, UNREADNOTIS } from '../../store'
 
@@ -24,7 +23,6 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
   const [searchCountry, setSearchCountry] = useState('')
   const [role, setRole] = useState('select')
   const [roleShow, setRoleShow] = useState(false)
-  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const Roles = [
@@ -60,14 +58,10 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
   const CreateUser = async (event) => {
     event.preventDefault()
 
-    setTimeout(() => {
-      setError('')
-    }, 2000)
-
-    if (!form.full_name || !form.username || !form.email || !form.password) return setError('Enter all fields')
-    if (form.password.length < 6) return setError('Password length too short')
-    if (usercountry.name === 'select') return setError('Choose user country')
-    if (role === 'select') return setError('Assign a role')
+    if (!form.full_name || !form.username || !form.email || !form.password) return ErrorAlert('Enter all fields')
+    if (form.password.length < 6) return ErrorAlert('Password length too short')
+    if (usercountry.name === 'select') return ErrorAlert('Choose user country')
+    if (role === 'select') return ErrorAlert('Assign a role')
 
     const formbody = {
       full_name: form.full_name,
@@ -83,16 +77,16 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
     try {
       const response = await PostApi(Apis.admin.admin_create_account, formbody)
       if (response.status === 200) {
-        Alert('Request Successful', `${response.msg}`, 'success')
+        SuccessAlert(response.msg)
         refetchAllUsers()
         setNotifications(response.notis)
         setUnreadNotis(response.unread)
         closeView()
       } else {
-        setError(response.msg)
+        ErrorAlert(response.msg)
       }
     } catch (error) {
-      Alert('Request Failed', `${error.message}`, 'error')
+      ErrorAlert(`${error.message}`)
     } finally {
       setLoading(false)
     }
@@ -176,8 +170,8 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
               </div>
               {roleShow && <div className='h-fit w-full absolute top-[3.3rem] left-0 bg-white border border-[lightgrey] rounded-md z-10 text-[0.85rem] font-bold'>
                 {Roles.map((item, i) => (
-                  <div key={i} className={`flex flex-col px-2 py-0.5 hover:bg-[#ececec] cursor-pointer ${i !== Roles.length - 1 && 'border-b border-[#ebeaea]'}`}  onClick={() => { setRole(item); setRoleShow(false) }}>
-                      <div>{item}</div>
+                  <div key={i} className={`flex flex-col px-2 py-0.5 hover:bg-[#ececec] cursor-pointer ${i !== Roles.length - 1 && 'border-b border-[#ebeaea]'}`} onClick={() => { setRole(item); setRoleShow(false) }}>
+                    <div>{item}</div>
                   </div>
                 ))}
               </div>}
@@ -191,13 +185,6 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
           <div className='mx-auto mt-6'>
             <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium'>create user</button>
           </div>
-          {error !== '' &&
-            <div className='md:text-sm text-xs absolute bottom-10 left-2 text-[#eb2e2e] bg-white sha px-4 py-1 flex items-center gap-1 rounded-sm text-center z-10'>
-              <RiErrorWarningLine/>
-              <span>{error}</span>
-              <div className='error-progress absolute -bottom-1 left-0 rounded-sm z-10'></div>
-            </div>
-          }
         </form>
       </div>
     </ModalLayout>

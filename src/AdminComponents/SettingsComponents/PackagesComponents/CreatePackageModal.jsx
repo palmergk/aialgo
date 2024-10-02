@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react'
-import { RiErrorWarningLine } from "react-icons/ri";
 import { FaXmark } from 'react-icons/fa6'
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
-import { Alert } from '../../../utils/utils';
+import { ErrorAlert, SuccessAlert } from '../../../utils/utils';
 import { Apis, PostApi } from '../../../services/API';
 import Loading from '../../../GeneralComponents/Loading';
 import ModalLayout from '../../../utils/ModalLayout';
@@ -11,7 +10,6 @@ import ModalLayout from '../../../utils/ModalLayout';
 const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {
     const [type, setType] = useState('days')
     const [typeShow, setTypeShow] = useState(false)
-    const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const toggler = useRef()
 
@@ -38,12 +36,9 @@ const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {
     }
 
     const CreatePackage = async () => {
-        setTimeout(() => {
-            setError('')
-        }, 2000)
 
-        if (!form.title || !form.price_limit || !form.price_start || !form.profit_return || !form.plan_bonus || !form.duration) return setError('Enter all fields')
-        if (isNaN(form.price_start) || isNaN(form.price_limit) || isNaN(form.profit_return) || isNaN(form.plan_bonus) || isNaN(form.duration)) return setError('Enter valid numbers')
+        if (!form.title || !form.price_limit || !form.price_start || !form.profit_return || !form.plan_bonus || !form.duration) return ErrorAlert('Enter all fields')
+        if (isNaN(form.price_start) || isNaN(form.price_limit) || isNaN(form.profit_return) || isNaN(form.plan_bonus) || isNaN(form.duration)) return ErrorAlert('Enter valid numbers')
 
         const formbody = {
             title: form.title,
@@ -60,14 +55,14 @@ const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {
         try {
             const response = await PostApi(Apis.admin.create_trading_plan, formbody)
             if (response.status === 200) {
-                Alert('Request Successful', 'Trading plan created successfully', 'success')
+                SuccessAlert(response.msg)
                 refetchTradingPlans()
                 closeView()
             } else {
-                setError(response.msg)
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -142,13 +137,6 @@ const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {
                                     </div>}
                                 </div>
                             </div>
-                            {error !== '' &&
-                                <div className='md:text-sm text-xs absolute -bottom-8 left-0 text-[#eb2e2e] bg-white sha px-4 py-1 flex items-center gap-1 rounded-sm text-center z-10'>
-                                    <RiErrorWarningLine />
-                                    <span>{error}</span>
-                                    <div className='error-progress absolute -bottom-1 left-0 rounded-sm z-10'></div>
-                                </div>
-                            }
                         </div>
                         <div className='flex justify-center items-center mt-8'>
                             <button className='w-fit h-fit py-2 px-8 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={CreatePackage}>create</button>

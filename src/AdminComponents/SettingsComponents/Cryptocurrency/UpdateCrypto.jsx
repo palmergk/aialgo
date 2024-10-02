@@ -1,19 +1,14 @@
 import React, { useRef, useState } from 'react'
 import { FaArrowLeft } from 'react-icons/fa6'
 import { FiUploadCloud } from 'react-icons/fi'
-import { IoCheckmarkCircleOutline } from 'react-icons/io5'
 import { MdOutlineEdit } from 'react-icons/md'
 import { PiWarningCircleBold } from 'react-icons/pi'
-import { RiErrorWarningLine } from 'react-icons/ri'
 import { Apis, imageurl, PostApi, UserPutApi } from '../../../services/API'
+import { ErrorAlert, SuccessAlert } from '../../../utils/utils'
 
 const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchAdminWallets, setLoading }) => {
     const [deleteState, setdeleteState] = useState(false)
     const [commit, setCommit] = useState(false)
-    const [alert, setAlert] = useState({
-        status: null,
-        message: ''
-    })
     const cryptoImgref = useRef()
 
     const [cryptoImg, setCryptoImg] = useState({
@@ -33,28 +28,15 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
     }
 
     const handleUpload = (event) => {
-        setTimeout(() => {
-            setAlert({
-                status: null,
-                message: ''
-            })
-        }, 2000)
-
         const file = event.target.files[0]
         if (file.size >= 1000000) {
             cryptoImgref.current.value = null
-            return setAlert({
-                status: false,
-                message: 'File size too large'
-            })
+            return ErrorAlert('File size too large')
         }
 
         if (!file.type.startsWith('image/')) {
             cryptoImgref.current.value = null
-            return setAlert({
-                status: false,
-                message: 'File alert, invalid image format'
-            })
+            return ErrorAlert('File error, invalid image format')
         }
 
         setCryptoImg({
@@ -73,21 +55,8 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
     }
 
     const CreateCryptocurrency = async () => {
-        setTimeout(() => {
-            setAlert({
-                status: null,
-                message: ''
-            })
-        }, 2000)
-
-        if (!form.crypto_name) return setAlert({
-            status: false,
-            message: 'Enter crypto name'
-        })
-        if (cryptoImg.img === null) return setAlert({
-            status: false,
-            message: 'Upload crypto image'
-        })
+        if (!form.crypto_name) return ErrorAlert('Enter crypto name')
+        if (cryptoImg.img === null) return ErrorAlert('Upload crypto image')
 
         const formbody = new FormData()
         formbody.append('crypto_img', cryptoImg.image)
@@ -97,46 +66,22 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
         try {
             const response = await PostApi(Apis.admin.create_cryptocurrency, formbody)
             if (response.status === 200) {
+                SuccessAlert(response.msg)
                 refetchCryptocurrency()
                 setScreen(1)
-                setAlert({
-                    status: true,
-                    message: `${response.msg}`
-                })
-
             } else {
-                setAlert({
-                    status: false,
-                    message: `${response.msg}`
-                })
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            return setAlert({
-                status: false,
-                message: `${error.message}`
-            })
-
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
     }
 
     const UpdateCryptocurrency = async () => {
-        setTimeout(() => {
-            setAlert({
-                status: null,
-                message: ''
-            })
-        }, 2000)
-
-        if (!form.crypto_name) return setAlert({
-            status: false,
-            message: 'Enter crypto name'
-        })
-        if (cryptoImg.img === null) return setAlert({
-            status: false,
-            message: 'Upload crypto image'
-        })
+        if (!form.crypto_name) return ErrorAlert('Enter crypto name')
+        if (cryptoImg.img === null) return ErrorAlert('Upload crypto image')
 
         const formbody = new FormData()
         formbody.append('crypto_id', singleCrypto.id)
@@ -147,25 +92,15 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
         try {
             const response = await UserPutApi(Apis.admin.update_cryptocurrency, formbody)
             if (response.status === 200) {
+                SuccessAlert(response.msg)
                 refetchCryptocurrency()
                 refetchAdminWallets()
                 setScreen(1)
-                setAlert({
-                    status: true,
-                    message: `${response.msg}`
-                })
-
             } else {
-                setAlert({
-                    status: false,
-                    message: `${response.msg}`
-                })
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            return setAlert({
-                status: false,
-                message: `${error.message}`
-            })
+            ErrorAlert(`${error.message}`)
 
         } finally {
             setLoading(false)
@@ -174,40 +109,23 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
     }
 
     const DeleteCryptocurrency = async () => {
-        setTimeout(() => {
-            setAlert({
-                status: null,
-                message: ''
-            })
-        }, 2000)
-
         const formbody = {
             crypto_id: singleCrypto.id
-          }
+        }
 
         setLoading(true)
         try {
             const response = await PostApi(Apis.admin.delete_cryptocurrency, formbody)
             if (response.status === 200) {
+                SuccessAlert(response.msg)
                 refetchCryptocurrency()
                 refetchAdminWallets()
                 setScreen(1)
-                setAlert({
-                    status: true,
-                    message: `${response.msg}`
-                })
-
             } else {
-                setAlert({
-                    status: false,
-                    message: `${response.msg}`
-                })
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            return setAlert({
-                status: false,
-                message: `${error.message}`
-            })
+            ErrorAlert(`${error.message}`)
 
         } finally {
             setLoading(false)
@@ -245,17 +163,6 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                         <input ref={cryptoImgref} type="file" onChange={handleUpload} hidden />
                     </label>
                 </div>
-                {alert.message !== '' &&
-                    <div className={`md:text-sm text-xs absolute -bottom-5 left-0 bg-white sha px-4 py-1 flex items-center gap-1 rounded-sm text-center z-10 ${alert.status === true ? 'text-black' : 'text-[#eb2e2e]'}`}>
-                        {alert.status === true ?
-                            <IoCheckmarkCircleOutline />
-                            :
-                            <RiErrorWarningLine />
-                        }
-                        <span>{alert.message}</span>
-                        <div className='error-progress absolute -bottom-1 left-0 rounded-sm z-10'></div>
-                    </div>
-                }
             </div>
             {!singleCrypto.id ?
                 <div className='flex justify-center items-center mt-8'>

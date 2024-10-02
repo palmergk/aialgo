@@ -7,7 +7,7 @@ import { IoMdEyeOff } from "react-icons/io";
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/logobrand.png'
 import Loading from '../../GeneralComponents/Loading'
-import { Alert, CookieName, MoveToTop, UserRole } from '../../utils/utils'
+import { CookieName, ErrorAlert, MoveToTop, UserRole } from '../../utils/utils'
 import { Apis, UserPostApi } from '../../services/API'
 import Cookies from 'js-cookie'
 import { decodeToken } from 'react-jwt'
@@ -19,8 +19,6 @@ const LoginPage = () => {
     const [forgotPass, setForgotPass] = useState(false)
     const [eye, setEye] = useState(false)
     const EyeIcon = eye === true ? IoEye : IoMdEyeOff
-    const [emailmsg, setEmailMsg] = useState('')
-    const [passmsg, setPassMsg] = useState('')
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         email: '',
@@ -35,13 +33,9 @@ const LoginPage = () => {
 
     const submitForm = async event => {
         event.preventDefault()
-        setTimeout(() => {
-            setEmailMsg('')
-            setPassMsg('')
-        }, 1000)
 
-        if (!form.email) return setEmailMsg('enter email address')
-        if (!form.password) return setPassMsg('enter password')
+        if (!form.email) return ErrorAlert('Enter email address')
+        if (!form.password) return ErrorAlert('Enter password')
 
         const formbody = {
             email: form.email,
@@ -57,10 +51,10 @@ const LoginPage = () => {
                 const findRole = UserRole.find(item => item.role === decoded.role)
                 if (findRole) return navigate(`${findRole.url}`)
             } else {
-                return Alert('Request Failed', response.msg, 'error')
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Unsuccessful', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -96,7 +90,6 @@ const LoginPage = () => {
                                                                 <div className='text-sm capitalize font-[550]'>email address</div>
                                                             </div>
                                                             <input placeholder='Enter email address' className=' outline-none rounded-[3px] w-full h-fit py-2 bg-[#e9e9e9] px-4 justify-center lg:text-[0.9rem] text-base ipt' type='email' value={form.email} name='email' onChange={inputHandler}></input>
-                                                            <div className={`text-xs md:text-[0.8rem] absolute -bottom-5 left-0 text-[red]`}>{emailmsg}</div>
                                                         </div>
                                                     </div>
                                                     <div className='flex gap-4 mt-10 flex-col'>
@@ -107,7 +100,6 @@ const LoginPage = () => {
                                                             </div>
                                                             <input placeholder='Enter password' className=' outline-none rounded-[3px] w-full h-fit py-2  bg-[#e9e9e9] pl-4 pr-8 justify-center lg:text-[0.9rem] text-base ipt ' type={eye === true ? 'text' : 'password'} value={form.password} name='password' onChange={inputHandler}></input>
                                                             <EyeIcon className='absolute top-10 right-2 cursor-pointer text-lg' onClick={() => setEye(!eye)} />
-                                                            <div className={`text-xs md:text-[0.8rem] absolute -bottom-5 left-0 text-[red]`}> {passmsg} </div>
                                                         </div>
                                                     </div>
                                                     <div className='w-fit flex ml-auto'>

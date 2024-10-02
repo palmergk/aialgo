@@ -6,7 +6,7 @@ import { TfiInstagram } from "react-icons/tfi";
 import { GrFacebookOption } from "react-icons/gr";
 import { MdOutlineHearing } from "react-icons/md";
 import { BiMailSend } from "react-icons/bi";
-import { Alert } from '../../utils/utils';
+import { ErrorAlert, SuccessAlert } from '../../utils/utils';
 import { Apis, UserPostApi } from '../../services/API';
 import Loading from '../../GeneralComponents/Loading'
 import { ADMINSTORE } from '../../store';
@@ -16,8 +16,6 @@ import { useAtom } from 'jotai';
 
 const ContactPage = () => {
   const [adminstore] = useAtom(ADMINSTORE)
-
-  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const [form, setForm] = useState({
@@ -37,12 +35,8 @@ const ContactPage = () => {
   const submitForm = async event => {
     event.preventDefault()
 
-    setTimeout(() => {
-      setError('')
-    }, 1000)
-
-    if (!form.email) return setError('email')
-    if (!form.message) return setError('message')
+    if (!form.email) return ErrorAlert('Enter email address')
+    if (!form.message) return ErrorAlert('Enter a message')
 
     const formbody = {
       email: form.email,
@@ -54,7 +48,7 @@ const ContactPage = () => {
     try {
       const response = await UserPostApi(Apis.user.contact, formbody)
       if (response.status === 200) {
-        Alert('Request Succcessful', response.msg, 'success')
+        SuccessAlert(response.msg)
         setForm({
           name: '',
           email: '',
@@ -62,10 +56,10 @@ const ContactPage = () => {
           message: ''
         })
       } else {
-        return Alert('Request Failed', response.msg, 'error')
+        ErrorAlert(response.msg)
       }
     } catch (error) {
-      Alert('Request Unsuccessful', `${error.message}`, 'error')
+      ErrorAlert(`${error.message}`)
     } finally {
       setLoading(false)
     }
@@ -101,7 +95,7 @@ const ContactPage = () => {
                         </div>
                         <div className='flex flex-col gap-2'>
                           <div className='text-xs uppercase font-bold text-[#636262]'>email address*</div>
-                          <input type='email' placeholder='Enter Email Address' className={` outline-none focus:outline-orange border-b-2 focus:border-b-0 lg:text-sm text-base  p-1 pl-2 ${error === 'email' ? 'border-[red]' : ''} ipt input-off`} name='email' value={form.email} onChange={inputHandler}></input>
+                          <input type='email' placeholder='Enter Email Address' className='outline-none focus:outline-orange border-b-2 focus:border-b-0 lg:text-sm text-base  p-1 pl-2 ipt input-off' name='email' value={form.email} onChange={inputHandler}></input>
                         </div>
                       </div>
                       <div className='flex flex-col gap-2 w-full'>
@@ -110,7 +104,7 @@ const ContactPage = () => {
                       </div>
                       <div className='flex flex-col gap-2'>
                         <div className='text-xs uppercase font-bold text-[#636262]'>message*</div>
-                        <textarea placeholder='Type A Message' className={` p-2 h-32 lg:text-[0.9rem] text-base resize-none outline-none focus:outline-orange  ${error === 'message' ? ' border border-[red]' : ''} ipt`} name='message' value={form.message} onChange={inputHandler}></textarea>
+                        <textarea placeholder='Type A Message' className='p-2 h-32 lg:text-[0.9rem] text-base resize-none outline-none focus:outline-orange ipt' name='message' value={form.message} onChange={inputHandler}></textarea>
                       </div>
                       <div className='flex justify-center mt-2'>
                         <button className='outline-none bg-orange text-[0.9rem] text-white flex gap-1 items-center justify-center w-fit h-fit px-8 py-1 rounded-[3px] capitalize font-bold'>

@@ -4,7 +4,7 @@ import moment from 'moment';
 import { FaXmark } from 'react-icons/fa6';
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import Loading from '../../GeneralComponents/Loading';
-import { Alert, MoveToTopDiv } from '../../utils/utils';
+import { ErrorAlert, MoveToTopDiv, SuccessAlert } from '../../utils/utils';
 import avatar from '../../assets/images/avatar.png'
 import ModalLayout from '../../utils/ModalLayout';
 
@@ -67,14 +67,14 @@ const UpdateDepositModal = ({ closeView, refetchAllDeposits, singleDeposit }) =>
       try {
         const response = await UserPutApi(Apis.admin.update_deposits, formbody)
         if (response.status === 200) {
+          SuccessAlert(response.msg)
           refetchAllDeposits()
-          Alert('Request Successful', `${response.msg}`, 'success')
           closeView()
         } else {
-          Alert('Request Failed', `${response.msg}`, 'error')
+          ErrorAlert(response.msg)
         }
       } catch (error) {
-        Alert('Request Failed', `${error.message}`, 'error')
+        ErrorAlert(`${error.message}`)
       } finally {
         setLoading(false)
       }

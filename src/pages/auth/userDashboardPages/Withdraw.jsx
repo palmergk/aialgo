@@ -2,11 +2,11 @@ import { useAtom } from 'jotai'
 import React, { useCallback, useEffect, useState } from 'react'
 import { BiMoneyWithdraw } from 'react-icons/bi'
 import { IoIosSearch } from 'react-icons/io'
-import { RiErrorWarningLine, RiHistoryFill } from 'react-icons/ri'
+import { RiHistoryFill } from 'react-icons/ri'
 import { ADMINCRYPTOWALLETS, NOTIFICATIONS, PROFILE, UNREADNOTIS, WALLET } from '../../../store'
 import moment from 'moment'
 import LoadingAdmin from '../../../GeneralComponents/LoadingAdmin'
-import { Alert, MoveToTop } from '../../../utils/utils'
+import { ErrorAlert, MoveToTop, SuccessAlert } from '../../../utils/utils'
 import { Apis, imageurl, PostApi, UserGetApi } from '../../../services/API'
 import { FiX } from 'react-icons/fi'
 import wthwallet from '../../../assets/images/wthwallet.png'
@@ -37,7 +37,6 @@ const Withdraw = () => {
     const [secondValues, setSecondValues] = useState({})
     const [check, setCheck] = useState('')
     const [error, setError] = useState('')
-    const [errorMsg, setErrorMsg] = useState('')
     const [search, setSearch] = useState('')
     const [start, setStart] = useState(0)
     const [end, setEnd] = useState(6)
@@ -94,8 +93,8 @@ const Withdraw = () => {
         if (Object.values(secondValues).length === 0) return setError('select')
         if (!form.withdrawal_address) return setError('wallet')
         if (!check) return setError('check')
-        if (user.email_verified === 'false') return setErrorMsg('Complete account verification to continue.')
-        if (user.kyc_verified === 'false') return setErrorMsg('Complete account verification to continue.')
+        if (user.email_verified === 'false') return ErrorAlert('Complete account verification to continue')
+        if (user.kyc_verified === 'false') return ErrorAlert('Complete account verification to continue')
 
         const formbody = {
             amount: parseFloat(form.amount),
@@ -108,11 +107,11 @@ const Withdraw = () => {
         try {
             const response = await PostApi(Apis.withdraw.make_withdrawal, formbody)
             if (response.status === 200) {
+                SuccessAlert(response.msg)
                 FetchWithdrawals()
                 setUserWallet(response.wallet)
                 setNotifications(response.notis)
                 setUnreadNotis(response.unread)
-                Alert('Request Successful', `${response.msg}`, 'success')
                 setForm({
                     amount: '',
                     withdrawal_address: ''
@@ -121,10 +120,10 @@ const Withdraw = () => {
                 setSecondValues({})
                 setScreen(2)
             } else {
-                Alert('Request Failed', `${response.msg}`, 'error')
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -300,11 +299,6 @@ const Withdraw = () => {
                                     <button className='outline-none w-fit h-fit py-2 px-14 md:text-sm text-sm text-semi-white bg-[#252525] rounded-md capitalize font-semibold' onClick={makeWithdrawal}>make withdrawal</button>
                                 </div>
                             </div>
-                            {errorMsg !== '' && <div className='absolute bottom-0 left-1 md:text-[0.8rem] text-xs font-bold text-[#c42e2e] flex gap-0.5 bg-[#bdbcbc] p-1 rounded-sm'>
-                                <RiErrorWarningLine className='md:text-base text-sm' />
-                                <span>{errorMsg}</span>
-                                <Link to='/dashboard/verify-account' onClick={MoveToTop} className='underline'>Click here</Link>
-                            </div>}
                         </div>
                     </div>
                 }

@@ -11,7 +11,7 @@ import { FaCheck, FaRegRectangleXmark } from "react-icons/fa6";
 import { IoCheckbox } from "react-icons/io5";
 import { PiWarningCircleBold } from "react-icons/pi";
 import { FaRegEdit } from "react-icons/fa";
-import { Alert, CookieName, MoveToTop } from '../../../utils/utils';
+import { CookieName, ErrorAlert, MoveToTop, SuccessAlert } from '../../../utils/utils';
 import { IoMdEyeOff } from 'react-icons/io';
 import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
@@ -29,11 +29,9 @@ const Profile = () => {
     const [userEdit, setUserEdit] = useState(false)
     const [emailEdit, setEmailEdit] = useState(false)
     const [passEdit, setPassEdit] = useState(false)
-    const [imageError, setImageError] = useState('')
     const [loading, setLoading] = useState(false)
     const [commit, setCommit] = useState(false)
-    const [screen, setScreen] = useState(0)
-    const [deleteError, setDeleteError] = useState('')
+    const [screen, setScreen] = useState(1)
     const [deleteloading, setDeleteLoading] = useState(false)
     const [eye, setEye] = useState(false)
     const [eye2, setEye2] = useState(false)
@@ -75,18 +73,14 @@ const Profile = () => {
     }
 
     const handleProfileUpload = (event) => {
-        setTimeout(() => {
-            setImageError('')
-        }, 2000)
-
         const file = event.target.files[0]
         if (file.size >= 1000000) {
             imgref.current.value = null
-            return setImageError('File size too large')
+            return ErrorAlert('File size too large')
         }
         if (!file.type.startsWith('image/')) {
             imgref.current.value = null
-            return setImageError('File error, invalid image format')
+            return ErrorAlert('File error, invalid image format')
         }
 
         setCommit(true)
@@ -142,7 +136,7 @@ const Profile = () => {
         try {
             const response = await UserPutApi(Apis.user.update, formbody)
             if (response.status === 200) {
-                Alert('Request Successful', 'Profile updated', 'success')
+                SuccessAlert('Profile updated')
                 setEmailEdit(false)
                 setNameEdit(false)
                 setPassEdit(false)
@@ -158,21 +152,18 @@ const Profile = () => {
                 })
 
             } else {
-                Alert('Request Failed', response.msg, 'error')
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
     }
 
     const DeleteAccount = async () => {
-        setTimeout(() => {
-            setDeleteError('')
-        }, 1000)
 
-        if (!form.dl_password) return setDeleteError(`enter your password`)
+        if (!form.dl_password) return ErrorAlert(`Enter password`)
 
         const formbody = {
             password: form.dl_password
@@ -181,14 +172,14 @@ const Profile = () => {
         try {
             const response = await UserPutApi(Apis.user.delete, formbody)
             if (response.status === 200) {
-                Alert('Request Successful', response.msg, 'success')
+                SuccessAlert(response.msg)
                 Cookies.remove(CookieName)
                 navigate('/')
             } else {
-                setDeleteError(`${response.msg}`)
+                ErrorAlert(`${response.msg}`)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setDeleteLoading(false)
         }
@@ -203,7 +194,7 @@ const Profile = () => {
     }
 
     useEffect(() => {
-        if (screen !== 0) {
+        if (screen !== 1) {
             MoveToBottom()
         }
     }, [MoveToBottom])
@@ -225,7 +216,6 @@ const Profile = () => {
                                 </div>
                                 <input ref={imgref} type="file" onChange={handleProfileUpload} hidden></input>
                             </label>
-                            <div className='absolute -bottom-5 right-0 md:text-sm text-xs text-[#c42e2e]'>{imageError}</div>
                         </div>
                     </div>
                     <div className=' justify-center mt-4 text-semi-white flex gap-2 items-center'>
@@ -372,30 +362,30 @@ const Profile = () => {
                         </div>
                     </form>
                     <div className='relative mx-auto mt-20'>
-                        {screen === 0 && <div className='justify-center md:text-[0.85rem] text-xs text-light cursor-pointer flex items-center gap-1' onClick={() => { setScreen(1); MoveToBottom() }}>
+                        {screen === 1 && <div className='justify-center md:text-[0.85rem] text-xs text-light cursor-pointer flex items-center gap-1' onClick={() => { setScreen(2); MoveToBottom() }}>
                             <span>Delete my account</span>
                             <MdOutlineDeleteForever />
                         </div>}
-                        {screen !== 0 && <div className=' w-fit h-fit bg-semi-white rounded-xl md:p-8 p-4 mx-auto relative shlz '>
+                        {screen !== 1 && <div className=' w-fit h-fit bg-semi-white rounded-xl md:p-8 p-4 mx-auto relative shlz '>
                             {deleteloading && <LoadingAdmin />}
-                            {screen === 1 && <div>
+                            {screen === 2 && <div>
                                 <div className='text-center md:text-[1.1rem] text-sm text-black font-medium'>Are you sure you want to delete your account?</div>
                                 <div className='flex justify-center items-center gap-0.5 mt-1.5 text-xs text-admin-btn'>
                                     <span className='text-center'>Action is permanent and all your assets will be lost</span>
                                     <PiWarningCircleBold className='text-[red]' />
                                 </div>
                                 <div className='flex md:gap-16 gap-6 items-center justify-center mt-8'>
-                                    <button className='outline-none w-fit h-fit py-2 px-4 text-xs text-semi-white  bg-admin-btn rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => setScreen(0)}>
+                                    <button className='outline-none w-fit h-fit py-2 px-4 text-xs text-semi-white  bg-admin-btn rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => setScreen(1)}>
                                         <span>cancel action</span>
                                         <FaRegRectangleXmark />
                                     </button>
-                                    <button className='outline-none w-fit h-fit py-2 px-4 text-xs text-semi-white  bg-[#642424] rounded-md capitalize flex items-center gap-1 font-bold' onClick={() => setScreen(2)}>
+                                    <button className='outline-none w-fit h-fit py-2 px-4 text-xs text-semi-white  bg-[#642424] rounded-md capitalize flex items-center gap-1 font-bold' onClick={() => setScreen(3)}>
                                         <span>proceed action</span>
                                         <IoCheckbox />
                                     </button>
                                 </div>
                             </div>}
-                            {screen === 2 && <div>
+                            {screen === 3 && <div>
                                 <div className='text-center md:text-[1.1rem] text-sm text-black font-medium'>Last step to permanently delete your account!</div>
                                 <div className='flex gap-1 items-center justify-center mt-1.5 text-xs text-[red]'>
                                     <span className='text-admin-btn'>Enter your password below to finalize action</span>
@@ -405,10 +395,9 @@ const Profile = () => {
                                     <div className='relative'>
                                         <input className='outline-none border border-light bg-white lg:text-[0.85rem] text-base w-48 h-8 rounded-[4px] pl-2 pr-8 py-1 text-black ipt' placeholder='Enter your password' name='dl_password' value={form.dl_password} onChange={formHandler} type={`${eye3 === true ? 'text' : 'password'}`}></input>
                                         <EyeIcon3 className='absolute top-2 right-2 cursor-pointer text-light text-lg' onClick={() => setEye3(!eye3)} />
-                                        <div className='absolute -bottom-5 left-0 text-xs text-[#e62f2f]'>{deleteError}</div>
                                     </div>
                                     <div className='flex md:gap-16 gap-6 items-center'>
-                                        <button className='outline-none w-fit h-fit py-2 px-4 text-xs text-semi-white  bg-admin-btn  rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => { setScreen(0); setDeletePassword('') }}>
+                                        <button className='outline-none w-fit h-fit py-2 px-4 text-xs text-semi-white  bg-admin-btn  rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => {setScreen(1); setForm({...form, dl_password: ''})}}>
                                             <span>cancel deletion</span>
                                             <FaRegRectangleXmark />
                                         </button>

@@ -1,18 +1,16 @@
 import React, { useRef, useState } from 'react'
-import { RiErrorWarningLine } from "react-icons/ri";
 import { PiWarningCircleBold } from 'react-icons/pi';
 import { FaXmark } from 'react-icons/fa6';
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import Loading from '../../../GeneralComponents/Loading';
 import ModalLayout from '../../../utils/ModalLayout';
-import { Alert } from '../../../utils/utils';
+import { ErrorAlert, SuccessAlert } from '../../../utils/utils';
 import { Apis, PostApi, UserPutApi } from '../../../services/API';
 
 
 const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
     const [type, setType] = useState(singlePlan?.duration_type)
     const [typeShow, setTypeShow] = useState(false)
-    const [error, setError] = useState('')
     const [deleteState, setDeleteState] = useState(false)
     const [commit, setCommit] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -60,12 +58,9 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
     }
 
     const UpdateTradingPlan = async () => {
-        setTimeout(() => {
-            setError('')
-        }, 2000)
 
-        if (!form.title || !form.price_limit || !form.price_start || !form.profit_return || !form.plan_bonus || !form.duration) return setError('Enter all fields')
-        if (isNaN(form.price_start) || isNaN(form.price_limit) || isNaN(form.profit_return) || isNaN(form.plan_bonus) || isNaN(form.duration)) return setError('Enter valid numbers')
+        if (!form.title || !form.price_limit || !form.price_start || !form.profit_return || !form.plan_bonus || !form.duration) return ErrorAlert('Enter all fields')
+        if (isNaN(form.price_start) || isNaN(form.price_limit) || isNaN(form.profit_return) || isNaN(form.plan_bonus) || isNaN(form.duration)) return ErrorAlert('Enter valid numbers')
 
         const formbody = {
             plan_id: singlePlan.id,
@@ -82,23 +77,20 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
         try {
             const response = await UserPutApi(Apis.admin.update_trading_plan, formbody)
             if (response.status === 200) {
-                Alert('Request Successful', `${response.msg}`, 'success')
+                SuccessAlert(response.msg)
                 refetchTradingPlans()
                 closeView()
             } else {
-                setError(response.msg)
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
     }
 
     const DeleteTradingPlan = async () => {
-        setTimeout(() => {
-            setError('')
-        }, 2000)
 
         const formbody = {
             plan_id: singlePlan.id
@@ -108,14 +100,14 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
         try {
             const response = await PostApi(Apis.admin.delete_trading_plan, formbody)
             if (response.status === 200) {
+                SuccessAlert(response.msg)
                 refetchTradingPlans()
-                Alert('Request Successful', `${response.msg}`, 'success')
                 closeView()
             } else {
-                setError(response.msg)
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -190,13 +182,6 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
                                     </div>}
                                 </div>
                             </div>
-                            {error !== '' &&
-                                <div className='md:text-sm text-xs absolute -bottom-6 left-0 text-[#eb2e2e] bg-white sha px-4 py-1 flex items-center gap-1 rounded-sm text-center z-10'>
-                                    <RiErrorWarningLine />
-                                    <span>{error}</span>
-                                    <div className='error-progress absolute -bottom-1 left-0 rounded-sm z-10'></div>
-                                </div>
-                            }
                         </div>
                         <div className='flex items-center mt-8 relative'>
                             {commit && <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateTradingPlan}>update</button>}

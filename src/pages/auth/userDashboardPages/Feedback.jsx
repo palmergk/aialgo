@@ -5,14 +5,13 @@ import { PROFILE } from '../../../store'
 import { MdOutlineHearing } from 'react-icons/md'
 import { BiMailSend } from 'react-icons/bi'
 import { Apis, UserPostApi } from '../../../services/API'
-import { Alert } from '../../../utils/utils'
+import { ErrorAlert, SuccessAlert } from '../../../utils/utils'
 import contact from '../../../assets/images/contactus.png'
 import Dashboard from './Dashboard'
 
 const Feedback = () => {
     const [user] = useAtom(PROFILE)
 
-    const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         title: '',
@@ -28,11 +27,8 @@ const Feedback = () => {
 
     const submitForm = async event => {
         event.preventDefault()
-        setTimeout(() => {
-            setError(false)
-        }, 1000)
 
-        if (!form.message) return setError(true)
+        if (!form.message) return ErrorAlert('Enter a message')
 
         const formbody = {
             email: user.email,
@@ -44,16 +40,16 @@ const Feedback = () => {
         try {
             const response = await UserPostApi(Apis.user.contact, formbody)
             if (response.status === 200) {
-                Alert('Request Succcessful', `${response.msg}`, 'success')
+                SuccessAlert(response.msg)
                 setForm({
                     title: '',
                     message: ''
                 })
             } else {
-                return Alert('Request Failed', response.msg, 'error')
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Unsuccessful', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -87,7 +83,7 @@ const Feedback = () => {
                             </div>
                             <div className='flex flex-col gap-2 mt-2'>
                                 <div className='text-xs uppercase font-bold text-[#a09f9f]'>message*</div>
-                                <textarea placeholder='Write A Message' className={`p-3 h-36 text-semi-white lg:text-[0.9rem]  outline-none bg-transparent rounded-md resize-none border  ${error ? 'border-[#c42e2e]' : 'border-light'} ipt`} name='message' value={form.message} onChange={formHandler}></textarea>
+                                <textarea placeholder='Write A Message' className='p-3 h-36 text-semi-white lg:text-[0.9rem] outline-none bg-transparent rounded-md resize-none border border-light ipt' name='message' value={form.message} onChange={formHandler}></textarea>
                             </div>
                             <div className='flex justify-end'>
                                 <button className='outline-none bg-light text-xs md:text-sm text-white flex gap-1 items-center justify-center w-fit h-fit md:px-8 px-6 py-2 md:py-1.5 rounded-[3px] capitalize font-[600]'>

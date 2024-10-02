@@ -235,34 +235,6 @@ input[type="date"]::before {
   }
 }
 
-/* error progress admin dashboard */
-.error-progress {
-  width: 100%;
-  height: 5px;
-  background: linear-gradient(#c9b8eb 0 0) 0/0% no-repeat #ddd;
-  animation: l1 2s infinite linear;
-}
-
-@keyframes l1 {
-  100% {
-    background-size: 100%
-  }
-}
-
-/* error progress user dashboard */
-.error-progress2 {
-  width: 100%;
-  height: 5px;
-  background: linear-gradient(#7665D5 0 0) 0/0% no-repeat #bbbbbb;
-  animation: l1 2s infinite linear;
-}
-
-@keyframes l1 {
-  100% {
-    background-size: 100%
-  }
-}
-
 /*animation stops */
 
 .shd {

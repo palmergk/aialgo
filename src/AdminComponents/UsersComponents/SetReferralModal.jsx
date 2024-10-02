@@ -4,23 +4,19 @@ import Loading from '../../GeneralComponents/Loading'
 import { useAtom } from 'jotai'
 import { ADMINSTORE } from '../../store'
 import { Apis, UserPutApi } from '../../services/API'
-import { Alert } from '../../utils/utils'
+import { ErrorAlert, SuccessAlert } from '../../utils/utils'
 
 const SetReferralModal = ({ closeView }) => {
     const [adminStore, setAdminStore] = useAtom(ADMINSTORE)
-    
+
     const [amount, setAmount] = useState('')
-    const [error, setError] = useState(false)
     const toggler = useRef()
     const [loading, setLoading] = useState(false)
 
     const SetReferalBonus = async () => {
-        setTimeout(() => {
-            setError(false)
-        }, 1000)
-
-        if (!amount) return setError(true)
-        if (isNaN(amount)) return setError(true)
+        
+        if (!amount) return ErrorAlert('Enter an amount')
+        if (isNaN(amount)) return ErrorAlert('Must be a number')
 
         const formbody = {
             referral_bonus_percentage: parseFloat(amount)
@@ -30,13 +26,13 @@ const SetReferralModal = ({ closeView }) => {
             const response = await UserPutApi(Apis.admin.update_admin_store, formbody)
             if (response.status === 200) {
                 setAdminStore(response.msg)
-                Alert('Request Successful', 'Referral bonus updated', 'success')
+                SuccessAlert('Referral bonus updated')
                 closeView()
             } else {
-                Alert('Request Failed', `${response.msg}`, 'error')
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -52,7 +48,7 @@ const SetReferralModal = ({ closeView }) => {
                         <div className='text-center font-medium'>Enter bonus percentage for referring (%)</div>
                         <div className='flex gap-4 items-center'>
                             <div>
-                                <input className={`outline-none border lg:text-[0.85rem] text-base md:w-44 w-36 h-8 rounded-[3px] px-2 bg-semi-white ipt ${error ? 'border-[red]' : 'border-[#9f7ae7]'}`} value={amount} onChange={e => setAmount(e.target.value)}></input>
+                                <input className='outline-none border lg:text-[0.85rem] text-base md:w-44 w-36 h-8 rounded-[3px] px-2 bg-semi-white ipt border-[#9f7ae7]' value={amount} onChange={e => setAmount(e.target.value)}></input>
                             </div>
                             <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-md'>
                                 <div>current:</div>

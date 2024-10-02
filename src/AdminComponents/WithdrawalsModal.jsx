@@ -4,7 +4,7 @@ import { Apis, UserPutApi, imageurl } from '../services/API'
 import moment from 'moment'
 import { FaCheck, FaXmark } from 'react-icons/fa6'
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
-import { Alert, MoveToTopDiv } from '../utils/utils'
+import { ErrorAlert, MoveToTopDiv, SuccessAlert } from '../utils/utils'
 import { MdContentCopy } from 'react-icons/md'
 import avatar from '../assets/images/avatar.png'
 import ModalLayout from '../utils/ModalLayout'
@@ -97,14 +97,14 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
             try {
                 const response = await UserPutApi(Apis.admin.update_withdrawals, formbody)
                 if (response.status === 200) {
+                    SuccessAlert(response.msg)
                     refetchAllWithdrawals()
-                    Alert('Request Successful', `${response.msg}`, 'success')
                     closeView()
                 } else {
-                    Alert('Request Failed', `${response.msg}`, 'error')
+                    ErrorAlert(response.msg)
                 }
             } catch (error) {
-                Alert('Request Failed', `${error.message}`, 'error')
+                ErrorAlert(`${error.message}`)
             } finally {
                 setLoading(false)
             }

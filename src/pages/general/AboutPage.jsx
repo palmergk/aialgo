@@ -2,7 +2,7 @@ import React from 'react'
 import Pagelayout from '../../GeneralComponents/Pagelayout'
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import aboutimage from '../../assets/images/about.webp'
+import tradingImg from '../../assets/images/trading.webp'
 import { MdJoinRight} from "react-icons/md";
 import efficient from '../../assets/images/efficient.png'
 import crown from '../../assets/images/crown.png'
@@ -37,7 +37,7 @@ const AboutPage = () => {
               </div>
             </div>
             <div className='relative col-span-1 order-first lg:order-last'>
-              <img src={aboutimage} className='h-[50vh] object-cover w-full object-center'></img>
+              <img src={tradingImg} className='h-[50vh] object-cover w-full object-center'></img>
             </div>
           </div>
           <div className='lg:w-4/5 mx-auto md:mt-48 mt-40'>

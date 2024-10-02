@@ -1,16 +1,16 @@
-import Swal from 'sweetalert2'
+import toast from 'react-hot-toast';
 
-export const Alert = (title, text, icon) => {
-    return Swal.fire({
-        title,
-        text,
-        icon,
-        showConfirmButton: true,
-        confirmButtonText: 'Continue',
-        confirmButtonColor: "#6459DD",
+export const ErrorAlert = (message) => {
+    return toast.error(message, {
+        position: "top-center",
     })
 }
 
+export const SuccessAlert = (message) => {
+    return toast.success(message, {
+        position: "top-center"
+    })
+}
 
 export const CookieName = 'aiwebgiddys'
 

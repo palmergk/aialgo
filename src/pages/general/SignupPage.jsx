@@ -7,7 +7,7 @@ import { IoMdEyeOff } from "react-icons/io";
 import { SlCamera, SlUser } from 'react-icons/sl'
 import { MdVerified } from "react-icons/md";
 import Loading from '../../GeneralComponents/Loading'
-import { Alert, CookieName, MoveToTop, UserRole } from '../../utils/utils'
+import { CookieName, ErrorAlert, MoveToTop, SuccessAlert, UserRole } from '../../utils/utils'
 import { Apis, UserPostApi } from '../../services/API'
 import Cookies from 'js-cookie'
 import { decodeToken } from 'react-jwt'
@@ -23,8 +23,6 @@ const SignupPage = () => {
   const [check, setCheck] = useState(false)
   const EyeIcon = eye === true ? IoEye : IoMdEyeOff
   const EyeIcon2 = eye2 === true ? IoEye : IoMdEyeOff
-  const [error, setError] = useState('')
-  const [errorMsg, setErrorMsg] = useState('')
   const [loading, setLoading] = useState(false)
   const [countries, setCountries] = useState(countryApi)
   const [countryshow, setCountryShow] = useState(false)
@@ -58,21 +56,14 @@ const SignupPage = () => {
   }
 
   const handleProfileUpload = (event) => {
-    setTimeout(() => {
-      setError('')
-      setErrorMsg('')
-    }, 2000)
-
     const file = event.target.files[0]
     if (file.size >= 1000000) {
       imgref.current.value = null
-      setErrorMsg('File size too large')
-      return setError('image')
+      return ErrorAlert('File size too large')
     }
     if (!file.type.startsWith('image/')) {
       imgref.current.value = null
-      setErrorMsg('File Error')
-      return setError('image')
+      return ErrorAlert('File Error')
     }
 
     setProfile({
@@ -83,26 +74,16 @@ const SignupPage = () => {
 
   const submitForm = async (event) => {
     event.preventDefault()
-    setTimeout(() => {
-      setError('')
-      setErrorMsg('')
-    }, 1500)
 
-    if (!form.full_name) return setError('name')
-    if (!form.username) return setError('user')
-    if (!form.email) return setError('email')
-    if (usercountry.name === 'select') return setError('country')
-    if (!form.password) return setError('password')
-    if (form.password.length < 6) {
-      setErrorMsg('length too short')
-      return setError('password')
-    }
-    if (!form.confirm_password) return setError('confirm_p')
-    if (form.confirm_password !== form.password) {
-      setErrorMsg('passwords mismatch')
-      return setError('confirm_p')
-    }
-    if (!check) return setError('check')
+    if (!form.full_name) return ErrorAlert('Enter your full name')
+    if (!form.username) return ErrorAlert('Enter a username')
+    if (!form.email) return ErrorAlert('Enter an email address')
+    if (usercountry.name === 'select') return ErrorAlert('Select country')
+    if (!form.password) return ErrorAlert('Enter a password')
+    if (form.password.length < 6) return ErrorAlert('Password length too short')
+    if (!form.confirm_password) return ErrorAlert('Confirm password')
+    if (form.confirm_password !== form.password) return ErrorAlert('Passwords mismatch')
+    if (!check) return ErrorAlert('Must agree with terms and conditions')
 
     const formbody = new FormData()
     formbody.append('image', profile.image)
@@ -120,10 +101,10 @@ const SignupPage = () => {
       if (response.status === 200) {
         setScreen(2)
       } else {
-        Alert('Request Failed', response.msg, 'error')
+        ErrorAlert(response.msg)
       }
     } catch (error) {
-      Alert('Request Unsuccessful', `${error.message}`, 'error')
+      ErrorAlert(`${error.message}`)
     } finally {
       setLoading(false)
     }
@@ -132,12 +113,7 @@ const SignupPage = () => {
   const ValidateEmail = async e => {
     e.preventDefault()
 
-    setTimeout(() => {
-      setError('')
-      setErrorMsg('')
-    }, 1000)
-
-    if (!form.verifycode) return setError('verify')
+    if (!form.verifycode) return ErrorAlert('Enter verification code')
 
     const formbody = {
       email: form.email,
@@ -153,11 +129,10 @@ const SignupPage = () => {
         const findRole = UserRole.find(item => item.role === decoded.role)
         if (findRole) return navigate(`${findRole.url}`)
       } else {
-        setError('verify')
-        return setErrorMsg(response.msg)
+        return ErrorAlert(response.msg)
       }
     } catch (error) {
-      Alert('Request Failed', `${error.message}`, 'error')
+      ErrorAlert(`${error.message}`)
     } finally {
       setLoading(false)
     }
@@ -167,9 +142,9 @@ const SignupPage = () => {
     setLoading(true)
     try {
       const response = await UserPostApi(Apis.user.resend_otp, { email: form.email })
-      if (response.status === 200) return Alert('Code sent', 'Check your email for the new verification code', 'success')
+      if (response.status === 200) return SuccessAlert('Verification code resent')
     } catch (error) {
-      Alert('Request Failed', `${error.message}`, 'error')
+      ErrorAlert(`${error.message}`)
     } finally {
       setLoading(false)
     }
@@ -222,20 +197,19 @@ const SignupPage = () => {
                                 }
                                 <input ref={imgref} type="file" onChange={handleProfileUpload} hidden />
                               </label>
-                              {error === 'image' && <div className='absolute -bottom-4 -right-10 text-xs text-[red]'>{errorMsg}</div>}
                             </div>
                             <div className='flex flex-col gap-[0.3rem]'>
                               <div className='text-sm capitalize font-[550]'>full name:</div>
-                              <input className={`outline-none w-full  border-b  ${error === 'name' ? 'border-[red]' : 'border-[#4d4c4c]'} lg:text-sm text-base  ipt input-off`} placeholder='Enter your full name' type='text' name='full_name' value={form.full_name} onChange={inputHandler} ></input>
+                              <input className='outline-none w-full  border-b border-[#4d4c4c] lg:text-sm text-base  ipt input-off' placeholder='Enter your full name' type='text' name='full_name' value={form.full_name} onChange={inputHandler} ></input>
                             </div>
                             <div className='grid grid-cols-1 md:grid-cols-2 w-full md:gap-8 gap-[0.7rem]'>
                               <div className='flex flex-col gap-[0.3rem] relative'>
                                 <div className='text-sm capitalize font-[550]'>username:</div>
-                                <input className={`outline-none w-full border-b  ${error === 'user' ? 'border-[red]' : 'border-[#4d4c4c]'} lg:text-sm text-base ipt input-off`} placeholder='Enter a username' type='text' name='username' value={form.username} onChange={inputHandler} ></input>
+                                <input className='outline-none w-full border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter a username' type='text' name='username' value={form.username} onChange={inputHandler} ></input>
                               </div>
                               <div className='flex flex-col gap-[0.3rem] relative'>
                                 <div className='text-sm capitalize font-[550]'>e-mail address:</div>
-                                <input className={`outline-none w-full border-b   ${error === 'email' ? 'border-[red]' : 'border-[#4d4c4c]'} lg:text-sm text-base ipt input-off`} placeholder='Enter your mail' type='email' name='email' value={form.email} onChange={inputHandler}></input>
+                                <input className='outline-none w-full border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter your mail' type='email' name='email' value={form.email} onChange={inputHandler}></input>
                               </div>
                             </div>
                             <div className='grid grid-cols-1 md:grid-cols-2 md:gap-8 gap-[0.7rem] w-full'>
@@ -244,7 +218,7 @@ const SignupPage = () => {
                                   <div className='text-sm capitalize font-[550]'>country:</div>
                                   <div className='flex gap-1 items-center'>
                                     {usercountry.flag !== null && <img className='h-5 w-auto' src={usercountry.flag}></img>}
-                                    <div className={`px-2 py-1 h-fit w-full bg-white sha cursor-pointer rounded-sm ${error === 'country' && 'border border-[red]'}`} onClick={() => { setCountryShow(!countryshow); setSearch(''); setCountries(countryApi) }}>
+                                    <div className='px-2 py-1 h-fit w-full bg-white sha cursor-pointer rounded-sm' onClick={() => { setCountryShow(!countryshow); setSearch(''); setCountries(countryApi) }}>
                                       <div className='flex justify-between items-center text-[0.8rem]'>
                                         <span >{usercountry.name}</span>
                                         {!countryshow ? <TiArrowSortedDown />
@@ -280,19 +254,17 @@ const SignupPage = () => {
                             <div className='grid grid-cols-2 gap-8 w-full'>
                               <div className='flex flex-col gap-[0.3rem] relative'>
                                 <div className='text-sm capitalize font-[550]'>password:</div>
-                                <input className={`outline-none w-full border-b  ${error === 'password' ? 'border-[red]' : 'border-[#4d4c4c]'}  lg:text-sm text-base pr-6 ipt input-off`} placeholder='Create a password' type={eye === true ? 'text' : 'password'} name='password' value={form.password} onChange={inputHandler}></input>
+                                <input className='outline-none w-full border-b border-[#4d4c4c]  lg:text-sm text-base pr-6 ipt input-off' placeholder='Create a password' type={eye === true ? 'text' : 'password'} name='password' value={form.password} onChange={inputHandler}></input>
                                 <EyeIcon className='absolute bottom-0 right-0 text-base text-orange cursor-pointer' onClick={() => setEye(!eye)} />
-                                {error === 'password' && <div className='absolute -bottom-4 left-0 text-xs text-[red]'>{errorMsg}</div>}
                               </div>
                               <div className='flex flex-col gap-[0.3rem] relative'>
                                 <div className='text-sm capitalize font-[550]'>confirm password:</div>
-                                <input className={`outline-none w-full border-b  ${error === 'confirm_p' ? 'border-[red]' : 'border-[#4d4c4c]'} lg:text-sm text-base pr-6 ipt input-off`} placeholder='Re-type password' type={eye2 === true ? 'text' : 'password'} name='confirm_password' value={form.confirm_password} onChange={inputHandler}></input>
+                                <input className='outline-none w-full border-b border-[#4d4c4c] lg:text-sm text-base pr-6 ipt input-off' placeholder='Re-type password' type={eye2 === true ? 'text' : 'password'} name='confirm_password' value={form.confirm_password} onChange={inputHandler}></input>
                                 <EyeIcon2 className='absolute bottom-0 right-0 text-base text-orange cursor-pointer' onClick={() => setEye2(!eye2)} />
-                                {error === 'confirm_p' && <div className='absolute -bottom-4 left-0 text-xs text-[red]'>{errorMsg}</div>}
                               </div>
                             </div>
                             <div className='flex gap-1 mt-4'>
-                              <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }} className={`${error === 'check' ? 'outline outline-1 outline-[red]' : ''}`}></input>
+                              <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }}></input>
                               <div className='text-xs capitalize'>by signing up, i agree with <Link to='/terms' className='text-orange font-[550]' onClick={MoveToTop}>terms and conditions</Link></div>
                             </div>
                             <div className='flex flex-col gap-2 items-center'>
@@ -314,8 +286,7 @@ const SignupPage = () => {
                           <form onSubmit={ValidateEmail}>
                             <div className='flex flex-col gap-1 mt-12 relative'>
                               <div className='capitalize text-[0.85rem]'>enter six digits code</div>
-                              <input className={`outline-none w-full h-10 border  ${error === 'verify' ? 'border-[red]' : 'border-[grey]'} text-sm px-2 ipt`} placeholder='Enter code here' name='verifycode' value={form.verifycode} onChange={inputHandler}></input>
-                              {error === 'verify' && <div className='absolute -bottom-5 left-0 text-xs text-[red]'>{errorMsg}</div>}
+                              <input className='outline-none w-full h-10 border border-[grey] text-sm px-2 ipt' placeholder='Enter code here' name='verifycode' value={form.verifycode} onChange={inputHandler}></input>
                             </div>
                             <div className='text-[0.85rem] text-right mt-2'>Didn't get code? <span className='text-orange cursor-pointer' onClick={ResendsCode}>Resend code</span></div>
                             <div className='flex items-center justify-center mt-12'>

@@ -5,7 +5,7 @@ import { FaXmark } from 'react-icons/fa6';
 import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import avatar from '../../assets/images/avatar.png'
 import Loading from '../../GeneralComponents/Loading';
-import { Alert, MoveToTopDiv } from '../../utils/utils';
+import { ErrorAlert, MoveToTopDiv, SuccessAlert } from '../../utils/utils';
 import ModalLayout from '../../utils/ModalLayout';
 
 const TaxModal = ({ closeView, refetchAllTaxes, singleTax }) => {
@@ -77,14 +77,14 @@ const TaxModal = ({ closeView, refetchAllTaxes, singleTax }) => {
             try {
                 const response = await UserPutApi(Apis.admin.update_taxes, formbody)
                 if (response.status === 200) {
+                    SuccessAlert(response.msg)
                     refetchAllTaxes()
-                    Alert('Request Successful', `${response.msg}`, 'success')
                     closeView()
                 } else {
-                    Alert('Request Failed', `${response.msg}`, 'error')
+                    ErrorAlert(response.msg)
                 }
             } catch (error) {
-                Alert('Request Failed', `${error.message}`, 'error')
+                ErrorAlert(`${error.message}`)
             } finally {
                 setLoading(false)
             }
@@ -168,7 +168,7 @@ const TaxModal = ({ closeView, refetchAllTaxes, singleTax }) => {
                                                     </div>
                                                     {statusShow && <div className='h-fit w-full absolute top-[1.8rem] left-0 bg-white border border-[lightgrey] rounded-md z-10 text-[0.85rem] font-bold'>
                                                         {Statuses.map((item, i) => (
-                                                            <div key={i} className={`flex flex-col px-2 py-0.5 cursor-pointer hover:bg-[#ececec] ${i !== Statuses.length - 1 && 'border-b border-[#ebeaea]'}`}  onClick={() => UpdateHandlerForStatus(item)}>
+                                                            <div key={i} className={`flex flex-col px-2 py-0.5 cursor-pointer hover:bg-[#ececec] ${i !== Statuses.length - 1 && 'border-b border-[#ebeaea]'}`} onClick={() => UpdateHandlerForStatus(item)}>
                                                                 <div className='flex items-center'>
                                                                     <div className={`${item === 'received' && 'text-[green]'} ${item === 'failed' && 'text-[red]'}`}>{item}</div>
                                                                 </div>
