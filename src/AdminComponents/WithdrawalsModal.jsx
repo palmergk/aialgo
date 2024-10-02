@@ -3,7 +3,6 @@ import Loading from '../GeneralComponents/Loading'
 import { Apis, UserPutApi, imageurl } from '../services/API'
 import moment from 'moment'
 import { FaCheck, FaXmark } from 'react-icons/fa6'
-import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import { ErrorAlert, MoveToTopDiv, SuccessAlert } from '../utils/utils'
 import { MdContentCopy } from 'react-icons/md'
 import avatar from '../assets/images/avatar.png'
@@ -11,14 +10,15 @@ import ModalLayout from '../utils/ModalLayout'
 import { useAtom } from 'jotai'
 import { ADMINSTORE } from '../store'
 import { RiAiGenerate } from 'react-icons/ri'
+import StatusSelector from './StatusSelector'
 
 const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }) => {
     const [adminStore] = useAtom(ADMINSTORE)
 
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
-    const [statusShow, setStatusShow] = useState(false)
     const [status, setStatus] = useState(singleWithdrawal?.status)
+    const [select, setSelect] = useState(false)
     const [update, setUpdate] = useState(false)
     const [beforeshow, setBeforeshow] = useState(true)
     const [copy, setCopy] = useState(false)
@@ -43,7 +43,7 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
 
     useEffect(() => {
         if (!loading) {
-            if (statusShow || status !== singleWithdrawal.status || message !== '') {
+            if (select || status !== singleWithdrawal.status || message !== '') {
                 MoveToBottom()
             }
         }
@@ -68,7 +68,6 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
 
     const UpdateHandlerForStatus = (item) => {
         setStatus(item)
-        setStatusShow(false)
         if (item === singleWithdrawal.status && message === '') {
             setUpdate(false)
         } else {
@@ -178,35 +177,14 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                                             <textarea placeholder='Write A Message' className='p-2 md:w-52 w-44 h-32 text-black lg:text-[0.85rem] text-base outline-none bg-transparent border border-[#c9b8eb] rounded-md resize-none ipt scroll' value={message} onChange={e => setMessage(e.target.value)} onKeyUp={UpdateHandlerForText}></textarea>
                                             {Object.values(adminStore).length !== 0 && <button className='bg-[#c9b8eb] py-1 px-4 text-black w-fit ml-auto rounded-full font-semibold text-[0.8rem] flex items-center gap-0.5' onClick={GenerateWithdrawalMessage}>
                                                 <span>Generate</span>
-                                                <RiAiGenerate className='text-xs'/>
+                                                <RiAiGenerate className='text-xs' />
                                             </button>}
                                         </div>
                                     </div>
                                     <div className='flex justify-between items-center my-6'>
                                         <div className='italic '>status:</div>
                                         {singleWithdrawal?.status === 'processing' ?
-                                            <div className='relative'>
-                                                <div className='px-2 py-1 h-fit md:w-44 w-36 rounded-[3px] bg-white sha cursor-pointer' onClick={() => { setStatusShow(!statusShow); MoveToBottom() }} >
-                                                    <div className='flex justify-between items-center text-[0.8rem]'>
-                                                        <span >{status}</span>
-                                                        <div className='text-sm'>
-                                                            {!statusShow ? <TiArrowSortedDown />
-                                                                :
-                                                                <TiArrowSortedUp />
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {statusShow && <div className='h-fit w-full absolute top-[1.8rem] left-0 bg-white border border-[lightgrey] rounded-md z-10 text-[0.85rem] font-bold'>
-                                                    {Statuses.map((item, i) => (
-                                                        <div key={i} className={`flex flex-col px-2 py-0.5 cursor-pointer hover:bg-[#ececec] ${i !== Statuses.length - 1 && 'border-b border-[#ebeaea]'}`} onClick={() => UpdateHandlerForStatus(item)}>
-                                                            <div className='flex items-center'>
-                                                                <div className={`${item === 'confirmed' && 'text-[green]'}`}>{item}</div>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>}
-                                            </div>
+                                            <StatusSelector Statuses={Statuses} status={status} HandleFunction={UpdateHandlerForStatus} select={select} toggle={() => setSelect(!select)} />
                                             :
                                             <>
                                                 {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-base text-sm capitalize text-[green]'>{singleWithdrawal.status}</div>}

@@ -32,7 +32,6 @@ const Profile = () => {
     const [loading, setLoading] = useState(false)
     const [commit, setCommit] = useState(false)
     const [screen, setScreen] = useState(1)
-    const [deleteloading, setDeleteLoading] = useState(false)
     const [eye, setEye] = useState(false)
     const [eye2, setEye2] = useState(false)
     const [eye3, setEye3] = useState(false)
@@ -168,7 +167,7 @@ const Profile = () => {
         const formbody = {
             password: form.dl_password
         }
-        setDeleteLoading(true)
+        setLoading(true)
         try {
             const response = await UserPutApi(Apis.user.delete, formbody)
             if (response.status === 200) {
@@ -176,12 +175,12 @@ const Profile = () => {
                 Cookies.remove(CookieName)
                 navigate('/')
             } else {
-                ErrorAlert(`${response.msg}`)
+                ErrorAlert(response.msg)
             }
         } catch (error) {
             ErrorAlert(`${error.message}`)
         } finally {
-            setDeleteLoading(false)
+            setLoading(false)
         }
     }
 
@@ -202,7 +201,7 @@ const Profile = () => {
     return (
         <Dashboard>
             <div className='relative'>
-                {loading && <LoadingAdmin />}
+                {loading && screen === 1 && <LoadingAdmin />}
                 <div className='uppercase font-bold md:text-2xl text-lg text-semi-white'>profile</div>
                 <div>
                     <div className='flex items-center justify-center mt-10'>
@@ -367,7 +366,7 @@ const Profile = () => {
                             <MdOutlineDeleteForever />
                         </div>}
                         {screen !== 1 && <div className=' w-fit h-fit bg-semi-white rounded-xl md:p-8 p-4 mx-auto relative shlz '>
-                            {deleteloading && <LoadingAdmin />}
+                            {loading && <LoadingAdmin />}
                             {screen === 2 && <div>
                                 <div className='text-center md:text-[1.1rem] text-sm text-black font-medium'>Are you sure you want to delete your account?</div>
                                 <div className='flex justify-center items-center gap-0.5 mt-1.5 text-xs text-admin-btn'>

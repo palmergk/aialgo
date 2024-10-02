@@ -1,16 +1,16 @@
 import React, { useRef, useState } from 'react'
 import { PiWarningCircleBold } from 'react-icons/pi';
 import { FaXmark } from 'react-icons/fa6';
-import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import Loading from '../../../GeneralComponents/Loading';
 import ModalLayout from '../../../utils/ModalLayout';
 import { ErrorAlert, SuccessAlert } from '../../../utils/utils';
 import { Apis, PostApi, UserPutApi } from '../../../services/API';
+import StatusSelector from '../../StatusSelector';
 
 
 const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
     const [type, setType] = useState(singlePlan?.duration_type)
-    const [typeShow, setTypeShow] = useState(false)
+    const [select, setSelect] = useState(false)
     const [deleteState, setDeleteState] = useState(false)
     const [commit, setCommit] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -48,8 +48,6 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
 
     const CommmitHandlerForStatus = (item) => {
         setType(item)
-        setTypeShow(false)
-
         if (item === singlePlan.duration_type && form.title === singlePlan.title && parseFloat(form.price_start) === singlePlan.price_start && parseFloat(form.price_limit) === singlePlan.price_limit && parseFloat(form.profit_return) === singlePlan.profit_return && parseFloat(form.plan_bonus) === singlePlan.plan_bonus && parseFloat(form.duration) === singlePlan.duration) {
             setCommit(false)
         } else {
@@ -159,28 +157,7 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
                             </div>
                             <div className='flex justify-between items-center'>
                                 <div className='italic'>duration type:</div>
-                                <div className='relative'>
-                                    <div className='px-2 py-1 h-fit md:w-48 w-40 bg-white sha cursor-pointer rounded-[3px]' onClick={() => setTypeShow(!typeShow)} >
-                                        <div className='flex justify-between items-center text-[0.8rem]'>
-                                            <span >{type}</span>
-                                            <div className='text-sm'>
-                                                {!typeShow ? <TiArrowSortedDown />
-                                                    :
-                                                    <TiArrowSortedUp />
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {typeShow && <div className='h-fit w-full absolute top-[1.9rem] left-0 bg-white border border-[lightgrey] rounded-md z-10 text-[0.85rem] font-bold'>
-                                        {DurationTypes.map((item, i) => (
-                                            <div key={i} className={`flex flex-col px-2 py-0.5 cursor-pointer hover:bg-[#ececec] ${i !== DurationTypes.length - 1 && 'border-b border-[#ebeaea]'}`} onClick={() => CommmitHandlerForStatus(item)}>
-                                                <div className='flex items-center'>
-                                                    <div>{item}</div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>}
-                                </div>
+                                <StatusSelector Statuses={DurationTypes} status={type} HandleFunction={CommmitHandlerForStatus} select={select} toggle={() => setSelect(!select)}/>
                             </div>
                         </div>
                         <div className='flex items-center mt-8 relative'>

@@ -12,7 +12,7 @@ import { Apis, UserPostApi } from '../../services/API'
 import Cookies from 'js-cookie'
 import { decodeToken } from 'react-jwt'
 import { countryApi } from '../../services/CountryAPI'
-import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
+import CountrySelector from '../../GeneralComponents/CountrySelector';
 
 
 const SignupPage = () => {
@@ -24,13 +24,10 @@ const SignupPage = () => {
   const EyeIcon = eye === true ? IoEye : IoMdEyeOff
   const EyeIcon2 = eye2 === true ? IoEye : IoMdEyeOff
   const [loading, setLoading] = useState(false)
-  const [countries, setCountries] = useState(countryApi)
-  const [countryshow, setCountryShow] = useState(false)
   const [usercountry, setUserCountry] = useState({
     name: 'select',
     flag: null
   })
-  const [search, setSearch] = useState('')
   const imgref = useRef()
 
   const [profile, setProfile] = useState({
@@ -63,7 +60,7 @@ const SignupPage = () => {
     }
     if (!file.type.startsWith('image/')) {
       imgref.current.value = null
-      return ErrorAlert('File Error')
+      return ErrorAlert('File error, invalid image format')
     }
 
     setProfile({
@@ -150,19 +147,6 @@ const SignupPage = () => {
     }
   }
 
-  const FilterCountry = () => {
-    const altCountries = countryApi
-    if (!search) {
-      setCountries(countryApi)
-    }
-    else {
-      let searchResult = altCountries.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
-      setCountries(searchResult)
-    }
-  }
-
-
-
 
   return (
     <Pagelayout>
@@ -213,39 +197,10 @@ const SignupPage = () => {
                               </div>
                             </div>
                             <div className='grid grid-cols-1 md:grid-cols-2 md:gap-8 gap-[0.7rem] w-full'>
-                              <div className='relative'>
                                 <div className='flex flex-col gap-[0.1rem]'>
                                   <div className='text-sm capitalize font-[550]'>country:</div>
-                                  <div className='flex gap-1 items-center'>
-                                    {usercountry.flag !== null && <img className='h-5 w-auto' src={usercountry.flag}></img>}
-                                    <div className='px-2 py-1 h-fit w-full bg-white sha cursor-pointer rounded-sm' onClick={() => { setCountryShow(!countryshow); setSearch(''); setCountries(countryApi) }}>
-                                      <div className='flex justify-between items-center text-[0.8rem]'>
-                                        <span >{usercountry.name}</span>
-                                        {!countryshow ? <TiArrowSortedDown />
-                                          :
-                                          <TiArrowSortedUp />
-                                        }
-                                      </div>
-                                    </div>
-                                  </div>
+                                  <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} />
                                 </div>
-                                {countryshow && <div className='h-fit w-full bg-white sha absolute top-[3.4rem] left-0 z-10 py-2 rounded-sm '>
-                                  <div className='px-4'>
-                                    <input className='ipt border border-semi-white bg-transparent text-black px-2 py-1 w-full outline-none md:text-[0.85rem] text-base md:h-6 h-7 rounded-sm mb-1' type='text' placeholder='search' value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={FilterCountry}></input>
-                                  </div>
-                                  <div className='overflow-y-auto scroll h-[8.5rem] px-4'>
-                                    {countries.map((item, i) => (
-                                      <div className='flex flex-col mt-2' key={i}>
-                                        <div className='flex gap-2 items-center cursor-pointer hover:bg-semi-white' onClick={() => { setUserCountry(item); setCountryShow(false) }}>
-                                          <img src={item.flag} className='w-4 h-auto object-cover'></img>
-                                          <div className='text-[0.85rem] font-bold'>{item.name}</div>
-                                        </div>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                                }
-                              </div>
                               <div className='flex flex-col gap-[0.3rem] relative'>
                                 <div className='text-sm capitalize font-[550]'>referral code:</div>
                                 <input className='outline-none w-full   border-b border-[#4d4c4c] lg:text-sm text-base  ipt input-off' placeholder='Optional' code type='text' name='referral_code' value={form.referral_code} onChange={inputHandler}></input>

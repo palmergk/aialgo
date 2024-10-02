@@ -12,8 +12,8 @@ import Loading from '../../GeneralComponents/Loading';
 import { Apis, imageurl, UserPutApi } from '../../services/API';
 import ModalLayout from '../../utils/ModalLayout';
 import { Image } from 'antd'
-import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import { PiDownloadLight } from "react-icons/pi"
+import StatusSelector from '../StatusSelector';
 
 const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => {
     const toggler = useRef()
@@ -25,7 +25,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
     const [eye, setEye] = useState(false)
     const EyeIcon = eye === true ? IoEye : IoMdEyeOff
     const [status, setStatus] = useState(Object.values(singleUser).length !== 0 && singleUser.kycUser.length !== 0 && singleUser.kycUser[0].status)
-    const [statusShow, setStatusShow] = useState(false)
+    const [select, setSelect] = useState(false)
     const [update, setUpdate] = useState(false)
     const [loading, setLoading] = useState(false)
     const [reactivate, setReactivate] = useState(false)
@@ -64,7 +64,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
 
     useEffect(() => {
         if (!loading) {
-            if (suspendScreen !== 1 || fundScreen !== 1 || withdrawalScreen !== 1 || statusShow || form.message !== '') {
+            if (suspendScreen !== 1 || fundScreen !== 1 || withdrawalScreen !== 1 || select || form.message !== '') {
                 MoveToBottom()
             }
         }
@@ -122,7 +122,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
             if (response.status === 200) {
                 refetchAllUsers()
                 setReactivate(true)
-            }else {
+            } else {
                 ErrorAlert(response.msg)
             }
         } catch (error) {
@@ -142,7 +142,6 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
 
     const UpdateHandlerForStatus = (item) => {
         setStatus(item)
-        setStatusShow(false)
         if (item === singleUser.kycUser[0].status && form.message === '') {
             setUpdate(false)
         } else {
@@ -280,7 +279,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                     :
                                                     <div className='w-fit h-fit md:px-8 p-6 rounded-md bg-white adsha mx-auto  text-black relative'>
                                                         {loading && <Loading />}
-                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => {setFundScreen(1); setForm({fundAmount: ''})}} />
+                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => { setFundScreen(1); setForm({ fundAmount: '' }) }} />
                                                         <div className='font-[650] border-b text-center uppercase'>Fund {singleUser?.username} account</div>
                                                         <div className='flex flex-col gap-8 items-center justify-center mt-6'>
                                                             <div className='flex flex-col gap-1'>
@@ -304,7 +303,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                     :
                                                     <div className='w-fit h-fit md:px-8 p-6 rounded-md bg-white adsha mx-auto  text-black relative'>
                                                         {loading && <Loading />}
-                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => {setWithdrawalScreen(1); setForm({minimumAmount: ''})}} />
+                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => { setWithdrawalScreen(1); setForm({ minimumAmount: '' }) }} />
                                                         <div className='font-[650] border-b text-center uppercase'>set {singleUser?.username} withdrawal minimum</div>
                                                         <div className='flex flex-col gap-8 items-center justify-center mt-6'>
                                                             <div className='flex gap-4 items-center'>
@@ -371,7 +370,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                     <EyeIcon className='absolute top-2 right-2 text-lg text-[red] cursor-pointer' onClick={() => setEye(!eye)} />
                                                                 </div>
                                                                 <div className='flex md:gap-16 gap-4 items-center'>
-                                                                    <button className='outline-none w-fit h-fit py-2 md:px-4 px-3 md:text-xs text-[0.7rem] text-white  bg-[#5e5d5d] rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => { setSuspendScreen(1); setForm({password: ''}) }}>
+                                                                    <button className='outline-none w-fit h-fit py-2 md:px-4 px-3 md:text-xs text-[0.7rem] text-white  bg-[#5e5d5d] rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => { setSuspendScreen(1); setForm({ password: '' }) }}>
                                                                         <span>cancel action</span>
                                                                         <FaRegRectangleXmark />
                                                                     </button>
@@ -459,28 +458,8 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                 </div>
                                                 <div className='flex justify-between items-center my-6'>
                                                     <div className='italic'>status:</div>
-                                                    {singleUser.kycUser[0].status === 'processing' ? <div className='relative'>
-                                                        <div className='px-2 py-1 h-fit md:w-44 w-36 bg-white rounded-sm sha cursor-pointer' onClick={() => { setStatusShow(!statusShow); MoveToBottom() }} >
-                                                            <div className='flex justify-between items-center text-[0.8rem]'>
-                                                                <span >{status}</span>
-                                                                <div className='text-sm'>
-                                                                    {!statusShow ? <TiArrowSortedDown />
-                                                                        :
-                                                                        <TiArrowSortedUp />
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        {statusShow && <div className='h-fit w-full absolute top-[1.8rem] left-0 bg-white border border-[lightgrey] rounded-md z-10 text-[0.85rem] font-bold'>
-                                                            {Statuses.map((item, i) => (
-                                                                <div key={i} className={`flex flex-col px-2 py-0.5 cursor-pointer hover:bg-[#ececec] ${i !== Statuses.length - 1 && 'border-b border-[#ebeaea]'}`} onClick={() => UpdateHandlerForStatus(item)}>
-                                                                    <div className='flex items-center'>
-                                                                        <div className={`${item === 'verified' && 'text-[green]'} ${item === 'failed' && 'text-[red]'}`}>{item}</div>
-                                                                    </div>
-                                                                </div>
-                                                            ))}
-                                                        </div>}
-                                                    </div>
+                                                    {singleUser.kycUser[0].status === 'processing' ?
+                                                         <StatusSelector Statuses={Statuses} status={status} HandleFunction={UpdateHandlerForStatus} select={select} toggle={() => setSelect(!select)} />
                                                         :
                                                         <div className={`md:text-base text-sm capitalize ${singleUser.kycUser[0].status === 'verified' && 'text-[green]'} ${singleUser.kycUser[0].status === 'failed' && 'text-[red]'}`}>{singleUser.kycUser[0]?.status}</div>
                                                     }

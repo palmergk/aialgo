@@ -3,7 +3,7 @@ import Dashboard from './Dashboard'
 import { RiHistoryFill, RiMoneyDollarCircleFill } from 'react-icons/ri'
 import { Apis, UserGetApi } from '../../../services/API'
 import moment from 'moment'
-import { FaAngleLeft, FaAngleRight} from 'react-icons/fa6'
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import nothnyet from '../../../assets/images/nothn.png'
 import { IoIosSearch } from 'react-icons/io'
 import { SiBitcoincash } from 'react-icons/si'
@@ -19,9 +19,9 @@ const TaxPayment = () => {
 
     const [searchParams] = useSearchParams()
     const params = searchParams.get('screen')
+    const [screen, setScreen] = useState(params ? parseInt(params) : 1)
     const [original, setOriginal] = useState([])
     const [taxes, setTaxes] = useState([])
-    const [screen, setScreen] = useState(params ? parseInt(params) : 1)
     const [modal, setModal] = useState(false)
     const [search, setSearch] = useState('')
     const [start, setStart] = useState(0)
@@ -45,7 +45,7 @@ const TaxPayment = () => {
 
         } catch (error) {
             //
-        }finally{
+        } finally {
             setDataLoading(false)
         }
     }, [])
@@ -136,7 +136,7 @@ const TaxPayment = () => {
                 {screen === 1 &&
                     <div className='flex justify-center'>
                         <div className='my-10 bg-semi-white w-fit h-fit rounded-xl relative'>
-                            {modal && <PayTaxModal closeView={() => setModal(false)} setScreen={setScreen}  refetchTaxes={FetchTaxes} />}
+                            {modal && <PayTaxModal closeView={() => setModal(false)} setScreen={setScreen} refetchTaxes={FetchTaxes} />}
                             <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-b-sm rounded-t-xl border-b border-[#5BB4FD] mx-auto flex flex-col gap-2'>
                                 <button className='w-fit h-fit md:text-sm text-xs font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center ml-auto' onClick={() => { setModal(true) }}>
                                     <span>pay tax</span>

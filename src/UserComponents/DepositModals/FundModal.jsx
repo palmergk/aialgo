@@ -11,7 +11,7 @@ import nothnyet from '../../assets/images/nothn.png'
 import QRCode from "react-qr-code";
 
 
-const FundModal = ({ closeView, setScreen, refetchDeposits }) => {
+const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
   const [adminCryptoWallets] = useAtom(ADMINCRYPTOWALLETS)
   const [, setNotifications] = useAtom(NOTIFICATIONS)
   const [, setUnreadNotis] = useAtom(UNREADNOTIS)
@@ -61,7 +61,7 @@ const FundModal = ({ closeView, setScreen, refetchDeposits }) => {
         setNotifications(response.notis)
         setUnreadNotis(response.unread)
         setScreen(2)
-        closeView()
+        closeModal()
       } else {
         ErrorAlert(response.msg)
       }
@@ -77,7 +77,7 @@ const FundModal = ({ closeView, setScreen, refetchDeposits }) => {
     <div className='w-full h-full absolute top-0 left-0 flex items-center justify-center bg-[#0c091aa4] z-20'>
       <div className='w-96 h-fit bg-white rounded-lg py-4 overflow-hidden relative'>
         {loading && <Loading />}
-        <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
+        <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeModal()} />
         <div className='font-bold uppercase border-b w-full text-center'>fund wallet</div>
         <div className='flex flex-col gap-5 items-center px-4 mt-5'>
           <div className='flex flex-col gap-1'>

@@ -7,7 +7,7 @@ import { Apis, PostApi } from '../../services/API'
 import { WALLET } from '../../store'
 import { ErrorAlert, SuccessAlert } from '../../utils/utils'
 
-const BuyPlanModal = ({ setModal, buybal, setModal2 }) => {
+const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
     const [userwallet] = useAtom(WALLET)
 
     const [amount, setAmount] = useState('')
@@ -37,10 +37,10 @@ const BuyPlanModal = ({ setModal, buybal, setModal2 }) => {
             const response = await PostApi(Apis.investment.create_investment, formbody)
             if (response.status === 200) {
                 SuccessAlert(response.msg)
-                setModal(false)
+                closeModal()
                 navigate('/dashboard/investment')
             } else {
-               ErrorAlert(response.msg)
+                ErrorAlert(response.msg)
             }
         } catch (error) {
             ErrorAlert(`${error.message}`)
@@ -53,7 +53,7 @@ const BuyPlanModal = ({ setModal, buybal, setModal2 }) => {
         <div className='w-full h-full absolute top-0 left-0 flex items-center justify-center bg-[#0c091aa4] z-20'>
             <div className='w-96 h-fit bg-white rounded-lg p-4 flex flex-col gap-4 relative overflow-hidden'>
                 {loading && <Loading />}
-                <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => setModal(false)} />
+                <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeModal()} />
                 <div className='flex items-center gap-2 justify-center'>
                     <div className='text-[0.85rem] uppercase font-bold'>{buybal.title} plan</div>
                     <div className={`text-xs font-[550] bg-white py-1 px-2 rounded-full adsha ${error === 'limit' ? 'text-[red]' : 'text-black'} `}>${buybal.price_start.toLocaleString()} - ${buybal.price_limit.toLocaleString()}</div>
@@ -68,7 +68,7 @@ const BuyPlanModal = ({ setModal, buybal, setModal2 }) => {
                         {Object.values(userwallet).length !== 0 && <div>${userwallet.balance.toLocaleString()}</div>}
                     </div>
                 </div>
-                <div className='text-xs text-center font-medium'>low wallet balance? <span className='underline text-[#5BB4FD] cursor-pointer' onClick={() => { setModal(false); setModal2(true) }}>Deposit</span></div>
+                <div className='text-xs text-center font-medium'>low wallet balance? <span className='underline text-[#5BB4FD] cursor-pointer' onClick={() => { closeModal(); openModal() }}>Deposit</span></div>
                 <div className='my-2 mx-auto'>
                     <button className='py-2 px-16 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={BuyPlanWithBalance}>confirm purchase</button>
                 </div>

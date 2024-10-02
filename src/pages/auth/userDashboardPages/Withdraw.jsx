@@ -28,9 +28,9 @@ const Withdraw = () => {
 
     const [searchParams] = useSearchParams()
     const params = searchParams.get('screen')
+    const [screen, setScreen] = useState(params ? parseInt(params) : 1)
     const [original, setOriginal] = useState([])
     const [withdrawals, setWithdrawals] = useState([])
-    const [screen, setScreen] = useState(params ? parseInt(params) : 1)
     const [select, setSelect] = useState(false)
     const [mode, setMode] = useState(1)
     const [firstValues, setFirstValues] = useState({})

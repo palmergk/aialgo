@@ -11,7 +11,7 @@ import { PiTelegramLogoLight } from "react-icons/pi";
 import { TfiInstagram } from "react-icons/tfi";
 import { GrFacebookOption } from 'react-icons/gr';
 import avatar from '../../../../assets/images/avatar.png'
-import { Alert, ErrorAlert, SuccessAlert } from '../../../../utils/utils'
+import { ErrorAlert, SuccessAlert } from '../../../../utils/utils'
 import SettingsLayout from '../../../../AdminComponents/SettingsComponents/SettingsLayout'
 
 const Personalize = () => {

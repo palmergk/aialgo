@@ -19,10 +19,10 @@ import lines from '../../../assets/images/lines2.png'
 const Investment = () => {
     const [searchParams] = useSearchParams()
     const params = searchParams.get('screen')
+    const [screen, setScreen] = useState(params ? parseInt(params) : 1)
     const [original, setOriginal] = useState([])
     const [investment, setInvestment] = useState([])
     const [investmentUnclaim, setInvestUnclaim] = useState([])
-    const [screen, setScreen] = useState(params ? parseInt(params) : 1)
     const [search, setSearch] = useState('')
     const [start, setStart] = useState(0)
     const [end, setEnd] = useState(6)

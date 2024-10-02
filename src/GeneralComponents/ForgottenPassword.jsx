@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { IoLockClosedOutline, IoLockOpenOutline } from "react-icons/io5";
 import { FaArrowRight } from "react-icons/fa6";
 import { RiVerifiedBadgeLine } from "react-icons/ri";
@@ -6,9 +6,9 @@ import { IoEye } from "react-icons/io5";
 import { IoMdEyeOff } from "react-icons/io";
 import { MdVerified } from "react-icons/md";
 import { Apis, UserPostApi } from '../services/API';
-import { Alert } from '../utils/utils';
 import Loading from './Loading';
 import ModalLayout from '../utils/ModalLayout';
+import { ErrorAlert, SuccessAlert } from '../utils/utils';
 
 const ForgottenPassword = ({ closeView }) => {
     const toggler = useRef()
@@ -18,8 +18,6 @@ const ForgottenPassword = ({ closeView }) => {
     const [eye2, setEye2] = useState(false)
     const EyeIcon = eye === true ? IoEye : IoMdEyeOff
     const EyeIcon2 = eye2 === true ? IoEye : IoMdEyeOff
-    const [error, setError] = useState('')
-    const [errorMsg, setErrorMsg] = useState('')
 
     const [form, setForm] = useState({
         email: '',
@@ -38,15 +36,7 @@ const ForgottenPassword = ({ closeView }) => {
     const FindEmail = async (e) => {
         e.preventDefault()
 
-        setTimeout(() => {
-            setError('')
-            setErrorMsg('')
-        }, 1500)
-
-        if (!form.email) {
-            setError('email')
-            return setErrorMsg('enter your email address')
-        }
+        if (!form.email) return ErrorAlert('Enter email address')
 
         setLoading(true)
         try {
@@ -56,14 +46,13 @@ const ForgottenPassword = ({ closeView }) => {
 
             const response = await UserPostApi(Apis.user.find_email, formbody)
             if (response.status === 200) {
+                SuccessAlert('Verification code sent to mail')
                 setScreen(2)
             } else {
-                setError('email')
-                return setErrorMsg(`${response.msg}`)
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            setError('email')
-            return setErrorMsg(`${error.message}`)
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -72,15 +61,7 @@ const ForgottenPassword = ({ closeView }) => {
     const VerifyEmail = async (e) => {
         e.preventDefault()
 
-        setTimeout(() => {
-            setError('')
-            setErrorMsg('')
-        }, 1500)
-
-        if (!form.code) {
-            setError('code')
-            return setErrorMsg('verification code is required')
-        }
+        if (!form.code) return ErrorAlert('Enter verification code sent')
 
         setLoading(true)
         try {
@@ -93,12 +74,10 @@ const ForgottenPassword = ({ closeView }) => {
             if (response.status === 200) {
                 setScreen(3)
             } else {
-                setError('code')
-                return setErrorMsg(`${response.msg}`)
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            setError('code')
-            return setErrorMsg(`${error.message}`)
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -107,23 +86,9 @@ const ForgottenPassword = ({ closeView }) => {
     const ChangePassword = async (e) => {
         e.preventDefault()
 
-        setTimeout(() => {
-            setError('')
-            setErrorMsg('')
-        }, 1500)
-
-        if (!form.new_password) {
-            setError('password')
-            return setErrorMsg('enter new password')
-        }
-        if (!form.confirm_password) {
-            setError('confirm_p')
-            return setErrorMsg('confirm new password')
-        }
-        if (form.confirm_password !== form.new_password) {
-            setError('confirm_p')
-            return setErrorMsg('passwords mismatch')
-        }
+        if (!form.new_password) return ErrorAlert('Enter a password')
+        if (!form.confirm_password) return ErrorAlert('Confirm password')
+        if (form.confirm_password !== form.new_password) return ErrorAlert('Passwords mismatch')
 
         setLoading(true)
         try {
@@ -135,12 +100,13 @@ const ForgottenPassword = ({ closeView }) => {
 
             const response = await UserPostApi(Apis.user.change_password, formbody)
             if (response.status === 200) {
+                SuccessAlert(response.msg)
                 setScreen(4)
             } else {
-                Alert('Request Failed', `${response.msg}`, 'error')
+                ErrorAlert(response.msg)
             }
         } catch (error) {
-            return Alert('Request Failed', `${error.message}`, 'error')
+            ErrorAlert(`${error.message}`)
         } finally {
             setLoading(false)
         }
@@ -167,7 +133,6 @@ const ForgottenPassword = ({ closeView }) => {
                                     <div className='flex flex-col gap-2 relative'>
                                         <div className='text-xs capitalize font-[600]'>enter email address</div>
                                         <input className='outline-none w-full border-b border-black lg:text-[0.9rem] text-base ipt input-off' type='email' placeholder='E.g: john14@gmail.com' name='email' value={form.email} onChange={formHandler}></input>
-                                        {error === 'email' && <div className='text-xs text-[red] absolute -bottom-4 left-0'>{errorMsg}</div>}
                                     </div>
                                     <div className='flex items-center justify-center mt-2'>
                                         <button className='outline-none bg-orange py-2 md:px-24 h-fit md:w-fit w-full rounded-md capitalize text-[0.9rem] text-white cursor-pointer font-[550]' >find account</button>
@@ -190,7 +155,6 @@ const ForgottenPassword = ({ closeView }) => {
                                     <div className='flex flex-col gap-2 relative'>
                                         <div className='text-xs capitalize font-[600]'>enter verification code:</div>
                                         <input className='outline-none w-full  border-b border-black lg:text-[0.9rem] text-base input-off ipt' type='text' placeholder='Six digits code' name='code' value={form.code} onChange={formHandler}></input>
-                                        {error === 'code' && <div className='text-xs text-[red] absolute -bottom-4 left-0'>{errorMsg}</div>}
                                     </div>
                                     <div className='flex items-center justify-center mt-2'>
                                         <button className='outline-none bg-orange py-2 md:px-[7.5rem] h-fit md:w-fit w-full rounded-md capitalize text-[0.9rem] text-white cursor-pointer font-[550]' >verify email</button>
@@ -214,13 +178,11 @@ const ForgottenPassword = ({ closeView }) => {
                                         <div className='text-xs capitalize font-[600]'>enter new password</div>
                                         <input className='outline-none w-full  border-b border-black lg:text-[0.9rem] text-base input-off  ipt' type={eye === true ? 'text' : 'password'} placeholder='Characters more than five' name='new_password' value={form.new_password} onChange={formHandler}></input>
                                         <EyeIcon className='absolute bottom-0 right-0 text-base text-orange cursor-pointer' onClick={() => setEye(!eye)} />
-                                        {error === 'password' && <div className='text-xs text-[red] absolute -bottom-4 left-0'>{errorMsg}</div>}
                                     </div>
                                     <div className='flex flex-col gap-2 relative'>
                                         <div className='text-xs capitalize font-[600]'>confirm password</div>
                                         <input className='outline-none w-full  border-b border-black lg:text-[0.9rem] text-base input-off ipt' type={eye2 === true ? 'text' : 'password'} placeholder='Re-type password' name='confirm_password' value={form.confirm_password} onChange={formHandler}></input>
                                         <EyeIcon2 className='absolute bottom-0 right-0 text-base text-orange cursor-pointer' onClick={() => setEye2(!eye2)} />
-                                        {error === 'confirm_p' && <div className='text-xs text-[red] absolute -bottom-4 left-0'>{errorMsg}</div>}
                                     </div>
                                     <div className='flex items-center justify-center mt-2'>
                                         <button className='outline-none bg-orange py-2 md:px-24 h-fit ,md:w-fit w-full rounded-md capitalize text-[0.8rem] text-white cursor-pointer font-[550]'>change password</button>
@@ -235,8 +197,8 @@ const ForgottenPassword = ({ closeView }) => {
                                 <div className='w-12 h-12 border-2 border-[green] rounded-full flex items-center justify-center'>
                                     <RiVerifiedBadgeLine className='text-2xl text-[green]' />
                                 </div>
-                                <div className='text-[0.9rem] font-extrabold uppercase text-center'>password Reset!</div>
-                                <div className='text-center text-[0.8rem] font-[600]'>Password reset successful, you can now login with new password created</div>
+                                <div className='text-[0.9rem] font-extrabold uppercase text-center'>password Reset</div>
+                                <div className='text-center text-[0.8rem] font-[600]'>Password change successful, you can now login with new password created</div>
                                 <div className='flex gap-1 cursor-pointer mt-4 items-center text-sm text-[green] hover:text-orange' onClick={closeView}>
                                     <div className='font-[600]'>Back to login</div>
                                     <FaArrowRight />

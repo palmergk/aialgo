@@ -5,11 +5,11 @@ import { NOTIFICATIONS, PROFILE, UNREADNOTIS } from '../../../../store'
 import { MdVerified } from 'react-icons/md'
 import { useAtom } from 'jotai'
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti'
-import { countryApi } from '../../../../services/CountryAPI'
-import { PhoneCodesApi } from '../../../../services/PhoneCodes'
 import { FiUploadCloud } from 'react-icons/fi'
 import { Apis, PostApi, UserGetApi } from '../../../../services/API'
 import { ErrorAlert, SuccessAlert } from '../../../../utils/utils'
+import CountrySelector from '../../../../GeneralComponents/CountrySelector'
+import PhoneSelector from '../../../../GeneralComponents/PhoneSelector'
 
 const Genders = [
     "male",
@@ -35,17 +35,11 @@ const VerifyKYC = () => {
     const [genderShow, setGenderShow] = useState(false)
     const [marital, setMarital] = useState('select')
     const [maritalShow, setMaritalShow] = useState(false)
-    const [countries, setCountries] = useState(countryApi)
-    const [countryshow, setCountryShow] = useState(false)
     const [usercountry, setUserCountry] = useState({
         name: 'select',
         flag: null
     })
-    const [searchCountry, setSearchCountry] = useState('')
-    const [phones, setPhones] = useState(PhoneCodesApi)
     const [phoneCode, setPhoneCode] = useState('+44')
-    const [phoneShow, setPhoneShow] = useState(false)
-    const [searchPhone, setSearchPhone] = useState('')
     const idref = useRef()
     const [id, setId] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -114,28 +108,6 @@ const VerifyKYC = () => {
         setId(file)
     }
 
-    const FilterCountry = () => {
-        const altCountries = countryApi
-        if (!searchCountry) {
-            setCountries(countryApi)
-        }
-        else {
-            let searchResult = altCountries.filter(item => item.name.toLowerCase().includes(searchCountry.toLowerCase()))
-            setCountries(searchResult)
-        }
-    }
-
-    const FilterPhone = () => {
-        const altPhones = PhoneCodesApi
-        if (!searchPhone) {
-            setPhones(PhoneCodesApi)
-        }
-        else {
-            let searchResult = altPhones.filter(item => item.name.toLowerCase().includes(searchPhone.toLowerCase()) || item.dial_code.includes(searchPhone))
-            setPhones(searchResult)
-        }
-    }
-
     const Create_Update_KYC = async () => {
 
         if (!form.first_name) return ErrorAlert('Enter first name')
@@ -151,7 +123,7 @@ const VerifyKYC = () => {
         if (!form.id_number) return ErrorAlert('Enter Identification number')
         if (id === null) return ErrorAlert('Provide valid ID')
 
-        if(kyc.status === 'verified') return ErrorAlert('KYC is verified')
+        if (kyc.status === 'verified') return ErrorAlert('KYC is verified')
 
         if (form.first_name === kyc.first_name && form.last_name === kyc.last_name && form.address === kyc.address && form.state === kyc.state && form.postal === kyc.postal && form.date_of_birth === kyc.date_of_birth && form.phone_number === kyc.phone_number && form.id_number === kyc.id_number && phoneCode === kyc.phone_code && gender === kyc.gender && marital === kyc.marital_status && usercountry.name === kyc.country && id.name === kyc.valid_id) return ErrorAlert('No changes made')
 
@@ -277,41 +249,9 @@ const VerifyKYC = () => {
                                 <div className='md:text-sm text-xs capitalize font-semibold '>date of birth:</div>
                                 <input type='date' value={form.date_of_birth} name='date_of_birth' className='w-full h-fit text-black py-1 px-2 rounded-[3px] shantf outline-none text-[0.8rem] font-semibold bg-white text-left' placeholder={`${!form.date_of_birth ? 'select' : ''}`} onChange={formHandler} />
                             </div>
-                            <div className='relative'>
-                                <div className='flex flex-col gap-1'>
-                                    <div className='text-sm capitalize font-semibold'>country:</div>
-                                    <div className='flex gap-1 items-center'>
-                                        {usercountry.flag !== null && <img className='h-5 w-auto' src={usercountry.flag}></img>}
-                                        <div className='px-2 py-1 h-fit w-full bg-white shantf cursor-pointer rounded-sm' onClick={() => { setCountryShow(!countryshow); setSearchCountry(''); setCountries(countryApi) }}>
-                                            <div className='flex justify-between items-center text-[0.8rem] text-black'>
-                                                <span className='font-semibold'>{usercountry.name}</span>
-                                                <div className='text-sm'>
-                                                    {!countryshow ? <TiArrowSortedDown />
-                                                        :
-                                                        <TiArrowSortedUp />
-                                                    }
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {countryshow &&
-                                    <div className='h-fit w-full bg-white shantf absolute top-[3.4rem] left-0 z-10 py-2 rounded-sm '>
-                                        <div className='px-4'>
-                                            <input className='ipt border border-[#a7a6a6] bg-transparent text-black px-2 py-1 w-full outline-none md:text-[0.85rem] text-base md:h-6 h-7 rounded-sm mb-1' type='text' placeholder='search' value={searchCountry} onChange={(e) => setSearchCountry(e.target.value)} onKeyUp={FilterCountry}></input>
-                                        </div>
-                                        <div className='overflow-y-auto scroll h-28 px-4'>
-                                            {countries.map((item, i) => (
-                                                <div className='flex flex-col mt-2' key={i}>
-                                                    <div className='flex gap-2 items-center text-black cursor-pointer hover:bg-semi-white' onClick={() => { setUserCountry(item); setCountryShow(false) }}>
-                                                        <img src={item.flag} className='w-4 h-auto object-cover'></img>
-                                                        <div className='text-[0.85rem] font-bold'>{item.name}</div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                }
+                            <div className='flex flex-col gap-1'>
+                                <div className='text-sm capitalize font-semibold'>country:</div>
+                                <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} className='!shadow-shanft' />
                             </div>
                         </div>
                         <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
@@ -332,34 +272,8 @@ const VerifyKYC = () => {
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>phone number:</div>
                                 <div className='flex gap-2 items-center'>
-                                    <div className='relative'>
-                                        <div className='py-1 px-2 h-fit w-fit bg-white shantf cursor-pointer rounded-sm' onClick={() => { setPhoneShow(!phoneShow); setSearchPhone(''); setPhones(PhoneCodesApi) }}>
-                                            <div className='flex gap-1 items-center text-[0.8rem] text-black'>
-                                                <span className='font-semibold'>{phoneCode}</span>
-                                                <div className='text-sm'>
-                                                    {!phoneShow ? <TiArrowSortedDown />
-                                                        :
-                                                        <TiArrowSortedUp />
-                                                    }
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {phoneShow &&
-                                            <div className='h-fit w-full bg-white shantf absolute top-[1.85rem] left-0 z-10 py-2 rounded-sm '>
-                                                <div className='px-1'>
-                                                    <input className='ipt border border-[#a7a6a6] bg-transparent text-black px-1 py-1 w-full outline-none md:text-[0.85rem] text-base md:h-6 h-7 rounded-sm mb-1' type='text' placeholder='search' value={searchPhone} onChange={(e) => setSearchPhone(e.target.value)} onKeyUp={FilterPhone}></input>
-                                                </div>
-                                                <div className='overflow-y-auto scrollDiv h-28 px-2'>
-                                                    {phones.map((item, i) => (
-                                                        <div className='flex flex-col mt-2' key={i}>
-                                                            <div className='flex gap-2 items-center text-black cursor-pointer hover:bg-semi-white' onClick={() => { setPhoneCode(item.dial_code); setPhoneShow(false) }}>
-                                                                <div className='text-[0.85rem] font-bold'>{item.dial_code}</div>
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        }
+                                    <div>
+                                        <PhoneSelector phoneCode={phoneCode} setPhoneCode={setPhoneCode} className='!shadow-shanft'/>
                                     </div>
                                     <div>
                                         <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.phone_number} name='phone_number' onChange={formHandler}></input>
