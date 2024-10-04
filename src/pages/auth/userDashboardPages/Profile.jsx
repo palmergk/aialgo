@@ -15,10 +15,10 @@ import { CookieName, ErrorAlert, MoveToTop, SuccessAlert } from '../../../utils/
 import { IoMdEyeOff } from 'react-icons/io';
 import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
-import LoadingAdmin from '../../../GeneralComponents/LoadingAdmin';
 import membership from '../../../assets/images/membership.png'
 import avatar from '../../../assets/images/avatar.png'
 import Dashboard from './Dashboard';
+import Loading from '../../../GeneralComponents/Loading';
 
 
 const Profile = () => {
@@ -201,7 +201,7 @@ const Profile = () => {
     return (
         <Dashboard>
             <div className='relative'>
-                {loading && screen === 1 && <LoadingAdmin />}
+                {loading && screen === 1 && <Loading className="!bg-[#0c091aa4]" />}
                 <div className='uppercase font-bold md:text-2xl text-lg text-semi-white'>profile</div>
                 <div>
                     <div className='flex items-center justify-center mt-10'>
@@ -275,7 +275,7 @@ const Profile = () => {
                                     </button>
                                 </div>
                             </div>
-                            <div className='italic md:text-[0.75rem] text-[0.65rem] text-center ml-auto -mt-4 text-[#2fbe2f] py-0.5 px-1 bg-[#130e27]'>refer and earn {Object.values(adminStore).length !== 0 && <span>{adminStore.referral_bonus_percentage}%</span>} commission of your referral(s) first deposit</div>
+                            <div className='italic md:text-[0.75rem] text-[0.65rem] text-center ml-auto -mt-4 text-[#2fbe2f] py-0.5 px-1 bg-[#130e27]'>refer and earn {adminStore?.referral_bonus_percentage}% commission on your referral(s) first deposit</div>
                             <div className='flex justify-between items-center  capitalize'>
                                 <div>full name:</div>
                                 {!nameEdit && <div className='flex gap-4'>
@@ -366,7 +366,7 @@ const Profile = () => {
                             <MdOutlineDeleteForever />
                         </div>}
                         {screen !== 1 && <div className=' w-fit h-fit bg-semi-white rounded-xl md:p-8 p-4 mx-auto relative shlz '>
-                            {loading && <LoadingAdmin />}
+                            {loading && <Loading className="!bg-[#0c091aa4]" />}
                             {screen === 2 && <div>
                                 <div className='text-center md:text-[1.1rem] text-sm text-black font-medium'>Are you sure you want to delete your account?</div>
                                 <div className='flex justify-center items-center gap-0.5 mt-2 md:text-[0.8rem] text-xs text-admin-btn'>

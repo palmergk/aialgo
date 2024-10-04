@@ -107,7 +107,7 @@ const ContactPage = () => {
                         <textarea placeholder='Write A Message' className='p-2 h-32 lg:text-[0.9rem] text-base resize-none outline-none focus:border focus:border-orange ipt rounded-sm' name='message' value={form.message} onChange={inputHandler}></textarea>
                       </div>
                       <div className='flex justify-center mt-2'>
-                        <button className='outline-none bg-orange text-[0.9rem] text-white flex gap-1 items-center justify-center w-fit h-fit px-8 py-1 rounded-[3px] capitalize font-bold'>
+                        <button className='outline-none bg-orange text-[0.9rem] text-white flex gap-1 items-center justify-center w-fit h-fit px-8 md:py-1 py-1.5 rounded-[3px] capitalize font-bold'>
                           <div>send</div>
                           <BiMailSend />
                         </button>
@@ -122,17 +122,17 @@ const ContactPage = () => {
                 <div className='grid grid-cols-1 gap-2 items-center lg:flex lg:justify-between h-full' >
                   <div className='text-white text-[0.9rem] capitalize font-[550] text-center'>reach us via:</div>
                   <div className='flex gap-4 justify-center'>
-                    <a href={adminstore.telegram}>
+                    <a href={adminstore?.telegram}>
                       <div className='h-8 w-8 border-2 bg-white rounded-full flex items-center justify-center hover:translate-y-[-0.1rem] cursor-pointer  transition-all text-orange text-lg hover:text-black'>
                         <PiTelegramLogoLight />
                       </div>
                     </a>
-                    <a href={adminstore.instagram}>
+                    <a href={adminstore?.instagram}>
                       <div className='h-8 w-8 border-2 bg-white  rounded-full flex items-center justify-center hover:translate-y-[-0.1rem] cursor-pointer transition-all text-orange text-lg hover:text-black'>
                         <TfiInstagram />
                       </div>
                     </a>
-                    <a href={adminstore.facebook}>
+                    <a href={adminstore?.facebook}>
                       <div className='h-8 w-8 border-2 bg-white  rounded-full flex items-center justify-center hover:translate-y-[-0.1rem] cursor-pointer transition-all text-orange text-[1.rem] hover:text-black'>
                         <GrFacebookOption />
                       </div>

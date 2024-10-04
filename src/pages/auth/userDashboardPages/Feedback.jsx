@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import LoadingAdmin from '../../../GeneralComponents/LoadingAdmin';
 import { useAtom } from 'jotai'
 import { PROFILE } from '../../../store'
 import { MdOutlineHearing } from 'react-icons/md'
@@ -8,6 +7,7 @@ import { Apis, UserPostApi } from '../../../services/API'
 import { ErrorAlert, SuccessAlert } from '../../../utils/utils'
 import contact from '../../../assets/images/contactus.png'
 import Dashboard from './Dashboard'
+import Loading from '../../../GeneralComponents/Loading'
 
 const Feedback = () => {
     const [user] = useAtom(PROFILE)
@@ -59,7 +59,7 @@ const Feedback = () => {
         <Dashboard>
             <div className='relative'>
                 <div className='uppercase font-bold md:text-2xl text-lg text-semi-white '>send feedback</div>
-                {loading && <LoadingAdmin />}
+                {loading && <Loading className="!bg-[#0c091aa4]" />}
                 <div className='md:w-3/4 w-11/12 mx-auto flex flex-col gap-12 mt-16'>
                     <div>
                         <div className='flex items-center justify-center'>

@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import { MdVerified } from 'react-icons/md';
-import LoadingAdmin from '../../../../GeneralComponents/LoadingAdmin';
 import { Apis, UserPostApi } from '../../../../services/API';
 import { ErrorAlert, SuccessAlert } from '../../../../utils/utils';
 import { PROFILE } from '../../../../store';
 import { useAtom } from 'jotai';
 import VerifyLayout from '../../../../UserComponents/VerifyLayout';
+import Loading from '../../../../GeneralComponents/Loading';
 
 const VerifyEmail = () => {
     const [user, setUser] = useAtom(PROFILE)
-
     const [screen, setScreen] = useState(1)
     const [loading, setLoading] = useState(false)
 
@@ -85,7 +84,7 @@ const VerifyEmail = () => {
     return (
         <VerifyLayout>
             <div className='relative'>
-                {loading && <LoadingAdmin />}
+                {loading && <Loading className="!bg-[#0c091aa4]" />}
                 <div className='flex flex-col justify-center items-center gap-14 pt-16'>
                     <div className='flex flex-col gap-2 items-center text-semi-white'>
                         <div className='flex gap-2 items-center md:text-4xl text-2xl capitalize font-bold'>

@@ -3,26 +3,25 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { BiMoneyWithdraw } from 'react-icons/bi'
 import { IoIosSearch } from 'react-icons/io'
 import { RiHistoryFill } from 'react-icons/ri'
-import { ADMINCRYPTOWALLETS, NOTIFICATIONS, PROFILE, UNREADNOTIS, WALLET } from '../../../store'
+import { NOTIFICATIONS, PROFILE, UNREADNOTIS, WALLET } from '../../../store'
 import moment from 'moment'
-import LoadingAdmin from '../../../GeneralComponents/LoadingAdmin'
 import { ErrorAlert, MoveToTop, SuccessAlert } from '../../../utils/utils'
-import { Apis, imageurl, PostApi, UserGetApi } from '../../../services/API'
+import { Apis, PostApi, UserGetApi } from '../../../services/API'
 import { FiX } from 'react-icons/fi'
 import wthwallet from '../../../assets/images/wthwallet.png'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
-import { SiBitcoincash } from "react-icons/si";
 import { GiTwoCoins } from "react-icons/gi";
 import nothnyet from '../../../assets/images/nothn.png'
 import Dashboard from './Dashboard'
 import { Link, useSearchParams } from 'react-router-dom'
+import Loading from '../../../GeneralComponents/Loading'
+import CryptoSelector from '../../../GeneralComponents/CryptoSelector'
 
 
 
 const Withdraw = () => {
     const [user] = useAtom(PROFILE)
     const [userwallet, setUserWallet] = useAtom(WALLET)
-    const [adminCryptoWallets] = useAtom(ADMINCRYPTOWALLETS)
     const [, setNotifications] = useAtom(NOTIFICATIONS)
     const [, setUnreadNotis] = useAtom(UNREADNOTIS)
 
@@ -31,10 +30,7 @@ const Withdraw = () => {
     const [screen, setScreen] = useState(params ? parseInt(params) : 1)
     const [original, setOriginal] = useState([])
     const [withdrawals, setWithdrawals] = useState([])
-    const [select, setSelect] = useState(false)
-    const [mode, setMode] = useState(1)
-    const [firstValues, setFirstValues] = useState({})
-    const [secondValues, setSecondValues] = useState({})
+    const [cryptoWallets, setCryptoWallets] = useState({})
     const [check, setCheck] = useState('')
     const [error, setError] = useState('')
     const [search, setSearch] = useState('')
@@ -90,17 +86,15 @@ const Withdraw = () => {
         if (form.amount < user.withdrawal_minimum) return setError('minimum')
         if (Object.values(userwallet).length === 0) return setError('balance')
         if (form.amount > userwallet.balance) return setError('balance')
-        if (Object.values(secondValues).length === 0) return setError('select')
+        if (Object.values(cryptoWallets).length === 0) return setError('select')
         if (!form.withdrawal_address) return setError('wallet')
         if (!check) return setError('check')
-        if (user.email_verified === 'false') return ErrorAlert('Complete account verification to continue')
-        if (user.kyc_verified === 'false') return ErrorAlert('Complete account verification to continue')
 
         const formbody = {
             amount: parseFloat(form.amount),
             withdrawal_address: form.withdrawal_address,
-            crypto: secondValues.crypto_name,
-            network: secondValues.network,
+            crypto: cryptoWallets.crypto_name,
+            network: cryptoWallets.network,
         }
 
         setLoading(true)
@@ -117,7 +111,7 @@ const Withdraw = () => {
                     withdrawal_address: ''
                 })
                 setCheck(!check)
-                setSecondValues({})
+                setCryptoWallets({})
                 setScreen(2)
             } else {
                 ErrorAlert(response.msg)
@@ -166,10 +160,8 @@ const Withdraw = () => {
 
             altend += 6
             setEnd(altend)
-
             altstart += 6
             setStart(altstart)
-
             altlengthstart += 1
             setpagestart(altlengthstart)
         }
@@ -184,10 +176,8 @@ const Withdraw = () => {
 
             altend -= 6
             setEnd(altend)
-
             altstart -= 6
             setStart(altstart)
-
             altlengthstart -= 1
             setpagestart(altlengthstart)
         }
@@ -207,7 +197,7 @@ const Withdraw = () => {
                 {screen === 1 &&
                     <div className='flex justify-center'>
                         <div className='mt-10 text-black font-medium h-fit w-fit bg-semi-white shlz rounded-xl overflow-hidden relative'>
-                            {loading && <LoadingAdmin />}
+                            {loading && <Loading className="!bg-[#c5c5c567]" />}
                             <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-b-sm rounded-t-xl border-b border-light mx-auto flex flex-col gap-2'>
                                 <Link to='/dashboard/tax-payment' onClick={MoveToTop} className='w-fit ml-auto'>
                                     <button className='w-fit h-fit md:text-sm text-xs font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center'>
@@ -236,62 +226,14 @@ const Withdraw = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='h-fit w-fit rounded-[0.2rem] bg-white p-1 relative mt-6'>
-                                    <div className={`w-52 py-1 bg-white flex gap-1.5 justify-center items-center capitalize text-sm font-semibold rounded-[0.2rem] text-black cursor-pointer  ${error === 'select' && 'border border-[red]'} shantf`} onClick={() => setSelect(!select)}>
-                                        <div className='text-[0.8rem]'>choose cryptocurrency</div>
-                                        <SiBitcoincash className='text-light' />
-                                    </div>
-                                    {select &&
-                                        <div className={`absolute top-9 left-0 ${adminCryptoWallets.length > 4 ? 'h-24 overflow-y-auto scroll ' : 'h-fit'} w-full bg-white border border-[#a3a3a3] rounded-md z-10 text-[0.85rem] font-bold capitalize`}>
-                                            {adminCryptoWallets.length > 1 ?
-                                                <>
-                                                    {mode === 1 ?
-                                                        <>
-                                                            {adminCryptoWallets.length > 0 &&
-                                                                <>
-                                                                    {adminCryptoWallets.map((item, i) => (
-                                                                        <div className='flex flex-col px-2 py-0.5 hover:bg-[#f8f8f8] border-b border-[#ebeaea] cursor-pointer' key={i} onClick={() => { setFirstValues(item); setMode(2) }}>
-                                                                            <div className='flex gap-2 items-center'>
-                                                                                <img src={`${imageurl}/cryptocurrency/${item.crypto_img}`} className='h-auto w-4'></img>
-                                                                                <div>{item.crypto_name}</div>
-                                                                            </div>
-                                                                        </div>
-                                                                    ))}
-                                                                </>
-                                                            }
-                                                        </>
-                                                        :
-                                                        <div className='relative'>
-                                                            <div className='cursor-pointer absolute top-2 left-0 text-light' onClick={() => setMode(1)}><FaAngleLeft /></div>
-                                                            <div className='py-1 border-b flex justify-center'>
-                                                                <div className='font-medium italic text-xs capitalize text-light border border-[lightgrey] border-dashed py-0.5 px-1'>choose network</div>
-                                                            </div>
-                                                            {firstValues.cryptoWallet.length > 0 &&
-                                                                <>
-                                                                    {firstValues.cryptoWallet.map((item, i) => (
-                                                                        <div className='flex flex-col px-2 py-0.5 hover:bg-[#f8f8f8] border-b border-[#ebeaea] cursor-pointer' key={i} onClick={() => { setSelect(false); setSecondValues(item); setMode(1) }}>
-                                                                            <div>{item.network}</div>
-                                                                        </div>
-                                                                    ))}
-                                                                </>
-                                                            }
-                                                        </div>
-                                                    }
-                                                </>
-                                                :
-                                                <div className='px-2 py-1 flex items-center justify-center lowercase'>
-                                                    <div>no crypto yet...</div>
-                                                    <img src={nothnyet} className='h-3 w-auto'></img>
-                                                </div>
-                                            }
-                                        </div>
-                                    }
+                                <div className='mt-8'>
+                                    <CryptoSelector setCryptoWallets={setCryptoWallets} error={error} className={{hover: "!hover:bg-[#f8f8f8]", bg: "!bg-white", text: "!text-light"}} />
                                 </div>
-                                {Object.values(secondValues).length !== 0 && <div className='flex flex-col gap-2 items-center mt-8'>
-                                    <div className='text-[0.85rem] text-center'>Enter your <span className=' capitalize'>{secondValues.crypto_name}</span> wallet address for <span className=' capitalize'> {secondValues.network}</span> Network</div>
+                                {Object.values(cryptoWallets).length !== 0 && <div className='flex flex-col gap-2 items-center mt-8'>
+                                    <div className='text-[0.85rem] text-center'>Enter your <span className=' capitalize'>{cryptoWallets.crypto_name}</span> wallet address for <span className=' capitalize'> {cryptoWallets.network}</span> Network</div>
                                     <input className={`outline-none border bg-white lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2  ${error === 'wallet' ? 'border-[red]' : 'border-light'}`} name='withdrawal_address' value={form.withdrawal_address} onChange={inputHandler} type='text'></input>
                                 </div>}
-                                <div className='flex flex-col gap-1 items-center relative md:mt-10 mt-8'>
+                                <div className='flex flex-col gap-1 items-center relative mt-8'>
                                     <div className='flex gap-1.5 items-center'>
                                         <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }} className={`${error === 'check' && 'outline outline-1 outline-[red]'}`}></input>
                                         <div className='text-[#252525] text-[0.8rem]'>I provided my correct wallet address</div>

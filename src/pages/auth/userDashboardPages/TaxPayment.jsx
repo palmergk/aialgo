@@ -92,10 +92,8 @@ const TaxPayment = () => {
 
             altend += 6
             setEnd(altend)
-
             altstart += 6
             setStart(altstart)
-
             altlengthstart += 1
             setpagestart(altlengthstart)
         }
@@ -110,10 +108,8 @@ const TaxPayment = () => {
 
             altend -= 6
             setEnd(altend)
-
             altstart -= 6
             setStart(altstart)
-
             altlengthstart -= 1
             setpagestart(altlengthstart)
         }
@@ -154,12 +150,12 @@ const TaxPayment = () => {
                                             <div className='md:h-[4.5rem] md:w-[4.5rem] w-[3.9rem] h-[3.9rem] rounded-full bg-[#252525] flex flex-col gap-1 items-center justify-center'>
                                                 <div className='italic md:text-[0.65rem] text-[0.6rem]'>low as</div>
                                                 <div className='flex items-center font-bold gap-[0.1rem] text-[#5BB4FD] md:text-base text-sm'>
-                                                    {Object.values(adminStore).length !== 0 && <div className='md:text-base text-sm -ml-1'>{adminStore.tax_percentage}%</div>}
+                                                    <div className='md:text-base text-sm -ml-1'>{adminStore?.tax_percentage}%</div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className='text-xs text-[#252525] font-semibold text-center w-11/12 border border-dashed border-[#c0c0c0] p-1 rounded-md leading-[1.1rem]'>
-                                            Reduced {Object.values(adminStore).length !== 0 && <span>{adminStore.tax_percentage}%</span>}taxation on withdrawals is the possible lowest anywhere. Our support team works in hand with users to make sure it stays this way and to continually give users the best trading <span className='italic'>experience</span>.
+                                            Reduced {adminStore?.tax_percentage}% taxation on withdrawals is the possible lowest anywhere. Our support team works in hand with users to make sure it stays this way and to continually give users the best trading <span className='italic'>experience</span>.
                                         </div>
                                         <div className='mb-5 mt-2'>
                                             <button className='w-fit h-fit py-1.5 md:px-6 px-4 rounded-full bg-[#5BB4FD] text-white uppercase font-bold md:text-xs text-[0.65rem]' onClick={() => setModal(true)}>

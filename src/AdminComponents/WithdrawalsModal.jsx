@@ -10,7 +10,9 @@ import ModalLayout from '../utils/ModalLayout'
 import { useAtom } from 'jotai'
 import { ADMINSTORE } from '../store'
 import { RiAiGenerate } from 'react-icons/ri'
-import StatusSelector from './StatusSelector'
+import StatusSelector from '../GeneralComponents/StatusSelector'
+
+
 
 const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }) => {
     const [adminStore] = useAtom(ADMINSTORE)

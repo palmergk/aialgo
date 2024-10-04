@@ -55,8 +55,10 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
                 {loading && <Loading />}
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeModal()} />
                 <div className='flex items-center gap-2 justify-center'>
-                    <div className='text-[0.85rem] uppercase font-bold'>{buybal.title} plan</div>
-                    <div className={`text-xs font-[550] bg-white py-1 px-2 rounded-full adsha ${error === 'limit' ? 'text-[red]' : 'text-black'} `}>${buybal.price_start.toLocaleString()} - ${buybal.price_limit.toLocaleString()}</div>
+                    <div className='text-[0.85rem] uppercase font-bold'>{buybal?.title} plan</div>
+                    {Object.values(buybal).length !== 0 &&<div className={`text-xs font-[550] bg-white py-1 px-2 rounded-full adsha ${error === 'limit' ? 'text-[red]' : 'text-black'} `}>
+                        ${buybal.price_start.toLocaleString()} - ${buybal.price_limit.toLocaleString()}
+                    </div>}
                 </div>
                 <div className='relative flex gap-3 items-center mx-auto'>
                     <div className='flex flex-col gap-1'>

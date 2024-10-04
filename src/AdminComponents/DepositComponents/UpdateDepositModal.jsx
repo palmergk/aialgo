@@ -6,7 +6,8 @@ import Loading from '../../GeneralComponents/Loading';
 import { ErrorAlert, MoveToTopDiv, SuccessAlert } from '../../utils/utils';
 import avatar from '../../assets/images/avatar.png'
 import ModalLayout from '../../utils/ModalLayout';
-import StatusSelector from '../StatusSelector';
+import StatusSelector from '../../GeneralComponents/StatusSelector';
+
 
 const UpdateDepositModal = ({ closeView, refetchAllDeposits, singleDeposit }) => {
   const toggler = useRef()

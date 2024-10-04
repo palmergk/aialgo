@@ -52,7 +52,7 @@ const SetReferralModal = ({ closeView }) => {
                             </div>
                             <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-md'>
                                 <div>current:</div>
-                                {Object.values(adminStore).length !== 0 && <div>{adminStore.referral_bonus_percentage}%</div>}
+                                <div>{adminStore?.referral_bonus_percentage}%</div>
                             </div>
                         </div>
                         <div className='italic text-xs mt-4 text-[green] text-center'>- users gets {Object.values(adminStore).length !== 0 && <span>{adminStore.referral_bonus_percentage}%</span>} commission on their referral(s) first deposit -</div>

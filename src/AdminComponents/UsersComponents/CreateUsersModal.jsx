@@ -7,7 +7,8 @@ import { ErrorAlert, SuccessAlert } from '../../utils/utils'
 import { useAtom } from 'jotai'
 import { NOTIFICATIONS, UNREADNOTIS } from '../../store'
 import CountrySelector from '../../GeneralComponents/CountrySelector';
-import StatusSelector from '../StatusSelector';
+import StatusSelector from '../../GeneralComponents/StatusSelector'
+
 
 const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
   const [, setNotifications] = useAtom(NOTIFICATIONS)

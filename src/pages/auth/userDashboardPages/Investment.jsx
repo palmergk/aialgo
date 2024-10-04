@@ -106,10 +106,8 @@ const Investment = () => {
 
             altend += 6
             setEnd(altend)
-
             altstart += 6
             setStart(altstart)
-
             altlengthstart += 1
             setpagestart(altlengthstart)
         }
@@ -124,10 +122,8 @@ const Investment = () => {
 
             altend -= 6
             setEnd(altend)
-
             altstart -= 6
             setStart(altstart)
-
             altlengthstart -= 1
             setpagestart(altlengthstart)
         }

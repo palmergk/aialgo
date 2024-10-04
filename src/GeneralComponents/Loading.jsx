@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Loading = () => {
+const Loading = ({className}) => {
     return (
-        <div className='w-full h-full absolute top-0 left-0  flex items-center justify-center bg-white/40 z-20'>
+        <div className={`w-full h-full absolute top-0 left-0  flex items-center justify-center bg-white/40 z-20 ${className}`}>
             <div className="loader">
                 <div className="bar1"></div>
                 <div className="bar2"></div>

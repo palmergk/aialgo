@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import VerifyLayout from '../../../../UserComponents/VerifyLayout'
-import LoadingAdmin from '../../../../GeneralComponents/LoadingAdmin'
 import { NOTIFICATIONS, PROFILE, UNREADNOTIS } from '../../../../store'
 import { MdVerified } from 'react-icons/md'
 import { useAtom } from 'jotai'
-import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti'
 import { FiUploadCloud } from 'react-icons/fi'
 import { Apis, PostApi, UserGetApi } from '../../../../services/API'
 import { ErrorAlert, SuccessAlert } from '../../../../utils/utils'
 import CountrySelector from '../../../../GeneralComponents/CountrySelector'
 import PhoneSelector from '../../../../GeneralComponents/PhoneSelector'
+import StatusSelector from '../../../../GeneralComponents/StatusSelector'
+import Loading from '../../../../GeneralComponents/Loading'
 
 const Genders = [
     "male",
@@ -32,9 +32,9 @@ const VerifyKYC = () => {
 
     const [kyc, setKyc] = useState({})
     const [gender, setGender] = useState('select')
-    const [genderShow, setGenderShow] = useState(false)
+    const [select, setSelect] = useState(false)
     const [marital, setMarital] = useState('select')
-    const [maritalShow, setMaritalShow] = useState(false)
+    const [select2, setSelect2] = useState(false)
     const [usercountry, setUserCountry] = useState({
         name: 'select',
         flag: null
@@ -165,7 +165,7 @@ const VerifyKYC = () => {
     return (
         <VerifyLayout>
             <div className='relative'>
-                {loading && <LoadingAdmin />}
+                {loading && <Loading className="!bg-[#0c091aa4]" />}
                 <div className='flex flex-col gap-14 pt-16'>
                     <div className='flex flex-col gap-2 items-center text-semi-white'>
                         <div className='flex gap-2 items-center md:text-4xl text-2xl capitalize font-bold'>
@@ -175,7 +175,7 @@ const VerifyKYC = () => {
                         <div className='italic text-sm flex items-center gap-2'>
                             <span>Status:</span>
                             {Object.values(kyc).length !== 0 ?
-                                <span className={`${kyc.status === 'failed' ? 'text-[#c42e2e]' : 'text-light'}`}>{kyc.status}</span>
+                                <span className={`${kyc.status === 'failed' ? 'text-[#c42e2e]' : 'text-light'}`}>{kyc?.status}</span>
                                 :
                                 <span className='text-[#c42e2e]'>unverified</span>
                             }
@@ -193,55 +193,13 @@ const VerifyKYC = () => {
                             </div>
                         </div>
                         <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
-                            <div className='relative'>
-                                <div className='flex flex-col gap-1'>
-                                    <div className='md:text-sm text-xs capitalize font-semibold'>gender:</div>
-                                    <div className='px-2 py-1 h-fit w-full bg-white shantf cursor-pointer rounded-[3px]' onClick={() => setGenderShow(!genderShow)} >
-                                        <div className='flex justify-between items-center text-[0.8rem] text-black'>
-                                            <span className='font-semibold'>{gender}</span>
-                                            <div className='text-sm'>
-                                                {!genderShow ? <TiArrowSortedDown />
-                                                    :
-                                                    <TiArrowSortedUp />
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {genderShow && <div className='h-fit w-full absolute  top-12 md:top-[3.4rem] left-0 bg-white border border-[lightgrey] rounded-md z-50'>
-                                    {Genders.map((item, i) => (
-                                        <div key={i} className={`flex flex-col px-2 py-0.5 text-black hover:bg-[#f8f8f8] ${i === Genders.length - 1 ? 'hover:rounded-b-md' : 'border-b border-[#ebeaea]'} ${i === 0 && 'hover:rounded-t-md'}`}>
-                                            <div className='flex items-center cursor-pointer' onClick={() => { setGender(item); setGenderShow(false) }}>
-                                                <div className='text-[0.85rem] font-bold'>{item}</div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>}
+                            <div className='flex flex-col gap-1'>
+                                <div className='md:text-sm text-xs capitalize font-semibold'>gender:</div>
+                                <StatusSelector Statuses={Genders} status={gender} HandleFunction={(item) => setGender(item)} select={select} toggle={() => setSelect(!select)} className="!shadow-shanft !w-full" />
                             </div>
-                            <div className='relative'>
-                                <div className='flex flex-col gap-1'>
-                                    <div className='md:text-sm text-xs capitalize font-semibold'>marital status:</div>
-                                    <div className='px-2 py-1 h-fit w-full bg-white shantf cursor-pointer rounded-[3px]' onClick={() => setMaritalShow(!maritalShow)} >
-                                        <div className='flex justify-between items-center text-[0.8rem] text-black'>
-                                            <span className='font-semibold'>{marital}</span>
-                                            <div className='text-sm'>
-                                                {!maritalShow ? <TiArrowSortedDown />
-                                                    :
-                                                    <TiArrowSortedUp />
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {maritalShow && <div className='h-fit w-full absolute top-12 md:top-[3.4rem] left-0 bg-white border border-[lightgrey] rounded-md z-50'>
-                                    {MaritalStatus.map((item, i) => (
-                                        <div key={i} className={`flex flex-col px-2 py-0.5 text-black hover:bg-[#f8f8f8] ${i === MaritalStatus.length - 1 ? 'hover:rounded-b-md' : 'border-b border-[#ebeaea]'} ${i === 0 && 'hover:rounded-t-md'}`}>
-                                            <div className='flex items-center cursor-pointer' onClick={() => { setMarital(item); setMaritalShow(false) }}>
-                                                <div className='text-[0.85rem] font-bold'>{item}</div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>}
+                            <div className='flex flex-col gap-1'>
+                                <div className='md:text-sm text-xs capitalize font-semibold'>marital status:</div>
+                                <StatusSelector Statuses={MaritalStatus} status={marital} HandleFunction={(item) => setMarital(item)} select={select2} toggle={() => setSelect2(!select2)} className="!shadow-shanft !w-full" />
                             </div>
                         </div>
                         <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
@@ -273,7 +231,7 @@ const VerifyKYC = () => {
                                 <div className='md:text-sm text-xs capitalize font-semibold'>phone number:</div>
                                 <div className='flex gap-2 items-center'>
                                     <div>
-                                        <PhoneSelector phoneCode={phoneCode} setPhoneCode={setPhoneCode} className='!shadow-shanft'/>
+                                        <PhoneSelector phoneCode={phoneCode} setPhoneCode={setPhoneCode} className='!shadow-shanft' />
                                     </div>
                                     <div>
                                         <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.phone_number} name='phone_number' onChange={formHandler}></input>

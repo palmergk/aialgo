@@ -13,7 +13,8 @@ import { Apis, imageurl, UserPutApi } from '../../services/API';
 import ModalLayout from '../../utils/ModalLayout';
 import { Image } from 'antd'
 import { PiDownloadLight } from "react-icons/pi"
-import StatusSelector from '../StatusSelector';
+import StatusSelector from '../../GeneralComponents/StatusSelector';
+
 
 const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => {
     const toggler = useRef()
@@ -24,7 +25,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
     const [suspendScreen, setSuspendScreen] = useState(1)
     const [eye, setEye] = useState(false)
     const EyeIcon = eye === true ? IoEye : IoMdEyeOff
-    const [status, setStatus] = useState(Object.values(singleUser).length !== 0 && singleUser.kycUser.length !== 0 && singleUser.kycUser[0].status)
+    const [status, setStatus] = useState(Object.values(singleUser).length !== 0 && singleUser.kycUser[0]?.status)
     const [select, setSelect] = useState(false)
     const [update, setUpdate] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -204,7 +205,8 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                         <div className='flex items-center justify-center md:w-[5.8rem] md:h-[5.8rem] w-20 h-20 rounded-full bg-[#c9b8eb] mx-auto' >
                                             {Object.values(singleUser).length !== 0 &&
                                                 <>
-                                                    {singleUser.image ? <img src={`${imageurl}/profiles/${singleUser.image}`} className='md:w-[5.5rem] md:h-[5.5rem] w-[4.7rem] h-[4.7rem] rounded-full object-cover'></img>
+                                                    {singleUser.image ?
+                                                        <img src={`${imageurl}/profiles/${singleUser.image}`} className='md:w-[5.5rem] md:h-[5.5rem] w-[4.7rem] h-[4.7rem] rounded-full object-cover'></img>
                                                         :
                                                         <img src={avatar} className='md:w-[5.5rem] md:h-[5.5rem] w-[4.7rem] h-[4.7rem] rounded-full object-cover'></img>
                                                     }
@@ -214,27 +216,27 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                         <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
                                             <div className='flex justify-between items-center'>
                                                 <div className='italic '>full name:</div>
-                                                {Object.values(singleUser).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleUser.full_name}</div>}
+                                                <div className='md:text-[0.95rem] text-sm'>{singleUser?.full_name}</div>
                                             </div>
                                             <div className='flex justify-between items-center'>
                                                 <div className='italic '>username:</div>
-                                                {Object.values(singleUser).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleUser.username}</div>}
+                                                <div className='md:text-[0.95rem] text-sm'>{singleUser?.username}</div>
                                             </div>
                                             <div className='flex justify-between items-center'>
                                                 <div className='italic '>email:</div>
-                                                {Object.values(singleUser).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleUser.email}</div>}
+                                                <div className='md:text-[0.95rem] text-sm'>{singleUser?.email}</div>
                                             </div>
                                             <div className='flex justify-between items-center'>
                                                 <div className='italic '>country:</div>
-                                                {Object.values(singleUser).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleUser.country}</div>}
+                                                <div className='md:text-[0.95rem] text-sm'>{singleUser?.country}</div>
                                             </div>
                                             <div className='flex justify-between items-center'>
                                                 <div className='italic '>joined:</div>
-                                                {Object.values(singleUser).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{moment(singleUser.createdAt).format('DD-MM-yyyy')}</div>}
+                                                <div className='md:text-[0.95rem] text-sm'>{moment(singleUser?.createdAt).format('DD-MM-yyyy')}</div>
                                             </div>
                                             <div className='flex justify-between items-center'>
                                                 <div className='italic '>role:</div>
-                                                {Object.values(singleUser).length !== 0 && <div className='md:text-[0.95rem] text-sm text-[#462c7c]'>{singleUser.role}</div>}
+                                                <div className='md:text-[0.95rem] text-sm text-[#462c7c]'>{singleUser?.role}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -315,7 +317,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                 </div>
                                                                 <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-semibold rounded-md'>
                                                                     <div>current:</div>
-                                                                    {Object.values(singleUser).length !== 0 && <div>${singleUser.withdrawal_minimum.toLocaleString()}</div>}
+                                                                    {Object.values(userFigures).length !== 0 && <div>${singleUser.withdrawal_minimum.toLocaleString()}</div>}
                                                                 </div>
                                                             </div>
                                                             <div className='mx-auto'>
@@ -458,8 +460,8 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                 </div>
                                                 <div className='flex justify-between items-center my-6'>
                                                     <div className='italic'>status:</div>
-                                                    {singleUser.kycUser[0].status === 'processing' ?
-                                                         <StatusSelector Statuses={Statuses} status={status} HandleFunction={UpdateHandlerForStatus} select={select} toggle={() => setSelect(!select)} />
+                                                    {singleUser.kycUser[0]?.status === 'processing' ?
+                                                        <StatusSelector Statuses={Statuses} status={status} HandleFunction={UpdateHandlerForStatus} select={select} toggle={() => setSelect(!select)} />
                                                         :
                                                         <div className={`md:text-base text-sm capitalize ${singleUser.kycUser[0].status === 'verified' && 'text-[green]'} ${singleUser.kycUser[0].status === 'failed' && 'text-[red]'}`}>{singleUser.kycUser[0]?.status}</div>
                                                     }

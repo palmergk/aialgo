@@ -237,12 +237,6 @@ input[type="date"]::before {
 
 /*animation stops */
 
-.shd {
-  box-shadow: -0.1px 0px 1px rgba(120, 101, 101, 0.175);
-  box-shadow: 0px 1px 3px rgba(102, 101, 101, 0.175);
-  border-radius: 12px;
-}
-
 .bgi {
   background-image: url('./assets/images/robot.jpg');
   width: 100%;
@@ -266,6 +260,20 @@ input[type="date"]::before {
   background-size: cover;
 }
 
+.bgg {
+  background-image: url('./assets/images/pr.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50vh;
+}
+
+.shd {
+  box-shadow: -0.1px 0px 1px rgba(120, 101, 101, 0.175);
+  box-shadow: 0px 1px 3px rgba(102, 101, 101, 0.175);
+  border-radius: 12px;
+}
+
 .shb {
   box-shadow: 0px 20px 8px rgb(185, 184, 184);
 }
@@ -274,15 +282,12 @@ input[type="date"]::before {
   box-shadow: 0px 1px 10px rgb(223, 222, 222);
 }
 
-
-.ipt::placeholder {
-  font-size: 0.75rem;
-  color: grey;
+.adsha {
+  box-shadow: 0px 1px 6px rgb(168, 168, 168);
 }
 
-.ipa::placeholder {
-  font-size: 0.75rem;
-  color: rgb(214, 211, 211)
+.notisha {
+  box-shadow: 0px 3px 5px #281a46;
 }
 
 .shf {
@@ -297,34 +302,13 @@ input[type="date"]::before {
   box-shadow: 0px 2px 15px #161f29;
 }
 
-.bdd {
-  border-top: 5px solid white;
-  border-bottom: 5px solid white;
-  border-right: 5px solid white;
-  border-left: 4px solid rgb(59, 59, 59);
-}
-
-.bgg {
-  background-image: url('./assets/images/pr.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 50vh;
-}
-
 .shld {
   box-shadow: 3px 5px 7px rgb(110, 110, 110);
 }
 
-.trans {
-  transition: all 0.3s ease-in-out;
-}
-
-
 .shlz {
   box-shadow: 0px 10px 20px #090611;
 }
-
 
 .shlct {
   box-shadow: 0px 20px 8px #131a22;
@@ -340,6 +324,27 @@ input[type="date"]::before {
 
 .shabox {
   box-shadow: 0px 1px 20px rgb(184, 183, 183)
+}
+
+.ipt::placeholder {
+  font-size: 0.75rem;
+  color: grey;
+}
+
+.ipa::placeholder {
+  font-size: 0.75rem;
+  color: rgb(214, 211, 211)
+}
+
+.bdd {
+  border-top: 5px solid white;
+  border-bottom: 5px solid white;
+  border-right: 5px solid white;
+  border-left: 4px solid rgb(59, 59, 59);
+}
+
+.trans {
+  transition: all 0.3s ease-in-out;
 }
 
 .plan::before {
@@ -374,12 +379,4 @@ input[type="date"]::before {
   background-repeat: no-repeat;
   background-size: cover;
   height: full;
-}
-
-.adsha {
-  box-shadow: 0px 1px 6px rgb(168, 168, 168);
-}
-
-.notisha {
-  box-shadow: 0px 3px 5px #281a46;
 }

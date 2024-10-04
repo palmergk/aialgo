@@ -4,7 +4,7 @@ import { ErrorAlert, SuccessAlert } from '../../../utils/utils';
 import { Apis, PostApi } from '../../../services/API';
 import Loading from '../../../GeneralComponents/Loading';
 import ModalLayout from '../../../utils/ModalLayout';
-import StatusSelector from '../../StatusSelector';
+import StatusSelector from '../../../GeneralComponents/StatusSelector';
 
 
 const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {

@@ -89,10 +89,8 @@ const UpdateInvestment = () => {
 
       altend += 6
       setEnd(altend)
-
       altstart += 6
       setStart(altstart)
-
       altlengthstart += 1
       setpagestart(altlengthstart)
     }
@@ -107,10 +105,8 @@ const UpdateInvestment = () => {
 
       altend -= 6
       setEnd(altend)
-
       altstart -= 6
       setStart(altstart)
-
       altlengthstart -= 1
       setpagestart(altlengthstart)
     }

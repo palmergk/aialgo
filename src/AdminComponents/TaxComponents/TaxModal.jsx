@@ -6,7 +6,7 @@ import avatar from '../../assets/images/avatar.png'
 import Loading from '../../GeneralComponents/Loading';
 import { ErrorAlert, MoveToTopDiv, SuccessAlert } from '../../utils/utils';
 import ModalLayout from '../../utils/ModalLayout';
-import StatusSelector from '../StatusSelector';
+import StatusSelector from '../../GeneralComponents/StatusSelector';
 
 const TaxModal = ({ closeView, refetchAllTaxes, singleTax }) => {
     const [message, setMessage] = useState('')
