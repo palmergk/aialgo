@@ -13,9 +13,9 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
     const toggler = useRef()
     const [status, setStatus] = useState(singleInvestment?.status)
     const [select, setSelect] = useState(false)
-    const [loading, setLoading] = useState(false)
     const [update, setUpdate] = useState(false)
     const [beforeshow, setBeforeshow] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         profit: "",
         bonus: ""
@@ -106,7 +106,7 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
 
     return (
         <ModalLayout closeView={closeView} toggler={toggler}>
-            <div className={`bg-white rounded-lg lg:w-1/2 md:w-4/6 w-11/12 lg:h-[90vh] md:h-[80vh] h-[70vh] ${loading ? 'overflow-hidden' : 'overflow-y-auto scroll'}  move`} ref={toggler}>
+            <div className={`bg-white rounded-lg lg:w-1/2 md:w-4/6 w-11/12 lg:h-[90vh] md:h-[80vh] h-[70vh] overflow-x-hidden ${loading ? 'overflow-y-hidden' : 'overflow-y-auto scroll'}  move`} ref={toggler}>
                 <div className={`w-full h-full relative  ${beforeshow && 'flex items-center justify-center'}`}>
                     {loading && <Loading />}
                     <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />

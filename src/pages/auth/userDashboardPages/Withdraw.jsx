@@ -197,7 +197,7 @@ const Withdraw = () => {
                 {screen === 1 &&
                     <div className='flex justify-center'>
                         <div className='mt-10 text-black font-medium h-fit w-fit bg-semi-white shlz rounded-xl overflow-hidden relative'>
-                            {loading && <Loading className="!bg-[#c5c5c567]" />}
+                            {loading && <Loading className="!bg-[#97979767]" />}
                             <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-b-sm rounded-t-xl border-b border-light mx-auto flex flex-col gap-2'>
                                 <Link to='/dashboard/tax-payment' onClick={MoveToTop} className='w-fit ml-auto'>
                                     <button className='w-fit h-fit md:text-sm text-xs font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center'>

@@ -94,13 +94,13 @@ const Dashboard = ({ children }) => {
     }, [FetchUnreadNotis])
 
     useEffect(() => {
-        const FetchWallet = async() => {
+        const FetchWallet = async () => {
             try {
                 const response = await UserGetApi(Apis.user.wallet)
                 if (response.status === 200) {
                     setWallet(response.msg)
                 }
-    
+
             } catch (error) {
                 //
             }
@@ -115,11 +115,11 @@ const Dashboard = ({ children }) => {
                 if (response.status === 200) {
                     setAdminCryptoWallets(response.msg)
                 }
-    
+
             } catch (error) {
                 //
             }
-        }    
+        }
         FetchAdminCrypto_Wallets()
     }, [])
 
@@ -130,7 +130,7 @@ const Dashboard = ({ children }) => {
                 if (response.status === 200) {
                     setAdminStore(response.msg)
                 }
-    
+
             } catch (error) {
                 //
             }
@@ -199,41 +199,43 @@ const Dashboard = ({ children }) => {
                     </div>
                 </div>
             </div>
-            <div className='xl:w-[62%] lg:w-[75%] w-full h-[100dvh] overflow-y-auto scrollDiv move'>
-                <div className='md:w-[94%] w-11/12 mx-auto'>
-                    <div className='flex flex-col gap-4'>
-                        <div className='w-full h-fit rounded-md bg-[#130e27] py-2 px-4 text-light text-[0.85rem] flex items-center justify-between mt-4'>
-                            <div className='flex gap-2 items-center'>
-                                <Link className='xl:hidden cursor-pointer' to='/dashboard/profile'>
-                                    {user.image ? <img src={`${imageurl}/profiles/${user.image}`} className='w-10 h-10 object-cover rounded-full border border-light'></img>
-                                        :
-                                        <img src={avatar} className='w-10 h-10 object-cover rounded-full border border-light'></img>
-                                    }
-                                </Link>
-                                <div className='capitalize font-medium'>
-                                    hi, <span> {user?.username}</span>
+            <div className='xl:w-[62%] lg:w-[75%] w-full h-[100dvh] overflow-x-hidden overflow-y-auto scrollDiv move'>
+                <div className='relative'>
+                    <div className='md:w-[94%] w-11/12 mx-auto'>
+                        <div className='flex flex-col gap-4'>
+                            <div className='w-full h-fit rounded-md bg-[#130e27] py-2 px-4 text-light text-[0.85rem] flex items-center justify-between mt-4'>
+                                <div className='flex gap-2 items-center'>
+                                    <Link className='xl:hidden cursor-pointer' to='/dashboard/profile'>
+                                        {user.image ? <img src={`${imageurl}/profiles/${user.image}`} className='w-10 h-10 object-cover rounded-full border border-light'></img>
+                                            :
+                                            <img src={avatar} className='w-10 h-10 object-cover rounded-full border border-light'></img>
+                                        }
+                                    </Link>
+                                    <div className='capitalize font-medium'>
+                                        hi, <span> {user?.username}</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <Notifications
+                                        refetchNotifications={() => FetchNotifications()}
+                                        refetchUnreadNotis={() => FetchUnreadNotis()}
+                                    />
                                 </div>
                             </div>
-                            <div>
-                                <Notifications
-                                    refetchNotifications={() => FetchNotifications()}
-                                    refetchUnreadNotis={() => FetchUnreadNotis()}
-                                />
+                            <div className='flex gap-1.5 capitalize items-center text-[grey] md:text-[0.85rem] text-xs font-bold'>
+                                <span>dashboard</span>
+                                <FaAngleRight className='text-[0.6rem]' />
+                                {location.pathname === '/dashboard' && <span>wallet</span>}
+                                {location.pathname.includes('/dashboard/verify-account') ?
+                                    <span>{location.pathname.slice(11, 25)}</span>
+                                    :
+                                    <span>{location.pathname.slice(11)}</span>
+                                }
                             </div>
                         </div>
-                        <div className='flex gap-1.5 capitalize items-center text-[grey] md:text-[0.85rem] text-xs font-bold'>
-                            <span>dashboard</span>
-                            <FaAngleRight className='text-[0.6rem]' />
-                            {location.pathname === '/dashboard' && <span>wallet</span>}
-                            {location.pathname.includes('/dashboard/verify-account') ?
-                                <span>{location.pathname.slice(11, 25)}</span>
-                                :
-                                <span>{location.pathname.slice(11)}</span>
-                            }
+                        <div className='pt-10 pb-24 lg:pb-10'>
+                            {children}
                         </div>
-                    </div>
-                    <div className='pt-10 pb-24 lg:pb-10'>
-                        {children}
                     </div>
                 </div>
                 <div className='bg-[#131024] w-full md:h-14 h-12 fixed bottom-0 left-0 z-30 lg:hidden px-2'>
@@ -247,7 +249,7 @@ const Dashboard = ({ children }) => {
                             </Link>
                         ))}
                         <div className={`flex flex-col gap-1 items-center justify-center rounded-full cursor-pointer  ${!toggleArray.includes(location.pathname) ? 'text-light' : 'text-white'} `} onClick={() => { setSlideShow(!slideShow) }}>
-                            <LiaBarsSolid className='md:text-lg text-base'/>
+                            <LiaBarsSolid className='md:text-lg text-base' />
                             <div className='capitalize md:text-[0.6rem] text-[0.55rem] font-medium'>a-z menu</div>
                         </div>
                     </div>

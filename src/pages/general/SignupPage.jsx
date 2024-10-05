@@ -158,7 +158,7 @@ const SignupPage = () => {
             <div className='col-span-1'>
               <div className='bgs rounded-xl flex items-center lg:h-[100vh] h-fit py-16'>
                 <div className='w-11/12 mx-auto'>
-                  <div className={`bg-white h-fit rounded-[20px] py-8 w-full lg:w-[39vw] lg:absolute ${screen === 1 ? 'lg:top-[2.8rem]' : 'lg:top-[3.7rem]'}  lg:right-16 lg:shadow-sign-sha`}>
+                  <div className={`bg-white h-fit rounded-[20px] py-8 w-full lg:w-[39vw] lg:absolute ${screen === 1 ? 'lg:top-[2.8rem]' : 'lg:top-[3.7rem]'}  lg:right-16 lg:shadow-sign-sha overflow-hidden`}>
                     <div className='relative w-full h-full'>
                       {loading && <Loading />}
                       {screen === 1 && <div className='w-11/12 md:w-[85%] mx-auto '>

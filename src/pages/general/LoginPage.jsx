@@ -16,7 +16,7 @@ import ForgottenPassword from '../../GeneralComponents/ForgottenPassword';
 
 const LoginPage = () => {
     const navigate = useNavigate()
-    const [forgotPass, setForgotPass] = useState(false)
+    const [modal, setModal] = useState(false)
     const [eye, setEye] = useState(false)
     const EyeIcon = eye === true ? IoEye : IoMdEyeOff
     const [loading, setLoading] = useState(false)
@@ -59,12 +59,12 @@ const LoginPage = () => {
             setLoading(false)
         }
     }
-    document.documentElement.style.overflow = forgotPass === true ? 'hidden' : 'auto'
+    document.documentElement.style.overflow = modal === true ? 'hidden' : 'auto'
 
     return (
         <Pagelayout>
             <div className='py-16 bg-[whitesmoke]'>
-                {forgotPass === true && <ForgottenPassword closeView={() => setForgotPass(false)} />}
+                {modal === true && <ForgottenPassword closeView={() => setModal(false)} />}
                 <div className="md:w-[85%] bg-white mx-auto py-4 rounded-xl relative shb">
                     <div className='absolute top-4 left-4 lg:block'>
                         <img src={logo} className='w-auto h-20'></img>
@@ -73,7 +73,7 @@ const LoginPage = () => {
                         <div className='col-span-1'>
                             <div className='bgc rounded-xl flex items-center lg:h-[100vh] h-fit py-16'>
                                 <div className='w-11/12 mx-auto'>
-                                    <div className='bg-white h-fit rounded-[20px] w-full lg:w-[39vw] lg:absolute lg:top-[3.1rem] lg:right-16 lg:shadow-sign-sha py-16 lg:pt-16 lg:pb-24'>
+                                    <div className='bg-white h-fit rounded-[20px] w-full lg:w-[39vw] lg:absolute lg:top-[3.1rem] lg:right-16 lg:shadow-sign-sha py-16 lg:pt-16 lg:pb-24 overflow-hidden'>
                                         <div className='relative w-full h-full'>
                                             {loading && <Loading />}
                                             <div className='w-11/12 md:w-[70%] mx-auto'>
@@ -103,7 +103,7 @@ const LoginPage = () => {
                                                         </div>
                                                     </div>
                                                     <div className='w-fit flex ml-auto'>
-                                                        <div className='text-sm font-[550] text-orange pt-2 cursor-pointer capitalize' onClick={() => setForgotPass(!forgotPass)}>forgot password</div>
+                                                        <div className='text-sm font-[550] text-orange pt-2 cursor-pointer capitalize' onClick={() => setModal(!modal)}>forgot password</div>
                                                     </div>
                                                     <div className='flex flex-col gap-2 items-center mt-12'>
                                                         <button className='outline-none bg-orange py-2 w-full md:px-32 h-fit md:w-fit rounded-md capitalize text-[0.9rem] text-[white] cursor-pointer font-[550]' type='submit' >login</button>

@@ -83,7 +83,7 @@ const VerifyEmail = () => {
 
     return (
         <VerifyLayout>
-            <div className='relative'>
+            <div>
                 {loading && <Loading className="!bg-[#0c091aa4]" />}
                 <div className='flex flex-col justify-center items-center gap-14 pt-16'>
                     <div className='flex flex-col gap-2 items-center text-semi-white'>

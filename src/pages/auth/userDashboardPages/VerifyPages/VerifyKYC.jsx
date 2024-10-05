@@ -164,8 +164,7 @@ const VerifyKYC = () => {
 
     return (
         <VerifyLayout>
-            <div className='relative'>
-                {loading && <Loading className="!bg-[#0c091aa4]" />}
+            <div>
                 <div className='flex flex-col gap-14 pt-16'>
                     <div className='flex flex-col gap-2 items-center text-semi-white'>
                         <div className='flex gap-2 items-center md:text-4xl text-2xl capitalize font-bold'>
@@ -181,7 +180,8 @@ const VerifyKYC = () => {
                             }
                         </div>
                     </div>
-                    <div className='flex flex-col gap-6 text-black md:w-3/4 w-[95%] mx-auto bg-semi-white py-6 md:px-8 px-5 rounded-md relative'>
+                    <div className='flex flex-col gap-6 text-black md:w-3/4 w-[95%] mx-auto bg-semi-white py-6 md:px-8 px-5 rounded-md relative overflow-hidden'>
+                        {loading && <Loading className="!bg-[#97979767]" />}
                         <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold '>first name:</div>

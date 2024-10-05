@@ -29,7 +29,6 @@ const Profile = () => {
     const [userEdit, setUserEdit] = useState(false)
     const [emailEdit, setEmailEdit] = useState(false)
     const [passEdit, setPassEdit] = useState(false)
-    const [loading, setLoading] = useState(false)
     const [commit, setCommit] = useState(false)
     const [screen, setScreen] = useState(1)
     const [eye, setEye] = useState(false)
@@ -39,6 +38,8 @@ const Profile = () => {
     const EyeIcon2 = eye2 === true ? IoEye : IoMdEyeOff
     const EyeIcon3 = eye3 === true ? IoEye : IoMdEyeOff
     const [copy, setCopy] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [loading2, setLoading2] = useState(false)
     const imgref = useRef()
     const navigate = useNavigate()
 
@@ -167,7 +168,7 @@ const Profile = () => {
         const formbody = {
             password: form.dl_password
         }
-        setLoading(true)
+        setLoading2(true)
         try {
             const response = await UserPutApi(Apis.user.delete, formbody)
             if (response.status === 200) {
@@ -180,7 +181,7 @@ const Profile = () => {
         } catch (error) {
             ErrorAlert(`${error.message}`)
         } finally {
-            setLoading(false)
+            setLoading2(false)
         }
     }
 
@@ -200,8 +201,8 @@ const Profile = () => {
 
     return (
         <Dashboard>
-            <div className='relative'>
-                {loading && screen === 1 && <Loading className="!bg-[#0c091aa4]" />}
+            <div>
+                {loading && <Loading className="!bg-[#0c091aa4]" />}
                 <div className='uppercase font-bold md:text-2xl text-lg text-semi-white'>profile</div>
                 <div>
                     <div className='flex items-center justify-center mt-10'>
@@ -365,8 +366,8 @@ const Profile = () => {
                             <span>Delete my account</span>
                             <MdOutlineDeleteForever />
                         </div>}
-                        {screen !== 1 && <div className=' w-fit h-fit bg-semi-white rounded-xl md:p-8 p-4 mx-auto relative shlz '>
-                            {loading && <Loading className="!bg-[#0c091aa4]" />}
+                        {screen !== 1 && <div className='w-fit h-fit bg-semi-white rounded-xl md:p-8 p-4 mx-auto relative overflow-hidden shlz'>
+                            {loading2 && <Loading className="!bg-[#97979767]" />}
                             {screen === 2 && <div>
                                 <div className='text-center md:text-[1.1rem] text-sm text-black font-medium'>Are you sure you want to delete your account?</div>
                                 <div className='flex justify-center items-center gap-0.5 mt-2 md:text-[0.8rem] text-xs text-admin-btn'>

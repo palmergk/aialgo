@@ -29,6 +29,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
     const [select, setSelect] = useState(false)
     const [update, setUpdate] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [loading2, setLoading2] = useState(false)
     const [reactivate, setReactivate] = useState(false)
     const [rvtloading, setRvtLoading] = useState(false)
     const [form, setForm] = useState({
@@ -64,7 +65,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
     }
 
     useEffect(() => {
-        if (!loading) {
+        if (!loading2) {
             if (suspendScreen !== 1 || fundScreen !== 1 || withdrawalScreen !== 1 || select || form.message !== '') {
                 MoveToBottom()
             }
@@ -159,7 +160,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
         }
 
         if (update) {
-            setLoading(true)
+            setLoading2(true)
             MoveToTopDiv()
 
             try {
@@ -174,29 +175,25 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
             } catch (error) {
                 ErrorAlert(`${error.message}`)
             } finally {
-                setLoading(false)
+                setLoading2(false)
             }
         }
     }
 
     return (
         <ModalLayout closeView={closeView} toggler={toggler}>
-            <div className={`bg-white rounded-lg lg:w-1/2 md:w-4/6 w-11/12 lg:h-[90vh] md:h-[80vh] h-[70vh] ${loading ? 'overflow-hidden' : 'overflow-y-auto scroll'}  move`} ref={toggler}>
+            <div className={`bg-white rounded-lg lg:w-1/2 md:w-4/6 w-11/12 lg:h-[90vh] md:h-[80vh] h-[70vh] overflow-x-hidden ${loading2 ? 'overflow-y-hidden' : 'overflow-y-auto scroll'}  move`} ref={toggler}>
                 <div className={`w-full h-full relative  ${beforeshow && 'flex items-center justify-center'}`}>
-                    {loading && screen === 2 && <Loading />}
+                    {loading2 && <Loading />}
                     <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                     {beforeshow && <div className='beforeshow'></div>}
                     {!beforeshow &&
                         <div className='md:w-[90%] w-11/12 mx-auto md:py-8 py-4 md:text-[0.9rem] text-[0.8rem]'>
-                            {Object.values(singleUser).length !== 0 &&
-                                <>
-                                    {singleUser.role !== 'admin' &&
-                                        <div className='flex items-center justify-between py-2'>
-                                            <button className={`py-1 px-4 text-sm font-medium rounded-full ${screen === 1 ? 'bg-[#7c6d9e] text-white' : 'bg-[#c9b8eb] text-[#363636]'}`} onClick={() => setScreen(1)}>main field</button>
-                                            <button className={`py-1 px-4 text-sm font-medium rounded-full ${screen === 2 ? 'bg-[#7c6d9e] text-white' : 'bg-[#c9b8eb] text-[#363636]'}`} onClick={() => setScreen(2)}>kyc field</button>
-                                        </div>
-                                    }
-                                </>
+                            {singleUser.role !== 'admin' &&
+                                <div className='flex items-center justify-between py-2'>
+                                    <button className={`py-1 px-4 text-sm font-medium rounded-full ${screen === 1 ? 'bg-[#7c6d9e] text-white' : 'bg-[#c9b8eb] text-[#363636]'}`} onClick={() => setScreen(1)}>main field</button>
+                                    <button className={`py-1 px-4 text-sm font-medium rounded-full ${screen === 2 ? 'bg-[#7c6d9e] text-white' : 'bg-[#c9b8eb] text-[#363636]'}`} onClick={() => setScreen(2)}>kyc field</button>
+                                </div>
                             }
                             {screen === 1 &&
                                 <div className='flex flex-col gap-8'>
@@ -276,12 +273,12 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                             <div className='mt-4'>
                                                 {fundScreen === 1 ?
                                                     <div className='flex justify-center'>
-                                                        <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={() => { setFundScreen(2); setSuspendScreen(1); setWithdrawalScreen(1); MoveToBottom() }}>fund account</button>
+                                                        <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={() => { setFundScreen(2); setSuspendScreen(1); setWithdrawalScreen(1) }}>fund account</button>
                                                     </div>
                                                     :
-                                                    <div className='w-fit h-fit md:px-8 p-6 rounded-md bg-white adsha mx-auto  text-black relative'>
+                                                    <div className='w-fit h-fit md:px-8 p-6 rounded-md bg-white adsha mx-auto text-black relative overflow-hidden'>
                                                         {loading && <Loading />}
-                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => { setFundScreen(1); setForm({ fundAmount: '' }) }} />
+                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => setFundScreen(1)} />
                                                         <div className='font-[650] border-b text-center uppercase'>Fund {singleUser?.username} account</div>
                                                         <div className='flex flex-col gap-8 items-center justify-center mt-6'>
                                                             <div className='flex flex-col gap-1'>
@@ -300,12 +297,12 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                             <div>
                                                 {withdrawalScreen === 1 ?
                                                     <div className='flex justify-center'>
-                                                        <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={() => { setWithdrawalScreen(2); setSuspendScreen(1); setFundScreen(1); MoveToBottom() }}>set withdrawal minimum</button>
+                                                        <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={() => { setWithdrawalScreen(2); setSuspendScreen(1); setFundScreen(1) }}>set withdrawal minimum</button>
                                                     </div>
                                                     :
-                                                    <div className='w-fit h-fit md:px-8 p-6 rounded-md bg-white adsha mx-auto  text-black relative'>
+                                                    <div className='w-fit h-fit md:px-8 p-6 rounded-md bg-white adsha mx-auto text-black relative overflow-hidden'>
                                                         {loading && <Loading />}
-                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => { setWithdrawalScreen(1); setForm({ minimumAmount: '' }) }} />
+                                                        <FaXmark className='absolute top-0 right-1 cursor-pointer text-xl' onClick={() => setWithdrawalScreen(1)} />
                                                         <div className='font-[650] border-b text-center uppercase'>set {singleUser?.username} withdrawal minimum</div>
                                                         <div className='flex flex-col gap-8 items-center justify-center mt-6'>
                                                             <div className='flex gap-4 items-center'>
@@ -333,10 +330,10 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                         <div>
                                             {suspendScreen === 1 ?
                                                 <div className='flex justify-center'>
-                                                    <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={() => { setSuspendScreen(2); setFundScreen(1); setWithdrawalScreen(1); MoveToBottom() }}>{singleUser.suspend === 'true' ? 'unsuspend' : 'suspend'} account</button>
+                                                    <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={() => { setSuspendScreen(2); setFundScreen(1); setWithdrawalScreen(1) }}>{singleUser.suspend === 'true' ? 'unsuspend' : 'suspend'} account</button>
                                                 </div>
                                                 :
-                                                <div className='w-fit h-fit md:p-8 p-4 rounded-md bg-white adsha mx-auto  text-black relative'>
+                                                <div className='w-fit h-fit md:p-8 p-4 rounded-md bg-white adsha mx-auto text-black relative overflow-hidden'>
                                                     {loading && <Loading />}
                                                     {suspendScreen === 2 &&
                                                         <div className='flex flex-col gap-8 items-center justify-center'>
@@ -372,7 +369,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                     <EyeIcon className='absolute top-2 right-2 text-lg text-[red] cursor-pointer' onClick={() => setEye(!eye)} />
                                                                 </div>
                                                                 <div className='flex md:gap-16 gap-4 items-center'>
-                                                                    <button className='outline-none w-fit h-fit py-2 md:px-4 px-3 md:text-xs text-[0.7rem] text-white  bg-[#5e5d5d] rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => { setSuspendScreen(1); setForm({ password: '' }) }}>
+                                                                    <button className='outline-none w-fit h-fit py-2 md:px-4 px-3 md:text-xs text-[0.7rem] text-white  bg-[#5e5d5d] rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => setSuspendScreen(1)}>
                                                                         <span>cancel action</span>
                                                                         <FaRegRectangleXmark />
                                                                     </button>
@@ -394,9 +391,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                 <div className='flex flex-col gap-8'>
                                     <div className='flex flex-col gap-4 border p-1'>
                                         <div className=' uppercase font-bold border px-1 '>user kyc details:</div>
-                                        {singleUser.kycUser.length === 0 ?
-                                            <div className='text-base text-center'>No KYC details submitted yet...</div>
-                                            :
+                                        {Object.values(singleUser).length !== 0 && singleUser.kycUser.length !== 0 ?
                                             <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
                                                 <div className='flex justify-between items-center'>
                                                     <div className='italic '>first name:</div>
@@ -466,7 +461,10 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                         <div className={`md:text-base text-sm capitalize ${singleUser.kycUser[0].status === 'verified' && 'text-[green]'} ${singleUser.kycUser[0].status === 'failed' && 'text-[red]'}`}>{singleUser.kycUser[0]?.status}</div>
                                                     }
                                                 </div>
-                                            </div>}
+                                            </div>
+                                            :
+                                            <div className='text-base text-center'>No KYC details submitted yet...</div>
+                                        }
                                     </div>
                                     {update && <div className='flex items-center justify-center'>
                                         <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ' onClick={UpdateUserKYC}>update details</button>
