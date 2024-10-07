@@ -175,7 +175,7 @@ const ForgottenPassword = ({ closeView }) => {
                                 </div>
                                 <div className='flex flex-col gap-5 mt-8'>
                                     <div className='flex flex-col gap-2 relative'>
-                                        <div className='text-xs capitalize font-[600]'>enter new password</div>
+                                        <div className='text-xs capitalize font-[600]'>create new password</div>
                                         <input className='outline-none w-full  border-b border-black lg:text-[0.9rem] text-base input-off  ipt' type={eye === true ? 'text' : 'password'} placeholder='Characters more than five' name='new_password' value={form.new_password} onChange={formHandler}></input>
                                         <EyeIcon className='absolute bottom-0 right-0 text-base text-orange cursor-pointer' onClick={() => setEye(!eye)} />
                                     </div>

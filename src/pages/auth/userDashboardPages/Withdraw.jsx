@@ -216,7 +216,7 @@ const Withdraw = () => {
                                             <div className={`text-xs absolute top-2 right-2 ${error === 'minimum' ? 'text-[red]' : 'text-black'}`}>min: {user?.withdrawal_minimum}</div>
                                         </div>
                                     </div>
-                                    <div className={`w-fit h-fit rounded-md flex flex-col py-2 justify-center items-center md:px-4 px-3 text-semi-white gap-1 bg-light ${error === 'balance' ? 'border border-[red]' : ''}`}>
+                                    <div className={`w-fit h-fit rounded-md flex flex-col py-2 justify-center items-center md:px-4 px-3 text-semi-white gap-1 bg-light ${error === 'balance' && 'outline outline-1 outline-[red]'}`}>
                                         <div className='flex  justify-center items-center gap-1'>
                                             <div className='md:text-[0.85rem] text-xs font-[600]'>withdrawable</div>
                                             <img src={wthwallet} className='md:h-6 h-4 w-auto'></img>

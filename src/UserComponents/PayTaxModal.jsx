@@ -76,7 +76,7 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                     <div className='flex flex-col gap-1'>
                         <div className='text-[0.8rem] capitalize font-medium'>tax amount ($)</div>
                         <div className='relative'>
-                            <input className={`outline-none border bg-semi-white text-black lg:text-[0.85rem] w-52 px-2 h-8 rounded-[4px] ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)}></input>
+                            <input className={`outline-none border bg-[#ebeaea] text-black lg:text-[0.85rem] w-52 px-2 h-8 rounded-[4px] ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)}></input>
                             <div className={`text-xs absolute top-2 right-2 ${error === 'minimum' ? 'text-[red]' : 'text-black'}`}>min: 0.99</div>
                         </div>
                     </div>

@@ -198,7 +198,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                             {screen === 1 &&
                                 <div className='flex flex-col gap-8'>
                                     <div className='flex flex-col gap-4 border p-1'>
-                                        <div className=' uppercase font-bold border px-1 '>user details:</div>
+                                        <div className='uppercase font-bold border px-1'>user details:</div>
                                         <div className='flex items-center justify-center md:w-[5.8rem] md:h-[5.8rem] w-20 h-20 rounded-full bg-[#c9b8eb] mx-auto' >
                                             {Object.values(singleUser).length !== 0 &&
                                                 <>
@@ -239,7 +239,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                     </div>
                                     {singleUser?.role !== 'admin' &&
                                         <div className='flex flex-col gap-4 border p-1'>
-                                            <div className=' uppercase font-bold border px-1 '>financial details:</div>
+                                            <div className='uppercase font-bold border px-1'>financial details:</div>
                                             <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-4'>
                                                 <div className='flex justify-between items-center'>
                                                     <div className='italic '>total amount deposited:</div>
@@ -284,7 +284,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                             <div className='flex flex-col gap-1'>
                                                                 <div className='text-[0.8rem] capitalize'>Enter an amount ($)</div>
                                                                 <div className='relative'>
-                                                                    <input className='outline-none lg:text-[0.85rem] text-base w-full border h-8 rounded-[3px] px-1.5 bg-semi-white ipt border-[#9f7ae7]' name='fundAmount' value={form.fundAmount} onChange={formHandler}></input>
+                                                                    <input className='outline-none lg:text-[0.85rem] text-base w-full border h-8 rounded-[3px] px-1.5 bg-[#ebeaea] ipt border-[#9f7ae7]' name='fundAmount' value={form.fundAmount} onChange={formHandler}></input>
                                                                 </div>
                                                             </div>
                                                             <div className='mx-auto'>
@@ -309,7 +309,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                 <div className='flex flex-col gap-1'>
                                                                     <div className='text-[0.8rem] capitalize'>Enter an amount ($)</div>
                                                                     <div className='relative'>
-                                                                        <input className='outline-none lg:text-[0.85rem] text-base w-full border h-8 rounded-[3px] px-1.5 bg-semi-white ipt border-[#9f7ae7]' name='minimumAmount' value={form.minimumAmount} onChange={formHandler}></input>
+                                                                        <input className='outline-none lg:text-[0.85rem] text-base w-full border h-8 rounded-[3px] px-1.5 bg-[#ebeaea] ipt border-[#9f7ae7]' name='minimumAmount' value={form.minimumAmount} onChange={formHandler}></input>
                                                                     </div>
                                                                 </div>
                                                                 <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-semibold rounded-md'>
@@ -390,7 +390,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                             {screen === 2 &&
                                 <div className='flex flex-col gap-8'>
                                     <div className='flex flex-col gap-4 border p-1'>
-                                        <div className=' uppercase font-bold border px-1 '>user kyc details:</div>
+                                        <div className='uppercase font-bold border px-1'>user kyc details:</div>
                                         {Object.values(singleUser).length !== 0 && singleUser.kycUser.length !== 0 ?
                                             <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
                                                 <div className='flex justify-between items-center'>

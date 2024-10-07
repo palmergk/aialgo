@@ -17,7 +17,7 @@ const CryptoSelector = ({setCryptoWallets, error, className}) => {
         <div className={`h-fit w-fit rounded-[0.2rem] bg-semi-white p-1 relative ${className?.bg}`}>
             <div className={`w-52 py-1 bg-white flex gap-1.5 justify-center items-center capitalize text-sm font-semibold rounded-[0.2rem] text-black cursor-pointer  ${error === 'select' && 'outline outline-1 outline-[red]'} shadow-shanft`} onClick={() => setSelect(!select)}>
                 <div className='text-[0.8rem]'>choose cryptocurrency</div>
-                <SiBitcoincash className={`text-[#5BB4FD] z-50 ${className?.text}`} />
+                <SiBitcoincash className={`text-[#5BB4FD] ${className?.text}`} />
             </div>
             {select &&
                 <div className={`absolute top-9 left-0 ${adminCryptoWallets.length > 4 ? 'h-24 overflow-y-auto scroll ' : 'h-fit'} w-full bg-white border border-[#a3a3a3] rounded-md z-10 text-[0.85rem] font-bold capitalize`}>

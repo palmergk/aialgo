@@ -138,7 +138,7 @@ const TaxPayment = () => {
                                     <span>pay tax</span>
                                     <SiBitcoincash />
                                 </button>
-                                <div className='border-t pt-2 text-center'>taxes</div>
+                                <div className='border-t pt-2 text-center'>clear taxes</div>
                             </div>
                             <div className='py-6 md:px-8 px-4 flex flex-col gap-6 items-center justify-center'>
                                 <div className='md:w-96 w-[17rem] h-fit rounded-lg flex flex-col text-white shantf bg-white z-10'>

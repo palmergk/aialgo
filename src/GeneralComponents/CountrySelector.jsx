@@ -23,7 +23,7 @@ const CountrySelector = ({ usercountry, setUserCountry, className }) => {
         <div className='relative'>
             <div className='flex gap-1 items-center'>
                 {usercountry.flag !== null && <img className='h-5 w-auto' src={usercountry.flag}></img>}
-                <div className={`px-2 py-1 h-fit w-full bg-white sha cursor-pointer rounded-sm ${className}`} onClick={() => { setSelect(!select); setSearch(''); setCountries(countryApi) }}>
+                <div className={`px-2 py-1 h-fit w-full bg-white sha cursor-pointer rounded-[3px] ${className}`} onClick={() => { setSelect(!select); setSearch(''); setCountries(countryApi) }}>
                     <div className='flex justify-between items-center text-[0.8rem] text-black'>
                         <span className='font-semibold'>{usercountry.name}</span>
                         <div className='text-sm'>
@@ -43,9 +43,9 @@ const CountrySelector = ({ usercountry, setUserCountry, className }) => {
                     <div className='overflow-y-auto scroll h-28 px-4'>
                         {countries.map((item, i) => (
                             <div className='flex flex-col mt-2' key={i}>
-                                <div className='flex gap-2 items-center text-black cursor-pointer hover:bg-semi-white' onClick={() => { setUserCountry(item); setSelect(false) }}>
+                                <div className='flex gap-2 items-center text-black text-[0.85rem] font-bold cursor-pointer hover:bg-semi-white' onClick={() => { setUserCountry(item); setSelect(false) }}>
                                     <img src={item.flag} className='w-4 h-auto object-cover'></img>
-                                    <div className='text-[0.85rem] font-bold'>{item.name}</div>
+                                    <div>{item.name}</div>
                                 </div>
                             </div>
                         ))}

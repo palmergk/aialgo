@@ -14,11 +14,12 @@ import { HiOutlineCollection } from "react-icons/hi";
 import { TbUsers } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 import AdminNotis from './AdminNotis'
-import { Apis, UserGetApi } from '../../../services/API'
+import { Apis, imageurl, UserGetApi } from '../../../services/API'
 import { FaAngleRight } from 'react-icons/fa6'
 import { LuX } from 'react-icons/lu'
 import { TbReceiptTax } from "react-icons/tb";
 import { LiaBarsSolid } from 'react-icons/lia'
+import avatar from '../../../assets/images/avatar.png'
 
 const MainLinks = [
   { path: 'deposits', url: '/admin-controls', icon: HiOutlineCreditCard },
@@ -172,9 +173,15 @@ const AdminDashboard = ({ children }) => {
         <div className='md:w-[94%] w-11/12 mx-auto'>
           <div className='flex flex-col gap-4'>
             <div className='w-full h-fit  rounded-md bg-admin-auth mt-4 px-4 py-2 text-white text-[0.85rem] flex items-center justify-between'>
-              <div className='flex items-center gap-1 capitalize'>
-                <div>hi,</div>
-                <div>{user?.username}</div>
+              <div className='flex gap-2 items-center'>
+                <Link className='lg:hidden cursor-pointer' to='/admin-controls/settings/personalize'>
+                  {user.image ?
+                    <img src={`${imageurl}/profiles/${user.image}`} className='w-10 h-10 object-cover rounded-full border border-white'></img>
+                    :
+                    <img src={avatar} className='w-10 h-10 object-cover rounded-full border border-white'></img>
+                  }
+                </Link>
+                <div className='capitalize font-medium'>hi, {user?.username}</div>
               </div>
               <div>
                 <AdminNotis refetchNotifications={FetchNotifications} refetchUnreadNotis={FetchUnreadNotis} />

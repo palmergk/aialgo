@@ -78,7 +78,7 @@ const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
           <div className='flex flex-col gap-1'>
             <div className='capitalize text-[0.8rem] font-medium'>deposit amount ($)</div>
             <div className='relative'>
-              <input className={`outline-none border lg:text-[0.85rem] w-52 h-8 rounded-[4px] pl-2 pr-16 bg-semi-white ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)} ></input>
+              <input className={`outline-none border lg:text-[0.85rem] w-52 h-8 rounded-[4px] pl-2 pr-16 bg-[#ebeaea] ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)} ></input>
               <div className={`text-xs absolute top-2 right-2 ${error === 'minimum' ? 'text-[red]' : 'text-black'}`}>min: {adminStore?.deposit_minimum}</div>
             </div>
           </div>

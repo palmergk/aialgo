@@ -19,10 +19,8 @@ const StatusSelector = ({ Statuses, status, HandleFunction, select, toggle, clas
             {select &&
                 <div className='h-fit w-full absolute top-[1.8rem] left-0 bg-white border border-[lightgrey] rounded-md z-10 text-[0.85rem] font-bold'>
                     {Statuses.map((item, i) => (
-                        <div key={i} className={`flex flex-col px-2 py-0.5 cursor-pointer hover:bg-[#ececec] ${i !== Statuses.length - 1 && 'border-b border-[#ebeaea]'}`} onClick={() => { HandleFunction(item); toggle() }}>
-                            <div className='flex items-center'>
-                                <div>{item}</div>
-                            </div>
+                        <div key={i} className={`flex flex-col px-2 py-0.5 cursor-pointer hover:bg-[#ececec] ${i !== Statuses.length - 1 && 'border-b border-[#ebeaea]'} ${['confirmed', 'received', 'completed', 'verified'].includes(item) && 'text-[green]'} ${item === 'failed' && 'text-[red]'}`} onClick={() => { HandleFunction(item); toggle() }}>
+                            <div>{item}</div>
                         </div>
                     ))}
                 </div>

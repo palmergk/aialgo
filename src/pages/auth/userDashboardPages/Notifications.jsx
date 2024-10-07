@@ -112,7 +112,6 @@ const Notifications = ({ refetchUnreadNotis, refetchNotifications }) => {
                     </div>
                 </div>
             </>
-
             <div className={`md:absolute md:top-12 md:-right-4 md:left-auto md:w-60 md:rounded-sm fixed top-0 left-0 md:h-fit h-screen overflow-y-auto w-full bg-white z-50 ${showNotis ? 'block' : 'hidden'}`} ref={toggler}>
                 <div className='text-black flex flex-col relative'>
                     <div className='flex justify-between items-center px-2 md:pt-3 pt-5'>

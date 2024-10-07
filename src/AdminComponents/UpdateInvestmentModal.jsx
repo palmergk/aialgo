@@ -114,7 +114,7 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                     {!beforeshow &&
                         <div className='md:w-[90%] w-11/12 mx-auto md:py-8 py-4 flex flex-col gap-8 md:text-[0.9rem] text-[0.8rem]'>
                             <div className='flex flex-col gap-4 border p-1'>
-                                <div className=' uppercase font-bold border px-1 '>user details:</div>
+                                <div className='uppercase font-bold border px-1'>user details:</div>
                                 <div className='flex items-center justify-center md:w-[5.8rem] md:h-[5.8rem] w-20 h-20 rounded-full bg-[#c9b8eb] mx-auto'>
                                     {Object.values(singleInvestment).length !== 0 &&
                                         <>
@@ -137,7 +137,7 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                                 </div>
                             </div>
                             <div className='flex flex-col gap-4 border p-1'>
-                                <div className=' uppercase font-bold border px-1 '>investment details:</div>
+                                <div className='uppercase font-bold border px-1'>investment details:</div>
                                 <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-4'>
                                     <div className='flex justify-between items-center'>
                                         <div className='italic '>amount:</div>
@@ -152,24 +152,24 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                                         {Object.values(singleInvestment).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{moment(singleInvestment.createdAt).format('DD-MM-yyyy')} / {moment(singleInvestment.createdAt).format('h:mm')}</div>}
                                     </div>
                                     <div className='flex justify-between items-center'>
-                                        <div className='italic '>add profit:</div>
+                                        <div className='italic'>add profit:</div>
                                         <div className='flex gap-2 items-center'>
                                             <div>
                                                 <input className='border border-[#c9b8eb] md:w-40 w-28 h-8 outline-none px-2 lg:text-[0.8rem] text-base rounded-sm' name='profit' value={form.profit} onChange={inputHandler} onKeyUp={UpdateHandlerForText}></input>
                                             </div>
-                                            <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-md'>
+                                            <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-[3px]'>
                                                 <div>so far:</div>
                                                 {Object.values(singleInvestment).length !== 0 && <div>${singleInvestment.profit.toLocaleString()}</div>}
                                             </div>
                                         </div>
                                     </div>
                                     <div className='flex justify-between items-center'>
-                                        <div className='italic '>add bonus:</div>
+                                        <div className='italic'>add bonus:</div>
                                         <div className='flex gap-2 items-center'>
                                             <div>
                                                 <input className='border border-[#c9b8eb] md:w-40 w-28 h-8 outline-none px-2 lg:text-[0.8rem] text-base rounded-sm' name='bonus' value={form.bonus} onChange={inputHandler} onKeyUp={UpdateHandlerForText}></input>
                                             </div>
-                                            <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-md'>
+                                            <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-[3px]'>
                                                 <div>so far:</div>
                                                 {Object.values(singleInvestment).length !== 0 && <div>${singleInvestment.bonus.toLocaleString()}</div>}
                                             </div>

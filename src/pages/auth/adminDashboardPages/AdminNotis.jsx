@@ -84,7 +84,6 @@ const AdminNotis = ({ refetchNotifications, refetchUnreadNotis }) => {
 
     return (
         <div className='relative'>
-
             <>
                 <div className={`relative ${showNotis ? 'hidden' : 'flex'}`} onClick={() => { setShowNotis(true); setpageend(notifications.length / 6) }}>
                     <div className='flex items-center justify-center border w-9 h-9 rounded-full text-xl text-white border-white cursor-pointer'>
@@ -112,9 +111,7 @@ const AdminNotis = ({ refetchNotifications, refetchUnreadNotis }) => {
                     </div>
                 </div>
             </>
-
-
-            <div className={`md:absolute md:top-12 md:-right-4 md:left-auto md:w-60 md:rounded-sm fixed top-0 left-0 md:h-fit h-screen overflow-y-auto w-full md:bg-zinc-400 bg-white z-50 text-black ${showNotis ? 'block' : 'hidden'}`} ref={toggler}>
+            <div className={`md:absolute md:top-12 md:-right-4 md:left-auto md:w-60 md:rounded-sm fixed top-0 left-0 md:h-fit h-screen overflow-y-auto w-full md:bg-[#b8b8b8] bg-white z-50 text-black ${showNotis ? 'block' : 'hidden'}`} ref={toggler}>
                 <div className='flex justify-between items-center px-2 md:pt-3 pt-5'>
                     <div className='flex gap-1 items-center md:text-base text-2xl capitalize font-[800]'>
                         <div className='cursor-pointer md:hidden' onClick={() => setShowNotis(false)}><FaAngleLeft /></div>

@@ -63,9 +63,9 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
                 <div className='relative flex gap-3 items-center mx-auto'>
                     <div className='flex flex-col gap-1'>
                         <div className='capitalize text-[0.8rem] font-medium'>enter an amount ($)</div>
-                        <input className={`outline-none border lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2 bg-semi-white ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)} ></input>
+                        <input className={`outline-none border lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2 bg-[#ebeaea] ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)} ></input>
                     </div>
-                    <div className={`h-fit w-fit text-nowrap py-2 px-4 ${error === 'balance' && 'border border-[red]'} bg-[#5BB4FD] flex flex-col gap-1 items-center justify-center text-white text-[0.85rem] rounded-md`}>
+                    <div className={`h-fit w-fit text-nowrap py-2 px-4 ${error === 'balance' && 'outline outline-1 outline-[red]'} bg-[#5BB4FD] flex flex-col gap-1 items-center justify-center text-white text-[0.85rem] rounded-md`}>
                         <div className='text-xs italic text-center'>wallet balance:</div>
                         {Object.values(userwallet).length !== 0 && <div>${userwallet.balance.toLocaleString()}</div>}
                     </div>

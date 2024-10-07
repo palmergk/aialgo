@@ -91,7 +91,7 @@ const UpdateDepositModal = ({ closeView, refetchAllDeposits, singleDeposit }) =>
           {!beforeshow &&
             <div className='md:w-[90%] w-11/12 mx-auto md:py-8 py-4 flex flex-col gap-8 md:text-[0.9rem] text-[0.8rem]'>
               <div className='flex flex-col gap-4 border p-1'>
-                <div className=' uppercase font-bold border px-1 '>user details:</div>
+                <div className='uppercase font-bold border px-1'>user details:</div>
                 <div className='flex items-center justify-center md:w-[5.8rem] md:h-[5.8rem] w-20 h-20 rounded-full bg-[#c9b8eb] mx-auto'>
                   {Object.values(singleDeposit).length !== 0 &&
                     <>
@@ -114,7 +114,7 @@ const UpdateDepositModal = ({ closeView, refetchAllDeposits, singleDeposit }) =>
                 </div>
               </div>
               <div className='flex flex-col gap-4 border p-1'>
-                <div className=' uppercase font-bold border px-1 '>deposit details:</div>
+                <div className='uppercase font-bold border px-1'>deposit details:</div>
                 <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-4'>
                   <div className='flex justify-between items-center'>
                     <div className='italic'>amount:</div>

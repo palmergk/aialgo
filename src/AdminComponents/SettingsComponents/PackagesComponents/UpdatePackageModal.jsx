@@ -140,7 +140,7 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
                                 </div>
                             </div>
                             <div className='flex justify-between items-center'>
-                                <div className='italic'>profit return / ROI (%):</div>
+                                <div className='italic'>profit return (%):</div>
                                 <div>
                                     <input className='outline-none border border-[#c9b8eb] md:w-48 w-40 py-1 px-1.5 lg:text-sm text-base' value={form.profit_return} name='profit_return' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
                                 </div>

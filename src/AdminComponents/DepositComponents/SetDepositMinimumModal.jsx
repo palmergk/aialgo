@@ -48,9 +48,9 @@ const SetDepositMinimum = ({ closeView }) => {
                         <div className='text-center font-medium'>Enter deposit minimum amount ($)</div>
                         <div className='flex gap-4 items-center'>
                             <div>
-                                <input className='outline-none border lg:text-[0.85rem] text-base md:w-44 w-36 h-8 rounded-[3px] px-2 bg-semi-white ipt border-[#9f7ae7]' value={amount} onChange={e => setAmount(e.target.value)}></input>
+                                <input className='outline-none border lg:text-[0.85rem] text-base md:w-44 w-36 h-8 rounded-[3px] px-2 bg-[#ebeaea] ipt border-[#9f7ae7]' value={amount} onChange={e => setAmount(e.target.value)}></input>
                             </div>
-                            <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-md'>
+                            <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-[3px]'>
                                 <div>current:</div>
                                 {Object.values(adminStore).length !== 0 && <div>${adminStore.deposit_minimum.toLocaleString()}</div>}
                             </div>
