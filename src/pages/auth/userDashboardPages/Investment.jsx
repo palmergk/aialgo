@@ -206,7 +206,7 @@ const Investment = () => {
                                                     </div>
                                                 </div>
                                                 <div className='md:w-44 w-[9.5rem] h-fit rounded-[10px] flex flex-col md:text-[0.9rem] text-sm py-2  px-2 text-semi-white gap-2 font-bold bg-[#6859bb]'>
-                                                    <div className='font-[600] capitalize'>investment plan</div>
+                                                    <div className='font-[600] capitalize'>trading plan</div>
                                                     <div className='flex justify-between items-center'>
                                                         <div>
                                                             <div className='flex gap-1 items-center'>

@@ -71,7 +71,7 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
         }
     }
 
-    const AdminUpdateInvestment = async () => {
+    const UpdateInvestment = async () => {
 
         if (isNaN(form.profit)) return ErrorAlert('Must be a number')
         if (isNaN(form.bonus)) return ErrorAlert('Must be a number')
@@ -126,11 +126,11 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                                     }
                                 </div>
                                 <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>username:</div>
                                         {Object.values(singleInvestment).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleInvestment.investmentUser.username}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>email:</div>
                                         {Object.values(singleInvestment).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleInvestment.investmentUser.email}</div>}
                                     </div>
@@ -139,19 +139,19 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                             <div className='flex flex-col gap-4 border p-1'>
                                 <div className='uppercase font-bold border px-1'>investment details:</div>
                                 <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-4'>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>amount:</div>
                                         {Object.values(singleInvestment).length !== 0 && <div className='md:text-[0.95rem] text-sm'>${singleInvestment.amount.toLocaleString()}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>plan:</div>
                                         {Object.values(singleInvestment).length !== 0 && <div className='md:text-[0.95rem] text-sm capitalize'>{singleInvestment.trading_plan}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>date / time:</div>
                                         {Object.values(singleInvestment).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{moment(singleInvestment.createdAt).format('DD-MM-yyyy')} / {moment(singleInvestment.createdAt).format('h:mm')}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic'>add profit:</div>
                                         <div className='flex gap-2 items-center'>
                                             <div>
@@ -163,7 +163,7 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic'>add bonus:</div>
                                         <div className='flex gap-2 items-center'>
                                             <div>
@@ -176,7 +176,7 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                                         </div>
                                     </div>
                                     <div className='flex flex-col gap-6 my-6'>
-                                        <div className='flex justify-between items-center'>
+                                        <div className='flex justify-between items-center gap-4'>
                                             <div className='italic '>status:</div>
                                             {singleInvestment?.status === 'running' ?
                                                 <StatusSelector Statuses={Statuses} status={status} HandleFunction={UpdateHandlerForStatus} select={select} toggle={() => setSelect(!select)} />
@@ -190,7 +190,7 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                                 </div>
                             </div>
                             {update && <div className='flex items-center justify-center -mt-4'>
-                                <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ' onClick={AdminUpdateInvestment}>update details</button>
+                                <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ' onClick={UpdateInvestment}>update details</button>
                             </div>}
                         </div>}
                 </div>

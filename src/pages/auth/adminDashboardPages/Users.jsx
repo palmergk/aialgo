@@ -144,12 +144,12 @@ const Users = () => {
               }
             </div>
           </div>
-          <div className='flex justify-between items-center mt-4 mb-2'>
-            <button className='w-fit h-fit py-2.5 px-4 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal3(true)}>
+          <div className='flex justify-between items-center gap-4 mt-4 mb-2'>
+            <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal3(true)}>
               <span>set referral bonus</span>
               <IoIosSettings className='text-base' />
             </button>
-            <button className='w-fit h-fit py-2.5 px-4 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal2(true)}>
+            <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal2(true)}>
               <span>create new user</span>
               <IoIosAddCircleOutline className='text-base' />
             </button>

@@ -112,11 +112,11 @@ const TaxModal = ({ closeView, refetchAllTaxes, singleTax }) => {
                                     }
                                 </div>
                                 <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic'>username:</div>
                                         {Object.values(singleTax).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleTax.taxPayer.username}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic'>email:</div>
                                         {Object.values(singleTax).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleTax.taxPayer.email}</div>}
                                     </div>
@@ -125,32 +125,32 @@ const TaxModal = ({ closeView, refetchAllTaxes, singleTax }) => {
                             <div className='flex flex-col gap-4 border p-1'>
                                 <div className='uppercase font-bold border px-1'>tax payment details:</div>
                                 <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-4'>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic'>amount:</div>
                                         {Object.values(singleTax).length !== 0 && <div className='md:text-[0.95rem] text-sm'>${singleTax.amount.toLocaleString()}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic'>crypto:</div>
                                         {Object.values(singleTax).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleTax.crypto}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic'>network:</div>
                                         {Object.values(singleTax).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleTax.network}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic'>deposit address:</div>
                                         {Object.values(singleTax).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleTax.deposit_address?.slice(0, 5)}.....{singleTax.deposit_address?.slice(-8)}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic'>date / time:</div>
                                         {Object.values(singleTax).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{moment(singleTax.createdAt).format('DD-MM-yyyy')} / {moment(singleTax.createdAt).format('h:mm')}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>message:</div>
                                         <textarea placeholder='Write A Message' className='p-2 md:w-52 w-44 h-32 text-black lg:text-[0.85rem] text-base outline-none bg-transparent border border-[#c9b8eb] rounded-md resize-none ipt scroll' value={message} onChange={e => setMessage(e.target.value)} onKeyUp={UpdateHandlerForText}></textarea>
                                     </div>
                                     <div className='flex flex-col gap-6 my-6'>
-                                        <div className='flex justify-between items-center'>
+                                        <div className='flex justify-between items-center gap-4'>
                                             <div className='italic'>status:</div>
                                             {singleTax?.status === 'processing' ?
                                                 <StatusSelector Statuses={Statuses} status={status} HandleFunction={UpdateHandlerForStatus} select={select} toggle={() => setSelect(!select)}/>

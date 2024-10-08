@@ -140,11 +140,11 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                 <div className='flex gap-1 cursor-pointer items-center text-base text-[#462c7c] -ml-1' onClick={() => setScreen(1)}>
                     <FaArrowLeft />
                 </div>
-                <div className='flex justify-between items-center'>
+                <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>crypto name:</div>
                     <input className='outline-none border border-[#c9b8eb] w-48 py-1 px-2 lg:text-sm text-base' value={form.crypto_name} name='crypto_name' onChange={inputHandler} onKeyUp={CommitHandler}></input>
                 </div>
-                <div className='flex justify-between items-center'>
+                <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>crypto image:</div>
                     <label className='cursor-pointer'>
                         {cryptoImg.img ?

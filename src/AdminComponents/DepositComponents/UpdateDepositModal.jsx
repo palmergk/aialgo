@@ -53,7 +53,7 @@ const UpdateDepositModal = ({ closeView, refetchAllDeposits, singleDeposit }) =>
     }
   }
 
-  const AdminUpdateDeposit = async () => {
+  const UpdateDeposit = async () => {
 
     const formbody = {
       deposit_id: singleDeposit.id,
@@ -103,11 +103,11 @@ const UpdateDepositModal = ({ closeView, refetchAllDeposits, singleDeposit }) =>
                   }
                 </div>
                 <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
-                  <div className='flex justify-between items-center'>
+                  <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>username:</div>
                     {Object.values(singleDeposit).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleDeposit.depositUser.username}</div>}
                   </div>
-                  <div className='flex justify-between items-center'>
+                  <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>email:</div>
                     {Object.values(singleDeposit).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleDeposit.depositUser.email}</div>}
                   </div>
@@ -116,28 +116,28 @@ const UpdateDepositModal = ({ closeView, refetchAllDeposits, singleDeposit }) =>
               <div className='flex flex-col gap-4 border p-1'>
                 <div className='uppercase font-bold border px-1'>deposit details:</div>
                 <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-4'>
-                  <div className='flex justify-between items-center'>
+                  <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>amount:</div>
                     {Object.values(singleDeposit).length !== 0 && <div className='md:text-[0.95rem] text-sm'>${singleDeposit.amount.toLocaleString()}</div>}
                   </div>
-                  <div className='flex justify-between items-center'>
+                  <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>crypto:</div>
                     {Object.values(singleDeposit).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleDeposit.crypto}</div>}
                   </div>
-                  <div className='flex justify-between items-center'>
+                  <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>network:</div>
                     {Object.values(singleDeposit).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleDeposit.network}</div>}
                   </div>
-                  <div className='flex justify-between items-center'>
+                  <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>deposit address:</div>
                     {Object.values(singleDeposit).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleDeposit.deposit_address?.slice(0, 5)}.....{singleDeposit.deposit_address?.slice(-8)}</div>}
                   </div>
-                  <div className='flex justify-between items-center'>
+                  <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>date / time:</div>
                     {Object.values(singleDeposit).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{moment(singleDeposit.createdAt).format('DD-MM-yyyy')} / {moment(singleDeposit.createdAt).format('h:mm')}</div>}
                   </div>
                   <div className='flex flex-col gap-6 my-6'>
-                    <div className='flex justify-between items-center'>
+                    <div className='flex justify-between items-center gap-4'>
                       <div className='italic'>status:</div>
                       {singleDeposit?.status === 'pending' ?
                         <StatusSelector Statuses={Statuses} status={status} HandleFunction={UpdateHandlerForStatus} select={select} toggle={() => setSelect(!select)} />
@@ -151,7 +151,7 @@ const UpdateDepositModal = ({ closeView, refetchAllDeposits, singleDeposit }) =>
                 </div>
               </div>
               {update && <div className='flex items-center justify-center -mt-4'>
-                <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ' onClick={AdminUpdateDeposit}>update details</button>
+                <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ' onClick={UpdateDeposit}>update details</button>
               </div>}
             </div>}
         </div>

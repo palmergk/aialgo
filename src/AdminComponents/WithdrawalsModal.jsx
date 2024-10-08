@@ -83,7 +83,7 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
         setUpdate(true)
     }
 
-    const AdminUpdateWithdrawal = async () => {
+    const UpdateWithdrawal = async () => {
 
         const formbody = {
             withdrawal_id: singleWithdrawal.id,
@@ -134,11 +134,11 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                                     }
                                 </div>
                                 <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>username:</div>
                                         {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleWithdrawal.wthUser.username}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>email:</div>
                                         {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleWithdrawal.wthUser.email}</div>}
                                     </div>
@@ -147,19 +147,19 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                             <div className='flex flex-col gap-4 border p-1'>
                                 <div className='uppercase font-bold border px-1'>withdrawal details:</div>
                                 <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-4'>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>amount:</div>
                                         {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-[0.95rem] text-sm'>${singleWithdrawal.amount.toLocaleString()}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>crypto:</div>
                                         {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-[0.95rem] text-sm capitalize'>{singleWithdrawal.crypto}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>network:</div>
                                         {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-[0.95rem] text-sm capitalize'>{singleWithdrawal.network}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>withdrawal address:</div>
                                         <div className='flex gap-1.5 items-center'>
                                             {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleWithdrawal.withdrawal_address?.slice(0, 5)}.....{singleWithdrawal.withdrawal_address?.slice(-8)}</div>}
@@ -169,11 +169,11 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                                             </button>
                                         </div>
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic '>date / time:</div>
                                         {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{moment(singleWithdrawal.createdAt).format('DD-MM-yyyy')} / {moment(singleWithdrawal.createdAt).format('h:mm')}</div>}
                                     </div>
-                                    <div className='flex justify-between items-center'>
+                                    <div className='flex justify-between items-center gap-4'>
                                         <div className='italic'>message:</div>
                                         <div className='flex flex-col gap-1.5'>
                                             <textarea placeholder='Write A Message' className='p-2 md:w-52 w-44 h-32 text-black lg:text-[0.85rem] text-base outline-none bg-transparent border border-[#c9b8eb] rounded-md resize-none ipt scroll' value={message} onChange={e => setMessage(e.target.value)} onKeyUp={UpdateHandlerForText}></textarea>
@@ -183,7 +183,7 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                                             </button>}
                                         </div>
                                     </div>
-                                    <div className='flex justify-between items-center my-6'>
+                                    <div className='flex justify-between items-center gap-4 my-6'>
                                         <div className='italic '>status:</div>
                                         {singleWithdrawal?.status === 'processing' ?
                                             <StatusSelector Statuses={Statuses} status={status} HandleFunction={UpdateHandlerForStatus} select={select} toggle={() => setSelect(!select)} />
@@ -196,7 +196,7 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                                 </div>
                             </div>
                             {update && <div className='flex items-center justify-center -mt-4'>
-                                <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={AdminUpdateWithdrawal}>update details</button>
+                                <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateWithdrawal}>update details</button>
                             </div>}
                         </div>
                     }

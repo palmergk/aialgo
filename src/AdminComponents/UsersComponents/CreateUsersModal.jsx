@@ -88,36 +88,36 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
           <div className='text-xl uppercase text-center font-bold border-b w-full mb-2'>create new user</div>
           <div className='grid grid-cols-2 md:gap-6 gap-3 items-center'>
             <div className='flex flex-col gap-1'>
-              <div className='text-sm capitalize font-[550] '>full name:</div>
+              <div className='text-sm capitalize font-[550]'>full name:</div>
               <input className='outline-none border border-[#c9b8eb] w-full h-8 px-2 lg:text-sm text-base rounded-sm' value={form.full_name} name='full_name' onChange={inputHandler}></input>
               <div></div>
             </div>
             <div className='flex flex-col gap-1'>
-              <div className='text-sm capitalize font-[550] '>username:</div>
+              <div className='text-sm capitalize font-[550]'>username:</div>
               <input className='outline-none border border-[#c9b8eb] w-full h-8 px-2 lg:text-sm text-base rounded-sm' value={form.username} name='username' onChange={inputHandler}></input>
               <div></div>
             </div>
           </div>
           <div className='grid grid-cols-2 md:gap-6 gap-3 items-center'>
             <div className='flex flex-col gap-1'>
-              <div className='text-sm capitalize font-[550] '>email:</div>
+              <div className='text-sm capitalize font-[550]'>email:</div>
               <input className='outline-none border border-[#c9b8eb] w-full h-8 px-2 lg:text-sm text-base rounded-sm' type='email' value={form.email} name='email' onChange={inputHandler}></input>
               <div></div>
             </div>
             <div className='flex flex-col gap-1'>
-              <div className='text-sm capitalize font-[550]'>country:</div>
-              <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} />
+              <div className='text-sm capitalize font-[550]'>password:</div>
+              <input className='outline-none border border-[#c9b8eb] w-full h-8 px-2 lg:text-sm text-base rounded-sm' value={form.password} name='password' onChange={inputHandler}></input>
+              <div></div>
             </div>
           </div>
           <div className='grid grid-cols-2 md:gap-6 gap-3 items-center'>
             <div className='flex flex-col gap-1'>
-              <div className='text-sm capitalize font-[550]'>role:</div>
-              <StatusSelector Statuses={Roles} status={role} HandleFunction={(item) => setRole(item)} select={select} toggle={() => setSelect(!select)} className="!w-full" />
+              <div className='text-sm capitalize font-[550]'>country:</div>
+              <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} />
             </div>
             <div className='flex flex-col gap-1'>
-              <div className='text-sm capitalize font-[550] '>password:</div>
-              <input className='outline-none border border-[#c9b8eb] w-full h-8 px-2 lg:text-sm text-base rounded-sm' value={form.password} name='password' onChange={inputHandler}></input>
-              <div></div>
+              <div className='text-sm capitalize font-[550]'>role:</div>
+              <StatusSelector Statuses={Roles} status={role} HandleFunction={(item) => setRole(item)} select={select} toggle={() => setSelect(!select)} className="!w-full" />
             </div>
           </div>
           <div className='mx-auto mt-6'>

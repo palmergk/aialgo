@@ -110,12 +110,12 @@ const AddWallet = () => {
         {modal2 && <CreateWalletModal closeView={() => setModal2(false)} refetchAdminWallets={FetchAdminWallets} cryptocurrency={cryptocurrency} />}
         {modal3 && <CryptocurrencyComponent closeView={() => setModal3(false)} cryptocurrency={cryptocurrency} refetchCryptocurrency={FetchCryptocurrency} refetchAdminWallets={FetchAdminWallets} />}
 
-        <div className='flex justify-between mb-2'>
-          <button className='w-fit h-fit py-2.5 px-4 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal3(true)}>
+        <div className='flex justify-between items-center gap-4 mb-2'>
+          <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal3(true)}>
             <span>add crypto</span>
             <IoIosAddCircleOutline className='text-base' />
           </button>
-          <button className='w-fit h-fit py-2.5 px-4 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal2(true)}>
+          <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal2(true)}>
             <span>create new wallet</span>
             <IoIosAddCircleOutline className='text-base' />
           </button>

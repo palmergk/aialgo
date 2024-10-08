@@ -80,39 +80,39 @@ const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {
                     <div className='flex flex-col md:w-[90%] w-11/12 mx-auto py-5 md:text-[0.9rem] text-[0.8rem]'>
                         <div className='text-xl uppercase text-center font-bold border-b'>create trading plan</div>
                         <div className='flex flex-col gap-4 mt-4 relative'>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>title:</div>
                                 <input className='outline-none border border-[#c9b8eb] md:w-48 w-40 py-1 px-1.5 lg:text-sm text-base' value={form.title} name='title' onChange={inputHandler}></input>
                             </div>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>price start ($):</div>
                                 <div>
                                     <input className='outline-none border border-[#c9b8eb] md:w-48 w-40 py-1 px-1.5 lg:text-sm text-base' value={form.price_start} name='price_start' onChange={inputHandler}></input>
                                 </div>
                             </div>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>price limit ($):</div>
                                 <div>
                                     <input className='outline-none border border-[#c9b8eb] md:w-48 w-40 py-1 px-1.5 lg:text-sm text-base' value={form.price_limit} name='price_limit' onChange={inputHandler}></input>
                                 </div>
                             </div>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>profit return (%):</div>
                                 <div>
                                     <input className='outline-none border border-[#c9b8eb] md:w-48 w-40 py-1 px-1.5 lg:text-sm text-base' value={form.profit_return} name='profit_return' onChange={inputHandler}></input>
                                 </div>
                             </div>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>plan bonus ($):</div>
                                 <div>
                                     <input className='outline-none border border-[#c9b8eb] md:w-48 w-40 py-1 px-1.5 lg:text-sm text-base' value={form.plan_bonus} name='plan_bonus' onChange={inputHandler}></input>
                                 </div>
                             </div>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>duration:</div>
                                 <input className='outline-none border border-[#c9b8eb] md:w-48 w-40 py-1 px-1.5 lg:text-sm text-base' value={form.duration} name='duration' onChange={inputHandler}></input>
                             </div>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>duration type:</div>
                                 <StatusSelector Statuses={DurationTypes} status={type} HandleFunction={(item) => setType(item)} select={select} toggle={() => setSelect(!select)} />
                             </div>

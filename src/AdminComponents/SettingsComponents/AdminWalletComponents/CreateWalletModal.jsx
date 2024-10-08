@@ -69,7 +69,7 @@ const CreateWalletModal = ({ closeView, refetchAdminWallets, cryptocurrency }) =
                     <div className='flex flex-col md:w-[90%] w-11/12 mx-auto py-4 md:text-[0.9rem] text-[0.8rem]'>
                         <div className='text-xl uppercase text-center font-bold border-b'>create wallet</div>
                         <div className='flex flex-col gap-4 mt-4 relative'>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>crypto</div>
                                 <div className='relative'>
                                     <div className='px-2 py-1 h-fit md:w-48 w-40 bg-white sha cursor-pointer rounded-[3px]' onClick={() => setSelect(!select)} >
@@ -104,11 +104,11 @@ const CreateWalletModal = ({ closeView, refetchAdminWallets, cryptocurrency }) =
                                     </div>}
                                 </div>
                             </div>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>network:</div>
                                 <input className='outline-none border border-[#c9b8eb] w-48 py-1 px-2 lg:text-sm text-base' value={form.network} name='network' onChange={inputHandler}></input>
                             </div>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>address:</div>
                                 <input className='outline-none border border-[#c9b8eb] w-48 py-1 px-2 lg:text-sm text-base' value={form.address} name='address' onChange={inputHandler}></input>
                             </div>

@@ -67,7 +67,7 @@ const Personalize = () => {
       imgref.current.value = null
       return ErrorAlert('File error, invalid image format')
     }
-    
+
     setCommit(true)
     setProfile({
       img: URL.createObjectURL(file),
@@ -130,7 +130,7 @@ const Personalize = () => {
         })
 
       } else {
-       ErrorAlert(response.msg)
+        ErrorAlert(response.msg)
       }
     } catch (error) {
       ErrorAlert(`${error.message}`)
@@ -192,29 +192,31 @@ const Personalize = () => {
                 </div>
               </div>
             </div>
-            {user.id === 1 &&<div className='flex flex-col gap-1.5'>
-              <div className='md:text-sm text-xs capitalize font-[550] '>company medias:</div>
-              <div className='grid md:grid-cols-3 grid-cols-2 gap-4 items-center'>
-                <div className='flex gap-1.5 items-center'>
-                  <div className='text-black text-lg'>
-                    <GrFacebookOption />
+            {user.id === 1 &&
+              <div className='flex flex-col gap-1.5'>
+                <div className='md:text-sm text-xs capitalize font-[550] '>company medias:</div>
+                <div className='grid md:grid-cols-3 grid-cols-2 gap-4 items-center'>
+                  <div className='flex gap-1.5 items-center'>
+                    <div className='text-black text-lg'>
+                      <GrFacebookOption />
+                    </div>
+                    <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.facebook} name='facebook' placeholder='Enter fb link' onChange={formHandler} onKeyUp={CommitHandler}></input>
                   </div>
-                  <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.facebook} name='facebook' placeholder='Enter fb link' onChange={formHandler} onKeyUp={CommitHandler}></input>
-                </div>
-                <div className='flex gap-1.5 items-center'>
-                  <div className='text-black text-lg'>
-                    <TfiInstagram />
+                  <div className='flex gap-1.5 items-center'>
+                    <div className='text-black text-lg'>
+                      <TfiInstagram />
+                    </div>
+                    <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.instagram} name='instagram' placeholder='Enter IG link' onChange={formHandler} onKeyUp={CommitHandler}></input>
                   </div>
-                  <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.instagram} name='instagram' placeholder='Enter IG link' onChange={formHandler} onKeyUp={CommitHandler}></input>
-                </div>
-                <div className='flex gap-1.5 items-center'>
-                  <div className='text-black text-lg'>
-                    <PiTelegramLogoLight />
+                  <div className='flex gap-1.5 items-center'>
+                    <div className='text-black text-lg'>
+                      <PiTelegramLogoLight />
+                    </div>
+                    <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.telegram} name='telegram' placeholder='Enter Tg link' onChange={formHandler} onKeyUp={CommitHandler}></input>
                   </div>
-                  <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.telegram} name='telegram' placeholder='Enter Tg link' onChange={formHandler} onKeyUp={CommitHandler}></input>
                 </div>
               </div>
-            </div>}
+            }
             {commit &&
               <div className='flex md:gap-8 gap-4 items-center justify-center mt-4'>
                 <button className='outline-none w-fit h-fit py-2 px-6 text-xs text-semi-white  bg-[#462c7c] rounded-md capitalize flex items-center gap-1 font-[550]' type='button' onClick={cancelChanges}>
