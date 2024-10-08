@@ -105,15 +105,15 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
               <div></div>
             </div>
             <div className='flex flex-col gap-1'>
-              <div className='text-sm capitalize font-[550]'>password:</div>
-              <input className='outline-none border border-[#c9b8eb] w-full h-8 px-2 lg:text-sm text-base rounded-sm' value={form.password} name='password' onChange={inputHandler}></input>
-              <div></div>
+              <div className='text-sm capitalize font-[550]'>country:</div>
+              <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} />
             </div>
           </div>
           <div className='grid grid-cols-2 md:gap-6 gap-3 items-center'>
             <div className='flex flex-col gap-1'>
-              <div className='text-sm capitalize font-[550]'>country:</div>
-              <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} />
+              <div className='text-sm capitalize font-[550]'>password:</div>
+              <input className='outline-none border border-[#c9b8eb] w-full h-8 px-2 lg:text-sm text-base rounded-sm' value={form.password} name='password' onChange={inputHandler}></input>
+              <div></div>
             </div>
             <div className='flex flex-col gap-1'>
               <div className='text-sm capitalize font-[550]'>role:</div>
