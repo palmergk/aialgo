@@ -196,7 +196,7 @@ const Withdraw = () => {
                 </div>
                 {screen === 1 &&
                     <div className='flex justify-center'>
-                        <div className='mt-10 text-black font-medium h-fit w-fit bg-semi-white shlz rounded-xl overflow-hidden relative'>
+                        <div className='mt-10 text-black font-medium h-fit w-fit bg-semi-white rounded-xl relative'>
                             {loading && <Loading className="!bg-[#97979767]" />}
                             <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-b-sm rounded-t-xl border-b border-light mx-auto flex flex-col gap-2'>
                                 <Link to='/dashboard/tax-payment' onClick={MoveToTop} className='w-fit ml-auto'>
@@ -207,7 +207,7 @@ const Withdraw = () => {
                                 </Link>
                                 <div className='border-t pt-2 text-center'>Withdraw funds</div>
                             </div>
-                            <div className='flex flex-col items-center py-6 md:px-14 px-4'>
+                            <div className='grid grid-cols-1 gap-8 py-6 md:px-14 px-5'>
                                 <div className='flex gap-3 items-center'>
                                     <div className='flex flex-col gap-1'>
                                         <div className='capitalize text-[0.8rem] font-medium'>withdawal amount ($)</div>
@@ -226,14 +226,14 @@ const Withdraw = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='mt-8'>
-                                    <CryptoSelector setCryptoWallets={setCryptoWallets} error={error} className={{hover: "!hover:bg-[#f8f8f8]", bg: "!bg-white", text: "!text-light"}} />
+                                <div className='mx-auto'>
+                                    <CryptoSelector setCryptoWallets={setCryptoWallets} error={error} className={{bg: "!bg-white", text: "!text-light"}} />
                                 </div>
-                                {Object.values(cryptoWallets).length !== 0 && <div className='flex flex-col gap-2 items-center mt-8'>
+                                {Object.values(cryptoWallets).length !== 0 && <div className='flex flex-col gap-2 items-center'>
                                     <div className='text-[0.85rem] text-center'>Enter your <span className=' capitalize'>{cryptoWallets.crypto_name}</span> wallet address for <span className=' capitalize'> {cryptoWallets.network}</span> Network</div>
                                     <input className={`outline-none border bg-white lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2  ${error === 'wallet' ? 'border-[red]' : 'border-light'}`} name='withdrawal_address' value={form.withdrawal_address} onChange={inputHandler} type='text'></input>
                                 </div>}
-                                <div className='flex flex-col gap-1 items-center relative mt-8'>
+                                <div className='flex flex-col gap-1 items-center relative'>
                                     <div className='flex gap-1.5 items-center'>
                                         <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }} className={`${error === 'check' && 'outline outline-1 outline-[red]'}`}></input>
                                         <div className='text-[#252525] text-[0.8rem]'>I provided my correct wallet address</div>

@@ -170,7 +170,7 @@ const AdminDashboard = ({ children }) => {
       </div>
 
       <div className='xl:w-[80%] lg:w-[75%] w-full bg-white h-[100dvh] overflow-x-hidden overflow-y-auto'>
-        <div className='md:w-[94%] w-11/12 mx-auto'>
+        <div className='md:w-[94%] w-11/12 mx-auto overflow-x-hidden'>
           <div className='flex flex-col gap-4'>
             <div className='w-full h-fit  rounded-md bg-admin-auth mt-4 px-4 py-2 text-white text-[0.85rem] flex items-center justify-between'>
               <div className='flex gap-2 items-center'>

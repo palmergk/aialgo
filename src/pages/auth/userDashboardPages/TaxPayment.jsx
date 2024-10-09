@@ -131,7 +131,7 @@ const TaxPayment = () => {
                 </div>
                 {screen === 1 &&
                     <div className='flex justify-center'>
-                        <div className='my-10 bg-semi-white w-fit h-fit rounded-xl relative'>
+                        <div className='mt-10 bg-semi-white w-fit h-fit rounded-xl relative'>
                             {modal && <PayTaxModal closeView={() => setModal(false)} setScreen={setScreen} refetchTaxes={FetchTaxes} />}
                             <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-b-sm rounded-t-xl border-b border-[#5BB4FD] mx-auto flex flex-col gap-2'>
                                 <button className='w-fit h-fit md:text-sm text-xs font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center ml-auto' onClick={() => { setModal(true) }}>
@@ -140,8 +140,8 @@ const TaxPayment = () => {
                                 </button>
                                 <div className='border-t pt-2 text-center'>clear taxes</div>
                             </div>
-                            <div className='py-6 md:px-8 px-4 flex flex-col gap-6 items-center justify-center'>
-                                <div className='md:w-96 w-[17rem] h-fit rounded-lg flex flex-col text-white shantf bg-white z-10'>
+                            <div className='py-6 md:px-8 px-5 grid grid-cols-1 gap-6'>
+                                <div className='md:w-96 w-72 h-fit rounded-lg flex flex-col text-white shantf bg-white z-10'>
                                     <div className='plan_bg w-full md:h-20 h-16 rounded-t-lg'>
                                         <div className='uppercase font-[800] text-center md:text-[1.1rem] text-sm pt-4'>tax clearance</div>
                                     </div>

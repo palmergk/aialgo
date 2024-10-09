@@ -180,7 +180,7 @@ const Investment = () => {
                                                 <div className='md:w-44 w-[9.5rem] h-fit rounded-[10px] flex flex-col md:text-[1.2rem] py-2  px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
                                                     <div className='flex justify-between'>
                                                         <div className='capitalize md:text-[0.9rem] text-sm font-[600]'>profit/ROI</div>
-                                                        <div className={`italic md:text-[0.8rem] text-xs ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
+                                                        <div className={`italic text-xs ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
                                                     </div>
                                                     <div className='flex justify-between items-center font-bold'>
                                                         <div className='flex items-center'>
@@ -193,7 +193,7 @@ const Investment = () => {
                                                 <div className='md:w-44 w-[9.5rem] h-fit rounded-[10px] flex flex-col md:text-[1.2rem] py-2  px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
                                                     <div className='flex justify-between'>
                                                         <div className='capitalize md:text-[0.9rem] text-sm font-[600]'>bonus</div>
-                                                        <div className={`italic md:text-[0.8rem] text-xs ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
+                                                        <div className={`italic text-xs ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
                                                     </div>
                                                     <div className='flex justify-between items-center font-bold'>
                                                         <div>

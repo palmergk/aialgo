@@ -147,7 +147,7 @@ const Deposit = () => {
                 </div>
                 {screen === 1 &&
                     <div className='flex justify-center'>
-                        <div className='mt-10 h-fit w-fit bg-semi-white rounded-xl relative shlz'>
+                        <div className='mt-10 h-fit w-fit bg-semi-white rounded-xl relative'>
                             {modal && <BuyPlanModal buybal={buybal} closeModal={() => setModal(false)} openModal={() => setModal2(true)} />}
                             {modal2 && <FundModal closeModal={() => setModal2(false)} setScreen={setScreen} refetchDeposits={FetchDeposits} />}
                             <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-b-sm rounded-t-xl border-b border-[#5BB4FD] mx-auto flex flex-col gap-2'>
@@ -157,9 +157,9 @@ const Deposit = () => {
                                 </button>
                                 <div className='border-t pt-2 text-center'>trading plans</div>
                             </div>
-                            <div className={`w-fit h-[26rem] py-6 md:px-4 px-3 overflow-x-hidden ${modal || modal2 ? 'overflow-y-hidden' : 'overflow-y-auto'} scrollDiv`}>
+                            <div className='w-fit h-[26rem] py-6 md:px-4 px-3 overflow-y-auto scrollDiv'>
                                 {dataLoading ?
-                                    <div className='grid grid-cols-2 md:gap-4 gap-2 justify-center'>
+                                    <div className='grid grid-cols-2 md:gap-4 gap-3'>
                                         {new Array(4).fill(0).map((ele, i) => (
                                             <div className='md:w-52 w-36 h-64 rounded-lg bg-gray-400 animate-pulse' key={i}>
                                             </div>
@@ -168,7 +168,7 @@ const Deposit = () => {
                                     :
                                     <>
                                         {tradingPlans.length > 0 ?
-                                            <div className='grid grid-cols-2 md:gap-4 gap-2 justify-center items-center'>
+                                            <div className='grid grid-cols-2 md:gap-4 gap-3'>
                                                 {tradingPlans.map((item, i) => (
                                                     <div key={i}>
                                                         <div className='md:w-52 w-36 h-fit rounded-lg flex flex-col text-white shantf bg-white'>

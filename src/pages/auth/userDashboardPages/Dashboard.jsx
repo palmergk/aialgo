@@ -201,7 +201,7 @@ const Dashboard = ({ children }) => {
             </div>
             <div className='xl:w-[62%] lg:w-[75%] w-full h-[100dvh] overflow-x-hidden overflow-y-auto scrollDiv move'>
                 <div className='relative'>
-                    <div className='md:w-[94%] w-11/12 mx-auto'>
+                    <div className='md:w-[94%] w-11/12 mx-auto overflow-x-hidden'>
                         <div className='flex flex-col gap-4'>
                             <div className='w-full h-fit rounded-md bg-[#130e27] py-2 px-4 text-light text-[0.85rem] flex items-center justify-between mt-4'>
                                 <div className='flex gap-2 items-center'>

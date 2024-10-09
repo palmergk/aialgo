@@ -20,7 +20,7 @@ const CryptoSelector = ({setCryptoWallets, error, className}) => {
                 <SiBitcoincash className={`text-[#5BB4FD] ${className?.text}`} />
             </div>
             {select &&
-                <div className={`absolute top-9 left-0 ${adminCryptoWallets.length > 4 ? 'h-24 overflow-y-auto scroll ' : 'h-fit'} w-full bg-white border border-[#a3a3a3] rounded-md z-10 text-[0.85rem] font-bold capitalize`}>
+                <div className={`absolute top-9 left-0 overflow-x-hidden ${adminCryptoWallets.length > 4 ? 'h-24 overflow-y-auto scroll' : 'h-fit'} w-full bg-white border border-[#a3a3a3] rounded-md z-10 text-[0.85rem] font-bold capitalize`}>
                     {adminCryptoWallets.length > 1 ?
                         <>
                             {mode === 1 ?
@@ -28,7 +28,7 @@ const CryptoSelector = ({setCryptoWallets, error, className}) => {
                                     {adminCryptoWallets.length > 0 &&
                                         <>
                                             {adminCryptoWallets.map((item, i) => (
-                                                <div className={`flex flex-col px-2 py-0.5 hover:bg-[#ececec] border-b border-[#ebeaea] cursor-pointer ${className?.hover}`} key={i} onClick={() => { setObjArray(item); setMode(2) }}>
+                                                <div className='flex flex-col px-2 py-0.5 hover:bg-[#ececec] border-b border-[#ebeaea] cursor-pointer' key={i} onClick={() => { setObjArray(item); setMode(2) }}>
                                                     <div className='flex gap-2 items-center'>
                                                         <img src={`${imageurl}/cryptocurrency/${item.crypto_img}`} className='h-auto w-4'></img>
                                                         <div>{item.crypto_name}</div>
@@ -47,7 +47,7 @@ const CryptoSelector = ({setCryptoWallets, error, className}) => {
                                     {objArray.cryptoWallet.length > 0 &&
                                         <>
                                             {objArray.cryptoWallet.map((item, i) => (
-                                                <div className={`flex flex-col px-2 py-0.5 hover:bg-[#ececec] border-b border-[#ebeaea] cursor-pointer ${className?.hover}`} key={i} onClick={() => { setSelect(false); setCryptoWallets(item); setMode(1) }}>
+                                                <div className='flex flex-col px-2 py-0.5 hover:bg-[#ececec] border-b border-[#ebeaea] cursor-pointer' key={i} onClick={() => { setSelect(false); setCryptoWallets(item); setMode(1) }}>
                                                     <div>{item.network}</div>
                                                 </div>
                                             ))}
