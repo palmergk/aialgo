@@ -115,12 +115,12 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                         <div className='md:w-[90%] w-11/12 mx-auto md:py-8 py-4 flex flex-col gap-8 md:text-[0.9rem] text-[0.8rem]'>
                             <div className='flex flex-col gap-4 border p-1'>
                                 <div className='uppercase font-bold border px-1'>user details:</div>
-                                <div className='flex items-center justify-center md:w-[5.8rem] md:h-[5.8rem] w-20 h-20 rounded-full bg-[#c9b8eb] mx-auto'>
+                                <div className='flex items-center justify-center md:w-24 md:h-24 w-20 h-20 p-0.5 rounded-full bg-[#c9b8eb] mx-auto'>
                                     {Object.values(singleInvestment).length !== 0 &&
                                         <>
-                                            {singleInvestment.investmentUser.image ? <img src={`${imageurl}/profiles/${singleInvestment.investmentUser.image}`} className='md:w-[5.5rem] md:h-[5.5rem] w-[4.7rem] h-[4.7rem] rounded-full object-cover'></img>
+                                            {singleInvestment.investmentUser.image ? <img src={`${imageurl}/profiles/${singleInvestment.investmentUser.image}`} className='w-full h-full rounded-full object-cover'></img>
                                                 :
-                                                <img src={avatar} className='md:w-[5.5rem] md:h-[5.5rem] w-[4.7rem] h-[4.7rem] rounded-full object-cover'></img>
+                                                <img src={avatar} className='w-full h-full rounded-full object-cover'></img>
                                             }
                                         </>
                                     }
@@ -155,7 +155,7 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                                         <div className='italic'>add profit:</div>
                                         <div className='flex gap-2 items-center'>
                                             <div>
-                                                <input className='border border-[#c9b8eb] md:w-40 w-28 h-8 outline-none px-2 lg:text-[0.8rem] text-base rounded-sm' name='profit' value={form.profit} onChange={inputHandler} onKeyUp={UpdateHandlerForText}></input>
+                                                <input className='border border-[#9f7ae7] md:w-40 w-28 h-8 outline-none px-2 lg:text-[0.8rem] text-base rounded-sm' name='profit' value={form.profit} onChange={inputHandler} onKeyUp={UpdateHandlerForText}></input>
                                             </div>
                                             <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-[3px]'>
                                                 <div>so far:</div>
@@ -167,7 +167,7 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
                                         <div className='italic'>add bonus:</div>
                                         <div className='flex gap-2 items-center'>
                                             <div>
-                                                <input className='border border-[#c9b8eb] md:w-40 w-28 h-8 outline-none px-2 lg:text-[0.8rem] text-base rounded-sm' name='bonus' value={form.bonus} onChange={inputHandler} onKeyUp={UpdateHandlerForText}></input>
+                                                <input className='border border-[#9f7ae7] md:w-40 w-28 h-8 outline-none px-2 lg:text-[0.8rem] text-base rounded-sm' name='bonus' value={form.bonus} onChange={inputHandler} onKeyUp={UpdateHandlerForText}></input>
                                             </div>
                                             <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-[3px]'>
                                                 <div>so far:</div>

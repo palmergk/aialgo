@@ -206,12 +206,10 @@ const Profile = () => {
                 <div className='uppercase font-bold md:text-2xl text-lg text-semi-white'>profile</div>
                 <div>
                     <div className='flex items-center justify-center mt-10'>
-                        <div className='md:w-[12.5rem] md:h-[12.5rem] h-[8.5rem] w-[8.5rem] rounded-full bg-[#afa7df] flex items-center justify-center relative'>
-                            <div className='md:w-48 md:h-48 w-32 h-32'>
-                                <img className='w-full h-full rounded-full object-cover' src={profile.img}></img>
-                            </div>
+                        <div className='md:w-48 md:h-48 h-32 w-32 p-1 rounded-full bg-[#afa7df] flex items-center justify-center relative'>
+                            <img className='w-full h-full rounded-full object-cover' src={profile.img}></img>
                             <label>
-                                <div className='absolute bottom-5 right-1 bg-white md:w-[2.2rem] md:h-[2.2rem] w-8 h-8 md:text-[1.2rem] text-base flex items-center justify-center rounded-full cursor-pointer shlz'>
+                                <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shlz'>
                                     <MdOutlineEdit />
                                 </div>
                                 <input ref={imgref} type="file" onChange={handleProfileUpload} hidden></input>
@@ -397,7 +395,7 @@ const Profile = () => {
                                         <EyeIcon3 className='absolute top-2 right-2 cursor-pointer text-light text-lg' onClick={() => setEye3(!eye3)} />
                                     </div>
                                     <div className='flex md:gap-16 gap-6 items-center'>
-                                        <button className='outline-none w-fit h-fit py-2 px-4 text-xs text-semi-white  bg-admin-btn  rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => {setScreen(1); setForm({...form, dl_password: ''})}}>
+                                        <button className='outline-none w-fit h-fit py-2 px-4 text-xs text-semi-white  bg-admin-btn  rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => { setScreen(1); setForm({ ...form, dl_password: '' }) }}>
                                             <span>cancel deletion</span>
                                             <FaRegRectangleXmark />
                                         </button>

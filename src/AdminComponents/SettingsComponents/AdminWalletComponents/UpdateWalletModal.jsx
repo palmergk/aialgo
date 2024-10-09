@@ -103,11 +103,11 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
               </div>
               <div className='flex justify-between items-center gap-4'>
                 <div className='italic'>network:</div>
-                <input className='outline-none border border-[#c9b8eb] w-48 py-1 px-2 lg:text-sm text-base' value={form.network} name='network' onChange={inputHandler} onKeyUp={CommitHandler}></input>
+                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.network} name='network' onChange={inputHandler} onKeyUp={CommitHandler}></input>
               </div>
               <div className='flex justify-between items-center gap-4'>
                 <div className='italic'>address:</div>
-                <input className='outline-none border border-[#c9b8eb] w-48 py-1 px-2 lg:text-sm text-base' value={form.address} name='address' onChange={inputHandler} onKeyUp={CommitHandler}></input>
+                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.address} name='address' onChange={inputHandler} onKeyUp={CommitHandler}></input>
               </div>
             </div>
             <div className='flex gap-4 items-center mt-8 relative'>

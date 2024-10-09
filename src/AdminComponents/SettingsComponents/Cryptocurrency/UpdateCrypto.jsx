@@ -142,7 +142,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                 </div>
                 <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>crypto name:</div>
-                    <input className='outline-none border border-[#c9b8eb] w-48 py-1 px-2 lg:text-sm text-base' value={form.crypto_name} name='crypto_name' onChange={inputHandler} onKeyUp={CommitHandler}></input>
+                    <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.crypto_name} name='crypto_name' onChange={inputHandler} onKeyUp={CommitHandler}></input>
                 </div>
                 <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>crypto image:</div>
@@ -156,7 +156,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                             </div>
                             :
                             <div className='border rounded-lg flex flex-col gap-2 items-center justify-center p-2'>
-                                <div className='bg-gray-100 rounded-full p-2'><FiUploadCloud /></div>
+                                <div className='bg-gray-300 rounded-full p-2'><FiUploadCloud /></div>
                                 <span className='text-xs'>click to add image</span>
                             </div>
                         }

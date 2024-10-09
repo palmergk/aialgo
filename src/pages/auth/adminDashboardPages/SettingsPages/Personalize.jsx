@@ -146,12 +146,10 @@ const Personalize = () => {
         {loading && <Loading />}
         <div className='md:w-3/4 w-11/12 mx-auto py-10'>
           <div className='flex items-center justify-center gap-4 flex-col'>
-            <div className='md:w-[12.5rem] md:h-[12.5rem] h-[8.5rem] w-[8.5rem] rounded-full bg-[#c9b8eb] flex items-center justify-center relative'>
-              <div className='md:w-48 md:h-48 w-32 h-32'>
-                <img className='w-full h-full rounded-full object-cover' src={profile.img}></img>
-              </div>
+            <div className='md:w-48 md:h-48 h-32 w-32 p-1 rounded-full bg-[#c9b8eb] flex items-center justify-center relative'>
+              <img className='w-full h-full rounded-full object-cover' src={profile.img}></img>
               <label>
-                <div className='absolute bottom-5 right-1 bg-white md:w-[2.2rem] md:h-[2.2rem] w-8 h-8 md:text-[1.2rem] text-base flex items-center justify-center rounded-full cursor-pointer shantf'>
+                <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shantf'>
                   <MdOutlineEdit />
                 </div>
                 <input ref={imgref} type="file" onChange={handleProfileUpload} hidden></input>

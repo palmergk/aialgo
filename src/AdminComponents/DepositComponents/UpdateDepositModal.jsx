@@ -92,12 +92,12 @@ const UpdateDepositModal = ({ closeView, refetchAllDeposits, singleDeposit }) =>
             <div className='md:w-[90%] w-11/12 mx-auto md:py-8 py-4 flex flex-col gap-8 md:text-[0.9rem] text-[0.8rem]'>
               <div className='flex flex-col gap-4 border p-1'>
                 <div className='uppercase font-bold border px-1'>user details:</div>
-                <div className='flex items-center justify-center md:w-[5.8rem] md:h-[5.8rem] w-20 h-20 rounded-full bg-[#c9b8eb] mx-auto'>
+                <div className='flex items-center justify-center md:w-24 md:24 w-20 h-20 p-0.5 rounded-full bg-[#c9b8eb] mx-auto'>
                   {Object.values(singleDeposit).length !== 0 &&
                     <>
-                      {singleDeposit.depositUser.image ? <img src={`${imageurl}/profiles/${singleDeposit.depositUser.image}`} className='md:w-[5.5rem] md:h-[5.5rem] w-[4.7rem] h-[4.7rem] rounded-full object-cover'></img>
+                      {singleDeposit.depositUser.image ? <img src={`${imageurl}/profiles/${singleDeposit.depositUser.image}`} className='w-full h-full rounded-full object-cover'></img>
                         :
-                        <img src={avatar} className='md:w-[5.5rem] md:h-[5.5rem] w-[4.7rem] h-[4.7rem] rounded-full object-cover'></img>
+                        <img src={avatar} className='w-full h-full rounded-full object-cover'></img>
                       }
                     </>
                   }

@@ -59,7 +59,7 @@ const Header = () => {
 
     return (
         <>
-            <div className={`fixed top-0 left-0 w-full bg-[#1E2833] z-30 h-fit border-y border-[grey]`}>
+            <div className={`fixed top-0 left-0 w-full bg-[#1E2833] z-50 h-fit border-y border-[grey]`}>
                 <div className={`flex items-center justify-between ${dropDown && 'border-b lg:border-0 border-[grey]'} px-6 lg:px-8 py-2`}>
                     <div className='flex gap-20'>
                         <div>

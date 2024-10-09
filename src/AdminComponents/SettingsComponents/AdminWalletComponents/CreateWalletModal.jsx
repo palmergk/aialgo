@@ -106,11 +106,11 @@ const CreateWalletModal = ({ closeView, refetchAdminWallets, cryptocurrency }) =
                             </div>
                             <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>network:</div>
-                                <input className='outline-none border border-[#c9b8eb] w-48 py-1 px-2 lg:text-sm text-base' value={form.network} name='network' onChange={inputHandler}></input>
+                                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.network} name='network' onChange={inputHandler}></input>
                             </div>
                             <div className='flex justify-between items-center gap-4'>
                                 <div className='italic'>address:</div>
-                                <input className='outline-none border border-[#c9b8eb] w-48 py-1 px-2 lg:text-sm text-base' value={form.address} name='address' onChange={inputHandler}></input>
+                                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.address} name='address' onChange={inputHandler}></input>
                             </div>
                         </div>
                         <div className='flex justify-center items-center mt-8'>

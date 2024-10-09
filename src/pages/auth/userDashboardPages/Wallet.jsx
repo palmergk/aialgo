@@ -18,7 +18,6 @@ import { Apis, UserGetApi } from '../../../services/API';
 
 const Wallet = () => {
     const [wallet] = useAtom(WALLET)
-    
     const [ups, setUps] = useState({})
     const [testRun, setTestRun] = useState({})
 
@@ -67,27 +66,27 @@ const Wallet = () => {
             <div>
                 <div className='uppercase font-bold md:text-2xl text-lg text-semi-white '>wallet</div>
                 <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-xl md:text-2xl py-2 px-2 md:px-4 text-semi-white bg-[#6859bb]  overflow-hidden'>
+                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white bg-[#6859bb]  overflow-hidden'>
                         <div className='capitalize text-xs md:text-[0.9rem] font-[600] flex justify-between items-center'>
                             <span>deposits</span>
-                            <span className='text-[0.7rem] md:text-xs italic lowercase'>confirmed</span>
+                            <span className='text-[0.65rem] md:text-xs italic lowercase'>confirmed</span>
                         </div>
                         <div className='flex flex-col items-center font-bold gap-4 mt-4'>
                             <div className='flex items-center'>
-                                <BsCurrencyDollar className='-mt-0.5' />
+                                <BsCurrencyDollar />
                                 {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_deposit.toLocaleString()}</div>}
                             </div>
                             <img src={deposit3d} className='md:h-16 h-12 w-auto'></img>
                         </div>
                     </div>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-xl md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
+                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
                         <div className='capitalize text-xs md:text-[0.9rem] font-[600] flex justify-between items-center'>
                             <span>profits</span>
-                            <span className='text-[0.7rem] md:text-xs italic lowercase'>claimed</span>
+                            <span className='text-[0.65rem] md:text-xs italic lowercase'>claimed</span>
                         </div>
-                        <div className='flex justify-between font-bold mt-4'>
+                        <div className='flex justify-between gap-2 font-bold mt-4'>
                             <div className='flex items-center'>
-                                <BsCurrencyDollar className='-mt-0.5' />
+                                <BsCurrencyDollar />
                                 {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_profit.toLocaleString()}</div>}
                             </div>
                             <img src={profit3d} className='md:h-12 h-8 w-[auto]'></img>
@@ -97,14 +96,14 @@ const Wallet = () => {
                             <div>+{profitUp.toFixed(2)}%</div>
                         </div>
                     </div>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-xl md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
+                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
                         <div className='capitalize text-xs md:text-[0.9rem] font-[600] flex justify-between items-center'>
                             <span>bonuses</span>
-                            <span className='text-[0.7rem] md:text-xs italic lowercase'>claimed</span>
+                            <span className='text-[0.65rem] md:text-xs italic lowercase'>claimed</span>
                         </div>
-                        <div className='flex justify-between font-bold mt-4'>
+                        <div className='flex justify-between gap-2 font-bold mt-4'>
                             <div className='flex items-center'>
-                                <BsCurrencyDollar className='-mt-0.5' />
+                                <BsCurrencyDollar />
                                 {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_bonus.toLocaleString()}</div>}
                             </div>
                             <img src={bonus3d} className='md:h-12 h-8 w-[auto]'></img>
@@ -114,21 +113,21 @@ const Wallet = () => {
                             <div>+{bonusUp.toFixed(2)}%</div>
                         </div>
                     </div>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-xl md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden' >
+                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden' >
                         <div className='capitalize text-xs md:text-[0.9rem] font-[600]'>withdrawals</div>
                         <div className='flex flex-col items-center font-bold mt-4 gap-4'>
                             <div className='flex items-center' >
-                                <BsCurrencyDollar className='-mt-0.5' />
+                                <BsCurrencyDollar />
                                 {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_withdrawal.toLocaleString()}</div>}
                             </div>
                             <img src={withdraw3d} className='md:h-14 h-10 w-auto'></img>
                         </div>
                     </div>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-xl md:text-2xl py-2 px-2 md:px-4 text-semi-white capitalize bg-[#6859bb] overflow-hidden'>
+                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white capitalize bg-[#6859bb] overflow-hidden'>
                         <div className='capitalize text-xs md:text-[0.9rem] font-[600] flex justify-between items-center'>
                             <div>referrals</div>
                             <Link to="/dashboard/profile">
-                                <button className='bg-[#130e27] text-[0.7rem] md:text-xs rounded-xl py-1 px-4 -mt-1 italic flex gap-1 items-center justify-center'>
+                                <button className='bg-[#130e27] hover:bg-[#1a162b] md:text-xs text-[0.65rem] rounded-xl py-1 px-3 -mt-1 italic flex gap-1 items-center justify-center'>
                                     <span>refer</span>
                                     <VscDebugDisconnect />
                                 </button>
@@ -136,17 +135,17 @@ const Wallet = () => {
                         </div>
                         <div className='flex flex-col items-center font-bold mt-4 gap-4'>
                             <div className='flex items-center' >
-                                <BsCurrencyDollar className='-mt-0.5' />
+                                <BsCurrencyDollar />
                                 {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.referral.toLocaleString()}</div>}
                             </div>
                             <img src={referral} className='md:h-14 h-10 w-auto'></img>
                         </div>
                     </div>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-xl md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27]'>
+                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27]'>
                         <div className='capitalize text-xs md:text-[0.9rem] font-[600]'>current balance</div>
                         <div className='flex flex-col items-center font-bold mt-4 gap-4'>
                             <div className='flex items-center'>
-                                <BsCurrencyDollar className='-mt-0.5' />
+                                <BsCurrencyDollar />
                                 {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.balance.toLocaleString()}</div>}
                             </div>
                             <img src={wallet3d} className='md:h-[3.3rem] h-[2.3rem] w-auto'></img>
