@@ -13,12 +13,11 @@ import { ErrorAlert, SuccessAlert } from '../utils/utils';
 const ForgottenPassword = ({ closeView }) => {
     const toggler = useRef()
     const [screen, setScreen] = useState(1)
-    const [loading, setLoading] = useState(false)
     const [eye, setEye] = useState(false)
     const [eye2, setEye2] = useState(false)
     const EyeIcon = eye === true ? IoEye : IoMdEyeOff
     const EyeIcon2 = eye2 === true ? IoEye : IoMdEyeOff
-
+    const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         email: '',
         code: '',
@@ -37,16 +36,14 @@ const ForgottenPassword = ({ closeView }) => {
         e.preventDefault()
 
         if (!form.email) return ErrorAlert('Enter your email address')
-
+        const formbody = {
+            email: form.email
+        }
         setLoading(true)
         try {
-            const formbody = {
-                email: form.email
-            }
-
             const response = await UserPostApi(Apis.user.find_email, formbody)
             if (response.status === 200) {
-                SuccessAlert('Verification code sent to email')
+                SuccessAlert(response.msg)
                 setScreen(2)
             } else {
                 ErrorAlert(response.msg)
@@ -62,14 +59,12 @@ const ForgottenPassword = ({ closeView }) => {
         e.preventDefault()
 
         if (!form.code) return ErrorAlert('Enter verification code')
-
+        const formbody = {
+            email: form.email,
+            code: form.code
+        }
         setLoading(true)
         try {
-            const formbody = {
-                email: form.email,
-                code: form.code
-            }
-
             const response = await UserPostApi(Apis.user.verify_email, formbody)
             if (response.status === 200) {
                 setScreen(3)
@@ -89,15 +84,13 @@ const ForgottenPassword = ({ closeView }) => {
         if (!form.new_password) return ErrorAlert('Create a new password')
         if (!form.confirm_password) return ErrorAlert('Confirm password')
         if (form.confirm_password !== form.new_password) return ErrorAlert('Passwords mismatch')
-
+        const formbody = {
+            email: form.email,
+            password: form.new_password,
+            confirm_password: form.confirm_password
+        }
         setLoading(true)
         try {
-            const formbody = {
-                email: form.email,
-                password: form.new_password,
-                confirm_password: form.confirm_password
-            }
-
             const response = await UserPostApi(Apis.user.change_password, formbody)
             if (response.status === 200) {
                 SuccessAlert(response.msg)
@@ -119,7 +112,7 @@ const ForgottenPassword = ({ closeView }) => {
             <div className='px-4'>
                 <div className='bg-white py-4 w-fit h-fit rounded-xl shld overflow-auto relative' ref={toggler}>
                     {loading && <Loading />}
-                    {screen === 1 && <>
+                    {screen === 1 &&
                         <div className='md:w-[85%] w-11/12 mx-auto'>
                             <form onSubmit={FindEmail}>
                                 <div className='flex justify-center flex-col gap-2 items-center'>
@@ -140,8 +133,8 @@ const ForgottenPassword = ({ closeView }) => {
                                 </div>
                             </form>
                         </div>
-                    </>}
-                    {screen === 2 && <>
+                    }
+                    {screen === 2 &&
                         <div className='md:w-[85%] w-11/12 mx-auto'>
                             <form onSubmit={VerifyEmail}>
                                 <div className='flex justify-center flex-col gap-2 items-center'>
@@ -162,8 +155,8 @@ const ForgottenPassword = ({ closeView }) => {
                                 </div>
                             </form>
                         </div>
-                    </>}
-                    {screen === 3 && <>
+                    }
+                    {screen === 3 &&
                         <div className='md:w-[85%] w-11/12 mx-auto'>
                             <form onSubmit={ChangePassword}>
                                 <div className='flex justify-center flex-col gap-2 items-center'>
@@ -176,7 +169,7 @@ const ForgottenPassword = ({ closeView }) => {
                                 <div className='flex flex-col gap-5 mt-8'>
                                     <div className='flex flex-col gap-2 relative'>
                                         <div className='text-xs capitalize font-[600]'>create new password</div>
-                                        <input className='outline-none w-full  border-b border-black lg:text-[0.9rem] text-base input-off  ipt' type={eye === true ? 'text' : 'password'} placeholder='Characters more than five' name='new_password' value={form.new_password} onChange={formHandler}></input>
+                                        <input className='outline-none w-full  border-b border-black lg:text-[0.9rem] text-base input-off  ipt' type={eye === true ? 'text' : 'password'} placeholder='Six or more characters' name='new_password' value={form.new_password} onChange={formHandler}></input>
                                         <EyeIcon className='absolute bottom-0 right-0 text-base text-orange cursor-pointer' onClick={() => setEye(!eye)} />
                                     </div>
                                     <div className='flex flex-col gap-2 relative'>
@@ -190,8 +183,8 @@ const ForgottenPassword = ({ closeView }) => {
                                 </div>
                             </form>
                         </div>
-                    </>}
-                    {screen === 4 && <>
+                    }
+                    {screen === 4 &&
                         <div className='md:w-[85%] w-11/12 mx-auto'>
                             <div className='flex flex-col gap-2 justify-center items-center'>
                                 <div className='w-12 h-12 border-2 border-[green] rounded-full flex items-center justify-center'>
@@ -205,7 +198,7 @@ const ForgottenPassword = ({ closeView }) => {
                                 </div>
                             </div>
                         </div>
-                    </>}
+                    }
                 </div>
             </div>
         </ModalLayout>

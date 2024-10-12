@@ -72,11 +72,11 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                 {loading && <Loading />}
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                 <div className='font-bold uppercase border-b w-full text-center'>pay tax</div>
-                <div className='flex flex-col items-center gap-5 mt-5 px-4'>
+                <div className='flex flex-col items-center gap-5 mt-5 px-4 text-[0.8rem]'>
                     <div className='flex flex-col gap-1'>
-                        <div className='text-[0.8rem] capitalize font-medium'>tax amount ($)</div>
+                        <div className='capitalize font-medium'>tax amount ($)</div>
                         <div className='relative'>
-                            <input className={`outline-none border bg-[#ebeaea] text-black lg:text-[0.85rem] w-52 px-2 h-8 rounded-[4px] ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)}></input>
+                            <input className={`outline-none border bg-[#ebeaea] text-black lg:text-sm text-base w-52 px-2 h-8 rounded-[4px] ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)}></input>
                             <div className={`text-xs absolute top-2 right-2 ${error === 'minimum' ? 'text-[red]' : 'text-black'}`}>min: 0.99</div>
                         </div>
                     </div>
@@ -85,19 +85,18 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                     </div>
                     {Object.values(cryptoWallets).length !== 0 &&
                         <div className='flex flex-col gap-2 items-center'>
-                            <div className='text-[0.85rem] text-center'><span className='capitalize'>{cryptoWallets.crypto_name}</span> deposit address for <span className='capitalize'>{cryptoWallets.network} network:</span></div>
-                            <div className='flex gap-2 items-center'>
-                                <div className='text-xs text-[#5BB4FD] w-11/12 overflow-x-auto'>{cryptoWallets.address?.slice(0, 35)}{cryptoWallets.address.length > 35 && '....'}</div>
-                                <button className='outline-none w-fit h-fit py-2 px-2.5 text-[0.8rem] text-semi-white bg-[#252525] rounded-md capitalize flex items-center justify-center' onClick={() => copyFunction()}>
-                                    {!copy && <MdContentCopy />}
-                                    {copy && <FaCheck />}
+                            <div className='text-center text-[0.85rem]'><span className='capitalize'>{cryptoWallets.crypto_name}</span> deposit address for <span className='capitalize'>{cryptoWallets.network} network:</span></div>
+                            <div className='flex gap-1.5 items-center'>
+                                <div className='md:text-xs text-[0.65rem] text-[#5BB4FD]'>{cryptoWallets.address}</div>
+                                <button className='outline-none w-fit h-fit py-1.5 px-2 text-semi-white text-xs bg-[#252525] rounded-md capitalize flex items-center justify-center' onClick={() => copyFunction()}>
+                                    {!copy ? <MdContentCopy /> : <FaCheck />}
                                 </button>
                             </div>
                         </div>
                     }
                     {Object.values(cryptoWallets).length !== 0 &&
                         <div>
-                            <div className='text-center italic text-sm mb-0.5'>or scan qr code:</div>
+                            <div className='text-center text-[0.85rem] italic mb-1'>or scan qr code:</div>
                             <div className='flex items-center justify-center'>
                                 <QRCode value={cryptoWallets.address} className='h-32 w-auto' />
                             </div>
@@ -106,7 +105,7 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                     <div className='flex flex-col gap-1 items-center mt-2'>
                         <div className='flex gap-1.5 items-center'>
                             <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }} className={`${error === 'check' && 'outline outline-1 outline-[red]'}`}></input>
-                            <div className='text-[#252525] text-[0.8rem]'>Confirm you've paid this tax</div>
+                            <div>Confirm you've paid this tax</div>
                         </div>
                         <button className='outline-none w-fit h-fit py-2 px-14 text-xs text-semi-white bg-[#252525] rounded-md capitalize font-medium' onClick={ConfirmTaxPayment}>confirm payment</button>
                     </div>

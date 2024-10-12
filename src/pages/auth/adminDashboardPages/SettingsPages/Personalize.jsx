@@ -27,8 +27,8 @@ const Personalize = () => {
   const [loading, setLoading] = useState(false)
 
   const [profile, setProfile] = useState({
-    img: user.image ? `${imageurl}/profiles/${user?.image}` : avatar,
-    image: user?.image
+    img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
+    image: user.image ? user.image : null
   })
 
   const [form, setForm] = useState({
@@ -81,7 +81,7 @@ const Personalize = () => {
 
     setProfile({
       img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
-      image: user?.image
+      image: user.image ? user.image : null
     })
 
     setForm({
@@ -142,7 +142,7 @@ const Personalize = () => {
 
   return (
     <SettingsLayout>
-      <div className='relative'>
+      <div>
         {loading && <Loading />}
         <div className='md:w-3/4 w-11/12 mx-auto py-10'>
           <div className='flex items-center justify-center gap-4 flex-col'>

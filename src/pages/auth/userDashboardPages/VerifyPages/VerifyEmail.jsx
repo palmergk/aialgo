@@ -38,7 +38,7 @@ const VerifyEmail = () => {
         try {
             const response = await UserPostApi(Apis.user.find_email, formbody)
             if (response.status === 200) {
-                SuccessAlert('Verification code sent to email')
+                SuccessAlert(response.msg)
                 setScreen(2)
             } else {
                 ErrorAlert(response.msg)
@@ -99,11 +99,11 @@ const VerifyEmail = () => {
                                 <div className='flex flex-col gap-2'>
                                     <div className='text-[0.85rem] capitalize text-semi-white'> email address</div>
                                     <div className='relative'>
-                                        <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-semi-white ipt' type='email' placeholder='Enter your account email address' name='email' value={form.email} onChange={formHandler}></input>
+                                        <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-base text-semi-white ipt' type='email' placeholder='Enter your account email address' name='email' value={form.email} onChange={formHandler}></input>
                                     </div>
                                 </div>
                                 <div className='flex items-center'>
-                                    <button className='outline-none bg-light py-2 px-8 rounded-md capitalize text-xs md:text-sm text-white cursor-pointer font-[600]' >find email</button>
+                                    <button className='outline-none bg-light py-2 px-8 rounded-md capitalize text-xs md:text-sm text-white cursor-pointer font-semibold' >find email</button>
                                 </div>
                             </div>
                         </form>
@@ -114,11 +114,11 @@ const VerifyEmail = () => {
                                 <div className='flex flex-col gap-4 items-center'>
                                     <div className='text-[0.85rem]  text-semi-white text-center'> A six digits verification code was sent to <span className='text-[#7665D5]'>{form.email?.slice(0, 3)}*****{form.email?.slice(-10)}</span>, copy and enter below</div>
                                     <div className='relative'>
-                                        <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-semi-white ipt' type='text' placeholder='Enter verification code' name='code' value={form.code} onChange={formHandler}></input>
+                                        <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-base text-semi-white ipt' type='text' placeholder='Enter verification code' name='code' value={form.code} onChange={formHandler}></input>
                                     </div>
                                 </div>
                                 <div className='flex items-center'>
-                                    <button className='outline-none bg-light py-2 px-8 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-[600]' >verify email</button>
+                                    <button className='outline-none bg-light py-2 px-8 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-semibold' >verify email</button>
                                 </div>
                             </div>
                         </form>

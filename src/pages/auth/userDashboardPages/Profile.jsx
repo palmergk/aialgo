@@ -42,12 +42,11 @@ const Profile = () => {
     const [loading2, setLoading2] = useState(false)
     const imgref = useRef()
     const navigate = useNavigate()
-
+    
     const [profile, setProfile] = useState({
-        img: user.image ? `${imageurl}/profiles/${user?.image}` : avatar,
-        image: user?.image
+        img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
+        image: user.image ? user.image : null
     })
-
     const [form, setForm] = useState({
         full_name: user?.full_name,
         email: user?.email,
@@ -100,7 +99,7 @@ const Profile = () => {
         imgref.current.value = null
         setProfile({
             img: user.image ? `${imageurl}/profiles/${user?.image}` : avatar,
-            image: user?.image
+            image: user.image ? user.image : null
         })
 
         setForm({
@@ -162,7 +161,6 @@ const Profile = () => {
     }
 
     const DeleteAccount = async () => {
-
         if (!form.dl_password) return ErrorAlert(`Enter your password`)
 
         const formbody = {
@@ -258,7 +256,7 @@ const Profile = () => {
                             <img src={membership} className='h-auto md:w-14 w-10'></img>
                         </div>
                     </div>
-                    <div className='md:text-[1.2rem] text-base text-semi-white capitalize mt-12 flex items-center gap-1'>
+                    <div className='md:text-xl text-base text-semi-white capitalize mt-12 flex items-center gap-1'>
                         <div>acount details</div>
                         <LuUserCircle className='text-light' />
                     </div>
@@ -279,13 +277,13 @@ const Profile = () => {
                                 <div>full name:</div>
                                 {!nameEdit && <div className='flex gap-4'>
                                     <span>{user?.full_name}</span>
-                                    <div className='text-[1.1rem] text-light cursor-pointer' onClick={() => { setNameEdit(!nameEdit) }}>
+                                    <div className='text-lg text-light cursor-pointer' onClick={() => { setNameEdit(!nameEdit) }}>
                                         <FaRegEdit />
                                     </div>
                                 </div>}
                                 {nameEdit && <div className='flex md:gap-4 gap-2 items-center'>
                                     <input className='outline-none border border-light bg-transparent lg:text-[0.8rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='full_name' value={form.full_name} onChange={formHandler} onKeyUp={CommitHandler} type='text'></input>
-                                    <div className='text-[1.2rem] text-light cursor-pointer' onClick={() => setNameEdit(!nameEdit)}>
+                                    <div className='text-xl text-light cursor-pointer' onClick={() => setNameEdit(!nameEdit)}>
                                         <MdOutlineCancel />
                                     </div>
                                 </div>}
@@ -294,13 +292,13 @@ const Profile = () => {
                                 <div className=' capitalize'>username:</div>
                                 {!userEdit && <div className='flex gap-4'>
                                     <span>{user?.username}</span>
-                                    <div className='text-[1.1rem] text-light cursor-pointer' onClick={() => setUserEdit(!userEdit)}>
+                                    <div className='text-lg text-light cursor-pointer' onClick={() => setUserEdit(!userEdit)}>
                                         <FaRegEdit />
                                     </div>
                                 </div>}
                                 {userEdit && <div className='flex md:gap-4 gap-2 items-center'>
                                     <input className='outline-none border border-light bg-transparent lg:text-[0.8rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='username' value={form.username} onChange={formHandler} onKeyUp={CommitHandler} type='text'></input>
-                                    <div className='text-[1.2rem] text-light cursor-pointer' onClick={() => { setUserEdit(!userEdit) }}>
+                                    <div className='text-xl text-light cursor-pointer' onClick={() => { setUserEdit(!userEdit) }}>
                                         <MdOutlineCancel />
                                     </div>
                                 </div>}
@@ -309,13 +307,13 @@ const Profile = () => {
                                 <div className=' capitalize'>email:</div>
                                 {!emailEdit && <div className='flex gap-4 lowercase'>
                                     <span>{user?.email}</span>
-                                    <div className='text-[1.1rem] text-light cursor-pointer' onClick={() => setEmailEdit(!emailEdit)}>
+                                    <div className='text-lg text-light cursor-pointer' onClick={() => setEmailEdit(!emailEdit)}>
                                         <FaRegEdit />
                                     </div>
                                 </div>}
                                 {emailEdit && <div className='flex md:gap-4 gap-2 items-center'>
                                     <input className='outline-none border border-light bg-transparent lg:text-[0.8rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='email' value={form.email} onChange={formHandler} onKeyUp={CommitHandler} type='email'></input>
-                                    <div className='text-[1.2rem] text-light cursor-pointer' onClick={() => setEmailEdit(!emailEdit)}>
+                                    <div className='text-xl text-light cursor-pointer' onClick={() => setEmailEdit(!emailEdit)}>
                                         <MdOutlineCancel />
                                     </div>
                                 </div>}
@@ -324,7 +322,7 @@ const Profile = () => {
                                 <div className='capitalize'>password:</div>
                                 {!passEdit && <div className='flex gap-4 items-center'>
                                     <span>*********</span>
-                                    <div className='text-[1.1rem] text-light cursor-pointer' onClick={() => setPassEdit(!passEdit)}>
+                                    <div className='text-lg text-light cursor-pointer' onClick={() => setPassEdit(!passEdit)}>
                                         <FaRegEdit />
                                     </div>
                                 </div>}
@@ -339,7 +337,7 @@ const Profile = () => {
                                             <EyeIcon2 className='absolute top-2 right-2 text-light cursor-pointer text-lg' onClick={() => setEye2(!eye2)} />
                                         </div>
                                     </div>
-                                    <div className='text-[1.2rem] text-light cursor-pointer' onClick={() => setPassEdit(!passEdit)}>
+                                    <div className='text-xl text-light cursor-pointer' onClick={() => setPassEdit(!passEdit)}>
                                         <MdOutlineCancel />
                                     </div>
                                 </div>}
@@ -367,7 +365,7 @@ const Profile = () => {
                         {screen !== 1 && <div className='w-fit h-fit bg-semi-white rounded-xl md:p-8 p-4 mx-auto relative overflow-hidden shlz'>
                             {loading2 && <Loading className="!bg-[#97979767]" />}
                             {screen === 2 && <div>
-                                <div className='text-center md:text-[1.1rem] text-sm text-black font-medium'>Are you sure you want to delete your account?</div>
+                                <div className='text-center md:text-lg text-sm text-black font-medium'>Are you sure you want to delete your account?</div>
                                 <div className='flex justify-center items-center gap-0.5 mt-2 md:text-[0.8rem] text-xs text-admin-btn'>
                                     <span className='text-center'>This action may result in the loss of assests</span>
                                     <PiWarningCircleBold className='text-[red]' />
@@ -384,7 +382,7 @@ const Profile = () => {
                                 </div>
                             </div>}
                             {screen === 3 && <div>
-                                <div className='text-center md:text-[1.1rem] text-sm text-black font-medium'>Last step to permanently delete your account!</div>
+                                <div className='text-center md:text-lg text-sm text-black font-medium'>Last step to permanently delete your account!</div>
                                 <div className='flex gap-1 items-center justify-center mt-2 md:text-[0.8rem] text-xs text-[red]'>
                                     <span className='text-admin-btn'>Enter your password below to finalize action</span>
                                     <SlLockOpen />

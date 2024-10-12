@@ -21,7 +21,6 @@ const AdminNotis = ({ refetchNotifications, refetchUnreadNotis }) => {
     const [end, setEnd] = useState(6)
     const [pagestart, setpagestart] = useState(1)
     const [pageend, setpageend] = useState(0)
-
     const toggler = useRef()
 
     useEffect(
@@ -83,7 +82,7 @@ const AdminNotis = ({ refetchNotifications, refetchUnreadNotis }) => {
     }
 
     return (
-        <div className='relative'>
+        <div>
             <>
                 <div className={`relative ${showNotis ? 'hidden' : 'flex'}`} onClick={() => { setShowNotis(true); setpageend(notifications.length / 6) }}>
                     <div className='flex items-center justify-center border w-9 h-9 rounded-full text-xl text-white border-white cursor-pointer'>
@@ -111,24 +110,24 @@ const AdminNotis = ({ refetchNotifications, refetchUnreadNotis }) => {
                     </div>
                 </div>
             </>
-            <div className={`md:absolute md:top-12 md:-right-4 md:left-auto md:w-60 md:rounded-sm fixed top-0 left-0 md:h-fit h-screen overflow-y-auto w-full md:bg-[#b8b8b8] bg-white z-50 text-black ${showNotis ? 'block' : 'hidden'}`} ref={toggler}>
+            <div className={`md:absolute md:top-14 md:right-0 md:left-auto fixed top-0 left-0 md:h-fit h-screen md:w-60 w-full md:bg-zinc-400 bg-white text-black overflow-y-auto md:rounded-sm z-50 ${showNotis ? 'block' : 'hidden'}`} ref={toggler}>
                 <div className='flex justify-between items-center px-2 md:pt-3 pt-5'>
-                    <div className='flex gap-1 items-center md:text-base text-2xl capitalize font-[800]'>
+                    <div className='flex gap-1 items-center md:text-base text-2xl capitalize font-extrabold'>
                         <div className='cursor-pointer md:hidden' onClick={() => setShowNotis(false)}><FaAngleLeft /></div>
                         <div>notifications</div>
                     </div>
                     <div className='relative'>
-                        <div className='rounded-full w-fit h-fit p-1 md:bg-semi-white bg-[#b4b3b3] cursor-pointer md:text-[0.85rem] text-lg' onClick={() => setMark(!mark)}>
+                        <div className='rounded-full w-fit h-fit p-1 bg-zinc-300 cursor-pointer md:text-[0.85rem] text-lg' onClick={() => setMark(!mark)}>
                             <IoMdSettings />
                         </div>
-                        {mark && <div className='w-fit h-fit py-1 px-3 truncate flex items-center justify-center gap-1 bg-white shantf2 font-bold absolute md:top-6 top-8 right-0 rounded-md cursor-pointer z-20 hover:bg-[#f1f1f1] md:text-xs text-sm' onClick={MarkAllRead}>
+                        {mark && <div className='w-fit h-fit py-1 px-3 truncate flex items-center justify-center gap-1 bg-white shantf2 font-bold absolute md:top-6 top-8 right-0 rounded-md cursor-pointer z-10 hover:bg-gray-100 md:text-xs text-sm' onClick={MarkAllRead}>
                             <span>Mark all as read</span>
                             <IoMdCheckmarkCircleOutline className='text-[#462c7c]' />
                         </div>}
                     </div>
                 </div>
                 {notifications.length > 0 ?
-                    <div className={`pt-1.5 pb-4 px-2 ${notifications.length > 3 && 'md:h-[28rem]'} overflow-y-auto scroll`}>
+                    <div className={`pt-1.5 pb-4 px-2 ${notifications.length > 3 && 'md:h-[70vh]'} overflow-y-auto scroll`}>
                         {notifications.slice(start, end).map((item, i) => (
                             <AdminNotisField key={i} item={item} refetchNotifications={refetchNotifications} refetchUnreadNotis={refetchUnreadNotis} setShowNotis={setShowNotis} start={start} setStart={setStart} end={end} setEnd={setEnd} pagestart={pagestart} setpagestart={setpagestart} setpageend={setpageend} />
                         ))}

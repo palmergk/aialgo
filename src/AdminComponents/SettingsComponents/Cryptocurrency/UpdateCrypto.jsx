@@ -5,17 +5,17 @@ import { MdOutlineEdit } from 'react-icons/md'
 import { PiWarningCircleBold } from 'react-icons/pi'
 import { Apis, imageurl, PostApi, UserPutApi } from '../../../services/API'
 import { ErrorAlert, SuccessAlert } from '../../../utils/utils'
+import Loading from '../../../GeneralComponents/Loading'
 
-const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchAdminWallets, setLoading }) => {
+const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchAdminWallets }) => {
     const [deleteState, setdeleteState] = useState(false)
     const [commit, setCommit] = useState(false)
+    const [loading, setLoading] = useState(false)
     const cryptoImgref = useRef()
-
     const [cryptoImg, setCryptoImg] = useState({
         img: singleCrypto.id ? `${imageurl}/cryptocurrency/${singleCrypto?.crypto_img}` : null,
         image: singleCrypto.id ? singleCrypto?.crypto_img : null
     })
-
     const [form, setForm] = useState({
         crypto_name: singleCrypto.id ? singleCrypto?.crypto_name : '',
     })
@@ -105,7 +105,6 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
         } finally {
             setLoading(false)
         }
-
     }
 
     const DeleteCryptocurrency = async () => {
@@ -130,14 +129,14 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
         } finally {
             setLoading(false)
         }
-
     }
 
 
     return (
         <div>
+            {loading && <Loading />}
             <div className='flex flex-col gap-4 mt-4 relative'>
-                <div className='flex gap-1 cursor-pointer items-center text-base text-[#462c7c] -ml-1' onClick={() => setScreen(1)}>
+                <div className='cursor-pointer text-base text-[#462c7c] -ml-1' onClick={() => setScreen(1)}>
                     <FaArrowLeft />
                 </div>
                 <div className='flex justify-between items-center gap-4'>

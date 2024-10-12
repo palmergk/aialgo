@@ -8,7 +8,6 @@ const CountComponent = () => {
     const ref = useRef()
 
     useEffect(() => {
-
         const element = ref.current
 
         let index = 0

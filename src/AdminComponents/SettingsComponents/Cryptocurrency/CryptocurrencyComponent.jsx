@@ -3,23 +3,19 @@ import { FaXmark } from 'react-icons/fa6'
 import { IoIosSettings } from 'react-icons/io'
 import nothnyet from '../../../assets/images/nothn.png'
 import UpdateCrypto from './UpdateCrypto'
-import Loading from '../../../GeneralComponents/Loading'
 import ModalLayout from '../../../utils/ModalLayout'
 import { imageurl } from '../../../services/API'
 
 const CryptocurrencyComponent = ({ closeView, cryptocurrency, refetchCryptocurrency, refetchAdminWallets }) => {
     const [singleCrypto, setSingleCrypto] = useState({})
     const [screen, setScreen] = useState(1)
-    const [loading, setLoading] = useState(false)
     const toggler = useRef()
     
 
-
     return (
         <ModalLayout toggler={toggler} closeView={closeView}>
-            <div className={`xl:w-1/3 lg:w-2/5 md:w-1/2 w-11/12 h-[50vh] bg-white rounded-lg overflow-x-hidden relative ${loading ? 'overflow-y-hidden' : 'overflow-y-auto scroll'}`} ref={toggler}>
-                <div className='w-full h-full relative'>
-                    {loading && <Loading />}
+            <div className='xl:w-1/3 lg:w-2/5 md:w-1/2 w-11/12 h-[50vh] bg-white rounded-lg overflow-x-hidden relative overflow-y-auto scroll' ref={toggler}>
+                <div className='relative'>
                     <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                     <div className='flex flex-col md:w-[90%] w-11/12 mx-auto py-4 md:text-[0.9rem] text-[0.8rem]'>
                         <div className='text-xl uppercase text-center font-bold border-b'>add crypto</div>
@@ -63,7 +59,7 @@ const CryptocurrencyComponent = ({ closeView, cryptocurrency, refetchCryptocurre
                             </div>
                         </>}
                         {screen === 2 &&
-                           <UpdateCrypto setScreen={setScreen} setLoading={setLoading} refetchCryptocurrency={refetchCryptocurrency} singleCrypto={singleCrypto} refetchAdminWallets={refetchAdminWallets}/>
+                           <UpdateCrypto setScreen={setScreen} refetchCryptocurrency={refetchCryptocurrency} singleCrypto={singleCrypto} refetchAdminWallets={refetchAdminWallets}/>
                         }
                     </div>
                 </div>

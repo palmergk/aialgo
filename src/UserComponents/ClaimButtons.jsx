@@ -20,7 +20,6 @@ const ClaimButtons = ({ item, refetchInvestments, refetchInvestmentsUnclaim }) =
     const [loading, setLoading] = useState(false)
 
     const ClaimingInvestment = async () => {
-
         setTimeout(() => {
             refetchInvestmentsUnclaim()
         }, 1500)
@@ -35,13 +34,11 @@ const ClaimButtons = ({ item, refetchInvestments, refetchInvestmentsUnclaim }) =
             return setError(`running till ${moment(new Date(item.endDate)).format('DD-MM-yyyy')} / ${moment(new Date(item.endDate)).format('h:mm')}`)
         }
 
+        setLoading(true)
+        const formbody = {
+            invest_id: item.id
+        }
         try {
-            setLoading(true)
-
-            const formbody = {
-                invest_id: item.id
-            }
-
             const response = await PostApi(Apis.investment.claim_investment, formbody)
             if (response.status === 200) {
                 setClaim({

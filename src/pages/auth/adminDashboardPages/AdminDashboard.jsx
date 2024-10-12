@@ -168,53 +168,54 @@ const AdminDashboard = ({ children }) => {
           </div>
         </div>
       </div>
-
       <div className='xl:w-[80%] lg:w-[75%] w-full bg-white h-[100dvh] overflow-x-hidden overflow-y-auto'>
-        <div className='md:w-[94%] w-11/12 mx-auto overflow-x-hidden'>
-          <div className='flex flex-col gap-4'>
-            <div className='w-full h-fit  rounded-md bg-admin-auth mt-4 px-4 py-2 text-white text-[0.85rem] flex items-center justify-between'>
-              <div className='flex gap-2 items-center'>
-                <Link className='lg:hidden cursor-pointer' to='/admin-controls/settings/personalize'>
-                  {user.image ?
-                    <img src={`${imageurl}/profiles/${user.image}`} className='w-10 h-10 object-cover rounded-full border border-white'></img>
-                    :
-                    <img src={avatar} className='w-10 h-10 object-cover rounded-full border border-white'></img>
-                  }
-                </Link>
-                <div className='capitalize font-medium'>hi, {user?.username}</div>
+        <div className='relative'>
+          <div className='md:w-[94%] w-11/12 mx-auto'>
+            <div className='flex flex-col gap-4'>
+              <div className='w-full h-fit rounded-md bg-admin-auth mt-4 px-4 py-2 text-white text-[0.85rem] flex items-center justify-between relative'>
+                <div className='flex gap-2 items-center'>
+                  <Link className='lg:hidden cursor-pointer' to='/admin-controls/settings/personalize'>
+                    {user.image ?
+                      <img src={`${imageurl}/profiles/${user.image}`} className='w-10 h-10 object-cover rounded-full border border-white'></img>
+                      :
+                      <img src={avatar} className='w-10 h-10 object-cover rounded-full border border-white'></img>
+                    }
+                  </Link>
+                  <div className='capitalize font-medium'>hi, {user?.username}</div>
+                </div>
+                <div>
+                  <AdminNotis refetchNotifications={FetchNotifications} refetchUnreadNotis={FetchUnreadNotis} />
+                </div>
               </div>
-              <div>
-                <AdminNotis refetchNotifications={FetchNotifications} refetchUnreadNotis={FetchUnreadNotis} />
+              <div className='flex gap-1.5 capitalize items-center text-[#292929] font-bold md:text-[0.85rem] text-xs '>
+                <div>dashboard</div>
+                <FaAngleRight className='text-[0.6rem]' />
+                {location.pathname === '/admin-controls' && <span>deposits</span>}
+                {location.pathname.includes('/admin-controls/settings') ?
+                  <span>{location.pathname.slice(16, 24)}</span>
+                  :
+                  <span>{location.pathname.slice(16)}</span>
+                }
               </div>
             </div>
-            <div className='flex gap-1.5 capitalize items-center text-[#292929] font-bold md:text-[0.85rem] text-xs '>
-              <div>dashboard</div>
-              <FaAngleRight className='text-[0.6rem]' />
-              {location.pathname === '/admin-controls' && <span>deposits</span>}
-              {location.pathname.includes('/admin-controls/settings') ?
-                <span>{location.pathname.slice(16, 24)}</span>
-                :
-                <span>{location.pathname.slice(16)}</span>
-              }
+            <div className='pt-10 pb-24 lg:pb-10'>
+              {children}
             </div>
           </div>
-          <div className='pt-10 pb-24 lg:pb-10'>
-            {children}
-          </div>
-          <div className='bg-admin-auth w-full md:h-14 h-12 fixed bottom-0 left-0 z-30 lg:hidden px-2'>
-            <div className='grid grid-cols-5 items-center h-full w-full'>
-              {MainLinks.map((item, i) => (
-                <Link key={i} onClick={MoveToTop} to={item.url}>
-                  <div className={`flex flex-col gap-1 items-center cursor-pointe ${location.pathname === item.url ? 'text-[green]' : ' text-semi-white'}`} >
-                    <item.icon className='md:text-lg text-base' />
-                    <div className='capitalize md:text-[0.6rem] text-[0.55rem] font-medium'>{item.path}</div>
-                  </div>
-                </Link>
-              ))}
-              <div className={`flex flex-col gap-1 items-center justify-center rounded-full cursor-pointer  ${!toggleArray.includes(location.pathname) ? 'text-[green]' : 'text-semi-white'} `} onClick={() => setSlideShow(!slideShow)}>
-                <LiaBarsSolid className='md:text-lg text-base' />
-                <div className='capitalize md:text-[0.6rem] text-[0.55rem] font-medium'>a-z menu</div>
-              </div>
+        </div>
+        <div className='bg-admin-auth w-full md:h-14 h-12 fixed bottom-0 left-0 z-30 lg:hidden px-2'>
+          <div className='grid grid-cols-5 items-center h-full w-full'>
+            {MainLinks.map((item, i) => (
+              <Link key={i} onClick={MoveToTop} to={item.url}>
+                <div className={`flex flex-col gap-1 items-center cursor-pointe ${location.pathname === item.url ? 'text-[green]' : ' text-semi-white'}`} >
+                  <item.icon className='md:text-lg text-base' />
+                  <div className='capitalize md:text-[0.6rem] text-[0.55rem] font-medium'>{item.path}</div>
+                </div>
+              </Link>
+            ))}
+            <div className={`flex flex-col gap-1 items-center justify-center rounded-full cursor-pointer  ${!toggleArray.includes(location.pathname) ? 'text-[green]' : 'text-semi-white'} `} onClick={() => setSlideShow(!slideShow)}>
+              <LiaBarsSolid className='md:text-lg text-base' />
+              <div className='capitalize md:text-[0.6rem] text-[0.55rem] font-medium'>a-z menu</div>
             </div>
           </div>
         </div>

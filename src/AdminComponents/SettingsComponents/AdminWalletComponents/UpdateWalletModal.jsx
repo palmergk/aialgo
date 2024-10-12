@@ -34,8 +34,6 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
 
 
   const UpdateWallet = async () => {
-    setdeleteState(false)
-
     if (!form.network) return ErrorAlert('Enter a network')
     if (!form.address) return ErrorAlert('Enter an address')
 
@@ -59,12 +57,10 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
     } finally {
       setLoading(false)
     }
-
   }
 
 
   const DeleteWallet = async () => {
-
     const formbody = {
       wallet_id: singleWallet.id
     }
@@ -91,7 +87,7 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
   return (
     <ModalLayout closeView={closeView} toggler={toggler}>
       <div className='xl:w-1/3 lg:w-2/5 md:w-1/2 w-11/12 h-fit bg-white rounded-lg overflow-hidden relative' ref={toggler}>
-        <div className='w-full h-full relative'>
+        <div className='relative'>
           {loading && <Loading />}
           <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
           <div className='flex flex-col md:w-[90%] w-11/12 mx-auto py-4 md:text-[0.9rem] text-[0.8rem]'>

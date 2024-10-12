@@ -8,13 +8,11 @@ import { ErrorAlert, SuccessAlert } from '../../utils/utils'
 
 const SetDepositMinimum = ({ closeView }) => {
     const [adminStore, setAdminStore] = useAtom(ADMINSTORE)
-
     const [amount, setAmount] = useState('')
     const toggler = useRef()
     const [loading, setLoading] = useState(false)
 
     const SetReferalBonus = async () => {
-
         if (!amount) return ErrorAlert('Enter an amount')
         if (isNaN(amount)) return ErrorAlert('Must be a number')
 
@@ -22,6 +20,7 @@ const SetDepositMinimum = ({ closeView }) => {
             deposit_minimum: parseFloat(amount)
         }
 
+        setLoading(true)
         try {
             const response = await UserPutApi(Apis.admin.update_admin_store, formbody)
             if (response.status === 200) {

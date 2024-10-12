@@ -212,13 +212,13 @@ const Withdraw = () => {
                                     <div className='flex flex-col gap-1'>
                                         <div className='capitalize text-[0.8rem] font-medium'>withdawal amount ($)</div>
                                         <div className='relative'>
-                                            <input className={`outline-none border lg:text-[0.85rem] md:w-48 w-40 h-8 rounded-[4px] pl-2 pr-16 bg-white ${error === 'amount' ? 'border-[red]' : 'border-light'}`} name='amount' value={form.amount} onChange={inputHandler} ></input>
+                                            <input className={`outline-none border lg:text-sm text-base md:w-48 w-40 h-8 rounded-[4px] pl-2 pr-16 bg-white ${error === 'amount' ? 'border-[red]' : 'border-light'}`} name='amount' value={form.amount} onChange={inputHandler} ></input>
                                             <div className={`text-xs absolute top-2 right-2 ${error === 'minimum' ? 'text-[red]' : 'text-black'}`}>min: {user?.withdrawal_minimum}</div>
                                         </div>
                                     </div>
                                     <div className={`w-fit h-fit rounded-md flex flex-col py-2 justify-center items-center md:px-4 px-3 text-semi-white gap-1 bg-light ${error === 'balance' && 'outline outline-1 outline-[red]'}`}>
                                         <div className='flex  justify-center items-center gap-1'>
-                                            <div className='md:text-[0.85rem] text-xs font-[600]'>withdrawable</div>
+                                            <div className='md:text-[0.85rem] text-xs font-semibold'>withdrawable</div>
                                             <img src={wthwallet} className='md:h-6 h-4 w-auto'></img>
                                         </div>
                                         <div className='flex items-center justify-center md:text-base text-sm'>

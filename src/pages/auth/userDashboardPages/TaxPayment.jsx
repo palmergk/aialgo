@@ -143,11 +143,11 @@ const TaxPayment = () => {
                             <div className='py-6 md:px-8 px-5 grid grid-cols-1 gap-6'>
                                 <div className='md:w-96 w-72 h-fit rounded-lg flex flex-col text-white shantf bg-white z-10'>
                                     <div className='plan_bg w-full md:h-20 h-16 rounded-t-lg'>
-                                        <div className='uppercase font-[800] text-center md:text-[1.1rem] text-sm pt-4'>tax clearance</div>
+                                        <div className='uppercase font-extrabold text-center md:text-lg text-sm pt-4'>tax clearance</div>
                                     </div>
                                     <div className='-mt-6 flex flex-col gap-2 items-center justify-center'>
-                                        <div className='md:h-[5.3rem] md:w-[5.3rem] w-[4.7rem] h-[4.7rem] rounded-full bg-white flex items-center justify-center'>
-                                            <div className='md:h-[4.5rem] md:w-[4.5rem] w-[3.9rem] h-[3.9rem] rounded-full bg-[#252525] flex flex-col gap-1 items-center justify-center'>
+                                        <div className='md:h-[5.3rem] md:w-[5.3rem] w-[4.7rem] h-[4.7rem] p-1.5 rounded-full bg-white flex items-center justify-center'>
+                                            <div className='w-full h-full rounded-full bg-[#252525] flex flex-col gap-1 items-center justify-center'>
                                                 <div className='italic md:text-[0.65rem] text-[0.6rem]'>low as</div>
                                                 <div className='flex items-center font-bold gap-[0.1rem] text-[#5BB4FD] md:text-base text-sm'>
                                                     <div className='md:text-base text-sm -ml-1'>{adminStore?.tax_percentage}%</div>

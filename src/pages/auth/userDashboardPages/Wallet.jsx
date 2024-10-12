@@ -67,7 +67,7 @@ const Wallet = () => {
                 <div className='uppercase font-bold md:text-2xl text-lg text-semi-white '>wallet</div>
                 <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
                     <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white bg-[#6859bb]  overflow-hidden'>
-                        <div className='capitalize text-xs md:text-[0.9rem] font-[600] flex justify-between items-center'>
+                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
                             <span>deposits</span>
                             <span className='text-[0.65rem] md:text-xs italic lowercase'>confirmed</span>
                         </div>
@@ -80,7 +80,7 @@ const Wallet = () => {
                         </div>
                     </div>
                     <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
-                        <div className='capitalize text-xs md:text-[0.9rem] font-[600] flex justify-between items-center'>
+                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
                             <span>profits</span>
                             <span className='text-[0.65rem] md:text-xs italic lowercase'>claimed</span>
                         </div>
@@ -97,7 +97,7 @@ const Wallet = () => {
                         </div>
                     </div>
                     <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
-                        <div className='capitalize text-xs md:text-[0.9rem] font-[600] flex justify-between items-center'>
+                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
                             <span>bonuses</span>
                             <span className='text-[0.65rem] md:text-xs italic lowercase'>claimed</span>
                         </div>
@@ -114,7 +114,7 @@ const Wallet = () => {
                         </div>
                     </div>
                     <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden' >
-                        <div className='capitalize text-xs md:text-[0.9rem] font-[600]'>withdrawals</div>
+                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>withdrawals</div>
                         <div className='flex flex-col items-center font-bold mt-4 gap-4'>
                             <div className='flex items-center' >
                                 <BsCurrencyDollar />
@@ -124,10 +124,10 @@ const Wallet = () => {
                         </div>
                     </div>
                     <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white capitalize bg-[#6859bb] overflow-hidden'>
-                        <div className='capitalize text-xs md:text-[0.9rem] font-[600] flex justify-between items-center'>
+                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
                             <div>referrals</div>
                             <Link to="/dashboard/profile">
-                                <button className='bg-[#130e27] hover:bg-[#1a162b] md:text-xs text-[0.65rem] rounded-xl py-1 px-3 -mt-1 italic flex gap-1 items-center justify-center'>
+                                <button className='bg-[#130e27] hover:bg-[#1a162b] md:text-xs text-[0.65rem] rounded-xl py-1 px-3 -mt-1 italic flex gap-1 items-center justify-center font-normal'>
                                     <span>refer</span>
                                     <VscDebugDisconnect />
                                 </button>
@@ -142,7 +142,7 @@ const Wallet = () => {
                         </div>
                     </div>
                     <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27]'>
-                        <div className='capitalize text-xs md:text-[0.9rem] font-[600]'>current balance</div>
+                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>current balance</div>
                         <div className='flex flex-col items-center font-bold mt-4 gap-4'>
                             <div className='flex items-center'>
                                 <BsCurrencyDollar />

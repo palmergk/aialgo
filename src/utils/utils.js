@@ -31,13 +31,4 @@ export const MoveToTop = () => {
     })
 }
 
-export const MoveToTopDiv = () => {
-    const move = document.querySelector('.move')
-    move.scrollTo({
-        top: 0,
-    })
-}
-
-
-
 

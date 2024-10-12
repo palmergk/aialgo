@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import VerifyLayout from '../../../../UserComponents/VerifyLayout'
-import { NOTIFICATIONS, PROFILE, UNREADNOTIS } from '../../../../store'
+import { NOTIFICATIONS, UNREADNOTIS } from '../../../../store'
 import { MdVerified } from 'react-icons/md'
 import { useAtom } from 'jotai'
 import { FiUploadCloud } from 'react-icons/fi'
@@ -26,7 +26,6 @@ const MaritalStatus = [
 ]
 
 const VerifyKYC = () => {
-    const [, setUser] = useAtom(PROFILE)
     const [, setNotifications] = useAtom(NOTIFICATIONS)
     const [, setUnreadNotis] = useAtom(UNREADNOTIS)
 
@@ -43,7 +42,6 @@ const VerifyKYC = () => {
     const idref = useRef()
     const [id, setId] = useState(null)
     const [loading, setLoading] = useState(false)
-
     const [form, setForm] = useState({
         first_name: '',
         last_name: '',
@@ -122,7 +120,6 @@ const VerifyKYC = () => {
         if (!form.phone_number) return ErrorAlert('Enter your mobile number')
         if (!form.id_number) return ErrorAlert('Enter an identification number')
         if (id === null) return ErrorAlert('Provide a valid ID')
-
         if (kyc.status === 'verified') return ErrorAlert('KYC is verified')
 
         if (form.first_name === kyc.first_name && form.last_name === kyc.last_name && form.address === kyc.address && form.state === kyc.state && form.postal === kyc.postal && form.date_of_birth === kyc.date_of_birth && form.phone_number === kyc.phone_number && form.id_number === kyc.id_number && phoneCode === kyc.phone_code && gender === kyc.gender && marital === kyc.marital_status && usercountry.name === kyc.country && id.name === kyc.valid_id) return ErrorAlert('No changes made')
@@ -149,7 +146,6 @@ const VerifyKYC = () => {
             if (response.status === 200) {
                 SuccessAlert(response.msg)
                 FetchKyc()
-                setUser(response.profile)
                 setNotifications(response.notis)
                 setUnreadNotis(response.unread)
             } else {

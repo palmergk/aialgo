@@ -9,7 +9,6 @@ import { ErrorAlert, SuccessAlert } from '../../utils/utils'
 
 const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
     const [userwallet] = useAtom(WALLET)
-
     const [amount, setAmount] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)

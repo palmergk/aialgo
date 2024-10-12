@@ -17,7 +17,6 @@ import { useAtom } from 'jotai';
 const ContactPage = () => {
   const [adminstore] = useAtom(ADMINSTORE)
   const [loading, setLoading] = useState(false)
-
   const [form, setForm] = useState({
     name: '',
     email: '',

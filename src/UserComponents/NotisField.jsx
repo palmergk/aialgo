@@ -52,16 +52,17 @@ const NotisField = ({ item, refetchNotifications, refetchUnreadNotis, start, end
     }
 
     return (
-        <div className='flex flex-col items-center md:pt-2 pt-4 md:text-xs text-[0.8rem]'>
-            <div className={` p-2 rounded-md ${item.read === 'true' ? '' : 'bg-[#c0b9e4]'} relative shantf  w-full h-fit cursor-pointer overflow-hidden`} >
+        <div className='md:pt-2 pt-4 md:text-xs text-[0.8rem]'>
+            <div className={`p-2 ${item.read === 'true' ? 'bg-white' : 'bg-[#c0b9e4]'} relative w-full h-fit cursor-pointer rounded-md overflow-hidden shantf`} >
                 <Link to={item.URL} onClick={() => { MarkSingleRead(); setShowNotis(false); MoveToTop() }} className='flex flex-col gap-2'>
                     <div className='flex gap-0.5 items-center border-b border-[grey] w-fit'>
-                        <div className='capitalize font-[800]'>{item.title}</div>
-                        {item.status !== 'failed' ? <HiCheckCircle className='text-light ' />
+                        <div className='capitalize font-extrabold'>{item.title}</div>
+                        {item.status !== 'failed' ?
+                            <HiCheckCircle className='text-light ' />
                             :
                             <MdError className='text-[#c94747]' />}
                     </div>
-                    <div className='font-[600]'>{item.content}</div>
+                    <div className='font-semibold'>{item.content}</div>
                     <div className=' text-[0.7rem] text-[#3d3d3d] font-bold mt-2'>{moment(item.createdAt).fromNow()}</div>
                 </Link>
                 <FaXmark className='text-[#5f5f5f] text-[0.85rem] cursor-pointer hover:bg-[grey] hover:text-[#272727] absolute top-0 right-0 rounded-full' onClick={DeleteNotification} />
