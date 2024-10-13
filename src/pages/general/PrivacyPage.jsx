@@ -6,8 +6,8 @@ import { MoveToTop } from '../../utils/utils'
 const PrivacyPage = () => {
     return (
         <Pagelayout>
-            <div className='bg-[whitesmoke]'>
-                <div className='lg:w-5/6 mx-auto py-16'>
+            <div className='bg-[whitesmoke] py-16'>
+                <div className='lg:w-5/6 mx-auto'>
                     <div className='w-full h-fit bg-white mx-auto rounded-xl relative shb py-12 overflow-hidden'>
                         <div className='w-[90%] mx-auto'>
                             <div className='flex flex-col gap-1 '>

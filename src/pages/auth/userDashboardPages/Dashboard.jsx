@@ -155,11 +155,9 @@ const Dashboard = ({ children }) => {
                             <div className=' text-[0.65rem] uppercase lg:text-[#797878] text-[#c5c4c4]'>main</div>
                             <div className='flex flex-col gap-8'>
                                 {MainLinks.map((item, i) => (
-                                    <Link key={i} onClick={MoveToTop} to={item.url}>
-                                        <div className={`flex gap-3 lg:hover:text-white hover:text-[green] items-center cursor-pointer w-fit lg:w-full ${location.pathname === item.url && 'lg:border-r-[3px] lg:rounded-sm lg:border-light'}`} >
-                                            <item.icon className='text-[1.3rem] ' />
-                                            <div className='capitalize text-[0.85rem] lg:font-bold font-medium hover:font-bold'>{item.path}</div>
-                                        </div>
+                                    <Link key={i} onClick={() => { MoveToTop(); setSlideShow(false) }} to={item.url} className={`flex gap-3 lg:hover:text-white hover:text-[green] items-center cursor-pointer w-fit lg:w-full ${location.pathname === item.url && 'lg:border-r-[3px] lg:rounded-sm lg:border-light'}`}>
+                                        <item.icon className='text-[1.3rem] ' />
+                                        <div className='capitalize text-[0.85rem] lg:font-bold font-medium hover:font-bold'>{item.path}</div>
                                     </Link>
                                 ))}
                             </div>
@@ -168,11 +166,9 @@ const Dashboard = ({ children }) => {
                             <div className=' text-[0.65rem] uppercase lg:text-[#797878] text-[#c5c4c4]'>others</div>
                             <div className='flex flex-col gap-8'>
                                 {OtherLinks.map((item, i) => (
-                                    <Link key={i} onClick={MoveToTop} to={item.url}>
-                                        <div className={`flex gap-3 lg:hover:text-white hover:text-[green] items-center cursor-pointer w-fit lg:w-full ${location.pathname === item.url && 'lg:border-r-[3px] lg:rounded-sm lg:border-light'}`} >
-                                            <item.icon className='text-[1.3rem] ' />
-                                            <div className='capitalize text-[0.85rem] lg:font-bold font-medium hover:font-bold'>{item.path}</div>
-                                        </div>
+                                    <Link key={i} onClick={() => { MoveToTop(); setSlideShow(false) }} to={item.url} className={`flex gap-3 lg:hover:text-white hover:text-[green] items-center cursor-pointer w-fit lg:w-full ${location.pathname === item.url && 'lg:border-r-[3px] lg:rounded-sm lg:border-light'}`}>
+                                        <item.icon className='text-[1.3rem] ' />
+                                        <div className='capitalize text-[0.85rem] lg:font-bold font-medium hover:font-bold'>{item.path}</div>
                                     </Link>
                                 ))}
                                 <div className='relative'>
@@ -240,11 +236,9 @@ const Dashboard = ({ children }) => {
                 <div className='bg-[#131024] w-full md:h-14 h-12 fixed bottom-0 left-0 z-30 lg:hidden px-2'>
                     <div className='grid grid-cols-5 items-center h-full w-full'>
                         {MainLinks.map((item, i) => (
-                            <Link key={i} onClick={MoveToTop} to={item.url}>
-                                <div className={`flex flex-col gap-1 items-center cursor-pointer  ${location.pathname === item.url ? 'text-light' : ' text-semi-white'}`} >
-                                    <item.icon className='md:text-lg text-base' />
-                                    <div className='capitalize md:text-[0.6rem] text-[0.55rem] font-medium'>{item.path}</div>
-                                </div>
+                            <Link key={i} onClick={MoveToTop} to={item.url} className={`flex flex-col gap-1 items-center cursor-pointer  ${location.pathname === item.url ? 'text-light' : ' text-semi-white'}`}>
+                                <item.icon className='md:text-lg text-base' />
+                                <div className='capitalize md:text-[0.6rem] text-[0.55rem] font-medium'>{item.path}</div>
                             </Link>
                         ))}
                         <div className={`flex flex-col gap-1 items-center justify-center rounded-full cursor-pointer  ${!toggleArray.includes(location.pathname) ? 'text-light' : 'text-white'} `} onClick={() => { setSlideShow(!slideShow) }}>

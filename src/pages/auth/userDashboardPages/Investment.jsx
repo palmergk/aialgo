@@ -133,10 +133,10 @@ const Investment = () => {
     return (
         <Dashboard>
             <div>
-                <div className='flex justify-between items-center'>
+                <div className='flex justify-between items-center gap-4'>
                     <div className='uppercase font-bold md:text-2xl text-lg text-semi-white '>{screen === 1 ? 'investment' : 'investment history'}</div>
                     <div className='flex gap-1 capitalize font-bold md:text-[0.9rem] text-xs text-light items-center justify-center cursor-pointer' onClick={() => setScreen(screen === 1 ? 2 : 1)}>
-                        <span>{screen === 1 ? 'history' : 'my investments'}</span>
+                        <span>{screen === 1 ? 'history' : 'investments'}</span>
                         {screen === 1 ? <RiHistoryFill /> : <IoListOutline />}
                     </div>
                 </div>
@@ -237,7 +237,7 @@ const Investment = () => {
                 }
                 {screen === 2 &&
                     <div className='mt-10'>
-                        <div className='relative w-fit mx-auto'>
+                        <div className='relative w-fit mx-auto mb-6'>
                             <input className='border border-white bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 lg:text-[0.9rem] rounded-full text-white ipa' type='text' value={search} onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch}></input>
                             <div className='text-[1.2rem] text-white absolute top-[-0.5rem] right-[-0.5rem] w-[2.5rem] h-10 rounded-full flex items-center justify-center bg-light shlz'>
                                 <IoIosSearch />
@@ -248,60 +248,60 @@ const Investment = () => {
                                 }
                             </div>
                         </div>
-                        <div className='relative overflow-x-auto shadow-md rounded-lg mt-4 scrollsdown'>
-                            <table className='w-full'>
-                                <thead >
-                                    <tr className='bg-light text-[0.8rem] font-bold text-white'>
-                                        <td className='text-center  capitalize p-2 truncate'>date</td>
-                                        <td className='text-center  capitalize p-2 truncate'>time</td>
-                                        <td className='text-center  capitalize p-2 truncate'>amount</td>
-                                        <td className='text-center  capitalize p-2 truncate'>plan</td>
-                                        <td className='text-center  capitalize p-2 truncate'>profit</td>
-                                        <td className='text-center  capitalize p-2 truncate'>bonus</td>
-                                        <td className='text-center  capitalize p-2 truncate'>status</td>
-                                        <td className='text-center  capitalize p-2 truncate'>claim</td>
-                                    </tr>
-                                </thead>
-                                {dataLoading2 ?
-                                    <tbody>
-                                        <tr className='bg-gray-400 animate-pulse h-10'>
-                                            <td colSpan="8"></td>
-                                        </tr>
-                                    </tbody>
-                                    :
-                                    <>
-                                        {investment.length > 0 ?
-                                            <tbody>
-                                                {investment.slice(start, end).map((item, i) => (
-                                                    <tr className='text-[0.8rem] text-semi-white bg-[#272727] even:bg-[#313131]' key={i}>
-                                                        <td className='p-4  text-center truncate'>{moment(item.createdAt).format('DD-MM-yyyy')}</td>
-                                                        <td className='p-4  text-center truncate'>{moment(item.createdAt).format('h:mm')}</td>
-                                                        <td className='p-4  text-center truncate'>${item.amount.toLocaleString()}</td>
-                                                        <td className='p-4  text-center truncate'>{item.trading_plan}</td>
-                                                        <td className='p-4  text-center truncate'>${item.profit.toLocaleString()}</td>
-                                                        <td className='p-4  text-center truncate'>${item.bonus.toLocaleString()}</td>
-                                                        <td className={`p-4  text-center truncate italic ${item.status === 'completed' ? 'text-[#adad40]' : 'text-[#6f6ff5]'}`}>{item.status}</td>
-                                                        <td className={`p-4  text-center truncate italic ${item.claim === 'true' ? 'text-[#adad40]' : 'text-[#6f6ff5]'}`}>{item.claim} </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                            :
-                                            <tbody>
-                                                <tr className='text-semi-white text-[0.8rem] bg-[#272727] '>
-                                                    <td colSpan="8" className='py-2 italic text-center truncate'>
-                                                        <div className='flex gap-1 items-center justify-center'>
-                                                            <span>no investments found...</span>
-                                                            <img src={nothnyet} className='h-4 w-auto'></img>
+                        {dataLoading2 ?
+                            <div className='w-full h-fit'>
+                                <div className='h-11 bg-gray-500 animate-pulse rounded-t-lg'></div>
+                                <div className='h-24 bg-gray-400 animate-pulse rounded-b-lg'></div>
+                            </div>
+                            :
+                            <div className='md:w-[95%] mx-auto'>
+                                {investment.length > 0 ?
+                                    <div className='flex flex-col gap-4'>
+                                        {investment.slice(start, end).map((item, i) => (
+                                            <div key={i} className='w-full h-fit relative shadow-logout-sha text-semi-white'>
+                                                <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg'>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                                                <div className='bg-[#1b1730] grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
+                                                    <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
+                                                        <div className='flex justify-between gap-4'>
+                                                            <span>amount:</span>
+                                                            <span>${item.amount.toLocaleString()}</span>
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        }
-                                    </>
+                                                        <div className='flex justify-between gap-4'>
+                                                            <span>plan:</span>
+                                                            <span>{item.trading_plan}</span>
+                                                        </div>
+                                                        <div className='flex justify-between gap-4'>
+                                                            <span>profit:</span>
+                                                            <span>${item.profit.toLocaleString()}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-800 overflow-hidden'>
+                                                        <div className='flex justify-between gap-4'>
+                                                            <span>bonus:</span>
+                                                            <span>${item.bonus.toLocaleString()}</span>
+                                                        </div>
+                                                        <div className='flex justify-between gap-4'>
+                                                            <span>status:</span>
+                                                            <span>{item.status}</span>
+                                                        </div>
+                                                        <div className='flex justify-between gap-4'>
+                                                            <span>claim:</span>
+                                                            <span>{item.claim}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    :
+                                    <div className='p-3 bg-[#1b1730] shadow-logout-sha rounded-lg flex justify-center gap-1 items-center text-sm text-semi-white italic'>
+                                        <div>no investments found...</div>
+                                        <img src={nothnyet} className='h-4 w-auto'></img>
+                                    </div>
                                 }
-                            </table>
-                        </div>
-                        {investment.length > 0 && <div className='flex gap-2 items-center md:text-xs text-sm mt-4 justify-end text-light '>
+                            </div>
+                        }
+                        {investment.length > 0 && <div className='flex gap-2 items-center text-xs mt-4 justify-end text-light '>
                             {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
                             {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
                             {end < investment.length && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}

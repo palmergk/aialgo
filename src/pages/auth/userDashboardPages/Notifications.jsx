@@ -128,7 +128,7 @@ const Notifications = ({ refetchUnreadNotis, refetchNotifications }) => {
                         </div>
                     </div>
                     {notis.length > 0 ?
-                        <div className={`pt-1.5 pb-4 px-2 ${notis.length > 3 && 'md:h-[70vh]'} overflow-y-auto scroll`}>
+                        <div className={`pt-1.5 pb-4 px-2 ${notis.length > 3 && 'md:h-[28rem]'} overflow-y-auto scroll`}>
                             {notis.slice(start, end).map((item, i) => (
                                 <NotisField key={i} item={item} refetchNotifications={refetchNotifications} refetchUnreadNotis={refetchUnreadNotis} start={start} setStart={setStart} end={end} setEnd={setEnd} pagestart={pagestart} setpagestart={setpagestart} setpageend={setpageend} setShowNotis={setShowNotis} />
                             ))}
@@ -140,7 +140,7 @@ const Notifications = ({ refetchUnreadNotis, refetchNotifications }) => {
                         </div>
                     }
                 </div>
-                {notis.length > 0 && <div className='flex gap-2 items-center md:text-xs text-sm md:p-2 px-2 pb-4 justify-end'>
+                {notis.length > 0 && <div className='flex gap-2 items-center text-xs md:p-2 px-2 pb-4 justify-end'>
                     {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-zinc-700 text-zinc-700 hover:bg-zinc-700 hover:text-zinc-200 cursor-pointer' onClick={BackNotisPage}><FaAngleLeft /></div>}
                     {Math.ceil(pageend) > 1 && <div className='font-bold text-zinc-700'>{pagestart} of {Math.ceil(pageend)}</div>}
                     {end < notis.length && <div className='py-1 px-2 rounded-md border border-zinc-700 text-zinc-700 hover:bg-zinc-700 hover:text-zinc-200 cursor-pointer' onClick={MoveNotisPage}><FaAngleRight /></div>}

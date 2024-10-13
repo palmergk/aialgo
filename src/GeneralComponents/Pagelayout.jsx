@@ -26,7 +26,7 @@ const Pagelayout = ({ children }) => {
 
   return (
     <>
-      <div className='h-[11vh]'>
+      <div className='h-20'>
         <Header />
       </div>
       <div>

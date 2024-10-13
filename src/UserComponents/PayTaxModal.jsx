@@ -16,7 +16,6 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
     const [amount, setAmount] = useState('')
     const [cryptoWallets, setCryptoWallets] = useState({})
     const [copy, setCopy] = useState(false)
-    const [check, setCheck] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
@@ -38,7 +37,6 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
         if (isNaN(amount)) return setError('amount')
         if (amount < 1) return setError('minimum')
         if (Object.values(cryptoWallets).length === 0) return setError('select')
-        if (!check) return setError('check')
 
         const formbody = {
             amount: parseFloat(amount),
@@ -102,11 +100,7 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                             </div>
                         </div>
                     }
-                    <div className='flex flex-col gap-1 items-center mt-2'>
-                        <div className='flex gap-1.5 items-center'>
-                            <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }} className={`${error === 'check' && 'outline outline-1 outline-[red]'}`}></input>
-                            <div>Confirm you've paid this tax</div>
-                        </div>
+                    <div className='mx-auto my-3'>
                         <button className='outline-none w-fit h-fit py-2 px-14 text-xs text-semi-white bg-[#252525] rounded-md capitalize font-medium' onClick={ConfirmTaxPayment}>confirm payment</button>
                     </div>
                 </div>

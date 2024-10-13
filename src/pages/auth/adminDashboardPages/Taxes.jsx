@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import moment from 'moment';
-import { BsThreeDots } from 'react-icons/bs';
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoIosSearch, IoIosSettings } from 'react-icons/io';
 import { FiX } from 'react-icons/fi'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
@@ -49,7 +49,7 @@ const Taxes = () => {
     FetchAllTaxes()
   }, [FetchAllTaxes])
 
-  const singleTaxFunction = (item) => {
+  const SingleTaxFunction = (item) => {
     setSingleTax(item)
     setModal(true)
   }
@@ -134,62 +134,69 @@ const Taxes = () => {
               }
             </div>
           </div>
-          <button className='w-fit h-fit mt-4 mb-2 py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal2(true)}>
+          <button className='w-fit h-fit mt-6 mb-2 py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal2(true)}>
             <span>set tax percentage</span>
             <IoIosSettings className='text-base' />
           </button>
-          <div className='relative overflow-x-auto shadow-xl rounded-lg scrollsdown'>
-            <table className='w-full '>
-              <thead >
-                <tr className='bg-admin-page text-[0.8rem] font-bold text-white'>
-                  <td className='text-center truncate  capitalize p-2 '>date</td>
-                  <td className='text-center truncate  capitalize p-2 '>username</td>
-                  <td className='text-center truncate  capitalize p-2 '>email</td>
-                  <td className='text-center truncate  capitalize p-2 '>amount</td>
-                  <td className='text-center truncate  capitalize p-2 '>crypto</td>
-                  <td className='text-center truncate  capitalize p-2 '>status </td>
-                  <td className='text-center truncate  capitalize p-2'> <IoIosSettings className="mx-auto text-base" /></td>
-                </tr>
-              </thead>
-              {dataLoading ?
-                <tbody>
-                  <tr className='bg-gray-300 animate-pulse h-10'>
-                    <td colSpan="6"></td>
-                  </tr>
-                </tbody>
-                :
-                <>
-                  {allTaxes.length > 0 ?
-                    <tbody>
-                      {allTaxes.slice(start, end).map((item, i) => (
-                        <tr className='text-[0.8rem]  text-black font-[550] bg-white even:bg-semi-white' key={i}>
-                          <td className='p-4  text-center truncate'>{moment(item.createdAt).format('DD-MM-yyyy')}</td>
-                          <td className='p-4  text-center truncate'>{item.taxPayer.username}</td>
-                          <td className='p-4  text-center truncate'>{item.taxPayer.email}</td>
-                          <td className='p-4  text-center truncate'>${item.amount.toLocaleString()}</td>
-                          <td className='p-4  text-center truncate'>{item.crypto}</td>
-                          <td className={`p-4  text-center truncate ${item.status === 'received' && 'text-[#459e45]'} ${item.status === 'failed' && 'text-[red]'}`}>{item.status}</td>
-                          <td className='text-center truncate  capitalize p-2  cursor-pointer text-black hover:text-[#895ee0]' onClick={() => singleTaxFunction(item)}> <BsThreeDots className="mx-auto text-base" /></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                    :
-                    <tbody>
-                      <tr className='text-black text-[0.8rem] bg-white font-[550]'>
-                        <td colSpan="6" className='py-2 italic text-center truncate'>
-                          <div className='flex gap-1 items-center justify-center'>
-                            <span>no taxes found...</span>
-                            <img src={nothnyet} className='h-4 w-auto'></img>
+          {dataLoading ?
+            <div className='w-full h-fit'>
+              <div className='h-11 bg-gray-300 animate-pulse rounded-t-lg'></div>
+              <div className='h-24 bg-gray-200 animate-pulse rounded-b-lg'></div>
+            </div>
+            :
+            <div>
+              {allTaxes.length > 0 ?
+                <div className='flex flex-col gap-4'>
+                  {allTaxes.slice(start, end).map((item, i) => (
+                    <div key={i} className='w-full h-fit relative sha rounded-lg text-black font-medium'>
+                      <div className='p-4 bg-zinc-500 text-sm rounded-t-lg text-white flex justify-between gap-4'>
+                        <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                        <div>
+                          <div className='hover:text-black cursor-pointer ' onClick={() => SingleTaxFunction(item)}><BsThreeDotsVertical /></div>
+                        </div>
+                      </div>
+                      <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
+                        <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
+                          <div className='flex justify-between gap-4'>
+                            <span>username:</span>
+                            <span>{item.taxPayer.username}</span>
                           </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  }
-                </>
+                          <div className='flex justify-between gap-4'>
+                            <span>email:</span>
+                            <span className='lowercase'>{item.taxPayer.email}</span>
+                          </div>
+                          <div className='flex justify-between gap-4'>
+                            <span>amount:</span>
+                            <span>${item.amount.toLocaleString()}</span>
+                          </div>
+                        </div>
+                        <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-200 overflow-hidden'>
+                          <div className='flex justify-between gap-4'>
+                            <span>crypto:</span>
+                            <span>{item.crypto}</span>
+                          </div>
+                          <div className='flex justify-between gap-4'>
+                            <span>network:</span>
+                            <span>{item.network}</span>
+                          </div>
+                          <div className='flex justify-between gap-4'>
+                            <span>status:</span>
+                            <span className={`${item.status === 'received' && 'text-[green]'} ${item.status === 'failed' && 'text-[red]'}`}>{item.status}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                :
+                <div className='p-3 bg-white sha rounded-lg flex justify-center gap-1 items-center text-sm text-black italic'>
+                  <div>no taxes found...</div>
+                  <img src={nothnyet} className='h-4 w-auto'></img>
+                </div>
               }
-            </table>
-          </div>
-          {allTaxes.length > 0 && <div className='flex gap-2 items-center md:text-xs text-sm mt-4 justify-end text-admin-page '>
+            </div>
+          }
+          {allTaxes.length > 0 && <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page '>
             {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
             {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
             {end < allTaxes.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}

@@ -13,8 +13,6 @@ import SetReferralModal from '../../../AdminComponents/UsersComponents/SetReferr
 import UserTableBody from '../../../AdminComponents/UsersComponents/UserTableBody';
 
 
-
-
 const Users = () => {
   const [orignal, setOriginal] = useState([])
   const [allusers, setAllUsers] = useState([])
@@ -29,7 +27,7 @@ const Users = () => {
   const [pagestart, setpagestart] = useState(1)
   const [pageend, setpageend] = useState(0)
   const [dataLoading, setDataLoading] = useState(true)
-  
+
 
   const FetchAllUsers = useCallback(async () => {
     try {
@@ -46,7 +44,7 @@ const Users = () => {
 
     } catch (error) {
       //
-    }finally{
+    } finally {
       setDataLoading(false)
     }
   }, [])
@@ -144,7 +142,7 @@ const Users = () => {
               }
             </div>
           </div>
-          <div className='flex justify-between items-center gap-4 mt-4 mb-2'>
+          <div className='flex justify-between items-center gap-4 mt-6 mb-2'>
             <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal3(true)}>
               <span>set referral bonus</span>
               <IoIosSettings className='text-base' />
@@ -154,50 +152,28 @@ const Users = () => {
               <IoIosAddCircleOutline className='text-base' />
             </button>
           </div>
-
-          <div className='relative overflow-x-auto shadow-xl rounded-lg scrollsdown'>
-            <table className='w-full'>
-              <thead >
-                <tr className='bg-admin-page text-[0.8rem] font-bold text-white'>
-                  <td className='text-center truncate  capitalize p-2'>joined</td>
-                  <td className='text-center truncate  capitalize p-2'>full name</td>
-                  <td className='text-center truncate  capitalize p-2'>username</td>
-                  <td className='text-center truncate  capitalize p-2'>email</td>
-                  <td className='text-center truncate  capitalize p-2'>country</td>
-                  <td className='text-center truncate  capitalize p-2'> <IoIosSettings className="mx-auto text-base" /></td>
-                </tr>
-              </thead>
-              {dataLoading ?
-                <tbody>
-                  <tr className='bg-gray-300 animate-pulse h-10'>
-                    <td colSpan="6"></td>
-                  </tr>
-                </tbody>
+          {dataLoading ?
+            <div className='w-full h-fit'>
+              <div className='h-11 bg-gray-300 animate-pulse rounded-t-lg'></div>
+              <div className='h-24 bg-gray-200 animate-pulse rounded-b-lg'></div>
+            </div>
+            :
+            <div>
+              {allusers.length > 0 ?
+                <div className='flex flex-col gap-4'>
+                  {allusers.slice(start, end).map((item, i) => (
+                    <UserTableBody key={i} item={item} setModal={setModal} setSingleUser={setSingleUser} setUserFigures={setUserFigures} />
+                  ))}
+                </div>
                 :
-                <>
-                  {allusers.length > 0 ?
-                    <tbody>
-                      {allusers.slice(start, end).map((item, i) => (
-                        <UserTableBody key={i} item={item} setModal={setModal} setSingleUser={setSingleUser} setUserFigures={setUserFigures} />
-                      ))}
-                    </tbody>
-                    :
-                    <tbody>
-                      <tr className='text-black text-[0.8rem] bg-white font-[550]'>
-                        <td colSpan="6" className='py-2 italic text-center truncate'>
-                          <div className='flex gap-1 items-center justify-center'>
-                            <span>no users found...</span>
-                            <img src={nothnyet} className='h-4 w-auto'></img>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  }
-                </>
+                <div className='p-3 bg-white sha rounded-lg flex justify-center gap-1 items-center text-sm text-black italic'>
+                  <div>no users found...</div>
+                  <img src={nothnyet} className='h-4 w-auto'></img>
+                </div>
               }
-            </table>
-          </div>
-          {allusers.length > 0 && <div className='flex gap-2 items-center md:text-xs text-sm mt-4 justify-end text-admin-page '>
+            </div>
+          }
+          {allusers.length > 0 && <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page '>
             {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
             {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
             {end < allusers.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}

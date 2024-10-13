@@ -76,7 +76,7 @@ const CountComponent = () => {
                 <div className='border-t-4 md:w-48 w-32 absolute top-0 left-0'></div>
                 <div className='border-b-4 md:w-48 w-32 absolute bottom-0 right-0'></div>
             </div>
-            <div className='flex items-center flex-wrap gap-10 md:gap-32 justify-center mt-14'>
+            <div className='flex items-center flex-wrap gap-10 md:gap-20 lg:gap-32 justify-center mt-14'>
                 <div className='flex flex-col gap-1 items-center'>
                     <div className='md:text-5xl text-4xl font-extrabold text-white'>{userCount}K<span className='font-[500]'></span></div>
                     <div className='capitalize text-xs font-bold text-[#c0bebe]'>satisfield users</div>

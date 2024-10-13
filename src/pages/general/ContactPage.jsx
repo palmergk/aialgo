@@ -13,7 +13,6 @@ import { ADMINSTORE } from '../../store';
 import { useAtom } from 'jotai';
 
 
-
 const ContactPage = () => {
   const [adminstore] = useAtom(ADMINSTORE)
   const [loading, setLoading] = useState(false)
@@ -71,13 +70,13 @@ const ContactPage = () => {
           <div className='flex flex-col shlct'>
             <div className='w-full h-fit grid grid-cols-1 lg:grid-cols-2'>
               <div className='col-span-1'>
-                <img src={contactimg} className='lg:h-[80vh] md:h-[50vh] h-[30vh] w-full object-cover'></img>
+                <img src={contactimg} className='lg:h-[32rem] md:h-[20rem] h-[12rem] w-full object-cover'></img>
               </div>
-              <div className='col-span-1 lg:h-[80vh] h-fit bg-zinc-200 py-6 overflow-hidden relative'>
+              <div className='col-span-1 lg:h-[32rem] h-fit bg-zinc-200 py-6 overflow-hidden relative'>
                 {loading && <Loading />}
                 <div className='lg:w-10/12 w-11/12 mx-auto'>
                   <div className='text-[2rem] capitalize text-center font-bold '>get in touch</div>
-                  <div className='text-[0.85rem] capitalize font-bold flex items-center justify-center gap-1'>
+                  <div className='text-sm capitalize font-bold flex items-center justify-center gap-1'>
                     <span>-</span>
                     <div>
                       send us a message; we are listening

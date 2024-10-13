@@ -18,7 +18,6 @@ const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
   const [amount, setAmount] = useState('')
   const [cryptoWallets, setCryptoWallets] = useState({})
   const [copy, setCopy] = useState(false)
-  const [check, setCheck] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -40,7 +39,6 @@ const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
     if (isNaN(amount)) return setError('amount')
     if (amount < adminStore.deposit_minimum) return setError('minimum')
     if (Object.values(cryptoWallets).length === 0) return setError('select')
-    if (!check) return setError('check')
 
     const formbody = {
       amount: parseFloat(amount),
@@ -91,7 +89,7 @@ const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
               <div className='flex gap-1.5 items-center'>
                 <div className='md:text-xs text-[0.65rem] text-[#5BB4FD]'>{cryptoWallets.address}</div>
                 <button className='outline-none w-fit h-fit py-1.5 px-2 text-semi-white text-xs bg-[#252525] rounded-md capitalize flex items-center justify-center' onClick={() => copyFunction()}>
-                {!copy ? <MdContentCopy />: <FaCheck />}
+                  {!copy ? <MdContentCopy /> : <FaCheck />}
                 </button>
               </div>
             </div>
@@ -104,16 +102,10 @@ const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
               </div>
             </div>
           }
-          <div className='flex flex-col gap-1 items-center mt-2'>
-            <div className='flex gap-1.5 items-center'>
-              <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }} className={`${error === 'check' && 'outline outline-1 outline-[red]'}`}></input>
-              <div>Confirm you've made this deposit</div>
-            </div>
-            <div className='relative'>
-              <button className='py-2 px-16 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={CreateDeposit}>
-                confirm deposit
-              </button>
-            </div>
+          <div className='my-3 mx-auto'>
+            <button className='py-2 px-16 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={CreateDeposit}>
+              confirm deposit
+            </button>
           </div>
         </div>
       </div>

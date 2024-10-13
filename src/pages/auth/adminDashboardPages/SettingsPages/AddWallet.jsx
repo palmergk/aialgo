@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 import nothnyet from '../../../../assets/images/nothn.png'
-import { IoIosSettings } from 'react-icons/io';
+import moment from 'moment';
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { BsThreeDots } from 'react-icons/bs';
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { Apis, UserGetApi } from '../../../../services/API';
 import QRCode from "react-qr-code";
 import CreateWalletModal from '../../../../AdminComponents/SettingsComponents/AdminWalletComponents/CreateWalletModal';
@@ -120,53 +120,56 @@ const AddWallet = () => {
             <IoIosAddCircleOutline className='text-base' />
           </button>
         </div>
-        <div className='relative overflow-x-auto shadow-xl rounded-lg scrollsdown'>
-          <table className='w-full '>
-            <thead >
-              <tr className='bg-admin-page text-[0.8rem] font-bold text-white'>
-                <td className='text-center truncate  capitalize p-2 '>crypto</td>
-                <td className='text-center truncate  capitalize p-2 '>network</td>
-                <td className='text-center truncate  capitalize p-2 '>address</td>
-                <td className='text-center truncate  capitalize p-2 '>qr code</td>
-                <td className='text-center truncate  capitalize p-2'> <IoIosSettings className="mx-auto text-base" /></td>
-              </tr>
-            </thead>
-            {dataLoading ?
-              <tbody>
-                <tr className='bg-gray-300 animate-pulse h-10'>
-                  <td colSpan="5"></td>
-                </tr>
-              </tbody>
-              :
-              <>
-                {adminWallets.length > 0 ?
-                  <tbody>
-                    {adminWallets.slice(start, end).map((item, i) => (
-                      <tr className='text-[0.8rem]  text-black font-[550] bg-white even:bg-semi-white' key={i}>
-                        <td className='p-4  text-center truncate capitalize'>{item.crypto_name}</td>
-                        <td className='p-4  text-center truncate capitalize'>{item.network}</td>
-                        <td className={`p-4  text-center truncate`}>{item.address?.slice(0, 7)}.....{item.address?.slice(-8)}</td>
-                        <td className='p-4 truncate'><QRCode value={item.address} className='w-4 h-auto mx-auto' /></td>
-                        <td className='text-center truncate  capitalize p-2  cursor-pointer text-black hover:text-[#895ee0]' onClick={() => SingleWalletFunction(item)}> <BsThreeDots className="mx-auto text-base" /></td>
-                      </tr>
-                    ))}
-                  </tbody>
-                  :
-                  <tbody>
-                    <tr className='text-black text-[0.8rem] bg-white font-[550]'>
-                      <td colSpan="5" className='py-2 italic text-center truncate'>
-                        <div className='flex gap-1 items-center justify-center'>
-                          <span>no wallets found...</span>
-                          <img src={nothnyet} className='h-4 w-auto'></img>
+        {dataLoading ?
+          <div className='w-full h-fit'>
+            <div className='h-11 bg-gray-300 animate-pulse rounded-t-lg'></div>
+            <div className='h-24 bg-gray-200 animate-pulse rounded-b-lg'></div>
+          </div>
+          :
+          <div>
+            {adminWallets.length > 0 ?
+              <div className='flex flex-col gap-4'>
+                {adminWallets.slice(start, end).map((item, i) => (
+                  <div key={i} className='w-full h-fit relative sha rounded-lg text-black font-medium'>
+                    <div className='p-4 bg-zinc-500 text-sm rounded-t-lg text-white flex justify-between gap-4'>
+                      <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                      <div>
+                        <div className='hover:text-black cursor-pointer ' onClick={() => SingleWalletFunction(item)}><BsThreeDotsVertical /></div>
+                      </div>
+                    </div>
+                    <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
+                      <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
+                        <div className='flex justify-between gap-4'>
+                          <span>crypto:</span>
+                          <span>{item.crypto_name}</span>
                         </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                }
-              </>
+                        <div className='flex justify-between gap-4'>
+                          <span>network:</span>
+                          <span>{item.network}</span>
+                        </div>
+                        <div className='flex justify-between gap-4'>
+                          <span>address:</span>
+                          <span>{item.address?.slice(0, 7)}.....{item.address?.slice(-8)}</span>
+                        </div>
+                      </div>
+                      <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-200 overflow-hidden'>
+                        <div className='flex justify-between gap-4'>
+                          <span>qr code:</span>
+                          <QRCode value={item.address} className='w-4 h-auto' />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              :
+              <div className='p-3 bg-white sha rounded-lg flex justify-center gap-1 items-center text-sm text-black italic'>
+                <div>no wallets found...</div>
+                <img src={nothnyet} className='h-4 w-auto'></img>
+              </div>
             }
-          </table>
-        </div>
+          </div>
+        }
         {adminWallets.length > 0 && <div className='flex gap-2 items-center md:text-xs text-sm mt-4 justify-end text-admin-page '>
           {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
           {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}

@@ -33,21 +33,21 @@ const HomePage = () => {
     <Pagelayout>
       <div className='bg-[#1E2833] pb-16'>
         <div className='bgi'>
-          <div className='w-11/12 mx-auto pt-20  grid grid-cols-3 lg:grid-cols-4'>
+          <div className='w-11/12 mx-auto pt-20 grid grid-cols-3 lg:grid-cols-4'>
             <div className='col-span-1'>
               <div className='relative w-fit'>
-                <div className='capitalize text-orange text-[0.7rem] font-[550] tracking-widest '> tech & crypto</div>
-                <MdOutlineDiversity2 className='text-white absolute top-0 -right-8  text-[1.1rem]' />
+                <div className='capitalize text-orange text-[0.7rem] font-medium tracking-widest '> tech & crypto</div>
+                <MdOutlineDiversity2 className='text-white absolute top-0 -right-8 text-lg' />
               </div>
               <div className='capitalize text-white font-bold text-[2rem] md:text-[3rem] leading-[4rem] md:leading-[5rem] '>artificial intelligence algorithm  crypto trade</div>
               <Link to='/signup'>
-                <button className='outline-0 w-fit h-fit py-1 px-6 text-[0.9rem] text-white rounded-full bg-orange capitalize mt-5 flex gap-1 items-center font-[550] hover:bg-[#642626]'>
+                <button className='outline-0 w-fit h-fit py-1 px-6 text-[0.9rem] text-white rounded-full bg-orange capitalize mt-5 flex gap-1 items-center font-medium hover:bg-[#642626]'>
                   <MdJoinRight /><span>join</span>
                 </button>
               </Link>
             </div>
             <div className='lg:col-span-3 col-span-2 '>
-              <div className='w-fit h-fit border rotate-90 uppercase text-[0.85rem]  py-1 px-2 text-white font-[550] tracking-[0.5rem] relative text-ellipsis text-nowrap mt-40'>
+              <div className='w-fit h-fit border rotate-90 uppercase text-[0.85rem]  py-1 px-2 text-white font-medium tracking-[0.5rem] relative text-ellipsis text-nowrap mt-40'>
                 <div> crypto trade made easy</div>
                 <div className='h-1 w-1 bg-white rounded-full absolute top-7 -left-[0.2rem]'></div>
                 <div className='h-1 w-1 bg-white rounded-full absolute -top-1 -left-1'></div>
@@ -74,14 +74,14 @@ const HomePage = () => {
                 <div className='flex gap-4'>
                   <img src={rocket} className='w-auto h-12 z-20'></img>
                   <div className='flex flex-col gap-2'>
-                    <div className='font-[550] text-[1.1rem] text-white'> Lorem, ipsum.</div>
+                    <div className='font-medium text-lg text-white'> Lorem, ipsum.</div>
                     <div className='text-xs text-white  tracking-[0.05rem]'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat, harum?</div>
                   </div>
                 </div>
                 <div className='flex gap-4'>
                   <img src={light} className='w-auto h-12 z-20'></img>
                   <div className='flex flex-col gap-2'>
-                    <div className='font-[550] text-[1.1rem] text-white'>Lorem, ipsum.</div>
+                    <div className='font-medium text-lg text-white'>Lorem, ipsum.</div>
                     <div className='text-white text-xs tracking-[0.05rem]'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugiat, harum?</div>
                   </div>
                 </div>
@@ -94,7 +94,7 @@ const HomePage = () => {
           <div className='mt-20 w-full md:w-5/6 lg:w-3/4 mx-auto'>
             <div className='flex flex-col'>
               <div className='relative w-fit mx-auto text-semi-white'>
-                <div className='text-[2rem] md:text-[3rem] text-white font-[550] capitalize'>faq questions</div>
+                <div className='text-[2rem] md:text-[3rem] text-white font-semibold capitalize'>faq questions</div>
                 <div className='border-t-4 md:w-48 w-32 absolute top-0 right-0'></div>
                 <div className='border-b-4 md:w-48 w-32 absolute bottom-0 left-0'></div>
               </div>
@@ -104,12 +104,7 @@ const HomePage = () => {
                     <div onClick={() => handleQuestions(i)} className='flex justify-between w-full h-fit cursor-pointer md:text-lg text-base font-medium'>
                       <span>{item.title}</span>
                       <div className='w-fit h-fit p-1 rounded-md bg-[#ecbd75] text-[0.8rem] text-[#192633]'>
-                        {faq !== i ?
-                          <FiPlus />
-                          :
-                          <FiMinus />
-                        }
-
+                        {faq !== i ? <FiPlus /> : <FiMinus />}
                       </div>
                     </div>
                     <div className={`md:text-[0.95rem] text-sm ${faq === i ? 'block' : 'hidden'} `}>{item.content}</div>
@@ -121,101 +116,99 @@ const HomePage = () => {
           </div>
           <div className='w-11/12 lg:w-[70%] mx-auto mt-20 overflow-hidden h-fit trans'>
             <div className='relative w-fit mx-auto text-semi-white'>
-              <div className='text-[2rem] md:text-[3rem] text-white font-[550] capitalize'>Testimonials</div>
+              <div className='text-[2rem] md:text-[3rem] text-white font-semibold capitalize'>Testimonials</div>
               <div className='border-t-4 md:w-40 w-28 absolute top-0 right-0'></div>
               <div className='border-b-4 md:w-40 w-28 absolute bottom-0 left-0'></div>
             </div>
-            <div className='flex flex-wrap items-center justify-center gap-6 mt-10'>
-              <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
-                <div className='flex items-center relative'>
-                  <img src={us} className='w-16 h-16 rounded-full object-cover'></img>
-                  <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
+            <div className='flex flex-col gap-8'>
+              <div className='flex flex-wrap items-center justify-center gap-6 mt-10'>
+                <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
+                  <div className='flex items-center relative'>
+                    <img src={us} className='w-16 h-16 rounded-full object-cover'></img>
+                    <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
+                  </div>
+                  <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
+                  <div className='border-b-[3px] w-9 border-orange mt-3'></div>
+                  <div className='flex flex-col gap-1'>
+                    <div className='text-white capitalize'>henry calvin</div>
+                    <div className='text-[#c0bebe] text-[0.65rem] text-center uppercase'>nyc, us</div>
+                  </div>
                 </div>
-                <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
-                <div className='border-b-[3px] w-9 border-orange mt-3'></div>
-                <div className='flex flex-col gap-1'>
-                  <div className='text-white capitalize'>henry calvin</div>
-                  <div className='text-[#c0bebe] text-[0.65rem] text-center uppercase'>nyc, us</div>
+                <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center  shlltw'>
+                  <div className='flex items-center relative'>
+                    <img src={australia} className='w-16 h-16 rounded-full object-cover'></img>
+                    <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
+                  </div>
+                  <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
+                  <div className='border-b-[3px] w-9 border-orange mt-3'></div>
+                  <div className='flex flex-col gap-1'>
+                    <div className='text-white capitalize'>charlie brown</div>
+                    <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>sydney, austrialia</div>
+                  </div>
                 </div>
+                <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
+                  <div className='flex items-center relative'>
+                    <img src={spanish} className='w-16 h-16 rounded-full object-cover'></img>
+                    <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
+                  </div>
+                  <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
+                  <div className='border-b-[3px] w-9 border-orange mt-3'></div>
+                  <div className='flex flex-col gap-1'>
+                    <div className='text-white capitalize'>carlos rivera</div>
+                    <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>seville, spain</div>
+                  </div>
+                </div>
+                {view &&
+                  <>
+                    <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
+                      <div className='flex items-center relative'>
+                        <img src={uk} className='w-16 h-16 rounded-full object-cover'></img>
+                        <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
+                      </div>
+                      <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
+                      <div className='border-b-[3px] w-9 border-orange mt-3'></div>
+                      <div className='flex flex-col gap-1'>
+                        <div className='text-white capitalize'>arthur allen</div>
+                        <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>manchester, UK</div>
+                      </div>
+                    </div>
+                    <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
+                      <div className='flex items-center relative'>
+                        <img src={blackUs} className='w-16 h-16 rounded-full object-cover'></img>
+                        <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
+                      </div>
+                      <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
+                      <div className='border-b-[3px] w-9 border-orange mt-3'></div>
+                      <div className='flex flex-col gap-1'>
+                        <div className='text-white capitalize'>jeremy davis</div>
+                        <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>atlanta, us</div>
+                      </div>
+                    </div>
+                    <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
+                      <div className='flex items-center relative'>
+                        <img src={india} className='w-16 h-16 rounded-full object-cover'></img>
+                        <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
+                      </div>
+                      <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
+                      <div className='border-b-[3px] w-9 border-orange mt-3'></div>
+                      <div className='flex flex-col gap-1'>
+                        <div className='text-white capitalize'>kabir kumar</div>
+                        <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>surat, india</div>
+                      </div>
+                    </div>
+                  </>
+                }
               </div>
-              <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center  shlltw'>
-                <div className='flex items-center relative'>
-                  <img src={australia} className='w-16 h-16 rounded-full object-cover'></img>
-                  <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
-                </div>
-                <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
-                <div className='border-b-[3px] w-9 border-orange mt-3'></div>
-                <div className='flex flex-col gap-1'>
-                  <div className='text-white capitalize'>charlie brown</div>
-                  <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>sydney, austrialia</div>
-                </div>
-              </div>
-              <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
-                <div className='flex items-center relative'>
-                  <img src={spanish} className='w-16 h-16 rounded-full object-cover'></img>
-                  <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
-                </div>
-                <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
-                <div className='border-b-[3px] w-9 border-orange mt-3'></div>
-                <div className='flex flex-col gap-1'>
-                  <div className='text-white capitalize'>carlos rivera</div>
-                  <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>seville, spain</div>
-                </div>
+              <div className='mx-auto'>
+                <button className='w-fit h-fit px-6 py-1 bg-orange outline-none rounded-[3px] text-[0.85rem] capitalize text-white flex items-center justify-center  hover:bg-[#642626]' onClick={() => setView(!view)}>
+                  <span>{!view ? 'more' : 'less'}</span>
+                  {!view ? <MdExpandMore /> : <MdExpandLess />}
+                </button>
               </div>
             </div>
-            {!view && <div className='flex justify-center mt-8'>
-              <button className='w-fit h-fit px-6 py-1 bg-orange outline-none rounded-[3px] text-[0.85rem] capitalize text-white flex items-center justify-center  hover:bg-[#642626]' onClick={() => setView(!view)}>
-                <span>more</span>
-                <MdExpandMore />
-              </button>
-            </div>}
-            {view && <div className='flex flex-wrap items-center justify-center gap-6 mt-8'>
-              <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
-                <div className='flex items-center relative'>
-                  <img src={uk} className='w-16 h-16 rounded-full object-cover'></img>
-                  <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
-                </div>
-                <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
-                <div className='border-b-[3px] w-9 border-orange mt-3'></div>
-                <div className='flex flex-col gap-1'>
-                  <div className='text-white capitalize'>arthur allen</div>
-                  <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>manchester, UK</div>
-                </div>
-              </div>
-              <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
-                <div className='flex items-center relative'>
-                  <img src={blackUs} className='w-16 h-16 rounded-full object-cover'></img>
-                  <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
-                </div>
-                <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
-                <div className='border-b-[3px] w-9 border-orange mt-3'></div>
-                <div className='flex flex-col gap-1'>
-                  <div className='text-white capitalize'>jeremy davis</div>
-                  <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>atlanta, us</div>
-                </div>
-              </div>
-              <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
-                <div className='flex items-center relative'>
-                  <img src={india} className='w-16 h-16 rounded-full object-cover'></img>
-                  <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
-                </div>
-                <div className=' text-ground text-xs text-center mt-1'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.</div>
-                <div className='border-b-[3px] w-9 border-orange mt-3'></div>
-                <div className='flex flex-col gap-1'>
-                  <div className='text-white capitalize'>kabir kumar</div>
-                  <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>surat, india</div>
-                </div>
-              </div>
-            </div>}
-            {view && <div className='flex justify-center mt-8'>
-              <button className='w-fit h-fit px-6 py-1 bg-orange outline-none rounded-[3px] text-[0.85rem] capitalize text-white flex items-center justify-center hover:bg-[#642626]' onClick={() => setView(!view)}>
-                <span>less</span>
-                <MdExpandLess />
-              </button>
-            </div>}
           </div>
-          <div className='mt-16'>
-            <coingecko-coin-heatmap-widget height="400" locale="en" top="20"></coingecko-coin-heatmap-widget>
+          <div>
+            <coingecko-coin-heatmap-widget height="400" locale="en" top="20" className="mt-16"></coingecko-coin-heatmap-widget>
           </div>
         </div>
       </div>
