@@ -154,8 +154,8 @@ const Users = () => {
           </div>
           {dataLoading ?
             <div className='w-full h-fit'>
-              <div className='h-11 bg-gray-300 animate-pulse rounded-t-lg'></div>
-              <div className='h-24 bg-gray-200 animate-pulse rounded-b-lg'></div>
+              <div className='h-11 bg-gray-200 animate-pulse rounded-t-lg'></div>
+              <div className='h-24 bg-gray-100 animate-pulse rounded-b-lg'></div>
             </div>
             :
             <div>

@@ -202,11 +202,7 @@ const Dashboard = ({ children }) => {
                             <div className='w-full h-fit rounded-md bg-[#130e27] py-2 px-4 text-light text-[0.85rem] flex items-center justify-between mt-4 relative'>
                                 <div className='flex gap-2 items-center'>
                                     <Link className='xl:hidden cursor-pointer' to='/dashboard/profile'>
-                                        {user.image ?
-                                            <img src={`${imageurl}/profiles/${user.image}`} className='w-10 h-10 object-cover rounded-full border border-light'></img>
-                                            :
-                                            <img src={avatar} className='w-10 h-10 object-cover rounded-full border border-light'></img>
-                                        }
+                                        <img src={user.image ? `${imageurl}/profiles/${user.image}` : avatar} className='w-10 h-10 object-cover rounded-full border border-light'></img>
                                     </Link>
                                     <div className='capitalize font-medium'>hi, {user?.username}</div>
                                 </div>
@@ -252,10 +248,7 @@ const Dashboard = ({ children }) => {
                 <div className='w-[80%] mx-auto flex flex-col gap-12 justify-center mt-20'>
                     <div className=' text-semi-white text-[1.1rem] text-center font-bold capitalize'>trader profile</div>
                     <div className='flex gap-4 flex-col items-center font-bold capitalize'>
-                        {user.image ? <img src={`${imageurl}/profiles/${user.image}`} className='w-16 h-16 object-cover rounded-full border-2 border-light'></img>
-                            :
-                            <img src={avatar} className='w-16 h-16 object-cover rounded-full border-2 border-light'></img>
-                        }
+                        <img src={user.image ? `${imageurl}/profiles/${user.image}` : avatar} className='w-16 h-16 object-cover rounded-full border-2 border-light'></img>
                         <div className='flex gap-1'>
                             <div className='text-semi-white '>{user?.username}</div>
                             {user.email_verified === 'true' && <MdVerified className='text-[0.7rem] text-light border-light' />}

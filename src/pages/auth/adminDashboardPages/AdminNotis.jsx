@@ -110,14 +110,14 @@ const AdminNotis = ({ refetchNotifications, refetchUnreadNotis }) => {
                     </div>
                 </div>
             </>
-            <div className={`md:absolute md:top-14 md:right-0 md:left-auto fixed top-0 left-0 md:h-fit h-screen md:w-60 w-full md:bg-zinc-400 bg-white text-black overflow-y-auto md:rounded-sm z-50 ${showNotis ? 'block' : 'hidden'}`} ref={toggler}>
+            <div className={`md:absolute md:top-14 md:right-0 md:left-auto fixed top-0 left-0 md:h-fit h-screen md:w-60 w-full md:bg-[#bdbcbc] bg-white text-black overflow-y-auto md:rounded-sm z-50 ${showNotis ? 'block' : 'hidden'}`} ref={toggler}>
                 <div className='flex justify-between items-center px-2 md:pt-3 pt-5'>
                     <div className='flex gap-1 items-center md:text-base text-2xl capitalize font-extrabold'>
                         <div className='cursor-pointer md:hidden' onClick={() => setShowNotis(false)}><FaAngleLeft /></div>
                         <div>notifications</div>
                     </div>
                     <div className='relative'>
-                        <div className='rounded-full w-fit h-fit p-1 bg-zinc-300 cursor-pointer md:text-[0.85rem] text-lg' onClick={() => setMark(!mark)}>
+                        <div className='rounded-full w-fit h-fit p-1 bg-zinc-200 cursor-pointer md:text-[0.85rem] text-lg' onClick={() => setMark(!mark)}>
                             <IoMdSettings />
                         </div>
                         {mark && <div className='w-fit h-fit py-1 px-3 truncate flex items-center justify-center gap-1 bg-white shantf2 font-bold absolute md:top-6 top-8 right-0 rounded-md cursor-pointer z-10 hover:bg-gray-100 md:text-xs text-sm' onClick={MarkAllRead}>

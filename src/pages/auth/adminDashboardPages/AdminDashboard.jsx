@@ -170,11 +170,7 @@ const AdminDashboard = ({ children }) => {
               <div className='w-full h-fit rounded-md bg-admin-auth mt-4 px-4 py-2 text-white text-[0.85rem] flex items-center justify-between relative'>
                 <div className='flex gap-2 items-center'>
                   <Link className='lg:hidden cursor-pointer' to='/admin-controls/settings/personalize'>
-                    {user.image ?
-                      <img src={`${imageurl}/profiles/${user.image}`} className='w-10 h-10 object-cover rounded-full border border-white'></img>
-                      :
-                      <img src={avatar} className='w-10 h-10 object-cover rounded-full border border-white'></img>
-                    }
+                    <img src={user.image ? `${imageurl}/profiles/${user.image}` : avatar} className='w-10 h-10 object-cover rounded-full border border-white'></img>
                   </Link>
                   <div className='capitalize font-medium'>hi, {user?.username}</div>
                 </div>

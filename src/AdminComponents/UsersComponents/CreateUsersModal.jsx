@@ -14,7 +14,6 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
   const [, setNotifications] = useAtom(NOTIFICATIONS)
   const [, setUnreadNotis] = useAtom(UNREADNOTIS)
 
-  const toggler = useRef()
   const [usercountry, setUserCountry] = useState({
     name: 'select',
     flag: null
@@ -22,6 +21,7 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
   const [role, setRole] = useState('select')
   const [select, setSelect] = useState(false)
   const [loading, setLoading] = useState(false)
+  const toggler = useRef()
 
   const Roles = [
     "user",
@@ -81,11 +81,11 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
 
   return (
     <ModalLayout closeView={closeView} toggler={toggler}>
-      <div className='xl:w-1/3 lg:w-2/5 md:w-1/2 w-11/12 h-fit bg-white rounded-lg overflow-hidden relative' ref={toggler}>
+      <div className='xl:w-1/3 lg:w-2/5 md:w-1/2 w-11/12 h-fit bg-white rounded-lg overflow-hidden relative py-5' ref={toggler}>
         {loading && <Loading />}
-        <form className='flex flex-col gap-4 py-6 md:px-6 px-4 relative' onSubmit={CreateUser}>
-          <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
-          <div className='text-xl uppercase text-center font-bold border-b w-full mb-2'>create new user</div>
+        <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
+        <div className='text-xl uppercase text-center font-bold border-b w-full'>create new user</div>
+        <form className='flex flex-col gap-4 md:w-[90%] w-11/12 mx-auto relative mt-5' onSubmit={CreateUser}>
           <div className='grid grid-cols-2 md:gap-6 gap-3 items-center'>
             <div className='flex flex-col gap-1'>
               <div className='text-sm capitalize font-[550]'>full name:</div>
@@ -120,7 +120,7 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
               <StatusSelector Statuses={Roles} status={role} HandleFunction={(item) => setRole(item)} select={select} toggle={() => setSelect(!select)} className="!w-full" />
             </div>
           </div>
-          <div className='mx-auto mt-6'>
+          <div className='mx-auto mt-4'>
             <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium'>create user</button>
           </div>
         </form>

@@ -19,12 +19,9 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
             setError('')
         }, 1000)
 
-        if (!amount) return setError('amount')
-        if (isNaN(amount)) return setError('amount')
-        if (amount < buybal.price_start) return setError('limit')
-        if (amount > buybal.price_limit) return setError('limit')
-        if (Object.values(userwallet).length === 0) return setError('balance')
-        if (amount > userwallet.balance) return setError('balance')
+        if (!amount || isNaN(amount)) return setError('amount')
+        if (amount < buybal.price_start || amount > buybal.price_limit) return setError('limit')
+        if (Object.values(userwallet).length === 0 || amount > userwallet.balance) return setError('balance')
 
         const formbody = {
             amount: parseFloat(amount),
@@ -50,28 +47,30 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
 
     return (
         <div className='w-full h-full absolute top-0 left-0 flex items-center justify-center bg-[#0c091aa4] z-20'>
-            <div className='w-96 h-fit bg-white rounded-lg p-4 flex flex-col gap-4 relative overflow-hidden'>
+            <div className='w-96 h-fit bg-white rounded-lg py-4 relative overflow-hidden'>
                 {loading && <Loading />}
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeModal()} />
-                <div className='flex items-center gap-2 justify-center'>
+                <div className='flex items-center gap-2 justify-center border-b pb-1.5'>
                     <div className='text-[0.85rem] uppercase font-bold'>{buybal?.title} plan</div>
-                    {Object.values(buybal).length !== 0 &&<div className={`text-xs font-semibold bg-white py-1 px-2 rounded-sm adsha ${error === 'limit' ? 'text-[red]' : 'text-black'} `}>
+                    {Object.values(buybal).length !== 0 && <div className={`text-xs font-semibold bg-white py-1 px-2 rounded-md sha ${error === 'limit' ? 'text-[red]' : 'text-black'} `}>
                         ${buybal.price_start.toLocaleString()} - ${buybal.price_limit.toLocaleString()}
                     </div>}
                 </div>
-                <div className='relative flex gap-3 items-center mx-auto'>
-                    <div className='flex flex-col gap-1'>
-                        <div className='capitalize text-[0.8rem] font-medium'>enter an amount ($)</div>
-                        <input className={`outline-none border lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2 bg-[#ebeaea] ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)} ></input>
+                <div className='flex flex-col gap-4 md:w-[90%] w-11/12 mx-auto mt-5'>
+                    <div className='relative flex gap-3 items-center mx-auto'>
+                        <div className='flex flex-col gap-1'>
+                            <div className='capitalize text-[0.8rem] font-medium'>enter an amount ($)</div>
+                            <input className={`outline-none border lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2 bg-[#ebeaea] ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)} ></input>
+                        </div>
+                        <div className={`h-fit w-fit text-nowrap py-2 px-4 ${error === 'balance' && 'outline outline-1 outline-[red]'} bg-[#5BB4FD] flex flex-col gap-1 items-center justify-center text-white text-[0.85rem] rounded-md`}>
+                            <div className='text-xs italic text-center'>wallet balance:</div>
+                            {Object.values(userwallet).length !== 0 && <div>${userwallet.balance.toLocaleString()}</div>}
+                        </div>
                     </div>
-                    <div className={`h-fit w-fit text-nowrap py-2 px-4 ${error === 'balance' && 'outline outline-1 outline-[red]'} bg-[#5BB4FD] flex flex-col gap-1 items-center justify-center text-white text-[0.85rem] rounded-md`}>
-                        <div className='text-xs italic text-center'>wallet balance:</div>
-                        {Object.values(userwallet).length !== 0 && <div>${userwallet.balance.toLocaleString()}</div>}
+                    <div className='text-xs text-center font-medium'>low wallet balance? <span className='underline text-[#5BB4FD] cursor-pointer' onClick={() => { closeModal(); openModal() }}>Deposit</span></div>
+                    <div className='mb-2 mx-auto'>
+                        <button className='py-2 px-14 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={BuyPlanWithBalance}>confirm purchase</button>
                     </div>
-                </div>
-                <div className='text-xs text-center font-medium'>low wallet balance? <span className='underline text-[#5BB4FD] cursor-pointer' onClick={() => { closeModal(); openModal() }}>Deposit</span></div>
-                <div className='my-2 mx-auto'>
-                    <button className='py-2 px-16 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={BuyPlanWithBalance}>confirm purchase</button>
                 </div>
             </div>
         </div>

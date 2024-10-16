@@ -42,11 +42,9 @@ const CountrySelector = ({ usercountry, setUserCountry, className }) => {
                     </div>
                     <div className='overflow-y-auto scroll h-28 px-4'>
                         {countries.map((item, i) => (
-                            <div className='flex flex-col mt-2' key={i}>
-                                <div className='flex gap-2 items-center text-black text-[0.85rem] font-bold cursor-pointer hover:bg-semi-white' onClick={() => { setUserCountry(item); setSelect(false) }}>
-                                    <img src={item.flag} className='w-4 h-auto object-cover'></img>
-                                    <div>{item.name}</div>
-                                </div>
+                            <div key={i} className='flex gap-2 items-center mt-2 text-black text-[0.85rem] font-bold cursor-pointer hover:bg-semi-white' onClick={() => { setUserCountry(item); setSelect(false) }}>
+                                <img src={item.flag} className='w-4 h-auto object-cover'></img>
+                                <div>{item.name}</div>
                             </div>
                         ))}
                     </div>

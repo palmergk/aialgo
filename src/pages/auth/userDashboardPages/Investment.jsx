@@ -259,7 +259,7 @@ const Investment = () => {
                                     <div className='flex flex-col gap-4'>
                                         {investment.slice(start, end).map((item, i) => (
                                             <div key={i} className='w-full h-fit relative shadow-logout-sha text-semi-white'>
-                                                <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg'>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                                                <div className='p-4 bg-[#141220] text-sm rounded-t-lg font-medium'>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
                                                 <div className='bg-[#1b1730] grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
                                                     <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
                                                         <div className='flex justify-between gap-4'>
@@ -282,11 +282,11 @@ const Investment = () => {
                                                         </div>
                                                         <div className='flex justify-between gap-4'>
                                                             <span>status:</span>
-                                                            <span>{item.status}</span>
+                                                            <span className={`${item.status === 'completed' && 'text-[#adad40]'}`}>{item.status}</span>
                                                         </div>
                                                         <div className='flex justify-between gap-4'>
                                                             <span>claim:</span>
-                                                            <span>{item.claim}</span>
+                                                            <span className={`${item.claim === 'true' && 'text-[#adad40]'}`}>{item.claim}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -294,7 +294,7 @@ const Investment = () => {
                                         ))}
                                     </div>
                                     :
-                                    <div className='p-3 bg-[#1b1730] shadow-logout-sha rounded-lg flex justify-center gap-1 items-center text-sm text-semi-white italic'>
+                                    <div className='p-3 bg-[#1b1730] rounded-lg flex justify-center gap-1 items-center text-sm text-semi-white italic'>
                                         <div>no investments found...</div>
                                         <img src={nothnyet} className='h-4 w-auto'></img>
                                     </div>

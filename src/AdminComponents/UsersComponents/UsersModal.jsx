@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import moment from 'moment';
 import { FaRegRectangleXmark, FaXmark } from "react-icons/fa6";
-import { MdOutlineDeleteForever } from 'react-icons/md';
 import { IoEye } from 'react-icons/io5';
 import { IoMdCheckmarkCircleOutline, IoMdEyeOff } from 'react-icons/io';
 import { SlLockOpen } from 'react-icons/sl';
@@ -14,6 +13,7 @@ import ModalLayout from '../../utils/ModalLayout';
 import { Image } from 'antd'
 import { PiDownloadLight } from "react-icons/pi"
 import StatusSelector from '../../GeneralComponents/StatusSelector';
+import { LuBan } from 'react-icons/lu';
 
 
 const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => {
@@ -342,7 +342,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                     </button>
                                                                     <button className={`outline-none w-fit h-fit py-2 md:px-4 px-3 md:text-xs text-[0.7rem] text-white ${singleUser.suspend === 'true' ? 'bg-[#584383]' : 'bg-[#7e3232] '} rounded-md capitalize flex items-center gap-1 font-bold`} onClick={() => setSuspendScreen(3)}>
                                                                         <span>proceed action</span>
-                                                                        <MdOutlineDeleteForever />
+                                                                        <LuBan />
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -366,7 +366,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                         </button>
                                                                         <button className={`outline-none w-fit h-fit py-2 md:px-4 px-3 md:text-xs text-[0.7rem] text-white ${singleUser.suspend === 'true' ? 'bg-[#584383]' : 'bg-[#7e3232] '}  rounded-md capitalize flex items-center gap-1 font-bold`} onClick={UpdateUser}>
                                                                             <span>{singleUser.suspend === 'true' ? 'unsuspend' : 'suspend'} account</span>
-                                                                            <MdOutlineDeleteForever />
+                                                                            <LuBan />
                                                                         </button>
                                                                     </div>
                                                                 </div>

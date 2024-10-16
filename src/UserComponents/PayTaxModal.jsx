@@ -33,8 +33,7 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
             setError('')
         }, 1000)
 
-        if (!amount) return setError('amount')
-        if (isNaN(amount)) return setError('amount')
+        if (!amount || isNaN(amount)) return setError('amount')
         if (amount < 1) return setError('minimum')
         if (Object.values(cryptoWallets).length === 0) return setError('select')
 
@@ -70,7 +69,7 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                 {loading && <Loading />}
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                 <div className='font-bold uppercase border-b w-full text-center'>pay tax</div>
-                <div className='flex flex-col items-center gap-5 mt-5 px-4 text-[0.8rem]'>
+                <div className='flex flex-col items-center gap-5 mt-5 md:w-[90%] w-11/12 mx-auto text-[0.8rem]'>
                     <div className='flex flex-col gap-1'>
                         <div className='capitalize font-medium'>tax amount ($)</div>
                         <div className='relative'>

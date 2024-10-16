@@ -114,67 +114,65 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
 
     return (
         <ModalLayout closeView={closeView} toggler={toggler}>
-            <div className='xl:w-1/3 lg:w-2/5 md:w-1/2 w-11/12 md:h-fit h-[70vh] bg-white rounded-lg overflow-x-hidden overflow-y-auto scroll' ref={toggler}>
-                <div className='relative'>
-                    {loading && <Loading />}
-                    <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
-                    <div className='flex flex-col md:w-[90%] w-11/12 mx-auto py-5 md:text-[0.9rem] text-[0.8rem]'>
-                        <div className='text-xl uppercase text-center font-bold border-b'>update trading plan</div>
-                        <div className='flex flex-col gap-4 mt-4 relative'>
-                            <div className='flex justify-between items-center gap-4'>
-                                <div className='italic'>title:</div>
-                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.title} name='title' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
-                            </div>
-                            <div className='flex justify-between items-center gap-4'>
-                                <div className='italic'>price start ($):</div>
-                                <div>
-                                    <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.price_start} name='price_start' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
-                                </div>
-                            </div>
-                            <div className='flex justify-between items-center gap-4'>
-                                <div className='italic'>price limit ($):</div>
-                                <div>
-                                    <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.price_limit} name='price_limit' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
-                                </div>
-                            </div>
-                            <div className='flex justify-between items-center gap-4'>
-                                <div className='italic'>profit return (%):</div>
-                                <div>
-                                    <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.profit_return} name='profit_return' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
-                                </div>
-                            </div>
-                            <div className='flex justify-between items-center gap-4'>
-                                <div className='italic'>plan bonus ($):</div>
-                                <div>
-                                    <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.plan_bonus} name='plan_bonus' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
-                                </div>
-                            </div>
-                            <div className='flex justify-between items-center gap-4'>
-                                <div className='italic'>duration:</div>
-                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.duration} name='duration' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
-                            </div>
-                            <div className='flex justify-between items-center gap-4'>
-                                <div className='italic'>duration type:</div>
-                                <StatusSelector Statuses={DurationTypes} status={type} HandleFunction={CommmitHandlerForStatus} select={select} toggle={() => setSelect(!select)} />
+            <div className='xl:w-1/3 lg:w-2/5 md:w-1/2 w-11/12 md:h-fit h-[70vh] bg-white rounded-lg overflow-x-hidden overflow-y-auto relative py-5 scroll' ref={toggler}>
+                {loading && <Loading />}
+                <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
+                <div className='text-xl uppercase text-center font-bold border-b'>update trading plan</div>
+                <div className='flex flex-col md:w-[90%] w-11/12 mx-auto mt-5 md:text-[0.9rem] text-[0.8rem]'>
+                    <div className='flex flex-col gap-4 relative'>
+                        <div className='flex justify-between items-center gap-4'>
+                            <div className='italic'>title:</div>
+                            <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.title} name='title' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
+                        </div>
+                        <div className='flex justify-between items-center gap-4'>
+                            <div className='italic'>price start ($):</div>
+                            <div>
+                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.price_start} name='price_start' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
                             </div>
                         </div>
-                        <div className='flex items-center mt-8 relative'>
-                            {commit && <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateTradingPlan}>update</button>}
-                            <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ml-auto' onClick={() => setDeleteState(true)}>delete</button>
-                            {deleteState && <div className='bg-white adsha w-fit h-fit flex flex-col gap-4 items-center justify-center absolute bottom-0 right-0 p-3 rounded-md text-xs'>
-                                <div className='flex flex-col items-center gap-2'>
-                                    <div className='md:text-sm text-[0.8rem] text-center font-semibold flex items-center gap-1'>
-                                        <span> Are you sure you want to Delete Plan?</span>
-                                        <PiWarningCircleBold className='text-[red]' />
-                                    </div>
-                                    <div className='text-xs text-center italic text-[#eb2e2e]'>- All investments under this trading plan will no longer update automatically -</div>
-                                </div>
-                                <div className='flex items-center gap-6'>
-                                    <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={() => setDeleteState(false)}>cancel</button>
-                                    <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={DeleteTradingPlan}>proceed</button>
-                                </div>
-                            </div>}
+                        <div className='flex justify-between items-center gap-4'>
+                            <div className='italic'>price limit ($):</div>
+                            <div>
+                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.price_limit} name='price_limit' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
+                            </div>
                         </div>
+                        <div className='flex justify-between items-center gap-4'>
+                            <div className='italic'>profit return (%):</div>
+                            <div>
+                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.profit_return} name='profit_return' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
+                            </div>
+                        </div>
+                        <div className='flex justify-between items-center gap-4'>
+                            <div className='italic'>plan bonus ($):</div>
+                            <div>
+                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.plan_bonus} name='plan_bonus' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
+                            </div>
+                        </div>
+                        <div className='flex justify-between items-center gap-4'>
+                            <div className='italic'>duration:</div>
+                            <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.duration} name='duration' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
+                        </div>
+                        <div className='flex justify-between items-center gap-4'>
+                            <div className='italic'>duration type:</div>
+                            <StatusSelector Statuses={DurationTypes} status={type} HandleFunction={CommmitHandlerForStatus} select={select} toggle={() => setSelect(!select)} />
+                        </div>
+                    </div>
+                    <div className='flex items-center mt-8 relative'>
+                        {commit && <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateTradingPlan}>update</button>}
+                        <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ml-auto' onClick={() => setDeleteState(true)}>delete</button>
+                        {deleteState && <div className='bg-white adsha w-fit h-fit flex flex-col gap-4 items-center justify-center absolute bottom-0 right-0 p-3 rounded-md text-xs'>
+                            <div className='flex flex-col items-center gap-2'>
+                                <div className='md:text-sm text-[0.8rem] text-center font-semibold flex items-center gap-1'>
+                                    <span> Are you sure you want to Delete Plan?</span>
+                                    <PiWarningCircleBold className='text-[red]' />
+                                </div>
+                                <div className='text-xs text-center italic text-[#eb2e2e]'>- All investments under this trading plan will no longer update automatically -</div>
+                            </div>
+                            <div className='flex items-center gap-6'>
+                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={() => setDeleteState(false)}>cancel</button>
+                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={DeleteTradingPlan}>proceed</button>
+                            </div>
+                        </div>}
                     </div>
                 </div>
             </div>

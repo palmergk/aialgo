@@ -195,51 +195,49 @@ const Withdraw = () => {
                     </div>
                 </div>
                 {screen === 1 &&
-                    <div className='flex justify-center'>
-                        <div className='mt-10 text-black font-medium h-fit w-fit bg-semi-white rounded-xl relative'>
-                            {loading && <Loading className="!bg-[#97979767]" />}
-                            <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-b-sm rounded-t-xl border-b border-light mx-auto flex flex-col gap-2'>
-                                <Link to='/dashboard/tax-payment' onClick={MoveToTop} className='w-fit ml-auto'>
-                                    <button className='w-fit h-fit md:text-sm text-xs font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center'>
-                                        <span>taxes</span>
-                                        <GiTwoCoins />
-                                    </button>
-                                </Link>
-                                <div className='border-t pt-2 text-center'>Withdraw funds</div>
+                    <div className='mt-10 text-black font-medium h-fit w-fit bg-semi-white rounded-xl relative mx-auto'>
+                        {loading && <Loading className="!bg-[#97979767]" />}
+                        <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-b-sm rounded-t-xl border-b border-light mx-auto flex flex-col gap-2'>
+                            <Link to='/dashboard/tax-payment' onClick={MoveToTop} className='w-fit ml-auto'>
+                                <button className='w-fit h-fit md:text-sm text-xs font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center'>
+                                    <span>taxes</span>
+                                    <GiTwoCoins />
+                                </button>
+                            </Link>
+                            <div className='border-t pt-2 text-center'>Withdraw funds</div>
+                        </div>
+                        <div className='grid grid-cols-1 gap-8 py-6 md:px-14 px-5 overflow-hidden'>
+                            <div className='flex gap-3 items-center'>
+                                <div className='flex flex-col gap-1'>
+                                    <div className='capitalize text-[0.8rem] font-medium'>withdawal amount ($)</div>
+                                    <div className='relative'>
+                                        <input className={`outline-none border lg:text-sm text-base md:w-48 w-40 h-8 rounded-[4px] pl-2 pr-16 bg-white ${error === 'amount' ? 'border-[red]' : 'border-light'}`} name='amount' value={form.amount} onChange={inputHandler} ></input>
+                                        <div className={`text-xs absolute top-2 right-2 ${error === 'minimum' ? 'text-[red]' : 'text-black'}`}>min: {user?.withdrawal_minimum}</div>
+                                    </div>
+                                </div>
+                                <div className={`w-fit h-fit rounded-md flex flex-col py-2 justify-center items-center md:px-4 px-3 text-semi-white gap-1 bg-light ${error === 'balance' && 'outline outline-1 outline-[red]'}`}>
+                                    <div className='flex  justify-center items-center gap-1'>
+                                        <div className='md:text-[0.85rem] text-xs font-semibold'>withdrawable</div>
+                                        <img src={wthwallet} className='md:h-6 h-4 w-auto'></img>
+                                    </div>
+                                    <div className='flex items-center justify-center md:text-base text-sm'>
+                                        {Object.values(userwallet).length !== 0 && <div>${userwallet.balance.toLocaleString()}</div>}
+                                    </div>
+                                </div>
                             </div>
-                            <div className='grid grid-cols-1 gap-8 py-6 md:px-14 px-5'>
-                                <div className='flex gap-3 items-center'>
-                                    <div className='flex flex-col gap-1'>
-                                        <div className='capitalize text-[0.8rem] font-medium'>withdawal amount ($)</div>
-                                        <div className='relative'>
-                                            <input className={`outline-none border lg:text-sm text-base md:w-48 w-40 h-8 rounded-[4px] pl-2 pr-16 bg-white ${error === 'amount' ? 'border-[red]' : 'border-light'}`} name='amount' value={form.amount} onChange={inputHandler} ></input>
-                                            <div className={`text-xs absolute top-2 right-2 ${error === 'minimum' ? 'text-[red]' : 'text-black'}`}>min: {user?.withdrawal_minimum}</div>
-                                        </div>
-                                    </div>
-                                    <div className={`w-fit h-fit rounded-md flex flex-col py-2 justify-center items-center md:px-4 px-3 text-semi-white gap-1 bg-light ${error === 'balance' && 'outline outline-1 outline-[red]'}`}>
-                                        <div className='flex  justify-center items-center gap-1'>
-                                            <div className='md:text-[0.85rem] text-xs font-semibold'>withdrawable</div>
-                                            <img src={wthwallet} className='md:h-6 h-4 w-auto'></img>
-                                        </div>
-                                        <div className='flex items-center justify-center md:text-base text-sm'>
-                                            {Object.values(userwallet).length !== 0 && <div>${userwallet.balance.toLocaleString()}</div>}
-                                        </div>
-                                    </div>
+                            <div className='mx-auto'>
+                                <CryptoSelector setCryptoWallets={setCryptoWallets} error={error} className={{ bg: "!bg-white", text: "!text-light" }} />
+                            </div>
+                            {Object.values(cryptoWallets).length !== 0 && <div className='flex flex-col gap-2 items-center'>
+                                <div className='text-[0.85rem] text-center'>Enter your <span className=' capitalize'>{cryptoWallets.crypto_name}</span> wallet address for <span className=' capitalize'> {cryptoWallets.network}</span> Network</div>
+                                <input className={`outline-none border bg-white lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2  ${error === 'wallet' ? 'border-[red]' : 'border-light'}`} name='withdrawal_address' value={form.withdrawal_address} onChange={inputHandler} type='text'></input>
+                            </div>}
+                            <div className='flex flex-col gap-1 items-center relative'>
+                                <div className='flex gap-1.5 items-center'>
+                                    <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }} className={`${error === 'check' && 'outline outline-1 outline-[red]'}`}></input>
+                                    <div className='text-[#252525] text-[0.8rem]'>I provided my correct wallet address</div>
                                 </div>
-                                <div className='mx-auto'>
-                                    <CryptoSelector setCryptoWallets={setCryptoWallets} error={error} className={{ bg: "!bg-white", text: "!text-light" }} />
-                                </div>
-                                {Object.values(cryptoWallets).length !== 0 && <div className='flex flex-col gap-2 items-center'>
-                                    <div className='text-[0.85rem] text-center'>Enter your <span className=' capitalize'>{cryptoWallets.crypto_name}</span> wallet address for <span className=' capitalize'> {cryptoWallets.network}</span> Network</div>
-                                    <input className={`outline-none border bg-white lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2  ${error === 'wallet' ? 'border-[red]' : 'border-light'}`} name='withdrawal_address' value={form.withdrawal_address} onChange={inputHandler} type='text'></input>
-                                </div>}
-                                <div className='flex flex-col gap-1 items-center relative'>
-                                    <div className='flex gap-1.5 items-center'>
-                                        <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }} className={`${error === 'check' && 'outline outline-1 outline-[red]'}`}></input>
-                                        <div className='text-[#252525] text-[0.8rem]'>I provided my correct wallet address</div>
-                                    </div>
-                                    <button className='outline-none w-fit h-fit py-2 px-14 md:text-sm text-sm text-semi-white bg-[#252525] rounded-md capitalize font-semibold' onClick={makeWithdrawal}>make withdrawal</button>
-                                </div>
+                                <button className='outline-none w-fit h-fit py-2 px-14 md:text-sm text-xs text-semi-white bg-[#252525] rounded-md capitalize font-semibold' onClick={makeWithdrawal}>make withdrawal</button>
                             </div>
                         </div>
                     </div>
@@ -294,7 +292,7 @@ const Withdraw = () => {
                                                         </div>
                                                         <div className='flex justify-between gap-4'>
                                                             <span>status:</span>
-                                                            <span>{item.status}</span>
+                                                            <span className={`${item.status === 'confirmed' && 'text-[#adad40]'}`}>{item.status}</span>
                                                         </div>
                                                     </div>
                                                 </div>

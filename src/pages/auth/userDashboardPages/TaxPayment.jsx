@@ -130,44 +130,42 @@ const TaxPayment = () => {
                     </div>
                 </div>
                 {screen === 1 &&
-                    <div className='flex justify-center'>
-                        <div className='mt-10 bg-semi-white w-fit h-fit rounded-xl relative'>
-                            {modal && <PayTaxModal closeView={() => setModal(false)} setScreen={setScreen} refetchTaxes={FetchTaxes} />}
-                            <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-b-sm rounded-t-xl border-b border-[#5BB4FD] mx-auto flex flex-col gap-2'>
-                                <button className='w-fit h-fit md:text-sm text-xs font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center ml-auto' onClick={() => { setModal(true) }}>
-                                    <span>pay tax</span>
-                                    <SiBitcoincash />
-                                </button>
-                                <div className='border-t pt-2 text-center'>clear taxes</div>
-                            </div>
-                            <div className='py-6 md:px-8 px-5 grid grid-cols-1 gap-6'>
-                                <div className='md:w-96 w-72 h-fit rounded-lg flex flex-col text-white shantf bg-white z-10'>
-                                    <div className='plan_bg w-full md:h-20 h-16 rounded-t-lg'>
-                                        <div className='uppercase font-extrabold text-center md:text-lg text-sm pt-4'>tax clearance</div>
-                                    </div>
-                                    <div className='-mt-6 flex flex-col gap-2 items-center justify-center'>
-                                        <div className='md:h-[5.3rem] md:w-[5.3rem] w-[4.7rem] h-[4.7rem] p-1.5 rounded-full bg-white flex items-center justify-center'>
-                                            <div className='w-full h-full rounded-full bg-[#252525] flex flex-col gap-1 items-center justify-center'>
-                                                <div className='italic md:text-[0.65rem] text-[0.6rem]'>low as</div>
-                                                <div className='flex items-center font-bold gap-[0.1rem] text-[#5BB4FD] md:text-base text-sm'>
-                                                    <div className='md:text-base text-sm -ml-1'>{adminStore?.tax_percentage}%</div>
-                                                </div>
+                    <div className='mt-10 bg-semi-white w-fit h-fit rounded-xl relative mx-auto'>
+                        {modal && <PayTaxModal closeView={() => setModal(false)} setScreen={setScreen} refetchTaxes={FetchTaxes} />}
+                        <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-b-sm rounded-t-xl border-b border-[#5BB4FD] mx-auto flex flex-col gap-2'>
+                            <button className='w-fit h-fit md:text-sm text-xs font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center ml-auto' onClick={() => { setModal(true) }}>
+                                <span>pay tax</span>
+                                <SiBitcoincash />
+                            </button>
+                            <div className='border-t pt-2 text-center'>clear taxes</div>
+                        </div>
+                        <div className='py-6 md:px-8 px-5 grid grid-cols-1 gap-6 overflow-hidden'>
+                            <div className='md:w-96 w-72 h-fit rounded-lg flex flex-col text-white shantf bg-white z-10'>
+                                <div className='plan_bg w-full md:h-20 h-16 rounded-t-lg'>
+                                    <div className='uppercase font-extrabold text-center md:text-lg text-sm pt-4'>tax clearance</div>
+                                </div>
+                                <div className='-mt-6 flex flex-col gap-2 items-center justify-center'>
+                                    <div className='md:h-[5.3rem] md:w-[5.3rem] w-[4.7rem] h-[4.7rem] p-1.5 rounded-full bg-white flex items-center justify-center'>
+                                        <div className='w-full h-full rounded-full bg-[#252525] flex flex-col gap-1 items-center justify-center'>
+                                            <div className='italic md:text-[0.65rem] text-[0.6rem]'>low as</div>
+                                            <div className='flex items-center font-bold gap-[0.1rem] text-[#5BB4FD] md:text-base text-sm'>
+                                                <div className='md:text-base text-sm -ml-1'>{adminStore?.tax_percentage}%</div>
                                             </div>
                                         </div>
-                                        <div className='text-xs text-[#252525] font-semibold text-center w-11/12 border border-dashed border-[#c0c0c0] p-1 rounded-md leading-[1.1rem]'>
-                                            Reduced {adminStore?.tax_percentage}% taxation on withdrawals is the possible lowest anywhere. Our support team works in hand with users to make sure it stays this way and to continually give users the best trading <span className='italic'>experience</span>.
-                                        </div>
-                                        <div className='mb-5 mt-2'>
-                                            <button className='w-fit h-fit py-1.5 md:px-6 px-4 rounded-full bg-[#5BB4FD] text-white uppercase font-bold md:text-xs text-[0.65rem]' onClick={() => setModal(true)}>
-                                                clear taxes
-                                            </button>
-                                        </div>
+                                    </div>
+                                    <div className='text-xs text-[#252525] font-semibold text-center w-11/12 border border-dashed border-[#c0c0c0] p-1 rounded-md leading-[1.1rem]'>
+                                        Reduced {adminStore?.tax_percentage}% taxation on withdrawals is the possible lowest anywhere. Our support team works in hand with users to make sure it stays this way and to continually give users the best trading <span className='italic'>experience</span>.
+                                    </div>
+                                    <div className='mb-5 mt-2'>
+                                        <button className='w-fit h-fit py-1.5 md:px-6 px-4 rounded-full bg-[#5BB4FD] text-white uppercase font-bold md:text-xs text-[0.65rem]' onClick={() => setModal(true)}>
+                                            clear taxes
+                                        </button>
                                     </div>
                                 </div>
-                                <div className='bg-white p-2 shantf rounded-md'>
-                                    <div className='py-2 md:px-9 px-2 border border-dashed border-[#5BB4FD] md:text-sm text-xs text-center font-medium'>
-                                        Tax percentage too high? File a complaint <Link to="/dashboard/feedback" className='underline text-[#5BB4FD] cursor-pointer'>here</Link>
-                                    </div>
+                            </div>
+                            <div className='bg-white p-2 shantf rounded-md'>
+                                <div className='py-2 md:px-9 px-2 border border-dashed border-[#5BB4FD] md:text-sm text-xs text-center font-medium'>
+                                    Tax percentage too high? File a complaint <Link to="/dashboard/feedback" className='underline text-[#5BB4FD] cursor-pointer'>here</Link>
                                 </div>
                             </div>
                         </div>
@@ -223,7 +221,7 @@ const TaxPayment = () => {
                                                         </div>
                                                         <div className='flex justify-between gap-4'>
                                                             <span>status:</span>
-                                                            <span>{item.status}</span>
+                                                            <span className={`${item.status === 'received' && 'text-[#adad40]'} ${item.status === 'failed' && 'text-[#c42e2e]'}`}>{item.status}</span>
                                                         </div>
                                                     </div>
                                                 </div>

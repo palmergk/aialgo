@@ -3,7 +3,7 @@ import { Apis, UserPutApi, imageurl } from '../../../services/API'
 import { ADMINSTORE, PROFILE } from '../../../store'
 import { useAtom } from 'jotai'
 import { IoEye } from 'react-icons/io5';
-import { MdVerified, MdOutlineDateRange, MdOutlineCancel, MdSentimentVeryDissatisfied, MdOutlineDeleteForever, MdOutlineEdit, MdContentCopy } from "react-icons/md";
+import { MdVerified, MdOutlineDateRange, MdOutlineCancel, MdSentimentVeryDissatisfied, MdOutlineEdit, MdContentCopy } from "react-icons/md";
 import moment from 'moment';
 import { LuUserCircle } from "react-icons/lu";
 import { SlLockOpen } from "react-icons/sl";
@@ -19,6 +19,7 @@ import membership from '../../../assets/images/membership.png'
 import avatar from '../../../assets/images/avatar.png'
 import Dashboard from './Dashboard';
 import Loading from '../../../GeneralComponents/Loading';
+import { RiDeleteBin2Line, RiUploadCloudLine } from 'react-icons/ri';
 
 
 const Profile = () => {
@@ -38,11 +39,12 @@ const Profile = () => {
     const EyeIcon2 = eye2 === true ? IoEye : IoMdEyeOff
     const EyeIcon3 = eye3 === true ? IoEye : IoMdEyeOff
     const [copy, setCopy] = useState(false)
+    const [select, setSelect] = useState(false)
     const [loading, setLoading] = useState(false)
     const [loading2, setLoading2] = useState(false)
     const imgref = useRef()
     const navigate = useNavigate()
-    
+
     const [profile, setProfile] = useState({
         img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
         image: user.image ? user.image : null
@@ -63,6 +65,19 @@ const Profile = () => {
         })
     }
 
+    const MoveToBottom = () => {
+        const move = document.querySelector('.move')
+        move.scrollTo({
+            top: move.scrollHeight,
+            behavior: 'smooth'
+        })
+    }
+    useEffect(() => {
+        if (screen !== 1) {
+            MoveToBottom()
+        }
+    }, [MoveToBottom])
+
     const CommitHandler = () => {
         if (form.full_name === user.full_name && form.username === user.username && form.email === user.email && form.old_password === '' && form.new_password === '' && profile.image === user.image) {
             setCommit(false)
@@ -81,7 +96,6 @@ const Profile = () => {
             imgref.current.value = null
             return ErrorAlert('File error, invalid image format')
         }
-
         setCommit(true)
         setProfile({
             img: URL.createObjectURL(file),
@@ -94,6 +108,7 @@ const Profile = () => {
         setNameEdit(false)
         setPassEdit(false)
         setUserEdit(false)
+        setSelect(false)
         setCommit(false)
 
         imgref.current.value = null
@@ -101,7 +116,6 @@ const Profile = () => {
             img: user.image ? `${imageurl}/profiles/${user?.image}` : avatar,
             image: user.image ? user.image : null
         })
-
         setForm({
             full_name: user?.full_name,
             email: user?.email,
@@ -142,6 +156,7 @@ const Profile = () => {
                 setPassEdit(false)
                 setUserEdit(false)
                 setCommit(false)
+                setSelect(false)
                 setForm({
                     full_name: response.user.full_name,
                     email: response.user.email,
@@ -160,6 +175,24 @@ const Profile = () => {
         }
     }
 
+    const DeletePhoto = async () => {
+        try {
+            const response = await UserPutApi(Apis.user.delete_photo)
+            if (response.status === 200) {
+                SuccessAlert(response.msg)
+                setUser(response.user)
+                setProfile({
+                    img: avatar,
+                    image: null
+                })
+            } else {
+                ErrorAlert(response.msg)
+            }
+        } catch (error) {
+            ErrorAlert(`${error.message}`)
+        }
+    }
+
     const DeleteAccount = async () => {
         if (!form.dl_password) return ErrorAlert(`Enter your password`)
 
@@ -168,7 +201,7 @@ const Profile = () => {
         }
         setLoading2(true)
         try {
-            const response = await UserPutApi(Apis.user.delete, formbody)
+            const response = await UserPutApi(Apis.user.delete_account, formbody)
             if (response.status === 200) {
                 SuccessAlert(response.msg)
                 Cookies.remove(CookieName)
@@ -183,20 +216,6 @@ const Profile = () => {
         }
     }
 
-    const MoveToBottom = () => {
-        const move = document.querySelector('.move')
-        move.scrollTo({
-            top: move.scrollHeight,
-            behavior: 'smooth'
-        })
-    }
-
-    useEffect(() => {
-        if (screen !== 1) {
-            MoveToBottom()
-        }
-    }, [MoveToBottom])
-
     return (
         <Dashboard>
             <div>
@@ -206,12 +225,22 @@ const Profile = () => {
                     <div className='flex items-center justify-center mt-10'>
                         <div className='md:w-48 md:h-48 h-32 w-32 p-1 rounded-full bg-[#afa7df] flex items-center justify-center relative'>
                             <img className='w-full h-full rounded-full object-cover' src={profile.img}></img>
-                            <label>
-                                <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shlz'>
-                                    <MdOutlineEdit />
+                            <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shlz' onClick={() => setSelect(!select)}><MdOutlineEdit /></div>
+                            {select &&
+                                <div className='h-fit w-36 absolute -bottom-11 right-0 bg-white border border-[lightgrey] rounded-md z-10 text-[0.85rem] font-bold overflow-hidden capitalize'>
+                                    <label>
+                                        <div className='px-2 py-1 cursor-pointer hover:bg-[#ececec] border-b border-[#ebeaea] flex justify-between items-center'>
+                                            <span>upload new</span>
+                                            <RiUploadCloudLine />
+                                        </div>
+                                        <input ref={imgref} type="file" onChange={handleProfileUpload} hidden></input>
+                                    </label>
+                                    <div className='px-2 py-1 cursor-pointer hover:bg-[#ececec] border-b border-[#ebeaea] text-[red] flex justify-between items-center' onClick={DeletePhoto}>
+                                        <div>delete photo</div>
+                                        <RiDeleteBin2Line />
+                                    </div>
                                 </div>
-                                <input ref={imgref} type="file" onChange={handleProfileUpload} hidden></input>
-                            </label>
+                            }
                         </div>
                     </div>
                     <div className=' justify-center mt-4 text-semi-white flex gap-2 items-center'>
@@ -220,7 +249,7 @@ const Profile = () => {
                     </div>
                     <div className='text-light md:text-[0.8rem] text-xs text-center capitalize font-bold mt-2'>account trader</div>
                     <div className='mt-8 '>
-                        <div className='flex gap-8 items-center w-fit overflow-hidden h-fit bg-semi-white rounded-xl capitalize shlz md:px-8 px-4 py-4 mx-auto'>
+                        <div className='flex gap-8 items-center w-fit overflow-hidden h-fit bg-semi-white rounded-xl capitalize md:px-8 px-4 py-4 mx-auto'>
                             <div className='flex items-center gap-5'>
                                 <div className='flex flex-col gap-2'>
                                     <div className='md:text-[1.4rem] text-lg text-black'>Status</div>
@@ -360,9 +389,9 @@ const Profile = () => {
                     <div className='relative mx-auto mt-20'>
                         {screen === 1 && <div className='justify-center md:text-[0.85rem] text-xs text-light cursor-pointer flex items-center gap-1' onClick={() => { setScreen(2); MoveToBottom() }}>
                             <span>Delete my account</span>
-                            <MdOutlineDeleteForever />
+                            <RiDeleteBin2Line />
                         </div>}
-                        {screen !== 1 && <div className='w-fit h-fit bg-semi-white rounded-xl md:p-8 p-4 mx-auto relative overflow-hidden shlz'>
+                        {screen !== 1 && <div className='w-fit h-fit bg-semi-white rounded-xl md:p-8 p-4 mx-auto relative overflow-hidden'>
                             {loading2 && <Loading className="!bg-[#97979767]" />}
                             {screen === 2 && <div>
                                 <div className='text-center md:text-lg text-sm text-black font-medium'>Are you sure you want to delete your account?</div>
@@ -399,7 +428,7 @@ const Profile = () => {
                                         </button>
                                         <button className='outline-none w-fit h-fit py-2 px-4 text-xs text-semi-white  bg-[#642424] rounded-md capitalize flex items-center gap-1 font-bold' onClick={DeleteAccount}>
                                             <span>delete account</span>
-                                            <MdOutlineDeleteForever />
+                                            <RiDeleteBin2Line />
                                         </button>
                                     </div>
                                 </div>

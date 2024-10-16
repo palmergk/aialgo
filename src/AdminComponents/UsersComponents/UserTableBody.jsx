@@ -25,10 +25,10 @@ const UserTableBody = ({ item, setUserFigures, setSingleUser, setModal }) => {
 
     return (
         <div className='w-full h-fit relative sha rounded-lg text-black font-medium'>
-            <div className='p-4 bg-zinc-500 text-sm rounded-t-lg text-white flex justify-between gap-4'>
+            <div className='p-4 bg-semi-white text-sm rounded-t-lg flex justify-between gap-4'>
                 <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
                 <div>
-                    <div className='hover:text-black cursor-pointer ' onClick={() => GetUserFigures(item)}><BsThreeDotsVertical /></div>
+                    <div className='hover:text-[#9f7ae7] cursor-pointer ' onClick={() => GetUserFigures(item)}><BsThreeDotsVertical /></div>
                 </div>
             </div>
             <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
@@ -46,10 +46,10 @@ const UserTableBody = ({ item, setUserFigures, setSingleUser, setModal }) => {
                         <span className='lowercase'>{item.email}</span>
                     </div>
                 </div>
-                <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-200 overflow-hidden'>
+                <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-100 overflow-hidden'>
                     <div className='flex justify-between gap-4'>
                         <span>country:</span>
-                        <img src={item.country_flag}></img>
+                        <img src={item.country_flag} className='w-6 h-auto'></img>
                     </div>
                 </div>
             </div>

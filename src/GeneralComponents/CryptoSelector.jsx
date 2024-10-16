@@ -6,7 +6,7 @@ import { FaAngleLeft } from 'react-icons/fa6'
 import { useAtom } from 'jotai'
 import { ADMINCRYPTOWALLETS } from '../store'
 
-const CryptoSelector = ({setCryptoWallets, error, className}) => {
+const CryptoSelector = ({ setCryptoWallets, error, className }) => {
     const [adminCryptoWallets] = useAtom(ADMINCRYPTOWALLETS)
     const [objArray, setObjArray] = useState({})
     const [select, setSelect] = useState(false)
@@ -28,11 +28,9 @@ const CryptoSelector = ({setCryptoWallets, error, className}) => {
                                     {adminCryptoWallets.length > 0 &&
                                         <>
                                             {adminCryptoWallets.map((item, i) => (
-                                                <div className='flex flex-col px-2 py-0.5 hover:bg-[#ececec] border-b border-[#ebeaea] cursor-pointer' key={i} onClick={() => { setObjArray(item); setMode(2) }}>
-                                                    <div className='flex gap-2 items-center'>
-                                                        <img src={`${imageurl}/cryptocurrency/${item.crypto_img}`} className='h-auto w-4'></img>
-                                                        <div>{item.crypto_name}</div>
-                                                    </div>
+                                                <div className='flex gap-2 items-center px-2 py-0.5 hover:bg-[#ececec] border-b border-[#ebeaea] cursor-pointer' key={i} onClick={() => { setObjArray(item); setMode(2) }}>
+                                                    <img src={`${imageurl}/cryptocurrency/${item.crypto_img}`} className='h-auto w-4'></img>
+                                                    <div>{item.crypto_name}</div>
                                                 </div>
                                             ))}
                                         </>
@@ -47,7 +45,7 @@ const CryptoSelector = ({setCryptoWallets, error, className}) => {
                                     {objArray.cryptoWallet.length > 0 &&
                                         <>
                                             {objArray.cryptoWallet.map((item, i) => (
-                                                <div className='flex flex-col px-2 py-0.5 hover:bg-[#ececec] border-b border-[#ebeaea] cursor-pointer' key={i} onClick={() => { setSelect(false); setCryptoWallets(item); setMode(1) }}>
+                                                <div className='px-2 py-0.5 hover:bg-[#ececec] border-b border-[#ebeaea] cursor-pointer' key={i} onClick={() => { setSelect(false); setCryptoWallets(item); setMode(1) }}>
                                                     <div>{item.network}</div>
                                                 </div>
                                             ))}

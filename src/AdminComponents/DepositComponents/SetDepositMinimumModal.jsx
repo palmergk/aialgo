@@ -5,6 +5,7 @@ import { useAtom } from 'jotai'
 import { ADMINSTORE } from '../../store'
 import { Apis, UserPutApi } from '../../services/API'
 import { ErrorAlert, SuccessAlert } from '../../utils/utils'
+import { FaXmark } from 'react-icons/fa6'
 
 const SetDepositMinimum = ({ closeView }) => {
     const [adminStore, setAdminStore] = useAtom(ADMINSTORE)
@@ -39,10 +40,11 @@ const SetDepositMinimum = ({ closeView }) => {
 
     return (
         <ModalLayout closeView={closeView} toggler={toggler}>
-            <div className='xl:w-1/3 lg:w-2/5 md:w-1/2 w-10/12 bg-white rounded-lg overflow-hidden relative' ref={toggler}>
+            <div className='xl:w-1/3 lg:w-2/5 md:w-1/2 w-10/12 bg-white rounded-lg overflow-hidden relative py-5' ref={toggler}>
                 {loading && <Loading />}
-                <div className='flex flex-col gap-2 py-6 px-4'>
-                    <div className='md:text-xl text-lg uppercase text-center font-bold border-b w-full mb-2'>set deposit minimum</div>
+                <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
+                <div className='md:text-xl text-lg uppercase text-center font-bold border-b w-full'>set deposit minimum</div>
+                <div className='flex flex-col gap-2 md:w-[90%] w-11/12 mx-auto mt-5'>
                     <div className='flex flex-col gap-2 items-center text-sm border px-2 py-4 rounded-md'>
                         <div className='text-center font-medium'>Enter deposit minimum amount ($)</div>
                         <div className='flex gap-4 items-center'>
@@ -56,7 +58,7 @@ const SetDepositMinimum = ({ closeView }) => {
                         </div>
                         <div className='italic text-xs mt-4 text-[green] text-center'>- the least amount a user can deposit is {Object.values(adminStore).length !== 0 && <span>${adminStore.deposit_minimum.toLocaleString()}</span>} -</div>
                     </div>
-                    <div className='mx-auto mt-6'>
+                    <div className='mx-auto mt-4'>
                         <button className='w-fit h-fit py-2.5 px-8 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={SetReferalBonus}>set</button>
                     </div>
                 </div>

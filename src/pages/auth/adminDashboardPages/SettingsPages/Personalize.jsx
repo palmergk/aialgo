@@ -13,12 +13,14 @@ import { GrFacebookOption } from 'react-icons/gr';
 import avatar from '../../../../assets/images/avatar.png'
 import { ErrorAlert, SuccessAlert } from '../../../../utils/utils'
 import SettingsLayout from '../../../../AdminComponents/SettingsComponents/SettingsLayout'
+import { RiDeleteBin2Line, RiUploadCloudLine } from 'react-icons/ri';
 
 const Personalize = () => {
   const [user, setUser] = useAtom(PROFILE)
   const [adminStore, setAdminStore] = useAtom(ADMINSTORE)
 
   const [commit, setCommit] = useState(false)
+  const [select, setSelect] = useState(false)
   const [eye, setEye] = useState(false)
   const [eye2, setEye2] = useState(false)
   const EyeIcon = eye === true ? IoEye : IoMdEyeOff
@@ -67,7 +69,6 @@ const Personalize = () => {
       imgref.current.value = null
       return ErrorAlert('File error, invalid image format')
     }
-
     setCommit(true)
     setProfile({
       img: URL.createObjectURL(file),
@@ -77,13 +78,13 @@ const Personalize = () => {
 
   const cancelChanges = () => {
     setCommit(false)
+    setSelect(false)
     imgref.current.value = null
 
     setProfile({
       img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
       image: user.image ? user.image : null
     })
-
     setForm({
       full_name: user?.full_name,
       email: user?.email,
@@ -95,6 +96,24 @@ const Personalize = () => {
       telegram: adminStore?.telegram
     })
   }
+
+  const DeletePhoto = async () => {
+    try {
+        const response = await UserPutApi(Apis.user.delete_photo)
+        if (response.status === 200) {
+            SuccessAlert(response.msg)
+            setUser(response.user)
+            setProfile({
+                img: avatar,
+                image: null
+            })
+        } else {
+            ErrorAlert(response.msg)
+        }
+    } catch (error) {
+        ErrorAlert(`${error.message}`)
+    }
+}
 
   const SubmitForm = async (event) => {
     event.preventDefault()
@@ -118,6 +137,7 @@ const Personalize = () => {
         setUser(response.user)
         setAdminStore(response.store)
         setCommit(false)
+        setSelect(false)
         setForm({
           full_name: response.user.full_name,
           email: response.user.email,
@@ -148,12 +168,22 @@ const Personalize = () => {
           <div className='flex items-center justify-center gap-4 flex-col'>
             <div className='md:w-48 md:h-48 h-32 w-32 p-1 rounded-full bg-[#c9b8eb] flex items-center justify-center relative'>
               <img className='w-full h-full rounded-full object-cover' src={profile.img}></img>
-              <label>
-                <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shantf'>
-                  <MdOutlineEdit />
+              <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shantf' onClick={() => setSelect(!select)}><MdOutlineEdit /></div>
+              {select &&
+                <div className='h-fit w-36 absolute -bottom-11 right-0 bg-white border border-[lightgrey] rounded-md z-10 text-[0.85rem] font-bold overflow-hidden capitalize'>
+                  <label>
+                    <div className='px-2 py-1 cursor-pointer hover:bg-[#ececec] border-b border-[#ebeaea] flex justify-between items-center'>
+                      <span>upload new</span>
+                      <RiUploadCloudLine />
+                    </div>
+                    <input ref={imgref} type="file" onChange={handleProfileUpload} hidden></input>
+                  </label>
+                  <div className='px-2 py-1 cursor-pointer hover:bg-[#ececec] border-b border-[#ebeaea] text-[red] flex justify-between items-center' onClick={DeletePhoto}>
+                    <div>delete photo</div>
+                    <RiDeleteBin2Line />
+                  </div>
                 </div>
-                <input ref={imgref} type="file" onChange={handleProfileUpload} hidden></input>
-              </label>
+              }
             </div>
             <div>
               <div className='capitalize font-bold md:text-2xl text-lg text-center'>{user?.full_name}</div>

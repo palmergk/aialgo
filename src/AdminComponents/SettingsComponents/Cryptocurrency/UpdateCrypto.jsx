@@ -135,7 +135,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
     return (
         <div>
             {loading && <Loading />}
-            <div className='flex flex-col gap-4 mt-4 relative'>
+            <div className='flex flex-col gap-4'>
                 <div className='cursor-pointer text-base text-[#462c7c] -ml-1' onClick={() => setScreen(1)}>
                     <FaArrowLeft />
                 </div>

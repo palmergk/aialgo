@@ -91,61 +91,10 @@ const Package = () => {
           <span>create new plan</span>
           <IoIosAddCircleOutline className='text-base' />
         </button>
-        {/* <div className='relative overflow-x-auto shadow-xl rounded-lg scrollsdown'>
-          <table className='w-full'>
-            <thead >
-              <tr className='bg-admin-page text-[0.8rem] font-bold text-white'>
-                <td className='text-center truncate  capitalize p-2 '>title</td>
-                <td className='text-center truncate  capitalize p-2 '>price start</td>
-                <td className='text-center truncate  capitalize p-2 '>price limit</td>
-                <td className='text-center truncate  capitalize p-2 '>profit return</td>
-                <td className='text-center truncate  capitalize p-2 '>plan bonus</td>
-                <td className='text-center truncate  capitalize p-2 '>duration</td>
-                <td className='text-center truncate  capitalize p-2'> <IoIosSettings className="mx-auto text-base" /></td>
-              </tr>
-            </thead>
-            {dataLoading ?
-              <tbody>
-                <tr className='bg-gray-300 animate-pulse h-10'>
-                  <td colSpan="7"></td>
-                </tr>
-              </tbody>
-              :
-              <>
-                {tradingPlans.length > 0 ?
-                  <tbody>
-                    {tradingPlans.slice(start, end).map((item, i) => (
-                      <tr className='text-[0.8rem]  text-black font-[550] bg-white even:bg-semi-white' key={i}>
-                        <td className='p-4  text-center truncate capitalize'>{item.title}</td>
-                        <td className={`p-4  text-center truncate`}>${item.price_start.toLocaleString()}</td>
-                        <td className='p-4  text-center truncate capitalize'>${item.price_limit.toLocaleString()}</td>
-                        <td className='p-4  text-center truncate capitalize'>{item.profit_return}%</td>
-                        <td className='p-4  text-center truncate capitalize'>${item.plan_bonus.toLocaleString()}</td>
-                        <td className='p-4  text-center truncate capitalize'>{item.duration + item.duration_type}</td>
-                        <td className='text-center truncate  capitalize p-2  cursor-pointer text-black hover:text-[#895ee0]' onClick={() => SinglePlanFunction(item)}> <BsThreeDots className="mx-auto text-base" /></td>
-                      </tr>
-                    ))}
-                  </tbody>
-                  :
-                  <tbody>
-                    <tr className='text-black text-[0.8rem] bg-white font-[550]'>
-                      <td colSpan="7" className='py-2 italic text-center truncate'>
-                        <div className='flex gap-1 items-center justify-center'>
-                          <span>no trading plans found...</span>
-                          <img src={nothnyet} className='h-4 w-auto'></img>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                }
-              </>
-            }
-          </table>
-        </div> */}
         {dataLoading ?
           <div className='w-full h-fit'>
-            <div className='h-11 bg-gray-300 animate-pulse rounded-t-lg'></div>
-            <div className='h-24 bg-gray-200 animate-pulse rounded-b-lg'></div>
+            <div className='h-11 bg-gray-200 animate-pulse rounded-t-lg'></div>
+            <div className='h-24 bg-gray-100 animate-pulse rounded-b-lg'></div>
           </div>
           :
           <div>
@@ -153,10 +102,10 @@ const Package = () => {
               <div className='flex flex-col gap-4'>
                 {tradingPlans.slice(start, end).map((item, i) => (
                   <div key={i} className='w-full h-fit relative sha rounded-lg text-black font-medium'>
-                    <div className='p-4 bg-zinc-500 text-sm rounded-t-lg text-white flex justify-between gap-4'>
+                    <div className='p-4 bg-semi-white text-sm rounded-t-lg flex justify-between gap-4'>
                       <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
                       <div>
-                        <div className='hover:text-black cursor-pointer ' onClick={() => SinglePlanFunction(item)}><BsThreeDotsVertical /></div>
+                        <div className='hover:text-[#9f7ae7] cursor-pointer ' onClick={() => SinglePlanFunction(item)}><BsThreeDotsVertical /></div>
                       </div>
                     </div>
                     <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
@@ -174,7 +123,7 @@ const Package = () => {
                           <span>${item.price_limit.toLocaleString()}</span>
                         </div>
                       </div>
-                      <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-200 overflow-hidden'>
+                      <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-100 overflow-hidden'>
                         <div className='flex justify-between gap-4'>
                           <span>profit return:</span>
                           <span>{item.profit_return}%</span>

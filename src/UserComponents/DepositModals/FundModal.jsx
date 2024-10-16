@@ -35,8 +35,7 @@ const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
       setError('')
     }, 1000)
 
-    if (!amount) return setError('amount')
-    if (isNaN(amount)) return setError('amount')
+    if (!amount || isNaN(amount)) return setError('amount')
     if (amount < adminStore.deposit_minimum) return setError('minimum')
     if (Object.values(cryptoWallets).length === 0) return setError('select')
 
@@ -72,7 +71,7 @@ const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
         {loading && <Loading />}
         <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeModal()} />
         <div className='font-bold uppercase border-b w-full text-center'>fund wallet</div>
-        <div className='flex flex-col gap-5 items-center px-4 mt-5 text-[0.8rem]'>
+        <div className='flex flex-col gap-5 items-center md:w-[90%] w-11/12 mx-auto mt-5 text-[0.8rem]'>
           <div className='flex flex-col gap-1'>
             <div className='capitalize font-medium'>deposit amount ($)</div>
             <div className='relative'>
