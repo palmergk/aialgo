@@ -5,7 +5,7 @@ import { IoWalletOutline } from "react-icons/io5";
 import { FaAngleRight } from "react-icons/fa6";
 import { TbBuildingBank } from "react-icons/tb";
 import { LuSend, LuArrowDownUp } from "react-icons/lu";
-import { RiAccountPinCircleLine } from "react-icons/ri";
+import { IoSettingsOutline } from "react-icons/io5";
 import { MdVerified } from "react-icons/md";
 import { LuX } from "react-icons/lu";
 import { RiLogoutCircleLine } from "react-icons/ri";
@@ -31,7 +31,7 @@ const MainLinks = [
 ]
 
 const OtherLinks = [
-    { path: 'profile', url: '/dashboard/profile', icon: RiAccountPinCircleLine },
+    { path: 'settings', url: '/dashboard/settings/profile', icon: IoSettingsOutline },
     { path: 'feedback', url: '/dashboard/feedback', icon: LuSend },
 ]
 
@@ -166,7 +166,7 @@ const Dashboard = ({ children }) => {
                             <div className=' text-[0.65rem] uppercase lg:text-[#797878] text-[#c5c4c4]'>others</div>
                             <div className='flex flex-col gap-8'>
                                 {OtherLinks.map((item, i) => (
-                                    <Link key={i} onClick={() => { MoveToTop(); setSlideShow(false) }} to={item.url} className={`flex gap-3 lg:hover:text-white hover:text-[green] items-center cursor-pointer w-fit lg:w-full ${location.pathname === item.url && 'lg:border-r-[3px] lg:rounded-sm lg:border-light'}`}>
+                                    <Link key={i} onClick={() => { MoveToTop(); setSlideShow(false) }} to={item.url} className={`flex gap-3 lg:hover:text-white hover:text-[green] items-center cursor-pointer w-fit lg:w-full ${item.path === 'settings' ? location.pathname.includes('/dashboard/settings') && 'lg:border-r-[3px] lg:rounded-sm lg:border-light' : location.pathname === item.url && 'lg:border-r-[3px] lg:rounded-sm lg:border-light'}`}>
                                         <item.icon className='text-[1.3rem] ' />
                                         <div className='capitalize text-[0.85rem] lg:font-bold font-medium hover:font-bold'>{item.path}</div>
                                     </Link>
@@ -201,7 +201,7 @@ const Dashboard = ({ children }) => {
                         <div className='flex flex-col gap-4'>
                             <div className='w-full h-fit rounded-md bg-[#130e27] py-2 px-4 text-light text-[0.85rem] flex items-center justify-between mt-4 relative'>
                                 <div className='flex gap-2 items-center'>
-                                    <Link className='xl:hidden cursor-pointer' to='/dashboard/profile'>
+                                    <Link className='xl:hidden cursor-pointer' to='/dashboard/settings/profile'>
                                         <img src={user.image ? `${imageurl}/profiles/${user.image}` : avatar} className='w-10 h-10 object-cover rounded-full border border-light'></img>
                                     </Link>
                                     <div className='capitalize font-medium'>hi, {user?.username}</div>
@@ -217,8 +217,8 @@ const Dashboard = ({ children }) => {
                                 <span>dashboard</span>
                                 <FaAngleRight className='text-[0.6rem]' />
                                 {location.pathname === '/dashboard' && <span>wallet</span>}
-                                {location.pathname.includes('/dashboard/verify-account') ?
-                                    <span>{location.pathname.slice(11, 25)}</span>
+                                {location.pathname.includes('/dashboard/settings') ?
+                                    <span>{location.pathname.slice(11, 19)}</span>
                                     :
                                     <span>{location.pathname.slice(11)}</span>
                                 }
@@ -251,11 +251,10 @@ const Dashboard = ({ children }) => {
                         <img src={user.image ? `${imageurl}/profiles/${user.image}` : avatar} className='w-16 h-16 object-cover rounded-full border-2 border-light'></img>
                         <div className='flex gap-1'>
                             <div className='text-semi-white '>{user?.username}</div>
-                            {user.email_verified === 'true' && <MdVerified className='text-[0.7rem] text-light border-light' />}
-                            {user.kyc_verified === 'true' && <MdVerified className='text-[0.7rem] text-[#b19e34] border-light' />}
+                            {user.email_verified === 'true' && user.kyc_verified === 'true' && <MdVerified className='text-light text-xs' />}
                         </div>
                         <div className='text-[grey] text-[0.8rem] font-medium lowercase -mt-2 '>{user?.email}</div>
-                        <Link to='/dashboard/profile' onClick={MoveToTop}>
+                        <Link to='/dashboard/settings/profile' onClick={MoveToTop}>
                             <div className=' cursor-pointer text-[0.85rem] text-light border-light mt-2'>edit profile</div>
                         </Link>
                     </div>

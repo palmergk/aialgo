@@ -54,11 +54,6 @@ input[type="date"]::before {
   height: 0px;
 }
 
-.img {
-  transition: -webkit-transform 0.25s ease;
-  transition: transform 0.25s ease;
-}
-
 /*loading component css */
 .loader {
   position: relative;

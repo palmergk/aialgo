@@ -11,7 +11,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
     const [deleteState, setdeleteState] = useState(false)
     const [commit, setCommit] = useState(false)
     const [loading, setLoading] = useState(false)
-    const cryptoImgref = useRef()
+    const imgref = useRef()
     const [cryptoImg, setCryptoImg] = useState({
         img: singleCrypto.id ? `${imageurl}/cryptocurrency/${singleCrypto?.crypto_img}` : null,
         image: singleCrypto.id ? singleCrypto?.crypto_img : null
@@ -30,15 +30,13 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
     const handleUpload = (event) => {
         const file = event.target.files[0]
         if (file.size >= 1000000) {
-            cryptoImgref.current.value = null
-            return ErrorAlert('File size too large')
+            imgref.current.value = null
+            return ErrorAlert('Image size too large, file must not exceed 1mb')
         }
-
         if (!file.type.startsWith('image/')) {
-            cryptoImgref.current.value = null
-            return ErrorAlert('File error, invalid image format')
+            imgref.current.value = null
+            return ErrorAlert('File error, upload a valid image format (jpg, jpeg, png, svg)')
         }
-
         setCryptoImg({
             img: URL.createObjectURL(file),
             image: file
@@ -159,7 +157,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                                 <span className='text-xs'>click to add image</span>
                             </div>
                         }
-                        <input ref={cryptoImgref} type="file" onChange={handleUpload} hidden />
+                        <input ref={imgref} type="file" onChange={handleUpload} hidden />
                     </label>
                 </div>
             </div>

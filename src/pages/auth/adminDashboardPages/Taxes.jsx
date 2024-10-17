@@ -189,9 +189,11 @@ const Taxes = () => {
                   ))}
                 </div>
                 :
-                <div className='p-3 bg-white sha rounded-lg flex justify-center gap-1 items-center text-sm text-black italic'>
-                  <div>no taxes found...</div>
-                  <img src={nothnyet} className='h-4 w-auto'></img>
+                <div className='px-2 py-1 bg-white sha rounded-lg'>
+                  <div className='flex justify-center gap-1 items-center text-sm text-black italic bg-semi-white py-1'>
+                    <div>no taxes found...</div>
+                    <img src={nothnyet} className='h-4 w-auto'></img>
+                  </div>
                 </div>
               }
             </div>

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import VerifyLayout from '../../../../UserComponents/VerifyLayout'
 import { NOTIFICATIONS, UNREADNOTIS } from '../../../../store'
 import { MdVerified } from 'react-icons/md'
 import { useAtom } from 'jotai'
@@ -10,6 +9,7 @@ import CountrySelector from '../../../../GeneralComponents/CountrySelector'
 import PhoneSelector from '../../../../GeneralComponents/PhoneSelector'
 import StatusSelector from '../../../../GeneralComponents/StatusSelector'
 import Loading from '../../../../GeneralComponents/Loading'
+import SettingsLayout from '../../../../UserComponents/SettingsLayout'
 
 const Genders = [
     "male",
@@ -159,13 +159,13 @@ const VerifyKYC = () => {
     }
 
     return (
-        <VerifyLayout>
+        <SettingsLayout>
             <div>
                 <div className='flex flex-col gap-14 pt-16'>
                     <div className='flex flex-col gap-2 items-center text-semi-white'>
                         <div className='flex gap-2 items-center md:text-4xl text-2xl capitalize font-bold'>
                             <span>verify kyc</span>
-                            <MdVerified className='text-[#b19e34]' />
+                            <MdVerified className='text-light' />
                         </div>
                         <div className='italic text-sm flex items-center gap-2'>
                             <span>Status:</span>
@@ -257,7 +257,7 @@ const VerifyKYC = () => {
                     </div>
                 </div>
             </div>
-        </VerifyLayout>
+        </SettingsLayout>
     )
 }
 

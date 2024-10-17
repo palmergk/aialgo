@@ -14,7 +14,7 @@ const user_urls = {
     validate_email: user + 'validate-email',
     resend_otp: user + 'resend-otp',
     find_email: user + 'find-email',
-    verify_email: user + 'verify-email',
+    verify_otp: user + 'verify-otp',
     change_password: user + 'change-password',
     contact: user + 'contact',
     update: user + 'update-profile',

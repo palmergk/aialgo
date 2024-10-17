@@ -55,7 +55,7 @@ const ForgottenPassword = ({ closeView }) => {
         }
     }
 
-    const VerifyEmail = async (e) => {
+    const VerifyOTP = async (e) => {
         e.preventDefault()
 
         if (!form.code) return ErrorAlert('Enter verification code')
@@ -65,7 +65,7 @@ const ForgottenPassword = ({ closeView }) => {
         }
         setLoading(true)
         try {
-            const response = await UserPostApi(Apis.user.verify_email, formbody)
+            const response = await UserPostApi(Apis.user.verify_otp, formbody)
             if (response.status === 200) {
                 setScreen(3)
             } else {
@@ -136,7 +136,7 @@ const ForgottenPassword = ({ closeView }) => {
                     }
                     {screen === 2 &&
                         <div className='md:w-[85%] w-11/12 mx-auto'>
-                            <form onSubmit={VerifyEmail}>
+                            <form onSubmit={VerifyOTP}>
                                 <div className='flex justify-center flex-col gap-2 items-center'>
                                     <div className='w-12 h-12 border-2 border-black rounded-full flex items-center justify-center'>
                                         <MdVerified className='text-[1.7rem]' />

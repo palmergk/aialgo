@@ -25,7 +25,7 @@ const SetTaxPercentage = ({ closeView }) => {
         try {
             const response = await UserPutApi(Apis.admin.update_admin_store, formbody)
             if (response.status === 200) {
-                setAdminStore(response.msg)
+                setAdminStore(response.store)
                 SuccessAlert('Tax percentage updated')
                 closeView()
             } else {
@@ -45,10 +45,10 @@ const SetTaxPercentage = ({ closeView }) => {
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                 <div className='md:text-xl text-lg uppercase text-center font-bold border-b w-full'>set tax percentage</div>
                 <div className='flex flex-col gap-2 md:w-[90%] w-11/12 mx-auto mt-5'>
-                    <div className='flex flex-col gap-2 text-sm items-center border px-2 py-4 rounded-md'>
-                        <div className='text-center font-medium'>Enter tax percentage (%)</div>
+                    <div className='border px-2 py-4 rounded-md'>
                         <div className='flex gap-4 items-center justify-center'>
-                            <div>
+                            <div className='flex flex-col gap-1'>
+                                <div className='capitalize text-xs'>enter an amount (%)</div>
                                 <input className='outline-none border lg:text-[0.85rem] text-base md:w-44 w-36 h-8 rounded-[3px] px-2 bg-[#ebeaea] ipt border-[#9f7ae7]' value={amount} onChange={e => setAmount(e.target.value)}></input>
                             </div>
                             <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-[3px]'>

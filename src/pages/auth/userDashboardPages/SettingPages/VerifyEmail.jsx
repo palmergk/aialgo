@@ -4,8 +4,8 @@ import { Apis, UserPostApi } from '../../../../services/API';
 import { ErrorAlert, SuccessAlert } from '../../../../utils/utils';
 import { PROFILE } from '../../../../store';
 import { useAtom } from 'jotai';
-import VerifyLayout from '../../../../UserComponents/VerifyLayout';
 import Loading from '../../../../GeneralComponents/Loading';
+import SettingsLayout from '../../../../UserComponents/SettingsLayout';
 
 const VerifyEmail = () => {
     const [user, setUser] = useAtom(PROFILE)
@@ -54,7 +54,6 @@ const VerifyEmail = () => {
         e.preventDefault()
 
         if (!form.code) return ErrorAlert('Enter verification code')
-
         const formbody = {
             code: form.code,
             email: form.email
@@ -65,7 +64,7 @@ const VerifyEmail = () => {
             const response = await UserPostApi(Apis.user.validate_email, formbody)
             if (response.status === 200) {
                 SuccessAlert(response.msg)
-                setUser(response.msg)
+                setUser(response.user)
                 setForm({
                     email: '',
                     code: ''
@@ -82,7 +81,7 @@ const VerifyEmail = () => {
     }
 
     return (
-        <VerifyLayout>
+        <SettingsLayout>
             <div>
                 {loading && <Loading className="!bg-[#0c091aa4]" />}
                 <div className='flex flex-col justify-center items-center gap-14 pt-16'>
@@ -125,7 +124,7 @@ const VerifyEmail = () => {
                     }
                 </div>
             </div>
-        </VerifyLayout>
+        </SettingsLayout>
     )
 }
 

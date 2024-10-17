@@ -270,9 +270,11 @@ const Deposit = () => {
                                         ))}
                                     </div>
                                     :
-                                    <div className='p-3 bg-[#1b1730] shadow-logout-sha rounded-lg flex justify-center gap-1 items-center text-sm text-semi-white italic'>
-                                        <div>no deposits found...</div>
-                                        <img src={nothnyet} className='h-4 w-auto'></img>
+                                    <div className='px-2 py-1 bg-[#1b1730] shadow-logout-sha rounded-lg'>
+                                        <div className='flex justify-center gap-1 items-center text-sm text-semi-white italic bg-[#141220] py-1'>
+                                            <div>no records found...</div>
+                                            <img src={nothnyet} className='h-4 w-auto'></img>
+                                        </div>
                                     </div>
                                 }
                             </div>

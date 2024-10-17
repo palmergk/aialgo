@@ -124,15 +124,7 @@ const Wallet = () => {
                         </div>
                     </div>
                     <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white capitalize bg-[#6859bb] overflow-hidden'>
-                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
-                            <div>referrals</div>
-                            <Link to="/dashboard/profile">
-                                <button className='bg-[#130e27] hover:bg-[#1a162b] md:text-xs text-[0.65rem] rounded-xl py-1 px-3 -mt-1 italic flex gap-1 items-center justify-center font-normal'>
-                                    <span>refer</span>
-                                    <VscDebugDisconnect />
-                                </button>
-                            </Link>
-                        </div>
+                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>referrals</div>
                         <div className='flex flex-col items-center font-bold mt-4 gap-4'>
                             <div className='flex items-center' >
                                 <BsCurrencyDollar />

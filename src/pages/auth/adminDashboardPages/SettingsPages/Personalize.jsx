@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useAtom } from 'jotai'
 import { ADMINSTORE, PROFILE } from '../../../../store'
 import Loading from '../../../../GeneralComponents/Loading'
-import { Apis, imageurl, UserPutApi } from '../../../../services/API'
-import { MdOutlineEdit } from 'react-icons/md'
+import { Apis, imageurl, UserGetApi, UserPutApi } from '../../../../services/API'
+import { MdOutlineEdit, MdOutlinePhotoSizeSelectActual } from 'react-icons/md'
 import { FaRegRectangleXmark } from 'react-icons/fa6'
 import { IoCheckbox, IoEye } from 'react-icons/io5'
 import { IoMdEyeOff } from 'react-icons/io'
@@ -13,7 +13,7 @@ import { GrFacebookOption } from 'react-icons/gr';
 import avatar from '../../../../assets/images/avatar.png'
 import { ErrorAlert, SuccessAlert } from '../../../../utils/utils'
 import SettingsLayout from '../../../../AdminComponents/SettingsComponents/SettingsLayout'
-import { RiDeleteBin2Line, RiUploadCloudLine } from 'react-icons/ri';
+import { RiDeleteBin2Line } from 'react-icons/ri';
 
 const Personalize = () => {
   const [user, setUser] = useAtom(PROFILE)
@@ -32,16 +32,15 @@ const Personalize = () => {
     img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
     image: user.image ? user.image : null
   })
-
   const [form, setForm] = useState({
     full_name: user?.full_name,
     email: user?.email,
     username: user?.username,
     old_password: '',
     new_password: '',
-    facebook: adminStore?.facebook,
-    instagram: adminStore?.instagram,
-    telegram: adminStore?.telegram
+    facebook: '',
+    instagram: '',
+    telegram: ''
   })
 
   const formHandler = (event) => {
@@ -50,6 +49,27 @@ const Personalize = () => {
       [event.target.name]: event.target.value
     })
   }
+
+  useEffect(() => {
+    const FetchAdminStore = async () => {
+      try {
+        const response = await UserGetApi(Apis.admin.get_admin_store)
+        if (response.status === 200) {
+          setAdminStore(response.msg)
+          setForm({
+            ...form,
+            facebook: response.msg.facebook,
+            instagram: response.msg.instagram,
+            telegram: response.msg.telegram
+          })
+        }
+
+      } catch (error) {
+        //
+      }
+    }
+    FetchAdminStore()
+  }, [])
 
   const CommitHandler = () => {
     if (form.full_name === user.full_name && form.username === user.username && form.email === user.email && form.old_password === '' && form.new_password === '' && form.facebook === adminStore.facebook && form.instagram === adminStore.instagram && form.telegram === adminStore.telegram && profile.image === user.image) {
@@ -63,11 +83,11 @@ const Personalize = () => {
     const file = event.target.files[0]
     if (file.size >= 1000000) {
       imgref.current.value = null
-      return ErrorAlert('File size too large')
+      return ErrorAlert('Image size too large, file must not exceed 1mb')
     }
     if (!file.type.startsWith('image/')) {
       imgref.current.value = null
-      return ErrorAlert('File error, invalid image format')
+      return ErrorAlert('File error, upload a valid image format (jpg, jpeg, png, svg)')
     }
     setCommit(true)
     setProfile({
@@ -99,21 +119,21 @@ const Personalize = () => {
 
   const DeletePhoto = async () => {
     try {
-        const response = await UserPutApi(Apis.user.delete_photo)
-        if (response.status === 200) {
-            SuccessAlert(response.msg)
-            setUser(response.user)
-            setProfile({
-                img: avatar,
-                image: null
-            })
-        } else {
-            ErrorAlert(response.msg)
-        }
+      const response = await UserPutApi(Apis.user.delete_photo)
+      if (response.status === 200) {
+        SuccessAlert(response.msg)
+        setUser(response.user)
+        setProfile({
+          img: avatar,
+          image: null
+        })
+      } else {
+        ErrorAlert(response.msg)
+      }
     } catch (error) {
-        ErrorAlert(`${error.message}`)
+      ErrorAlert(`${error.message}`)
     }
-}
+  }
 
   const SubmitForm = async (event) => {
     event.preventDefault()
@@ -170,11 +190,11 @@ const Personalize = () => {
               <img className='w-full h-full rounded-full object-cover' src={profile.img}></img>
               <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shantf' onClick={() => setSelect(!select)}><MdOutlineEdit /></div>
               {select &&
-                <div className='h-fit w-36 absolute -bottom-11 right-0 bg-white border border-[lightgrey] rounded-md z-10 text-[0.85rem] font-bold overflow-hidden capitalize'>
+                <div className='h-fit w-36 absolute md:-bottom-11 -bottom-9 right-0 bg-white border border-[lightgrey] rounded-md z-10 md:text-sm text-xs font-bold overflow-hidden capitalize'>
                   <label>
                     <div className='px-2 py-1 cursor-pointer hover:bg-[#ececec] border-b border-[#ebeaea] flex justify-between items-center'>
-                      <span>upload new</span>
-                      <RiUploadCloudLine />
+                      <span>choose photo</span>
+                      <MdOutlinePhotoSizeSelectActual />
                     </div>
                     <input ref={imgref} type="file" onChange={handleProfileUpload} hidden></input>
                   </label>

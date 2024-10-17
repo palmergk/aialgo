@@ -135,7 +135,7 @@ const Notifications = ({ refetchUnreadNotis, refetchNotifications }) => {
                         </div>
                         :
                         <div className='pt-24 md:pt-12 pb-4 flex flex-col gap-2 items-center justify-center'>
-                            <img src={nothnyet} className='md:h-20 h-48 w-auto'></img>
+                            <img src={nothnyet} className='md:h-20 h-28 w-auto'></img>
                             <div className='font-semibold text-xl md:text-base'>No notifications...</div>
                         </div>
                     }

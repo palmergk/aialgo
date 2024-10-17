@@ -55,13 +55,12 @@ const SignupPage = () => {
     const file = event.target.files[0]
     if (file.size >= 1000000) {
       imgref.current.value = null
-      return ErrorAlert('File size too large')
+      return ErrorAlert('Image size too large, file must not exceed 1mb')
     }
     if (!file.type.startsWith('image/')) {
       imgref.current.value = null
-      return ErrorAlert('File error, invalid image format')
+      return ErrorAlert('File error, upload a valid image format (jpg, jpeg, png, svg)')
     }
-
     setProfile({
       img: URL.createObjectURL(file),
       image: file
@@ -110,7 +109,6 @@ const SignupPage = () => {
     e.preventDefault()
 
     if (!form.verifycode) return ErrorAlert('Enter verification code')
-
     const formbody = {
       email: form.email,
       code: form.verifycode
@@ -125,7 +123,7 @@ const SignupPage = () => {
         const findRole = UserRole.find(item => item.role === decoded.role)
         if (findRole) return navigate(`${findRole.url}`)
       } else {
-        return ErrorAlert(response.msg)
+        ErrorAlert(response.msg)
       }
     } catch (error) {
       ErrorAlert(`${error.message}`)
@@ -138,7 +136,11 @@ const SignupPage = () => {
     setLoading(true)
     try {
       const response = await UserPostApi(Apis.user.resend_otp, { email: form.email })
-      if (response.status === 200) return SuccessAlert('Verification code resent')
+      if (response.status === 200) {
+        SuccessAlert(response.msg)
+      } else {
+        ErrorAlert(response.msg)
+      }
     } catch (error) {
       ErrorAlert(`${error.message}`)
     } finally {
@@ -196,10 +198,10 @@ const SignupPage = () => {
                               </div>
                             </div>
                             <div className='grid grid-cols-1 md:grid-cols-2 md:gap-8 gap-4 w-full'>
-                                <div className='flex flex-col gap-[0.3rem]'>
-                                  <div className='text-sm capitalize font-[550]'>country:</div>
-                                  <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} />
-                                </div>
+                              <div className='flex flex-col gap-[0.3rem]'>
+                                <div className='text-sm capitalize font-[550]'>country:</div>
+                                <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} />
+                              </div>
                               <div className='flex flex-col gap-[0.3rem] relative'>
                                 <div className='text-sm capitalize font-[550]'>referral code:</div>
                                 <input className='outline-none w-full   border-b border-[#4d4c4c] lg:text-sm text-base  ipt input-off' placeholder='Optional' code type='text' name='referral_code' value={form.referral_code} onChange={inputHandler}></input>

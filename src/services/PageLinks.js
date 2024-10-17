@@ -9,10 +9,10 @@ import Withdrawals from "../pages/auth/adminDashboardPages/Withdrawals";
 import Deposit from "../pages/auth/userDashboardPages/Deposit";
 import Feedback from "../pages/auth/userDashboardPages/Feedback";
 import Investment from "../pages/auth/userDashboardPages/Investment";
-import Profile from "../pages/auth/userDashboardPages/Profile";
+import Profile from "../pages/auth/userDashboardPages/SettingPages/Profile";
+import VerifyEmail from "../pages/auth/userDashboardPages/SettingPages/VerifyEmail";
+import VerifyKYC from "../pages/auth/userDashboardPages/SettingPages/VerifyKYC";
 import TaxPayment from "../pages/auth/userDashboardPages/TaxPayment";
-import VerifyEmail from "../pages/auth/userDashboardPages/VerifyPages/VerifyEmail";
-import VerifyKYC from "../pages/auth/userDashboardPages/VerifyPages/VerifyKYC";
 import Wallet from "../pages/auth/userDashboardPages/Wallet";
 import Withdraw from "../pages/auth/userDashboardPages/Withdraw";
 import AboutPage from "../pages/general/AboutPage";
@@ -38,22 +38,21 @@ export const GeneralPagesLinks = [
 ]
 
 const dashboard = '/dashboard'
-const verify = '/verify-account'
+const settings = '/settings'
 
 export const UserDashboardPagesLinks = [
     { path: dashboard, component: Wallet },
     { path: dashboard + '/investment', component: Investment },
     { path: dashboard + '/deposit', component: Deposit },
     { path: dashboard + '/withdraw', component: Withdraw },
-    { path: dashboard + '/profile', component: Profile },
     { path: dashboard + '/feedback', component: Feedback },
     { path: dashboard + '/tax-payment', component: TaxPayment },
-    { path: dashboard + verify, component: VerifyEmail },
-    { path: dashboard + verify + '/kyc', component: VerifyKYC },
+    { path: dashboard + settings + '/profile', component: Profile },
+    { path: dashboard + settings + '/email-verify', component: VerifyEmail },
+    { path: dashboard + settings + '/kyc', component: VerifyKYC },
 ]
 
 const admin = '/admin-controls'
-const settings = '/settings'
 
 export const AdminDashboardPagesLinks = [
     { path: admin, component: UpdateDeposits },

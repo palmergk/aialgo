@@ -8,7 +8,7 @@ import StatusSelector from '../../../GeneralComponents/StatusSelector';
 
 
 const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {
-    const [type, setType] = useState('days')
+    const [type, setType] = useState('select')
     const [select, setSelect] = useState(false)
     const [loading, setLoading] = useState(false)
     const toggler = useRef()
@@ -38,6 +38,7 @@ const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {
     const CreatePackage = async () => {
         if (!form.title || !form.price_limit || !form.price_start || !form.profit_return || !form.plan_bonus || !form.duration) return ErrorAlert('Enter all fields')
         if (isNaN(form.price_start) || isNaN(form.price_limit) || isNaN(form.profit_return) || isNaN(form.plan_bonus) || isNaN(form.duration)) return ErrorAlert('Enter valid numbers')
+        if (type === 'select') return ErrorAlert('Select duration type')
 
         const formbody = {
             title: form.title,
@@ -65,7 +66,6 @@ const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {
             setLoading(false)
         }
     }
-
 
 
 
