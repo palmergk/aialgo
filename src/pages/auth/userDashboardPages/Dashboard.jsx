@@ -147,8 +147,8 @@ const Dashboard = ({ children }) => {
                 </div>
                 <div className='lg:py-14 py-12 flex flex-col lg:gap-10 gap-8'>
                     <div className='flex justify-center items-center'>
-                        <img src={logo} className='w-12 h-auto'></img>
-                        <div className='capitalize font-bold text-2xl lg:text-[#2b2255] text-[#462eb3] lg:drop-shadow-txt-sha1 drop-shadow-txt-sha2'>AialgoVault</div>
+                        <img src={logo} className='w-10 h-auto'></img>
+                        <div className='capitalize font-bold text-lg lg:text-[grey] text-semi-white'>AialgoVault</div>
                     </div>
                     <div className='flex flex-col gap-10 pl-12 lg:text-[grey] text-semi-white'>
                         <div className='flex gap-4 flex-col'>

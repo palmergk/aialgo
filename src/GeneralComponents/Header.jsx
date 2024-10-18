@@ -77,7 +77,7 @@ const Header = () => {
                                         <TfiAngleDown className={`mt-1 text-[0.5rem] text-[#1E2833] ${toggleDrop ? ' rotate-180' : 'rotate-0'} trans`} />
                                     </div>
                                 </div>
-                                <div className={`bg-white p-8 w-96 h-fit absolute top-[4.2rem] -left-40 shd ${toggleDrop ? 'flex' : 'hidden'}`} ref={closer}>
+                                <div className={`bg-white p-8 w-96 h-fit absolute top-[4.2rem] -left-40 rounded-xl shadow-md ${toggleDrop ? 'flex' : 'hidden'}`} ref={closer}>
                                     <div className='w-full'>
                                         <Link to='/trading' className='flex flex-col gap-2 hover:bg-[#929da0] rounded-lg p-2 text-[grey] hover:text-white' onClick={() => { setToggleDrop(false); MoveToTop() }}>
                                             <div className='flex gap-2 items-center text-[#1E2833]'>
@@ -98,7 +98,7 @@ const Header = () => {
                                     <div className={`text-[0.9rem] font-medium text-white capitalize cursor-pointer ${toggleDroptwo ? 'flex' : 'hidden'}`}>company</div>
                                     <TfiAngleDown className={`mt-1 text-[0.5rem] text-white  ${toggleDroptwo ? ' rotate-180' : 'rotate-0'} trans`} />
                                 </div>
-                                <div className={`flex flex-col gap-5 bg-white py-8 pl-10 pr-3 w-56 h-fit absolute top-[3.7rem] -left-8 shd ${toggleDroptwo ? 'flex' : 'hidden'}`} ref={closertwo}>
+                                <div className={`flex flex-col gap-5 bg-white py-8 pl-10 pr-3 w-56 h-fit absolute top-[3.7rem] -left-8 rounded-xl shadow-md ${toggleDroptwo ? 'flex' : 'hidden'}`} ref={closertwo}>
                                     {CompanyLinks.map((item, i) => (
                                         <Link key={i} to={item.url} onClick={() => { setToggleDroptwo(false); MoveToTop() }} className='flex gap-2 items-center hover:bg-[#d4dcdf] rounded-lg p-3 transition-all'>
                                             <item.icon className='text-[1.2rem] text-[#1E2833]' />

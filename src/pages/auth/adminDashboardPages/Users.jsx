@@ -1,16 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { IoIosAddCircleOutline, IoIosSearch, IoIosSettings } from 'react-icons/io'
+import { IoIosSearch } from 'react-icons/io'
 import { FiX } from 'react-icons/fi'
 import moment from 'moment';
 import { Apis, UserGetApi } from '../../../services/API'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import { TbUsers } from "react-icons/tb";
-import nothnyet from '../../../assets/images/nothn.png'
 import AdminDashboard from './AdminDashboard'
 import UsersModal from '../../../AdminComponents/UsersComponents/UsersModal';
 import CreateUsersModal from '../../../AdminComponents/UsersComponents/CreateUsersModal';
 import SetReferralModal from '../../../AdminComponents/UsersComponents/SetReferralModal';
 import UserTableBody from '../../../AdminComponents/UsersComponents/UserTableBody';
+import { SlSocialDropbox } from 'react-icons/sl';
+import { RiSettings5Fill } from 'react-icons/ri';
+import { IoAddCircleSharp } from 'react-icons/io5';
 
 
 const Users = () => {
@@ -132,7 +134,7 @@ const Users = () => {
         </div>
         <div className='mt-10'>
           <div className='relative w-fit mx-auto'>
-            <input className='border border-[grey] bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 md:text-[0.9rem] text-base rounded-full text-black ipa' type='text' value={search} onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch} ></input>
+            <input className='border border-[grey] bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 md:text-[0.9rem] text-base rounded-full text-black' type='text' value={search} onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch} ></input>
             <div className='text-[1.2rem] text-white absolute -top-2 -right-2 w-10 h-10  rounded-full flex items-center justify-center bg-admin-page shantf2' >
               <IoIosSearch />
               {search !== '' &&
@@ -142,14 +144,14 @@ const Users = () => {
               }
             </div>
           </div>
-          <div className='flex justify-between items-center gap-4 mt-6 mb-2'>
+          <div className='flex justify-between items-center gap-4 mt-6 mb-4'>
             <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal3(true)}>
               <span>set referral bonus</span>
-              <IoIosSettings className='text-base' />
+              <RiSettings5Fill />
             </button>
             <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal2(true)}>
               <span>create new user</span>
-              <IoIosAddCircleOutline className='text-base' />
+              <IoAddCircleSharp />
             </button>
           </div>
           {dataLoading ?
@@ -166,11 +168,9 @@ const Users = () => {
                   ))}
                 </div>
                 :
-                <div className='px-2 py-1 bg-white sha rounded-lg'>
-                  <div className='flex justify-center gap-1 items-center text-sm text-black italic bg-semi-white py-1'>
-                    <div>no records found...</div>
-                    <img src={nothnyet} className='h-4 w-auto'></img>
-                  </div>
+                <div className='flex flex-col gap-2 justify-center items-center mt-12'>
+                  <SlSocialDropbox className='text-4xl' />
+                  <div>no records found...</div>
                 </div>
               }
             </div>

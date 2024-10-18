@@ -32,7 +32,7 @@ const HomePage = () => {
   return (
     <Pagelayout>
       <div className='bg-[#1E2833] pb-16'>
-        <div className='bgi'>
+        <div className='homeBg'>
           <div className='w-11/12 mx-auto pt-20 grid grid-cols-3 lg:grid-cols-4'>
             <div className='col-span-1'>
               <div className='relative w-fit'>
@@ -100,7 +100,7 @@ const HomePage = () => {
               </div>
               <div className='flex flex-col gap-4 mt-8 h-fit w-full bg-[#182531] md:p-10 px-4 py-6'>
                 {questions.map((item, i) => (
-                  <div className={`w-full mx-auto h-fit bg-white rounded-md px-3 py-2 md:p-4 flex flex-col gap-4 overflow-hidden border border-[grey] shadow-sm trans`} key={i}>
+                  <div className={`w-full mx-auto h-fit bg-white rounded-md px-3 py-2 md:p-4 flex flex-col gap-4 overflow-hidden border border-[grey] shadow-sm`} key={i}>
                     <div onClick={() => handleQuestions(i)} className='flex justify-between w-full h-fit cursor-pointer md:text-lg text-base font-medium'>
                       <span>{item.title}</span>
                       <div className='w-fit h-fit p-1 rounded-md bg-[#ecbd75] text-[0.8rem] text-[#192633]'>
@@ -114,7 +114,7 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <div className='w-11/12 lg:w-[70%] mx-auto mt-20 overflow-hidden h-fit trans'>
+          <div className='w-11/12 lg:w-[70%] mx-auto mt-20 overflow-hidden h-fit'>
             <div className='relative w-fit mx-auto text-semi-white'>
               <div className='text-[2rem] md:text-[3rem] text-white font-semibold capitalize'>Testimonials</div>
               <div className='border-t-4 md:w-40 w-28 absolute top-0 right-0'></div>
@@ -122,7 +122,7 @@ const HomePage = () => {
             </div>
             <div className='flex flex-col gap-8'>
               <div className='flex flex-wrap items-center justify-center gap-6 mt-10'>
-                <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
+                <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shd'>
                   <div className='flex items-center relative'>
                     <img src={us} className='w-16 h-16 rounded-full object-cover'></img>
                     <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
@@ -134,7 +134,7 @@ const HomePage = () => {
                     <div className='text-[#c0bebe] text-[0.65rem] text-center uppercase'>nyc, us</div>
                   </div>
                 </div>
-                <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center  shlltw'>
+                <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center  shd'>
                   <div className='flex items-center relative'>
                     <img src={australia} className='w-16 h-16 rounded-full object-cover'></img>
                     <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
@@ -146,7 +146,7 @@ const HomePage = () => {
                     <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>sydney, austrialia</div>
                   </div>
                 </div>
-                <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
+                <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shd'>
                   <div className='flex items-center relative'>
                     <img src={spanish} className='w-16 h-16 rounded-full object-cover'></img>
                     <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
@@ -160,7 +160,7 @@ const HomePage = () => {
                 </div>
                 {view &&
                   <>
-                    <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
+                    <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shd'>
                       <div className='flex items-center relative'>
                         <img src={uk} className='w-16 h-16 rounded-full object-cover'></img>
                         <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
@@ -172,7 +172,7 @@ const HomePage = () => {
                         <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>manchester, UK</div>
                       </div>
                     </div>
-                    <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
+                    <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shd'>
                       <div className='flex items-center relative'>
                         <img src={blackUs} className='w-16 h-16 rounded-full object-cover'></img>
                         <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
@@ -184,7 +184,7 @@ const HomePage = () => {
                         <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>atlanta, us</div>
                       </div>
                     </div>
-                    <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shlltw'>
+                    <div className='w-[17rem] h-fit  bg-[#192633]  rounded-md p-4 flex flex-col gap-4 items-center shd'>
                       <div className='flex items-center relative'>
                         <img src={india} className='w-16 h-16 rounded-full object-cover'></img>
                         <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />

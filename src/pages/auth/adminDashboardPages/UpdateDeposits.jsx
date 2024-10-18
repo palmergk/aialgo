@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import moment from 'moment';
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { IoIosSearch, IoIosSettings } from 'react-icons/io';
+import { IoIosSearch} from 'react-icons/io';
 import { FiX } from 'react-icons/fi'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
-import nothnyet from '../../../assets/images/nothn.png'
 import AdminDashboard from './AdminDashboard';
 import { Apis, UserGetApi } from '../../../services/API';
 import UpdateDepositModal from '../../../AdminComponents/DepositComponents/UpdateDepositModal';
 import SetDepositMinimum from '../../../AdminComponents/DepositComponents/SetDepositMinimumModal';
+import { SlSocialDropbox } from 'react-icons/sl';
+import { RiSettings5Fill } from 'react-icons/ri';
 
 
 const UpdateDeposits = () => {
@@ -124,7 +125,7 @@ const UpdateDeposits = () => {
         <div className='uppercase font-bold md:text-2xl text-lg text-black'>all deposits</div>
         <div className='mt-10'>
           <div className='relative w-fit mx-auto'>
-            <input className='border border-[grey] bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 md:text-[0.9rem] text-base rounded-full text-black ipa' value={search} type='text' onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch} ></input>
+            <input className='border border-[grey] bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 md:text-[0.9rem] text-base rounded-full text-black' value={search} type='text' onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch} ></input>
             <div className='text-[1.2rem] text-white absolute -top-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center bg-admin-page shantf2'>
               <IoIosSearch />
               {search !== '' &&
@@ -134,9 +135,9 @@ const UpdateDeposits = () => {
               }
             </div>
           </div>
-          <button className='w-fit h-fit mt-6 mb-2 py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center ml-auto' onClick={() => setModal2(true)}>
+          <button className='w-fit h-fit mt-6 mb-4 py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center ml-auto' onClick={() => setModal2(true)}>
             <span>set deposit minimum</span>
-            <IoIosSettings className='text-base' />
+            <RiSettings5Fill />
           </button>
           {dataLoading ?
             <div className='w-full h-fit'>
@@ -189,11 +190,9 @@ const UpdateDeposits = () => {
                   ))}
                 </div>
                 :
-                <div className='px-2 py-1 bg-white sha rounded-lg'>
-                  <div className='flex justify-center gap-1 items-center text-sm text-black italic bg-semi-white py-1'>
-                    <div>no records found...</div>
-                    <img src={nothnyet} className='h-4 w-auto'></img>
-                  </div>
+                <div className='flex flex-col gap-2 justify-center items-center mt-12'>
+                  <SlSocialDropbox className='text-4xl' />
+                  <div>no records found...</div>
                 </div>
               }
             </div>

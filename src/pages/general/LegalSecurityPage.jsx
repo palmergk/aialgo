@@ -12,7 +12,7 @@ const LegalSecurityPage = () => {
     <Pagelayout>
       <div className='bg-[whitesmoke] py-16'>
         <div className='lg:w-5/6 mx-auto'>
-          <div className='w-full h-fit bg-white mx-auto rounded-xl relative shb py-[2.5rem] overflow-hidden'>
+          <div className='w-full h-fit bg-white mx-auto rounded-xl relative shb py-10 overflow-hidden'>
             <div className='w-11/12 lg:w-3/4 mx-auto'>
               <div className='text-[1.8rem] lg:text-[2.5rem] font-bold uppercase border-b w-full'>legal & security</div>
               <div className='flex flex-col gap-3 mt-16'>

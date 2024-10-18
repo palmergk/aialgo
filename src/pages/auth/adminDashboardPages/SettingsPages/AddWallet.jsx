@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
-import nothnyet from '../../../../assets/images/nothn.png'
 import moment from 'moment';
-import { IoIosAddCircleOutline } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Apis, UserGetApi } from '../../../../services/API';
 import QRCode from "react-qr-code";
@@ -10,6 +8,8 @@ import CreateWalletModal from '../../../../AdminComponents/SettingsComponents/Ad
 import CryptocurrencyComponent from '../../../../AdminComponents/SettingsComponents/Cryptocurrency/CryptocurrencyComponent';
 import UpdateWalletModal from '../../../../AdminComponents/SettingsComponents/AdminWalletComponents/UpdateWalletModal';
 import SettingsLayout from '../../../../AdminComponents/SettingsComponents/SettingsLayout';
+import { SlSocialDropbox } from 'react-icons/sl';
+import { IoAddCircleSharp } from 'react-icons/io5';
 
 
 const AddWallet = () => {
@@ -110,14 +110,14 @@ const AddWallet = () => {
         {modal2 && <CreateWalletModal closeView={() => setModal2(false)} refetchAdminWallets={FetchAdminWallets} cryptocurrency={cryptocurrency} />}
         {modal3 && <CryptocurrencyComponent closeView={() => setModal3(false)} cryptocurrency={cryptocurrency} refetchCryptocurrency={FetchCryptocurrency} refetchAdminWallets={FetchAdminWallets} />}
 
-        <div className='flex justify-between items-center gap-4 mb-2'>
+        <div className='flex justify-between items-center gap-4 mb-4'>
           <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal3(true)}>
             <span>add crypto</span>
-            <IoIosAddCircleOutline className='text-base' />
+            <IoAddCircleSharp />
           </button>
           <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal2(true)}>
             <span>create new wallet</span>
-            <IoIosAddCircleOutline className='text-base' />
+            <IoAddCircleSharp />
           </button>
         </div>
         {dataLoading ?
@@ -163,11 +163,9 @@ const AddWallet = () => {
                 ))}
               </div>
               :
-              <div className='px-2 py-1 bg-white sha rounded-lg'>
-                <div className='flex justify-center gap-1 items-center text-sm text-black italic bg-semi-white py-1'>
-                  <div>no records found...</div>
-                  <img src={nothnyet} className='h-4 w-auto'></img>
-                </div>
+              <div className='flex flex-col gap-2 justify-center items-center mt-8'>
+                <SlSocialDropbox className='text-4xl' />
+                <div>no records found...</div>
               </div>
             }
           </div>

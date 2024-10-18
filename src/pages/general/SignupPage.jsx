@@ -158,7 +158,7 @@ const SignupPage = () => {
           </div>
           <div className='w-[95%] lg:w-[97%] mx-auto grid grid-cols-1 lg:grid-cols-2'>
             <div className='col-span-1'>
-              <div className='bgs rounded-xl flex items-center lg:h-[40rem] h-fit py-16'>
+              <div className='signupBg rounded-xl flex items-center lg:h-[40rem] h-fit py-16'>
                 <div className='w-11/12 mx-auto'>
                   <div className={`bg-white h-fit rounded-[20px] py-8 w-full lg:w-[39vw] lg:absolute ${screen === 1 ? 'lg:top-[2.8rem]' : 'lg:top-[3.7rem]'}  lg:right-16 lg:shadow-sign-sha overflow-hidden`}>
                     <div className='relative w-full h-full'>
@@ -170,7 +170,7 @@ const SignupPage = () => {
                           <div className='flex flex-col gap-4 mt-4'>
                             <div className='relative mx-auto'>
                               <label className='cursor-pointer'>
-                                {profile.img ?
+                                {profile.img ? 
                                   <div className='relative'>
                                     <img src={profile.img} alt="" className="w-[3.8rem] object-cover h-[3.8rem] rounded-full" />
                                     <SlCamera className='absolute top-6 -right-1.5 text-base text-orange' />

@@ -1,13 +1,13 @@
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react'
-import { IoIosSearch, IoIosSettings } from 'react-icons/io';
+import { IoIosSearch } from 'react-icons/io';
 import { FiX } from 'react-icons/fi';
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
-import nothnyet from '../../../assets/images/nothn.png'
 import AdminDashboard from './AdminDashboard';
 import { Apis, UserGetApi } from '../../../services/API';
 import WithdrawalsModal from '../../../AdminComponents/WithdrawalsModal';
+import { SlSocialDropbox } from 'react-icons/sl';
 
 
 const Withdrawals = () => {
@@ -122,7 +122,7 @@ const Withdrawals = () => {
                 <div className='uppercase font-bold md:text-2xl text-lg text-black'>withdrawals</div>
                 <div className='mt-10'>
                     <div className='relative w-fit mx-auto mb-6'>
-                        <input className='border border-[grey] bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 md:text-[0.9rem] text-base rounded-full text-black ipa' value={search} type='text' onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch} ></input>
+                        <input className='border border-[grey] bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 md:text-[0.9rem] text-base rounded-full text-black' value={search} type='text' onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch} ></input>
                         <div className='text-[1.2rem] text-white absolute -top-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center bg-admin-page shantf2'>
                             <IoIosSearch />
                             {search !== '' &&
@@ -175,11 +175,9 @@ const Withdrawals = () => {
                                     ))}
                                 </div>
                                 :
-                                <div className='px-2 py-1 bg-white sha rounded-lg'>
-                                    <div className='flex justify-center gap-1 items-center text-sm text-black italic bg-semi-white py-1'>
-                                        <div>no records found...</div>
-                                        <img src={nothnyet} className='h-4 w-auto'></img>
-                                    </div>
+                                <div className='flex flex-col gap-2 justify-center items-center mt-16'>
+                                    <SlSocialDropbox className='text-4xl' />
+                                    <div>no records found...</div>
                                 </div>
                             }
                         </div>

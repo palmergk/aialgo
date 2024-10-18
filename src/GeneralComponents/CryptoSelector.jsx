@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { SiBitcoincash } from 'react-icons/si'
-import nothnyet from '../assets/images/nothn.png'
 import { imageurl } from '../services/API'
 import { FaAngleLeft } from 'react-icons/fa6'
 import { useAtom } from 'jotai'
 import { ADMINCRYPTOWALLETS } from '../store'
+import { SlSocialDropbox } from 'react-icons/sl'
 
 const CryptoSelector = ({ setCryptoWallets, error, className }) => {
     const [adminCryptoWallets] = useAtom(ADMINCRYPTOWALLETS)
@@ -15,7 +15,7 @@ const CryptoSelector = ({ setCryptoWallets, error, className }) => {
 
     return (
         <div className={`h-fit w-fit rounded-[0.2rem] bg-semi-white p-1 relative ${className?.bg}`}>
-            <div className={`w-52 py-1 bg-white flex gap-1.5 justify-center items-center capitalize text-sm font-semibold rounded-[0.2rem] text-black cursor-pointer  ${error === 'select' && 'outline outline-1 outline-[red]'} shadow-shanft`} onClick={() => setSelect(!select)}>
+            <div className={`w-52 py-1 bg-white flex gap-1.5 justify-center items-center capitalize text-sm font-semibold rounded-[0.2rem] text-black cursor-pointer shantf  ${error === 'select' && 'outline outline-1 outline-[red]'}`} onClick={() => setSelect(!select)}>
                 <div className='text-[0.8rem]'>choose cryptocurrency</div>
                 <SiBitcoincash className={`text-[#5BB4FD] ${className?.text}`} />
             </div>
@@ -55,9 +55,9 @@ const CryptoSelector = ({ setCryptoWallets, error, className }) => {
                             }
                         </>
                         :
-                        <div className='px-2 py-1 flex items-center justify-center lowercase'>
-                            <div>no crypto yet...</div>
-                            <img src={nothnyet} className='h-3 w-auto'></img>
+                        <div className='px-2 py-1 flex items-center justify-center gap-0.5 lowercase'>
+                            <div>no crypto found...</div>
+                            <SlSocialDropbox />
                         </div>
                     }
                 </div>

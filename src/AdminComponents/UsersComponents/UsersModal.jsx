@@ -299,7 +299,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                         <div className='text-[0.8rem] capitalize'>Enter an amount ($)</div>
                                                                         <input className='outline-none lg:text-[0.85rem] text-base w-full border h-8 rounded-[3px] px-2 bg-[#ebeaea] ipt border-[#9f7ae7]' name='minimumAmount' value={form.minimumAmount} onChange={formHandler}></input>
                                                                     </div>
-                                                                    <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-semibold rounded-md'>
+                                                                    <div className='text-xs py-1 px-3 h-fit w-fit bg-white adsha flex flex-col gap-2 text-black items-center font-semibold rounded-md'>
                                                                         <div>current:</div>
                                                                         {Object.values(userFigures).length !== 0 && <div>${singleUser.withdrawal_minimum.toLocaleString()}</div>}
                                                                     </div>

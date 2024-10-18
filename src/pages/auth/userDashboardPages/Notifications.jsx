@@ -8,8 +8,8 @@ import { IoNotificationsOutline } from 'react-icons/io5';
 import { Apis, UserPutApi } from '../../../services/API';
 import { FaAngleRight } from "react-icons/fa6";
 import { FaAngleLeft } from "react-icons/fa6";
-import nothnyet from '../../../assets/images/nothn.png'
 import NotisField from '../../../UserComponents/NotisField';
+import { SlSocialDropbox } from 'react-icons/sl';
 
 
 const Notifications = ({ refetchUnreadNotis, refetchNotifications }) => {
@@ -88,7 +88,7 @@ const Notifications = ({ refetchUnreadNotis, refetchNotifications }) => {
                     <div className='flex items-center justify-center border w-9 h-9 rounded-full text-xl text-light border-light cursor-pointer'>
                         <IoNotificationsOutline />
                     </div>
-                    <div className='rounded-full w-5 h-[1.2rem] absolute -top-2 -right-1 cursor-pointer text-white text-[0.65rem] font-bold bg-light flex items-center justify-center shlz'  >
+                    <div className='rounded-full w-5 h-[1.2rem] absolute -top-2 -right-1 cursor-pointer text-white text-[0.65rem] font-bold bg-light flex items-center justify-center notisha2'  >
                         {unreadNotis.length > 0 ?
                             <span>{unreadNotis.length}</span>
                             :
@@ -100,7 +100,7 @@ const Notifications = ({ refetchUnreadNotis, refetchNotifications }) => {
                     <div className='flex items-center justify-center border w-9 h-9 rounded-full text-xl text-light border-light cursor-pointer'>
                         <IoNotificationsOutline />
                     </div>
-                    <div className='rounded-full w-5 h-[1.2rem] absolute -top-2 -right-1 cursor-pointer text-white text-[0.65rem] font-bold bg-light flex items-center justify-center shlz'  >
+                    <div className='rounded-full w-5 h-[1.2rem] absolute -top-2 -right-1 cursor-pointer text-white text-[0.65rem] font-bold bg-light flex items-center justify-center notisha2'  >
                         {unreadNotis.length > 0 ?
                             <span>{unreadNotis.length}</span>
                             :
@@ -134,9 +134,9 @@ const Notifications = ({ refetchUnreadNotis, refetchNotifications }) => {
                             ))}
                         </div>
                         :
-                        <div className='pt-24 md:pt-12 pb-4 flex flex-col gap-2 items-center justify-center'>
-                            <img src={nothnyet} className='md:h-20 h-28 w-auto'></img>
-                            <div className='font-semibold text-xl md:text-base'>No notifications...</div>
+                        <div className='pt-24 md:pt-10 pb-4 flex flex-col gap-2 items-center justify-center'>
+                            <SlSocialDropbox className='md:text-4xl text-6xl' />
+                            <div className='font-semibold text-xl md:text-base'>no notifications...</div>
                         </div>
                     }
                 </div>

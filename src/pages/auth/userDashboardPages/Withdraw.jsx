@@ -11,11 +11,11 @@ import { FiX } from 'react-icons/fi'
 import wthwallet from '../../../assets/images/wthwallet.png'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import { GiTwoCoins } from "react-icons/gi";
-import nothnyet from '../../../assets/images/nothn.png'
 import Dashboard from './Dashboard'
 import { Link, useSearchParams } from 'react-router-dom'
 import Loading from '../../../GeneralComponents/Loading'
 import CryptoSelector from '../../../GeneralComponents/CryptoSelector'
+import { SlSocialDropbox } from 'react-icons/sl'
 
 
 
@@ -81,11 +81,9 @@ const Withdraw = () => {
             setError('')
         }, 1000)
 
-        if (!form.amount) return setError('amount')
-        if (isNaN(form.amount)) return setError('amount')
+        if (!form.amount || isNaN(form.amount)) return setError('amount')
         if (form.amount < user.withdrawal_minimum) return setError('minimum')
-        if (Object.values(userwallet).length === 0) return setError('balance')
-        if (form.amount > userwallet.balance) return setError('balance')
+        if (Object.values(userwallet).length === 0 || form.amount > userwallet.balance) return setError('balance')
         if (Object.values(cryptoWallets).length === 0) return setError('select')
         if (!form.withdrawal_address) return setError('wallet')
         if (!check) return setError('check')
@@ -229,7 +227,7 @@ const Withdraw = () => {
                                 <CryptoSelector setCryptoWallets={setCryptoWallets} error={error} className={{ bg: "!bg-white", text: "!text-light" }} />
                             </div>
                             {Object.values(cryptoWallets).length !== 0 && <div className='flex flex-col gap-2 items-center'>
-                                <div className='text-[0.85rem] text-center'>Enter your <span className=' capitalize'>{cryptoWallets.crypto_name}</span> wallet address for <span className=' capitalize'> {cryptoWallets.network}</span> Network</div>
+                                <div className='text-[0.85rem] text-center'>Enter your <span className=' capitalize'>{cryptoWallets.crypto_name}</span> wallet address for <span className=' capitalize'> {cryptoWallets.network}</span> Network:</div>
                                 <input className={`outline-none border bg-white lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2  ${error === 'wallet' ? 'border-[red]' : 'border-light'}`} name='withdrawal_address' value={form.withdrawal_address} onChange={inputHandler} type='text'></input>
                             </div>}
                             <div className='flex flex-col gap-1 items-center relative'>
@@ -237,7 +235,7 @@ const Withdraw = () => {
                                     <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }} className={`${error === 'check' && 'outline outline-1 outline-[red]'}`}></input>
                                     <div className='text-[#252525] text-[0.8rem]'>I provided my correct wallet address</div>
                                 </div>
-                                <button className='outline-none w-fit h-fit py-2 px-14 md:text-sm text-xs text-semi-white bg-[#252525] rounded-md capitalize font-semibold' onClick={makeWithdrawal}>make withdrawal</button>
+                                <button className='outline-none w-fit h-fit py-2 px-12 md:text-sm text-xs text-semi-white bg-[#252525] rounded-md capitalize font-semibold' onClick={makeWithdrawal}>confirm withdrawal</button>
                             </div>
                         </div>
                     </div>
@@ -245,7 +243,7 @@ const Withdraw = () => {
                 {screen === 2 &&
                     <div className='mt-10'>
                         <div className='relative w-fit mx-auto mb-6'>
-                            <input className='border border-white bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 lg:text-[0.9rem] rounded-full text-white ipa' type='text' value={search} onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch} ></input>
+                            <input className='border border-white bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 lg:text-[0.9rem] rounded-full text-white' type='text' value={search} onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch} ></input>
                             <div className='text-[1.2rem] text-white absolute top-[-0.5rem] right-[-0.5rem] w-10 h-10 rounded-full flex items-center justify-center bg-light shlz'>
                                 <IoIosSearch />
                                 {search !== '' &&
@@ -257,15 +255,15 @@ const Withdraw = () => {
                         </div>
                         {dataLoading ?
                             <div className='w-full h-fit'>
-                                <div className='h-11 bg-gray-500 animate-pulse rounded-t-lg'></div>
-                                <div className='h-24 bg-gray-400 animate-pulse rounded-b-lg'></div>
+                                <div className='h-11 bg-gray-400 animate-pulse rounded-t-lg'></div>
+                                <div className='h-24 bg-slate-300 animate-pulse rounded-b-lg'></div>
                             </div>
                             :
                             <div className='md:w-[95%] mx-auto'>
                                 {withdrawals.length > 0 ?
                                     <div className='flex flex-col gap-4'>
                                         {withdrawals.slice(start, end).map((item, i) => (
-                                            <div key={i} className='w-full h-fit relative shadow-logout-sha text-semi-white'>
+                                            <div key={i} className='w-full h-fit relative text-semi-white rounded-lg hstsha'>
                                                 <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg flex justify-between gap-4'>
                                                     <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
                                                     <div></div>
@@ -300,11 +298,9 @@ const Withdraw = () => {
                                         ))}
                                     </div>
                                     :
-                                    <div className='px-2 py-1 bg-[#1b1730] shadow-logout-sha rounded-lg'>
-                                        <div className='flex justify-center gap-1 items-center text-sm text-semi-white italic bg-[#141220] py-1'>
-                                            <div>no records found...</div>
-                                            <img src={nothnyet} className='h-4 w-auto'></img>
-                                        </div>
+                                    <div className='flex flex-col gap-2 justify-center items-center mt-16 text-semi-white'>
+                                        <SlSocialDropbox className='text-4xl' />
+                                        <div>no records found...</div>
                                     </div>
                                 }
                             </div>

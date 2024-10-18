@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react'
 import { FaXmark } from 'react-icons/fa6'
 import { IoIosSettings } from 'react-icons/io'
-import nothnyet from '../../../assets/images/nothn.png'
 import UpdateCrypto from './UpdateCrypto'
 import ModalLayout from '../../../utils/ModalLayout'
 import { imageurl } from '../../../services/API'
+import { SlSocialDropbox } from 'react-icons/sl'
 
 const CryptocurrencyComponent = ({ closeView, cryptocurrency, refetchCryptocurrency, refetchAdminWallets }) => {
     const [singleCrypto, setSingleCrypto] = useState({})
@@ -23,7 +23,7 @@ const CryptocurrencyComponent = ({ closeView, cryptocurrency, refetchCryptocurre
                             <div className='flex justify-center items-center mb-2 ml-auto'>
                                 <button className='w-fit h-fit py-2 px-5 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={() => { setScreen(2); setSingleCrypto({}) }}>add new</button>
                             </div>
-                            <div className='relative overflow-x-auto shadow-xl rounded-lg scrollsdown'>
+                            <div className='relative overflow-x-auto shadow-lg rounded-lg scrollsdown'>
                                 <table className='w-full '>
                                     <thead >
                                         <tr className='bg-black text-[0.8rem] font-bold text-white'>
@@ -32,7 +32,7 @@ const CryptocurrencyComponent = ({ closeView, cryptocurrency, refetchCryptocurre
                                             <td className='text-center truncate  capitalize p-2'> <IoIosSettings className="mx-auto text-base" /></td>
                                         </tr>
                                     </thead>
-                                    {cryptocurrency.length > 0 &&
+                                    {cryptocurrency.length > 0 ?
                                         <tbody>
                                             {cryptocurrency.map((item, i) => (
                                                 <tr className='text-[0.8rem]  text-black font-[550] bg-white' key={i}>
@@ -42,14 +42,13 @@ const CryptocurrencyComponent = ({ closeView, cryptocurrency, refetchCryptocurre
                                                 </tr>
                                             ))}
                                         </tbody>
-                                    }
-                                    {cryptocurrency.length < 1 &&
+                                        :
                                         <tbody>
                                             <tr className='text-black text-[0.8rem] bg-white font-[550]'>
                                                 <td colSpan="3" className='py-2 italic text-center truncate'>
                                                     <div className='flex gap-1 items-center justify-center'>
-                                                        <span>no cryptocurrency found...</span>
-                                                        <img src={nothnyet} className='h-4 w-auto'></img>
+                                                        <span>no crypto found...</span>
+                                                        <SlSocialDropbox  />
                                                     </div>
                                                 </td>
                                             </tr>

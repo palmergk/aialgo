@@ -110,7 +110,7 @@ const ForgottenPassword = ({ closeView }) => {
     return (
         <ModalLayout toggler={toggler} closeView={closeView}>
             <div className='px-4'>
-                <div className='bg-white py-4 w-fit h-fit rounded-xl shld overflow-auto relative' ref={toggler}>
+                <div className='bg-white py-4 w-fit h-fit rounded-xl shadow-md overflow-auto relative' ref={toggler}>
                     {loading && <Loading />}
                     {screen === 1 &&
                         <div className='md:w-[85%] w-11/12 mx-auto'>

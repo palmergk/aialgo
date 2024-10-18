@@ -6,9 +6,9 @@ import { useAtom } from 'jotai'
 import { Apis, UserPutApi } from '../../../services/API'
 import { NOTIFICATIONS, UNREADNOTIS } from '../../../store'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
-import nothnyet from '../../../assets/images/nothn.png'
 import { IoMdCheckmarkCircleOutline, IoMdSettings } from 'react-icons/io'
 import AdminNotisField from '../../../AdminComponents/AdminNotisField'
+import { SlSocialDropbox } from 'react-icons/sl'
 
 
 const AdminNotis = ({ refetchNotifications, refetchUnreadNotis }) => {
@@ -133,9 +133,9 @@ const AdminNotis = ({ refetchNotifications, refetchUnreadNotis }) => {
                         ))}
                     </div>
                     :
-                    <div className='pt-24 md:pt-12 pb-4 flex flex-col gap-2 items-center justify-center'>
-                        <img src={nothnyet} className='md:h-20 h-28 w-auto'></img>
-                        <div className='font-semibold text-xl md:text-base'>No notifications...</div>
+                    <div className='pt-24 md:pt-10 pb-4 flex flex-col gap-2 items-center justify-center'>
+                        <SlSocialDropbox className='md:text-4xl text-6xl' />
+                        <div className='font-semibold text-xl md:text-base'>no notifications...</div>
                     </div>
                 }
                 {notifications.length > 0 && <div className='flex gap-2 items-center text-xs md:p-2 px-2 pb-4 justify-end'>

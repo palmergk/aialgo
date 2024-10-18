@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
-import nothnyet from '../../../../assets/images/nothn.png'
 import moment from 'moment';
-import { IoIosAddCircleOutline } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Apis, UserGetApi } from '../../../../services/API';
 import UpdatePackageModal from '../../../../AdminComponents/SettingsComponents/PackagesComponents/UpdatePackageModal';
 import CreatePackageModal from '../../../../AdminComponents/SettingsComponents/PackagesComponents/CreatePackageModal';
 import SettingsLayout from '../../../../AdminComponents/SettingsComponents/SettingsLayout';
+import { SlSocialDropbox } from 'react-icons/sl';
+import { IoAddCircleSharp } from 'react-icons/io5';
 
 
 const Package = () => {
@@ -87,9 +87,9 @@ const Package = () => {
         {modal && <UpdatePackageModal closeView={() => setModal(false)} singlePlan={singlePlan} refetchTradingPlans={FetchTradingPlans} />}
         {modal2 && <CreatePackageModal closeView={() => setModal2(false)} refetchTradingPlans={FetchTradingPlans} />}
 
-        <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center ml-auto mb-2' onClick={() => setModal2(true)}>
+        <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center ml-auto mb-4' onClick={() => setModal2(true)}>
           <span>create new plan</span>
-          <IoIosAddCircleOutline className='text-base' />
+          <IoAddCircleSharp />
         </button>
         {dataLoading ?
           <div className='w-full h-fit'>
@@ -142,11 +142,9 @@ const Package = () => {
                 ))}
               </div>
               :
-              <div className='px-2 py-1 bg-white sha rounded-lg'>
-                <div className='flex justify-center gap-1 items-center text-sm text-black italic bg-semi-white py-1'>
-                  <div>no records found...</div>
-                  <img src={nothnyet} className='h-4 w-auto'></img>
-                </div>
+              <div className='flex flex-col gap-2 justify-center items-center mt-8'>
+                <SlSocialDropbox className='text-4xl' />
+                <div>no records found...</div>
               </div>
             }
           </div>

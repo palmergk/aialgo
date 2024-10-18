@@ -4,7 +4,6 @@ import { RiHistoryFill, RiMoneyDollarCircleFill } from 'react-icons/ri'
 import { Apis, UserGetApi } from '../../../services/API'
 import moment from 'moment'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
-import nothnyet from '../../../assets/images/nothn.png'
 import { IoIosSearch } from 'react-icons/io'
 import { SiBitcoincash } from 'react-icons/si'
 import PayTaxModal from '../../../UserComponents/PayTaxModal'
@@ -12,6 +11,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { ADMINSTORE } from '../../../store'
 import { useAtom } from 'jotai'
 import { FiX } from 'react-icons/fi'
+import { SlSocialDropbox } from 'react-icons/sl'
 
 
 const TaxPayment = () => {
@@ -174,7 +174,7 @@ const TaxPayment = () => {
                 {screen === 2 &&
                     <div className='mt-10'>
                         <div className='relative w-fit mx-auto mb-6'>
-                            <input className='border border-white bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 lg:text-[0.9rem] rounded-full text-white ipa' type='text' value={search} onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch}></input>
+                            <input className='border border-white bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 lg:text-[0.9rem] rounded-full text-white' type='text' value={search} onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch}></input>
                             <div className='text-[1.2rem] text-white absolute -top-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center bg-light shlz'>
                                 <IoIosSearch />
                                 {search !== '' &&
@@ -186,15 +186,15 @@ const TaxPayment = () => {
                         </div>
                         {dataLoading ?
                             <div className='w-full h-fit'>
-                                <div className='h-11 bg-gray-500 animate-pulse rounded-t-lg'></div>
-                                <div className='h-24 bg-gray-400 animate-pulse rounded-b-lg'></div>
+                                <div className='h-11 bg-gray-400 animate-pulse rounded-t-lg'></div>
+                                <div className='h-24 bg-slate-300 animate-pulse rounded-b-lg'></div>
                             </div>
                             :
                             <div className='md:w-[95%] mx-auto'>
                                 {taxes.length > 0 ?
                                     <div className='flex flex-col gap-4'>
                                         {taxes.slice(start, end).map((item, i) => (
-                                            <div key={i} className='w-full h-fit relative shadow-logout-sha text-semi-white'>
+                                            <div key={i} className='w-full h-fit relative text-semi-white rounded-lg hstsha'>
                                                 <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg flex justify-between gap-4'>
                                                     <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
                                                     <div></div>
@@ -229,11 +229,9 @@ const TaxPayment = () => {
                                         ))}
                                     </div>
                                     :
-                                    <div className='px-2 py-1 bg-[#1b1730] shadow-logout-sha rounded-lg'>
-                                        <div className='flex justify-center gap-1 items-center text-sm text-semi-white italic bg-[#141220] py-1'>
-                                            <div>no records found...</div>
-                                            <img src={nothnyet} className='h-4 w-auto'></img>
-                                        </div>
+                                    <div className='flex flex-col gap-2 justify-center items-center mt-16 text-semi-white'>
+                                        <SlSocialDropbox className='text-4xl' />
+                                        <div>no records found...</div>
                                     </div>
                                 }
                             </div>

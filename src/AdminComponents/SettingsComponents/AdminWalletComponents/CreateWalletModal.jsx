@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react'
 import { FaXmark } from 'react-icons/fa6';
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
-import nothnyet from '../../../assets/images/nothn.png'
 import ModalLayout from '../../../utils/ModalLayout';
 import Loading from '../../../GeneralComponents/Loading';
 import { Apis, imageurl, PostApi } from '../../../services/API';
 import { ErrorAlert, SuccessAlert } from '../../../utils/utils';
+import { SlSocialDropbox } from 'react-icons/sl';
 
 const CreateWalletModal = ({ closeView, refetchAdminWallets, cryptocurrency }) => {
     const [select, setSelect] = useState(false)
@@ -93,9 +93,9 @@ const CreateWalletModal = ({ closeView, refetchAdminWallets, cryptocurrency }) =
                                             ))}
                                         </>
                                         :
-                                        <div className='p-2 font-medium flex items-center justify-center lowercase'>
-                                            <div>no crypto added...</div>
-                                            <img src={nothnyet} className='h-3 w-auto'></img>
+                                        <div className='px-2 py-1 font-medium flex items-center gap-0.5 justify-center lowercase'>
+                                            <div>no crypto found...</div>
+                                            <SlSocialDropbox  />
                                         </div>
                                     }
                                 </div>}

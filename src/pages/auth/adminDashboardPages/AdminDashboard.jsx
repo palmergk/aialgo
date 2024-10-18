@@ -115,8 +115,8 @@ const AdminDashboard = ({ children }) => {
         </div>
         <div className='lg:py-14 py-12 flex flex-col lg:gap-10 gap-8'>
           <div className='flex justify-center items-center'>
-            <img src={logo} className='w-12 h-auto'></img>
-            <div className=' capitalize font-bold lg:text-[#7561a0] text-[#462eb3] drop-shadow-txt-sha2 text-2xl'>AialgoControls</div>
+            <img src={logo} className='w-10 h-auto'></img>
+            <div className='capitalize font-bold text-lg lg:text-[#bbb9b9] text-semi-white'>AialgoControls</div>
           </div>
           <div className='flex flex-col gap-8 pl-12 lg:text-[#bbb9b9] text-semi-white '>
             <div className='flex gap-4 flex-col'>

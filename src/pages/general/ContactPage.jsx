@@ -67,7 +67,7 @@ const ContactPage = () => {
     <Pagelayout>
       <div className="bg-[#1E2833] py-16">
         <div className='w-11/12 mx-auto'>
-          <div className='flex flex-col shlct'>
+          <div className='flex flex-col shc'>
             <div className='w-full h-fit grid grid-cols-1 lg:grid-cols-2'>
               <div className='col-span-1'>
                 <img src={contactimg} className='lg:h-[32rem] md:h-[20rem] h-[12rem] w-full object-cover'></img>
@@ -115,7 +115,7 @@ const ContactPage = () => {
                 </div>
               </div>
             </div>
-            <div className='w-full h-fit py-4 bg-[#9e5c36] overflow-hidden trans relative'>
+            <div className='w-full h-fit py-4 bg-[#9e5c36] overflow-hidden relative'>
               <div className='w-11/12 mx-auto '>
                 <div className='grid grid-cols-1 gap-2 items-center lg:flex lg:justify-between h-full' >
                   <div className='text-white text-[0.9rem] capitalize font-[550] text-center'>reach us via:</div>

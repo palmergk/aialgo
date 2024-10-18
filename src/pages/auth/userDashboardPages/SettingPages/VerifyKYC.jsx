@@ -191,11 +191,11 @@ const VerifyKYC = () => {
                         <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>gender:</div>
-                                <StatusSelector Statuses={Genders} status={gender} HandleFunction={(item) => setGender(item)} select={select} toggle={() => setSelect(!select)} className="!shadow-shanft !w-full" />
+                                <StatusSelector Statuses={Genders} status={gender} HandleFunction={(item) => setGender(item)} select={select} toggle={() => setSelect(!select)} className="shantf !w-full" />
                             </div>
                             <div className='flex flex-col gap-1'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>marital status:</div>
-                                <StatusSelector Statuses={MaritalStatus} status={marital} HandleFunction={(item) => setMarital(item)} select={select2} toggle={() => setSelect2(!select2)} className="!shadow-shanft !w-full" />
+                                <StatusSelector Statuses={MaritalStatus} status={marital} HandleFunction={(item) => setMarital(item)} select={select2} toggle={() => setSelect2(!select2)} className="shantf !w-full" />
                             </div>
                         </div>
                         <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
@@ -205,7 +205,7 @@ const VerifyKYC = () => {
                             </div>
                             <div className='flex flex-col gap-1'>
                                 <div className='text-sm capitalize font-semibold'>country:</div>
-                                <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} className='!shadow-shanft' />
+                                <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} className='shantf' />
                             </div>
                         </div>
                         <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
@@ -227,7 +227,7 @@ const VerifyKYC = () => {
                                 <div className='md:text-sm text-xs capitalize font-semibold'>phone number:</div>
                                 <div className='flex gap-2 items-center'>
                                     <div>
-                                        <PhoneSelector phoneCode={phoneCode} setPhoneCode={setPhoneCode} className='!shadow-shanft' />
+                                        <PhoneSelector phoneCode={phoneCode} setPhoneCode={setPhoneCode} className='shantf' />
                                     </div>
                                     <div>
                                         <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.phone_number} name='phone_number' onChange={formHandler}></input>

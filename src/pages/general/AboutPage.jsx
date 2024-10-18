@@ -26,12 +26,12 @@ const AboutPage = () => {
               <div className='lg:w-11/12 pt-6 text-ground'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit accusamus, tenetur magni minus earum nihil neque, repellendus ullam aliquam alias pariatur aspernatur quam reiciendis debitis quibusdam similique molestias.</div>
               <div className='flex gap-4 mt-6'>
                 <Link to='/signup' onClick={MoveToTop}>
-                  <button className={`outline-0 w-fit h-fit py-2 px-4 text-sm text-white rounded-md bg-orange border-2 border-orange capitalize  flex gap-1 items-center font-medium hover:translate-y-[-1px] trans`}>
+                  <button className={`outline-0 w-fit h-fit py-2 px-4 text-sm text-white rounded-md bg-orange border-2 border-orange capitalize  flex gap-1 items-center font-medium hover:translate-y-[-1px] transition-all`}>
                     <span>sign up for free</span>
                   </button>
                 </Link>
                 <Link to='/trading' onClick={MoveToTop}>
-                  <button className={`outline-0 w-fit h-fit py-2 px-5 text-sm text-white rounded-md border-2 border-orange capitalize flex gap-1 items-center font-medium hover:translate-y-[-1px] trans`}>
+                  <button className={`outline-0 w-fit h-fit py-2 px-5 text-sm text-white rounded-md border-2 border-orange capitalize flex gap-1 items-center font-medium hover:translate-y-[-1px] transition-all`}>
                     <span>test run</span>
                   </button>
                 </Link>
@@ -45,8 +45,8 @@ const AboutPage = () => {
             <div className='grid grid-cols-1 lg:grid-cols-3 lg:gap-16 gap-20'>
               <div className='lg:col-span-1 relative'>
                 <img src={thumbsupimg} className='rounded-[15px] h-[20rem] w-full object-cover object-center'></img>
-                <div className='w-[9rem] h-[9.5rem] bg-[#192633] rounded-[15px] absolute top-[-4.5rem] left-0 flex justify-center flex-col items-center gap-3 pt-2 shll lg:-ml-16 -ml-2'>
-                  <div className='rounded-full w-24 h-24 flex flex-col gap-1 items-center justify-center bdd'>
+                <div className='w-[9rem] h-[9.5rem] bg-[#192633] rounded-[15px] absolute top-[-4.5rem] left-0 flex justify-center flex-col items-center gap-3 pt-2 shd lg:-ml-16 -ml-2'>
+                  <div className='rounded-full w-24 h-24 flex flex-col gap-1 items-center justify-center ovexp'>
                     <img src={crown} className='h-4 w-auto'></img>
                     <div className='font-extrabold text-[1.3rem] text-white'>75<span className='text-[0.6rem]'>%</span></div>
                   </div>
@@ -60,7 +60,7 @@ const AboutPage = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-8'>
                   <div className='flex flex-col'>
                     <div className='flex gap-4 items-center'>
-                      <div className='flex items-center justify-center w-10 h-10 rounded-full  bg-[#192633] shll '>
+                      <div className='flex items-center justify-center w-10 h-10 rounded-full  bg-[#192633] shd'>
                         <img src={settings} className='h-6 w-auto'></img>
                       </div>
                       <div className='text-white capitalize font-semibold text-sm'>Lorem, ipsum dolor.</div>
@@ -69,7 +69,7 @@ const AboutPage = () => {
                   </div>
                   <div className='flex flex-col'>
                     <div className='flex gap-4 items-center'>
-                      <div className='flex items-center justify-center w-10 h-10 rounded-full  bg-[#192633] shll '>
+                      <div className='flex items-center justify-center w-10 h-10 rounded-full  bg-[#192633] shd'>
                         <img src={bulb} className='h-6 w-auto'></img>
                       </div>
                       <div className='text-white capitalize font-semibold text-sm'>Lorem, ipsum dolor.</div>
@@ -96,7 +96,7 @@ const AboutPage = () => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-6 md:mt-20 mt-10'>
               <Link to='/signup' onClick={MoveToTop}>
-                <div className='md:w-full w-fit h-fit  bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shlltw'>
+                <div className='md:w-full w-fit h-fit  bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shd'>
                   <div className='border-2 border-[#525151] rounded-full w-16 h-16 flex text-[2.2rem] pt-2 justify-center items-center'>
                     <img src={efficient} className='h-auto w-8'></img>
                   </div>
@@ -109,7 +109,7 @@ const AboutPage = () => {
                 </div>
               </Link>
               <Link to='/trading' onClick={MoveToTop}>
-                <div className='md:w-full w-fit h-fit bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shlltw md:-mt-10'>
+                <div className='md:w-full w-fit h-fit bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shd md:-mt-10'>
                   <div className='border-2 border-[#525151] rounded-full w-16 h-16 flex text-[2.1rem] pt-4 justify-center '>
                     <img src={tplan} className='h-[1.8rem] w-auto'></img>
                   </div>
@@ -124,7 +124,7 @@ const AboutPage = () => {
                 </div>
               </Link>
               <Link to='/signup' onClick={MoveToTop}>
-                <div className='md:w-full w-fit h-fit bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shlltw'>
+                <div className='md:w-full w-fit h-fit bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shd'>
                   <div className='border-2 border-[#525151] rounded-full w-16 h-16 flex text-[2.2rem] pt-2 justify-center items-center'>
                     <img src={assist} className='h-8 w-auto'></img>
                   </div>

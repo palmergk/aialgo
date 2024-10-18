@@ -1,12 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiHistoryFill } from "react-icons/ri";
-import { IoListOutline } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
 import moment from 'moment';
 import { FiX } from 'react-icons/fi';
 import investbg from '../../../assets/images/investbg.png'
-import nothnyet from '../../../assets/images/nothn.png'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6';
 import Dashboard from './Dashboard';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -14,6 +12,9 @@ import { Apis, UserGetApi } from '../../../services/API';
 import ClaimButtons from '../../../UserComponents/ClaimButtons';
 import { MoveToTop } from '../../../utils/utils';
 import lines from '../../../assets/images/lines2.png'
+import { LuFileStack } from 'react-icons/lu';
+import { SlSocialDropbox } from 'react-icons/sl';
+
 
 
 const Investment = () => {
@@ -137,108 +138,110 @@ const Investment = () => {
                     <div className='uppercase font-bold md:text-2xl text-lg text-semi-white '>{screen === 1 ? 'investment' : 'investment history'}</div>
                     <div className='flex gap-1 capitalize font-bold md:text-[0.9rem] text-xs text-light items-center justify-center cursor-pointer' onClick={() => setScreen(screen === 1 ? 2 : 1)}>
                         <span>{screen === 1 ? 'history' : 'investments'}</span>
-                        {screen === 1 ? <RiHistoryFill /> : <IoListOutline />}
+                        {screen === 1 ? <RiHistoryFill /> : <LuFileStack />}
                     </div>
                 </div>
-                {dataLoading ?
+                {screen === 1 &&
                     <>
-                        {new Array(2).fill(0).map((ele, i) => (
-                            <div className='flex flex-col gap-4 mt-10' key={i}>
-                                <div className='w-28 h-2 bg-slate-300 animate-pulse rounded-full'></div>
-                                <div className='flex flex-wrap gap-4 items-center justify-center'>
-                                    {new Array(4).fill(0).map((ele, i) => (
-                                        <div className='md:w-44 w-[9.5rem] h-20 rounded-[10px] bg-slate-300 animate-pulse' key={i}>
+                        {dataLoading ?
+                            <>
+                                {new Array(2).fill(0).map((ele, i) => (
+                                    <div className='flex flex-col gap-4 mt-10' key={i}>
+                                        <div className='w-28 h-2 bg-slate-300 animate-pulse rounded-full'></div>
+                                        <div className='flex flex-wrap gap-4 items-center justify-center'>
+                                            {new Array(4).fill(0).map((ele, i) => (
+                                                <div className='md:w-44 w-[9.5rem] h-20 rounded-[10px] bg-slate-300 animate-pulse' key={i}>
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
-                                </div>
-                                <div className='rounded-full w-32 h-9 bg-slate-300 animate-pulse'></div>
-                            </div>
-                        ))}
-                    </>
-                    :
-                    <>
-                        {screen === 1 &&
-                            <div>
-                                {investmentUnclaim.length > 0 ? <div>
-                                    {investmentUnclaim.map((item, i) => (
-                                        <div className='flex flex-col gap-4 mt-10' key={i}>
-                                            <div className='flex gap-2 items-center'>
-                                                <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('DD-MM-yyyy')}</div>
-                                                <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('h:mm')}</div>
-                                            </div>
-                                            <div className='flex flex-wrap gap-4 items-center justify-center'>
-                                                <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
-                                                    <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>amount</div>
-                                                    <div className='flex justify-between items-center gap-2 font-bold'>
-                                                        <div className='flex items-center'>
-                                                            <BsCurrencyDollar />
-                                                            <div className='-ml-1'>{item.amount.toLocaleString()}</div>
-                                                        </div>
-                                                        <img src={lines} className='md:w-16 w-12 h-auto'></img>
-                                                    </div>
+                                        <div className='rounded-full w-32 h-9 bg-slate-300 animate-pulse'></div>
+                                    </div>
+                                ))}
+                            </>
+                            :
+                            <>
+                                <div>
+                                    {investmentUnclaim.length > 0 ? <div>
+                                        {investmentUnclaim.map((item, i) => (
+                                            <div className='flex flex-col gap-4 mt-10' key={i}>
+                                                <div className='flex gap-2 items-center'>
+                                                    <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('DD-MM-yyyy')}</div>
+                                                    <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('h:mm')}</div>
                                                 </div>
-                                                <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
-                                                    <div className='flex justify-between'>
-                                                        <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>profit/ROI</div>
-                                                        <div className={`italic md:text-xs text-[0.65rem] ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
-                                                    </div>
-                                                    <div className='flex justify-between items-center gap-2 font-bold'>
-                                                        <div className='flex items-center'>
-                                                            <BsCurrencyDollar />
-                                                            <div className='-ml-1'>{item.profit.toLocaleString()}</div>
-                                                        </div>
-                                                        <img src={lines} className='md:w-16 w-12 h-auto'></img>
-                                                    </div>
-                                                </div>
-                                                <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
-                                                    <div className='flex justify-between'>
-                                                        <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>bonus</div>
-                                                        <div className={`italic md:text-xs text-[0.65rem] ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
-                                                    </div>
-                                                    <div className='flex justify-between items-center gap-2 font-bold'>
-                                                        <div>
+                                                <div className='flex flex-wrap gap-4 items-center justify-center'>
+                                                    <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
+                                                        <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>amount</div>
+                                                        <div className='flex justify-between items-center gap-2 font-bold'>
                                                             <div className='flex items-center'>
                                                                 <BsCurrencyDollar />
-                                                                <div className='-ml-1'>{item.bonus.toLocaleString()}</div>
+                                                                <div className='-ml-1'>{item.amount.toLocaleString()}</div>
                                                             </div>
+                                                            <img src={lines} className='md:w-16 w-12 h-auto'></img>
                                                         </div>
-                                                        <img src={lines} className='md:w-16 w-12 h-auto'></img>
+                                                    </div>
+                                                    <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
+                                                        <div className='flex justify-between'>
+                                                            <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>profit/ROI</div>
+                                                            <div className={`italic md:text-xs text-[0.65rem] ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
+                                                        </div>
+                                                        <div className='flex justify-between items-center gap-2 font-bold'>
+                                                            <div className='flex items-center'>
+                                                                <BsCurrencyDollar />
+                                                                <div className='-ml-1'>{item.profit.toLocaleString()}</div>
+                                                            </div>
+                                                            <img src={lines} className='md:w-16 w-12 h-auto'></img>
+                                                        </div>
+                                                    </div>
+                                                    <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
+                                                        <div className='flex justify-between'>
+                                                            <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>bonus</div>
+                                                            <div className={`italic md:text-xs text-[0.65rem] ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
+                                                        </div>
+                                                        <div className='flex justify-between items-center gap-2 font-bold'>
+                                                            <div>
+                                                                <div className='flex items-center'>
+                                                                    <BsCurrencyDollar />
+                                                                    <div className='-ml-1'>{item.bonus.toLocaleString()}</div>
+                                                                </div>
+                                                            </div>
+                                                            <img src={lines} className='md:w-16 w-12 h-auto'></img>
+                                                        </div>
+                                                    </div>
+                                                    <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-[0.9rem] text-xs py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
+                                                        <div className='font-[600] capitalize'>trading plan</div>
+                                                        <div className='flex justify-between items-center gap-2'>
+                                                            <div className='capitalize font-bold'>{item.trading_plan}</div>
+                                                            <img src={lines} className='md:w-16 w-12 h-auto'></img>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-[0.9rem] text-xs py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
-                                                    <div className='font-[600] capitalize'>trading plan</div>
-                                                    <div className='flex justify-between items-center gap-2'>
-                                                        <div className='capitalize font-bold'>{item.trading_plan}</div>
-                                                        <img src={lines} className='md:w-16 w-12 h-auto'></img>
-                                                    </div>
-                                                </div>
+                                                <ClaimButtons item={item} refetchInvestments={FetchInvestment} refetchInvestmentsUnclaim={FetchInvestmentUnclaim} />
                                             </div>
-                                            <ClaimButtons item={item} refetchInvestments={FetchInvestment} refetchInvestmentsUnclaim={FetchInvestmentUnclaim} />
-                                        </div>
-                                    ))}
-                                </div>
-                                    :
-                                    <div className='mt-16'>
-                                        <div className='w-fit h-fit rounded-xl flex flex-col items-center justify-center py-4 px-8 md:px-16 text-semi-white gap-4 border border-dashed border-[grey] bg-[#130e27] mx-auto'>
-                                            <div className='md:text-xl text-base italic'>No new investment made</div>
-                                            <img src={investbg} className='md:w-80 w-52 h-auto'></img>
-                                            <Link to='/dashboard/deposit' onClick={() => MoveToTop()}>
-                                                <button className='outline-none w-fit h-fit py-2 px-6 md:text-sm text-xs text-white font-medium bg-light rounded-full flex items-center gap-3 mt-4'>
-                                                    <span>Make new</span>
-                                                    <div className='makenew'></div>
-                                                </button>
-                                            </Link>
-                                        </div>
+                                        ))}
                                     </div>
-                                }
-                            </div>
+                                        :
+                                        <div className='mt-16'>
+                                            <div className='w-fit h-fit rounded-xl flex flex-col items-center justify-center py-4 px-8 md:px-16 text-semi-white gap-4 border border-dashed border-[grey] bg-[#130e27] mx-auto'>
+                                                <div className='md:text-xl text-base italic'>No new investment made</div>
+                                                <img src={investbg} className='md:w-80 w-52 h-auto'></img>
+                                                <Link to='/dashboard/deposit' onClick={() => MoveToTop()}>
+                                                    <button className='outline-none w-fit h-fit py-2 px-6 md:text-sm text-xs text-white font-medium bg-light rounded-full flex items-center gap-3 mt-4'>
+                                                        <span>Make new</span>
+                                                        <div className='makenew'></div>
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </>
                         }
                     </>
                 }
                 {screen === 2 &&
                     <div className='mt-10'>
                         <div className='relative w-fit mx-auto mb-6'>
-                            <input className='border border-white bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 lg:text-[0.9rem] rounded-full text-white ipa' type='text' value={search} onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch}></input>
+                            <input className='border border-white bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 lg:text-[0.9rem] rounded-full text-white' type='text' value={search} onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch}></input>
                             <div className='text-[1.2rem] text-white absolute top-[-0.5rem] right-[-0.5rem] w-[2.5rem] h-10 rounded-full flex items-center justify-center bg-light shlz'>
                                 <IoIosSearch />
                                 {search !== '' &&
@@ -250,15 +253,15 @@ const Investment = () => {
                         </div>
                         {dataLoading2 ?
                             <div className='w-full h-fit'>
-                                <div className='h-11 bg-gray-500 animate-pulse rounded-t-lg'></div>
-                                <div className='h-24 bg-gray-400 animate-pulse rounded-b-lg'></div>
+                                <div className='h-11 bg-gray-400 animate-pulse rounded-t-lg'></div>
+                                <div className='h-24 bg-slate-300 animate-pulse rounded-b-lg'></div>
                             </div>
                             :
                             <div className='md:w-[95%] mx-auto'>
                                 {investment.length > 0 ?
                                     <div className='flex flex-col gap-4'>
                                         {investment.slice(start, end).map((item, i) => (
-                                            <div key={i} className='w-full h-fit relative shadow-logout-sha text-semi-white'>
+                                            <div key={i} className='w-full h-fit relative text-semi-white  rounded-lg hstsha'>
                                                 <div className='p-4 bg-[#141220] text-sm rounded-t-lg font-medium'>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
                                                 <div className='bg-[#1b1730] grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
                                                     <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
@@ -294,11 +297,9 @@ const Investment = () => {
                                         ))}
                                     </div>
                                     :
-                                    <div className='px-2 py-1 bg-[#1b1730] shadow-logout-sha rounded-lg'>
-                                        <div className='flex justify-center gap-1 items-center text-sm text-semi-white italic bg-[#141220] py-1'>
-                                            <div>no records found...</div>
-                                            <img src={nothnyet} className='h-4 w-auto'></img>
-                                        </div>
+                                    <div className='flex flex-col gap-2 justify-center items-center mt-16 text-semi-white'>
+                                        <SlSocialDropbox className='text-4xl' />
+                                        <div>no records found...</div>
                                     </div>
                                 }
                             </div>
