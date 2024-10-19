@@ -160,7 +160,7 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
                     <div className='flex items-center mt-8 relative'>
                         {commit && <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateTradingPlan}>update</button>}
                         <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ml-auto' onClick={() => setDeleteState(true)}>delete</button>
-                        {deleteState && <div className='bg-white adsha w-fit h-fit flex flex-col gap-4 items-center justify-center absolute bottom-0 right-0 p-3 rounded-md text-xs'>
+                        {deleteState && <div className='bg-white w-fit h-fit flex flex-col gap-4 items-center justify-center absolute bottom-0 right-0 p-3 rounded-md text-xs popsha'>
                             <div className='flex flex-col items-center gap-2'>
                                 <div className='md:text-sm text-[0.8rem] text-center font-semibold flex items-center gap-1'>
                                     <span> Are you sure you want to Delete Plan?</span>

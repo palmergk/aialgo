@@ -276,7 +276,7 @@ input[type="date"]::before {
   box-shadow: 0px 1px 20px rgb(184, 183, 183)
 }
 
-.adsha {
+.popsha {
   box-shadow: 0px 1px 6px rgb(168, 168, 168);
 }
 
@@ -304,6 +304,11 @@ input[type="date"]::before {
   font-size: 0.75rem;
   color: grey;
 }
+
+.sl_trans {
+  transition: 0.3s ease-in-out;
+}
+
 
 .ovexp {
   border-top: 5px solid white;

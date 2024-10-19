@@ -108,7 +108,7 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
           <div className='flex gap-4 items-center mt-8 relative'>
             {commit && <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateWallet}>update</button>}
             <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ml-auto' onClick={() => setdeleteState(true)}>delete</button>
-            {deleteState && <div className='bg-white adsha w-fit h-fit flex flex-col gap-4 items-center justify-center absolute bottom-0 right-0 p-3 rounded-md text-xs'>
+            {deleteState && <div className='bg-white w-fit h-fit flex flex-col gap-4 items-center justify-center absolute bottom-0 right-0 p-3 rounded-md text-xs popsha'>
               <div className='md:text-sm text-[0.8rem] flex items-center gap-1 justify-center text-center font-semibold'>
                 <span> Are you sure you want to Delete Wallet?</span>
                 <PiWarningCircleBold className='text-[red]' />

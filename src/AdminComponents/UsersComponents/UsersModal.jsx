@@ -267,7 +267,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                             <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={() => { setFundScreen(2); setSuspendScreen(1); setWithdrawalScreen(1) }}>fund account</button>
                                                         </div>
                                                         :
-                                                        <div className='w-fit h-fit py-6 rounded-md bg-white adsha mx-auto text-black relative overflow-hidden'>
+                                                        <div className='w-fit h-fit py-6 rounded-md bg-white mx-auto text-black relative overflow-hidden popsha'>
                                                             {loading && <Loading />}
                                                             <FaXmark className='absolute top-0 right-1 cursor-pointer text-lg' onClick={() => setFundScreen(1)} />
                                                             <div className='font-bold border-b text-center uppercase'>Fund {singleUser?.username} account</div>
@@ -289,7 +289,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                             <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={() => { setWithdrawalScreen(2); setSuspendScreen(1); setFundScreen(1) }}>set withdrawal minimum</button>
                                                         </div>
                                                         :
-                                                        <div className='w-fit h-fit py-6 rounded-md bg-white adsha mx-auto text-black relative overflow-hidden'>
+                                                        <div className='w-fit h-fit py-6 rounded-md bg-white mx-auto text-black relative overflow-hidden popsha'>
                                                             {loading && <Loading />}
                                                             <FaXmark className='absolute top-0 right-1 cursor-pointer text-lg' onClick={() => setWithdrawalScreen(1)} />
                                                             <div className='font-bold border-b text-center uppercase'>set {singleUser?.username} withdrawal minimum</div>
@@ -299,7 +299,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                         <div className='text-[0.8rem] capitalize'>Enter an amount ($)</div>
                                                                         <input className='outline-none lg:text-[0.85rem] text-base w-full border h-8 rounded-[3px] px-2 bg-[#ebeaea] ipt border-[#9f7ae7]' name='minimumAmount' value={form.minimumAmount} onChange={formHandler}></input>
                                                                     </div>
-                                                                    <div className='text-xs py-1 px-3 h-fit w-fit bg-white adsha flex flex-col gap-2 text-black items-center font-semibold rounded-md'>
+                                                                    <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-semibold rounded-[3px]'>
                                                                         <div>current:</div>
                                                                         {Object.values(userFigures).length !== 0 && <div>${singleUser.withdrawal_minimum.toLocaleString()}</div>}
                                                                     </div>
@@ -320,7 +320,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                         <button className='w-fit h-fit py-2.5 px-6 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={() => { setSuspendScreen(2); setFundScreen(1); setWithdrawalScreen(1) }}>{singleUser.suspend === 'true' ? 'unsuspend' : 'suspend'} account</button>
                                                     </div>
                                                     :
-                                                    <div className='w-fit h-fit md:p-8 p-4 rounded-md bg-white adsha mx-auto text-black relative overflow-hidden'>
+                                                    <div className='w-fit h-fit md:p-8 p-4 rounded-md bg-white mx-auto text-black relative overflow-hidden popsha'>
                                                         {loading && <Loading />}
                                                         {suspendScreen === 2 &&
                                                             <div className='flex flex-col gap-8 items-center justify-center'>

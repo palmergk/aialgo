@@ -131,7 +131,7 @@ const Withdraw = () => {
             setEnd(6)
         }
         else {
-            const showSearch = altwithdrawals.filter(item => moment(item.createdAt).format('DD-MM-yyyy').includes(search) || moment(item.createdAt).format('h:mm').includes(search) || item.amount.toString().includes(search) || item.crypto.toLowerCase().includes(search.toLowerCase()) || item.network.toLowerCase().includes(search.toLowerCase()) || item.status.includes(search.toLowerCase()))
+            const showSearch = altwithdrawals.filter(item => moment(item.createdAt).format('DD-MM-yyyy').includes(search) || moment(item.createdAt).format('h:mm').includes(search) || item.amount.toString().includes(search) || item.crypto.toLowerCase().includes(search.toLowerCase()) || item.network.toLowerCase().includes(search.toLowerCase()) || item.status.includes(search.toLowerCase()) || item.gen_id.includes(search))
             setWithdrawals(showSearch)
             setpageend(showSearch.length / 6)
             setpagestart(1)
@@ -266,7 +266,7 @@ const Withdraw = () => {
                                             <div key={i} className='w-full h-fit relative text-semi-white rounded-lg hstsha'>
                                                 <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg flex justify-between gap-4'>
                                                     <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
-                                                    <div></div>
+                                                    <div>ID: {item.gen_id}</div>
                                                 </div>
                                                 <div className='bg-[#1b1730] grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
                                                     <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
