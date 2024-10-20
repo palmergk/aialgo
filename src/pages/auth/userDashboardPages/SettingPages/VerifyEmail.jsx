@@ -11,7 +11,6 @@ const VerifyEmail = () => {
     const [user, setUser] = useAtom(PROFILE)
     const [screen, setScreen] = useState(1)
     const [loading, setLoading] = useState(false)
-
     const [form, setForm] = useState({
         email: '',
         code: ''
@@ -50,7 +49,7 @@ const VerifyEmail = () => {
         }
     }
 
-    const ValidateEmail = async e => {
+    const VerifyEmail = async e => {
         e.preventDefault()
 
         if (!form.code) return ErrorAlert('Enter verification code')
@@ -61,10 +60,10 @@ const VerifyEmail = () => {
 
         setLoading(true)
         try {
-            const response = await UserPostApi(Apis.user.validate_email, formbody)
+            const response = await UserPostApi(Apis.user.verify_otp, formbody)
             if (response.status === 200) {
-                SuccessAlert(response.msg)
-                setUser(response.user)
+                SuccessAlert('Email address verified')
+                setUser(response.msg)
                 setForm({
                     email: '',
                     code: ''
@@ -108,7 +107,7 @@ const VerifyEmail = () => {
                         </form>
                     }
                     {screen === 2 &&
-                        <form onSubmit={ValidateEmail}>
+                        <form onSubmit={VerifyEmail}>
                             <div className='flex flex-col gap-10 items-center'>
                                 <div className='flex flex-col gap-4 items-center'>
                                     <div className='text-[0.85rem]  text-semi-white text-center'> A six digits verification code was sent to <span className='text-[#7665D5]'>{form.email?.slice(0, 3)}*****{form.email?.slice(-10)}</span>, copy and enter below</div>

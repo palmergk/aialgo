@@ -75,11 +75,11 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
     const UpdateUser = async () => {
         if (fundScreen !== 1) {
             if (!form.fundAmount) return ErrorAlert('Enter an amount')
-            if (isNaN(form.fundAmount)) return ErrorAlert('Must be a number')
+            if (isNaN(form.fundAmount)) return ErrorAlert('Amount must be a number')
         }
         if (withdrawalScreen !== 1) {
             if (!form.minimumAmount) return ErrorAlert('Enter an amount')
-            if (isNaN(form.minimumAmount)) return ErrorAlert('Must be a number')
+            if (isNaN(form.minimumAmount)) return ErrorAlert('Amount must be a number')
         }
         if (suspendScreen !== 1) {
             if (!form.password) return ErrorAlert('Enter your password')

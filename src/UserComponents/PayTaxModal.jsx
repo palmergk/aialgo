@@ -16,7 +16,6 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
     const [amount, setAmount] = useState('')
     const [cryptoWallets, setCryptoWallets] = useState({})
     const [copy, setCopy] = useState(false)
-    const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
     const copyFunction = () => {
@@ -29,13 +28,10 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
     }
 
     const ConfirmTaxPayment = async () => {
-        setTimeout(() => {
-            setError('')
-        }, 1000)
-
-        if (!amount || isNaN(amount)) return setError('amount')
-        if (amount < 1) return setError('minimum')
-        if (Object.values(cryptoWallets).length === 0) return setError('select')
+        if (!amount) return ErrorAlert('Enter an amount')
+        if (isNaN(amount)) return ErrorAlert('Amount must be a number')
+        if (amount < 1) return ErrorAlert('Minimum tax payment is $1')
+        if (Object.values(cryptoWallets).length === 0) return ErrorAlert('Choose cryptocurrency')
 
         const formbody = {
             amount: parseFloat(amount),
@@ -73,12 +69,12 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                     <div className='flex flex-col gap-1'>
                         <div className='capitalize font-medium'>tax amount ($)</div>
                         <div className='relative'>
-                            <input className={`outline-none border bg-[#ebeaea] text-black lg:text-sm text-base w-52 px-2 h-8 rounded-[4px] ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)}></input>
-                            <div className={`text-xs absolute top-2 right-2 ${error === 'minimum' ? 'text-[red]' : 'text-black'}`}>min: 0.99</div>
+                            <input className='outline-none border lg:text-sm text-base w-52 h-8 rounded-[4px] pl-2 pr-16 bg-[#ebeaea] border-[#5BB4FD]' value={amount} onChange={e => setAmount(e.target.value)} ></input>
+                            <div className='text-xs absolute top-2 right-2'>min: 0.99</div>
                         </div>
                     </div>
                     <div>
-                        <CryptoSelector setCryptoWallets={setCryptoWallets} error={error} />
+                        <CryptoSelector setCryptoWallets={setCryptoWallets} />
                     </div>
                     {Object.values(cryptoWallets).length !== 0 &&
                         <div className='flex flex-col gap-2 items-center'>

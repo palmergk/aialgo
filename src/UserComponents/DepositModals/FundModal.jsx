@@ -18,7 +18,6 @@ const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
   const [amount, setAmount] = useState('')
   const [cryptoWallets, setCryptoWallets] = useState({})
   const [copy, setCopy] = useState(false)
-  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const copyFunction = () => {
@@ -31,13 +30,10 @@ const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
   }
 
   const CreateDeposit = async () => {
-    setTimeout(() => {
-      setError('')
-    }, 1000)
-
-    if (!amount || isNaN(amount)) return setError('amount')
-    if (amount < adminStore.deposit_minimum) return setError('minimum')
-    if (Object.values(cryptoWallets).length === 0) return setError('select')
+    if (!amount) return ErrorAlert('Enter an amount')
+    if (isNaN(amount)) return ErrorAlert('Amount must be a number')
+    if (amount < adminStore.deposit_minimum) return ErrorAlert(`Minimum deposit amount is $${adminStore.deposit_minimum}`)
+    if (Object.values(cryptoWallets).length === 0) return ErrorAlert('Choose cryptocurrency')
 
     const formbody = {
       amount: parseFloat(amount),
@@ -75,12 +71,12 @@ const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
           <div className='flex flex-col gap-1'>
             <div className='capitalize font-medium'>deposit amount ($)</div>
             <div className='relative'>
-              <input className={`outline-none border lg:text-sm text-base w-52 h-8 rounded-[4px] pl-2 pr-16 bg-[#ebeaea] ${error === 'amount' ? 'border-[red]' : 'border-[#5BB4FD]'}`} value={amount} onChange={e => setAmount(e.target.value)} ></input>
-              <div className={`text-xs absolute top-2 right-2 ${error === 'minimum' ? 'text-[red]' : 'text-black'}`}>min: {adminStore?.deposit_minimum}</div>
+              <input className='outline-none border lg:text-sm text-base w-52 h-8 rounded-[4px] pl-2 pr-16 bg-[#ebeaea] border-[#5BB4FD]' value={amount} onChange={e => setAmount(e.target.value)} ></input>
+              <div className='text-xs absolute top-2 right-2'>min: {adminStore?.deposit_minimum}</div>
             </div>
           </div>
           <div>
-            <CryptoSelector setCryptoWallets={setCryptoWallets} error={error} />
+            <CryptoSelector setCryptoWallets={setCryptoWallets} />
           </div>
           {Object.values(cryptoWallets).length !== 0 &&
             <div className='flex flex-col gap-2 items-center'>

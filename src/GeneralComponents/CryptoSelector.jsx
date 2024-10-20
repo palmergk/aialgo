@@ -6,7 +6,7 @@ import { useAtom } from 'jotai'
 import { ADMINCRYPTOWALLETS } from '../store'
 import { SlSocialDropbox } from 'react-icons/sl'
 
-const CryptoSelector = ({ setCryptoWallets, error, className }) => {
+const CryptoSelector = ({ setCryptoWallets, className }) => {
     const [adminCryptoWallets] = useAtom(ADMINCRYPTOWALLETS)
     const [objArray, setObjArray] = useState({})
     const [select, setSelect] = useState(false)
@@ -15,7 +15,7 @@ const CryptoSelector = ({ setCryptoWallets, error, className }) => {
 
     return (
         <div className={`h-fit w-fit rounded-[0.2rem] bg-semi-white p-1 relative ${className?.bg}`}>
-            <div className={`w-52 py-1 bg-white flex gap-1.5 justify-center items-center capitalize text-sm font-semibold rounded-[0.2rem] text-black cursor-pointer shantf  ${error === 'select' && 'outline outline-1 outline-[red]'}`} onClick={() => setSelect(!select)}>
+            <div className='w-52 py-1 bg-white flex gap-1.5 justify-center items-center capitalize text-sm font-semibold rounded-[0.2rem] text-black cursor-pointer shantf' onClick={() => setSelect(!select)}>
                 <div className='text-[0.8rem]'>choose cryptocurrency</div>
                 <SiBitcoincash className={`text-[#5BB4FD] ${className?.text}`} />
             </div>

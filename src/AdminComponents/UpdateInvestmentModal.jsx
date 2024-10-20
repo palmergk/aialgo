@@ -72,8 +72,8 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
     }
 
     const UpdateInvestment = async () => {
-        if (isNaN(form.profit)) return ErrorAlert('Must be a number')
-        if (isNaN(form.bonus)) return ErrorAlert('Must be a number')
+        if (isNaN(form.profit)) return ErrorAlert('Profit amount must be a number')
+        if (isNaN(form.bonus)) return ErrorAlert('Bonus amount must be a number')
 
         const formbody = {
             investment_id: singleInvestment.id,

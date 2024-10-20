@@ -15,7 +15,7 @@ const SetDepositMinimum = ({ closeView }) => {
 
     const SetReferalBonus = async () => {
         if (!amount) return ErrorAlert('Enter an amount')
-        if (isNaN(amount)) return ErrorAlert('Must be a number')
+        if (isNaN(amount)) return ErrorAlert('Amount must be a number')
 
         const formbody = {
             deposit_minimum: parseFloat(amount)

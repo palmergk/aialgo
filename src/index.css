@@ -309,7 +309,6 @@ input[type="date"]::before {
   transition: 0.3s ease-in-out;
 }
 
-
 .ovexp {
   border-top: 5px solid white;
   border-bottom: 5px solid white;

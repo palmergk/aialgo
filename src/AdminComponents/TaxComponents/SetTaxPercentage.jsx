@@ -15,7 +15,7 @@ const SetTaxPercentage = ({ closeView }) => {
 
     const UpdateTaxPercentage = async () => {
         if (!amount) return ErrorAlert('Enter an amount')
-        if (isNaN(amount)) return ErrorAlert('Must be a number')
+        if (isNaN(amount)) return ErrorAlert('Amount must be a number')
 
         const formbody = {
             tax_percentage: parseFloat(amount),
