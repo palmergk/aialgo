@@ -144,7 +144,7 @@ const AdminDashboard = ({ children }) => {
                     <RiLogoutCircleLine className='text-[1.3rem] ' />
                     <div className='capitalize text-[0.85rem] lg:font-bold font-medium hover:font-bold'>logout</div>
                   </div>
-                  {logout && <div className='absolute lg:-top-5 -top-16 -left-6 lg:bg-admin-auth bg-[#27137e] w-fit  h-fit z-10 rounded-[10px] text-white p-4 lg:shadow-logout-sha3 shadow-logout-sha2'>
+                  {logout && <div className='absolute lg:-top-5 -top-16 -left-6 lg:bg-admin-auth bg-[#27137e] w-fit  h-fit z-10 rounded-[10px] text-white p-4 lg:shadow-log3 shadow-log2'>
                     <div className=' text-[0.8rem] mb-4 text-center'>Logout of your account?</div>
                     <div className='flex gap-[1rem] items-center'>
                       <button className='outline-none py-1 px-4 w-fit h-fit border border-white rounded-lg capitalize text-xs flex items-center gap-1 hover:bg-white lg:hover:text-admin-auth hover:text-[#27137e] lg:bg-admin-auth bg-[#27137e] ' onClick={() => setLogOut(!logout)}>

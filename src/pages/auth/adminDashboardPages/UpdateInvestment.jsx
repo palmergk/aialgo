@@ -148,7 +148,7 @@ const UpdateInvestment = () => {
                         <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
                         <div className='flex gap-4 items-center'>
                           <div>ID: {item.gen_id}</div>
-                          <div className='hover:text-[#9f7ae7] cursor-pointer bg-white py-0.5 rounded-sm' onClick={() => SingleInvestmentFunction(item)}><BsThreeDotsVertical /></div>
+                          <div className='hover:text-[#9f7ae7] cursor-pointer bg-white py-0.5 rounded-[3px]' onClick={() => SingleInvestmentFunction(item)}><BsThreeDotsVertical /></div>
                         </div>
                       </div>
                       <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>

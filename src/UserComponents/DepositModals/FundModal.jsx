@@ -32,7 +32,7 @@ const FundModal = ({ closeModal, setScreen, refetchDeposits }) => {
   const CreateDeposit = async () => {
     if (!amount) return ErrorAlert('Enter an amount')
     if (isNaN(amount)) return ErrorAlert('Amount must be a number')
-    if (amount < adminStore.deposit_minimum) return ErrorAlert(`Minimum deposit amount is $${adminStore.deposit_minimum}`)
+    if (amount < adminStore.deposit_minimum) return ErrorAlert(`Minimum deposit amount is $${adminStore.deposit_minimum.toLocaleString()}`)
     if (Object.values(cryptoWallets).length === 0) return ErrorAlert('Choose cryptocurrency')
 
     const formbody = {

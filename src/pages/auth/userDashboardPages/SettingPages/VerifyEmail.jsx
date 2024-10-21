@@ -12,7 +12,7 @@ const VerifyEmail = () => {
     const [screen, setScreen] = useState(1)
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
-        email: '',
+        email: user?.email,
         code: ''
     })
 
@@ -26,13 +26,11 @@ const VerifyEmail = () => {
     const FindEmail = async (e) => {
         e.preventDefault()
 
-        if(user.email_verified === 'true') return ErrorAlert('Email address is verified')
+        if (user.email_verified === 'true') return ErrorAlert('Email address is verified')
         if (!form.email) return ErrorAlert('Enter your email address')
-
         const formbody = {
             email: form.email
         }
-
         setLoading(true)
         try {
             const response = await UserPostApi(Apis.user.find_email, formbody)
@@ -57,7 +55,6 @@ const VerifyEmail = () => {
             code: form.code,
             email: form.email
         }
-
         setLoading(true)
         try {
             const response = await UserPostApi(Apis.user.verify_otp, formbody)
@@ -65,7 +62,7 @@ const VerifyEmail = () => {
                 SuccessAlert('Email address verified')
                 setUser(response.msg)
                 setForm({
-                    email: '',
+                    ...form,
                     code: ''
                 })
                 setScreen(1)
@@ -97,12 +94,10 @@ const VerifyEmail = () => {
                                 <div className='flex flex-col gap-2'>
                                     <div className='text-[0.85rem] capitalize text-semi-white'> email address</div>
                                     <div className='relative'>
-                                        <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-base text-semi-white ipt' type='email' placeholder='Enter your account email address' name='email' value={form.email} onChange={formHandler}></input>
+                                        <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-base text-semi-white ipt' type='email' placeholder='Enter your email address' name='email' value={form.email} onChange={formHandler}></input>
                                     </div>
                                 </div>
-                                <div className='flex items-center'>
-                                    <button className='outline-none bg-light py-2 px-8 rounded-md capitalize text-xs md:text-sm text-white cursor-pointer font-semibold' >find email</button>
-                                </div>
+                                <button className='outline-none bg-light py-2 px-8 rounded-md capitalize text-xs md:text-sm text-white cursor-pointer font-semibold'>verify</button>
                             </div>
                         </form>
                     }
@@ -115,9 +110,7 @@ const VerifyEmail = () => {
                                         <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-base text-semi-white ipt' type='text' placeholder='Enter verification code' name='code' value={form.code} onChange={formHandler}></input>
                                     </div>
                                 </div>
-                                <div className='flex items-center'>
-                                    <button className='outline-none bg-light py-2 px-8 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-semibold' >verify email</button>
-                                </div>
+                                <button className='outline-none bg-light py-2 px-8 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-semibold'>verify</button>
                             </div>
                         </form>
                     }

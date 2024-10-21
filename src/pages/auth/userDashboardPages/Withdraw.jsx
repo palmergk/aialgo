@@ -78,7 +78,7 @@ const Withdraw = () => {
     const makeWithdrawal = async () => {
         if (!form.amount) return ErrorAlert('Enter an amount')
         if (isNaN(form.amount)) return ErrorAlert('Amount must be a number')
-        if (form.amount < user.withdrawal_minimum) return ErrorAlert(`Minimum withdrawal amount is $${user.withdrawal_minimum} `)
+        if (form.amount < user.withdrawal_minimum) return ErrorAlert(`Minimum withdrawal amount is $${user.withdrawal_minimum.toLocaleString()} `)
         if (Object.values(userwallet).length === 0 || form.amount > userwallet.balance) return ErrorAlert('Insufficient wallet balance')
         if (Object.values(cryptoWallets).length === 0) return ErrorAlert('Choose cryptocurrency')
         if (!form.withdrawal_address) return ErrorAlert('Enter your wallet address')
@@ -259,7 +259,7 @@ const Withdraw = () => {
                                 {withdrawals.length > 0 ?
                                     <div className='flex flex-col gap-4'>
                                         {withdrawals.slice(start, end).map((item, i) => (
-                                            <div key={i} className='w-full h-fit relative text-semi-white rounded-lg hstsha'>
+                                            <div key={i} className='w-full h-fit relative text-semi-white rounded-lg shadow-log'>
                                                 <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg flex justify-between gap-4'>
                                                     <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
                                                     <div>ID: {item.gen_id}</div>

@@ -235,7 +235,7 @@ const Deposit = () => {
                                 {deposits.length > 0 ?
                                     <div className='flex flex-col gap-4'>
                                         {deposits.slice(start, end).map((item, i) => (
-                                            <div key={i} className='w-full h-fit relative text-semi-white rounded-lg hstsha'>
+                                            <div key={i} className='w-full h-fit relative text-semi-white rounded-lg shadow-log'>
                                                 <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg flex justify-between gap-4'>
                                                     <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
                                                     <div>ID: {item.gen_id}</div>

@@ -160,7 +160,7 @@ const SignupPage = () => {
             <div className='col-span-1'>
               <div className='signupBg rounded-xl flex items-center lg:h-[40rem] h-fit py-16'>
                 <div className='w-11/12 mx-auto'>
-                  <div className={`bg-white h-fit rounded-[20px] py-8 w-full lg:w-[39vw] lg:absolute ${screen === 1 ? 'lg:top-[2.8rem]' : 'lg:top-[3.7rem]'}  lg:right-16 lg:shadow-sign-sha overflow-hidden`}>
+                  <div className={`bg-white h-fit rounded-[20px] py-8 w-full lg:w-[39vw] lg:absolute ${screen === 1 ? 'lg:top-[2.8rem]' : 'lg:top-[3.7rem]'}  lg:right-16 lg:shadow-sign overflow-hidden`}>
                     <div className='relative w-full h-full'>
                       {loading && <Loading />}
                       {screen === 1 && <div className='w-11/12 md:w-[85%] mx-auto '>
@@ -185,7 +185,7 @@ const SignupPage = () => {
                             </div>
                             <div className='flex flex-col gap-[0.3rem]'>
                               <div className='text-sm capitalize font-[550]'>full name:</div>
-                              <input className='outline-none w-full  border-b border-[#4d4c4c] lg:text-sm text-base  ipt input-off' placeholder='Enter your full name' type='text' name='full_name' value={form.full_name} onChange={inputHandler} ></input>
+                              <input className='outline-none w-full  border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter your full name' type='text' name='full_name' value={form.full_name} onChange={inputHandler} ></input>
                             </div>
                             <div className='grid grid-cols-1 md:grid-cols-2 w-full md:gap-8 gap-4'>
                               <div className='flex flex-col gap-[0.3rem] relative'>

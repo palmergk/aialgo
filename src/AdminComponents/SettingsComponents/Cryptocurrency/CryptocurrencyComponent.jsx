@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react'
 import { FaXmark } from 'react-icons/fa6'
-import { IoIosSettings } from 'react-icons/io'
 import UpdateCrypto from './UpdateCrypto'
 import ModalLayout from '../../../utils/ModalLayout'
 import { imageurl } from '../../../services/API'
 import { SlSocialDropbox } from 'react-icons/sl'
+import { RiSettings5Fill } from 'react-icons/ri'
 
 const CryptocurrencyComponent = ({ closeView, cryptocurrency, refetchCryptocurrency, refetchAdminWallets }) => {
     const [singleCrypto, setSingleCrypto] = useState({})
@@ -29,7 +29,7 @@ const CryptocurrencyComponent = ({ closeView, cryptocurrency, refetchCryptocurre
                                         <tr className='bg-black text-[0.8rem] font-bold text-white'>
                                             <td className='text-center truncate  capitalize p-2 '>image</td>
                                             <td className='text-center truncate  capitalize p-2 '>crypto</td>
-                                            <td className='text-center truncate  capitalize p-2'> <IoIosSettings className="mx-auto text-base" /></td>
+                                            <td className='text-center truncate  capitalize p-2'> <RiSettings5Fill className='mx-auto' /></td>
                                         </tr>
                                     </thead>
                                     {cryptocurrency.length > 0 ?

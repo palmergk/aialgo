@@ -220,7 +220,7 @@ const Profile = () => {
         <SettingsLayout>
             <div>
                 {loading && <Loading className="!bg-[#0c091aa4]" />}
-                <div className='flex items-center justify-center mt-10'>
+                <div className='flex flex-col gap-4 items-center justify-center mt-10'>
                     <div className='md:w-48 md:h-48 h-32 w-32 p-1 rounded-full bg-[#afa7df] flex items-center justify-center relative'>
                         <img className='w-full h-full rounded-full object-cover' src={profile.img}></img>
                         <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shlz' onClick={() => setSelect(!select)}><MdOutlineEdit /></div>
@@ -240,50 +240,48 @@ const Profile = () => {
                             </div>
                         }
                     </div>
-                </div>
-                <div className=' justify-center mt-4 text-semi-white flex gap-2 items-center'>
-                    <div className='capitalize font-bold md:text-2xl text-lg'>{user?.full_name}</div>
-                    <img className='md:h-4 h-2 w-auto' src={user?.country_flag}></img>
-                </div>
-                <div className='text-light md:text-[0.8rem] text-xs text-center capitalize font-bold mt-2'>account trader</div>
-                <div className='mt-8 '>
-                    <div className='flex gap-8 items-center w-fit overflow-hidden h-fit bg-semi-white rounded-xl capitalize md:px-8 px-4 py-4 mx-auto'>
-                        <div className='flex items-center gap-5'>
-                            <div className='flex flex-col gap-2'>
-                                <div className='md:text-[1.4rem] text-lg text-black'>Status</div>
-                                {user.email_verified === 'true' || user.kyc_verified === 'true' ?
-                                    <div className='flex gap-1 items-center md:text-[0.8rem] text-xs text-zinc-700'>
-                                        <span>verified</span>
-                                        <MdVerified className={`${user.email_verified === 'true' && user.kyc_verified === 'true' ? 'text-light' : 'text-zinc-400'}`} />
-                                        {user.email_verified !== 'true' || user.kyc_verified !== 'true' ?
-                                            <span>1/2</span> : <span></span>
-                                        }
-                                    </div>
-                                    :
-                                    <div className='flex gap-1 items-center md:text-[0.8rem] text-xs text-[red]'>
-                                        <span>unverified</span>
-                                        <MdSentimentVeryDissatisfied />
-                                    </div>
-                                }
-                            </div>
-                            <div className='border-r-2 h-12 border-[#bebebe]'></div>
-                            <div className='flex flex-col gap-2'>
-                                <div className='md:text-[1.4rem] text-lg text-black '>joined</div>
-                                <div className='flex gap-1 items-center md:text-[0.8rem] text-xs'>
-                                    <span className='text-zinc-700'>{moment(user?.createdAt).format('DD-MM-yyyy')}</span>
-                                    <MdOutlineDateRange className='text-light' />
-                                </div>
-                            </div>
+                    <div className='flex flex-col gap-1'>
+                        <div className='text-semi-white flex gap-2 items-center'>
+                            <div className='capitalize font-bold md:text-2xl text-lg text-center'>{user?.full_name}</div>
+                            <img className='md:h-4 h-2 w-auto' src={user?.country_flag}></img>
                         </div>
-                        <img src={membership} className='h-auto md:w-14 w-10'></img>
+                        <div className='text-light md:text-[0.8rem] text-xs capitalize font-bold text-center'>account trader</div>
                     </div>
                 </div>
-                <div className='md:text-xl text-base text-semi-white capitalize mt-12 flex items-center gap-1'>
-                    <div>acount details</div>
-                    <LuUserCircle className='text-light' />
+                <div className='flex gap-8 items-center w-fit overflow-hidden h-fit bg-semi-white rounded-xl capitalize md:px-8 px-4 py-4 mx-auto mt-8'>
+                    <div className='flex items-center gap-5'>
+                        <div className='flex flex-col gap-2'>
+                            <div className='md:text-[1.4rem] text-lg text-black'>Status</div>
+                            {user.email_verified === 'true' || user.kyc_verified === 'true' ?
+                                <div className='flex gap-1 items-center md:text-[0.8rem] text-xs text-zinc-700'>
+                                    <span>verified</span>
+                                    <MdVerified className={`${user.email_verified === 'true' && user.kyc_verified === 'true' ? 'text-light' : 'text-zinc-400'}`} />
+                                    {user.email_verified !== 'true' || user.kyc_verified !== 'true' ? <span>1/2</span> : <span></span>}
+                                </div>
+                                :
+                                <div className='flex gap-1 items-center md:text-[0.8rem] text-xs text-[red]'>
+                                    <span>unverified</span>
+                                    <MdSentimentVeryDissatisfied />
+                                </div>
+                            }
+                        </div>
+                        <div className='border-r-2 h-12 border-[#bebebe]'></div>
+                        <div className='flex flex-col gap-2'>
+                            <div className='md:text-[1.4rem] text-lg text-black '>joined</div>
+                            <div className='flex gap-1 items-center md:text-[0.8rem] text-xs'>
+                                <span className='text-zinc-700'>{moment(user?.createdAt).format('DD-MM-yyyy')}</span>
+                                <MdOutlineDateRange className='text-light' />
+                            </div>
+                        </div>
+                    </div>
+                    <img src={membership} className='h-auto md:w-14 w-10'></img>
                 </div>
-                <form onSubmit={submitForm} >
-                    <div className='md:w-[80%] w-11/12 mx-auto md:text-[0.85rem] text-xs mt-8 text-semi-white flex flex-col gap-6'>
+                <form onSubmit={submitForm} className='flex flex-col gap-8 mt-12'>
+                    <div className='md:text-xl text-base text-semi-white capitalize flex items-center gap-1'>
+                        <div>acount details</div>
+                        <LuUserCircle className='text-light' />
+                    </div>
+                    <div className='md:w-[80%] w-11/12 mx-auto md:text-[0.85rem] text-xs text-semi-white flex flex-col gap-6'>
                         <div className='flex items-center justify-between'>
                             <div className='capitalize'>referral id:</div>
                             <div className='flex gap-4 items-center'>

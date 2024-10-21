@@ -16,7 +16,7 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
     const BuyPlanWithBalance = async () => {
         if (!amount) return ErrorAlert('Enter an amount')
         if (isNaN(amount)) return ErrorAlert('Amount must be a number')
-        if (amount < buybal.price_start || amount > buybal.price_limit) return ErrorAlert(`${buybal.title} plan is from $${buybal.price_start} - $${buybal.price_limit}`)
+        if (amount < buybal.price_start || amount > buybal.price_limit) return ErrorAlert(`${buybal.title} plan is from $${buybal.price_start.toLocaleString()} - $${buybal.price_limit.toLocaleString()}`)
         if (Object.values(userwallet).length === 0 || amount > userwallet.balance) return ErrorAlert('Insufficient wallet balance')
 
         const formbody = {

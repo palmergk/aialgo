@@ -280,10 +280,6 @@ input[type="date"]::before {
   box-shadow: 0px 1px 6px rgb(168, 168, 168);
 }
 
-.hstsha {
-  box-shadow: 0px 1px 10px #090611;
-}
-
 .notisha {
   box-shadow: 0px 3px 5px #281a46;
 }
