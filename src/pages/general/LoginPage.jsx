@@ -11,7 +11,7 @@ import { CookieName, ErrorAlert, MoveToTop, UserRole } from '../../utils/utils'
 import { Apis, UserPostApi } from '../../services/API'
 import Cookies from 'js-cookie'
 import { decodeToken } from 'react-jwt'
-import ForgottenPassword from '../../GeneralComponents/ForgottenPassword';
+import ForgotPassword from '../../GeneralComponents/ForgotPassword';
 
 
 const LoginPage = () => {
@@ -64,7 +64,7 @@ const LoginPage = () => {
     return (
         <Pagelayout>
             <div className='py-16 bg-[whitesmoke]'>
-                {modal === true && <ForgottenPassword closeView={() => setModal(false)} />}
+                {modal && <ForgotPassword closeView={() => setModal(false)} />}
                 <div className="md:w-[85%] bg-white mx-auto py-4 rounded-xl relative shb">
                     <div className='absolute top-4 left-4 lg:block'>
                         <img src={logo} className='w-auto h-20'></img>

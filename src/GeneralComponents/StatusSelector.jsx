@@ -7,13 +7,8 @@ const StatusSelector = ({ Statuses, status, HandleFunction, select, toggle, clas
         <div className='relative'>
             <div className={`px-2 py-1 h-fit md:w-44 w-36 rounded-[3px] bg-white sha cursor-pointer ${className}`} onClick={() => toggle()} >
                 <div className='flex justify-between items-center text-[0.8rem]'>
-                    <span >{status}</span>
-                    <div className='text-sm'>
-                        {!select ? <TiArrowSortedDown />
-                            :
-                            <TiArrowSortedUp />
-                        }
-                    </div>
+                    <span>{status}</span>
+                    <div className='text-sm'>{!select ? <TiArrowSortedDown /> : <TiArrowSortedUp />}</div>
                 </div>
             </div>
             {select &&

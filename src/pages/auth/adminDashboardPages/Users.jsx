@@ -145,13 +145,13 @@ const Users = () => {
             </div>
           </div>
           <div className='flex justify-between items-center gap-4 mt-6 mb-4'>
-            <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal3(true)}>
-              <span>set referral bonus</span>
-              <RiSettings5Fill />
-            </button>
             <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal2(true)}>
               <span>create new user</span>
               <IoAddCircleSharp />
+            </button>
+            <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal3(true)}>
+              <span>set referral bonus</span>
+              <RiSettings5Fill />
             </button>
           </div>
           {dataLoading ?

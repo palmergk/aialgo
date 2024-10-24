@@ -23,7 +23,7 @@ const VerifyEmail = () => {
         })
     }
 
-    const FindEmail = async (e) => {
+    const SendOTP = async (e) => {
         e.preventDefault()
 
         if (user.email_verified === 'true') return ErrorAlert('Email address is verified')
@@ -33,7 +33,7 @@ const VerifyEmail = () => {
         }
         setLoading(true)
         try {
-            const response = await UserPostApi(Apis.user.find_email, formbody)
+            const response = await UserPostApi(Apis.user.send_otp, formbody)
             if (response.status === 200) {
                 SuccessAlert(response.msg)
                 setScreen(2)
@@ -89,7 +89,7 @@ const VerifyEmail = () => {
                         <div className='italic text-sm flex items-center gap-2'><span>Status:</span> <span className={`${user.email_verified === 'true' ? 'text-light' : 'text-[#c42e2e]'}`}>{user.email_verified === 'true' ? 'verified' : 'unverified'}</span></div>
                     </div>
                     {screen === 1 &&
-                        <form onSubmit={FindEmail}>
+                        <form onSubmit={SendOTP}>
                             <div className='flex flex-col gap-10 items-center'>
                                 <div className='flex flex-col gap-2'>
                                     <div className='text-[0.85rem] capitalize text-semi-white'> email address</div>

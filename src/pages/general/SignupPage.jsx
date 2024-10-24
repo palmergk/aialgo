@@ -132,10 +132,10 @@ const SignupPage = () => {
     }
   }
 
-  const ResendsCode = async () => {
+  const ResendOTPCode = async () => {
     setLoading(true)
     try {
-      const response = await UserPostApi(Apis.user.resend_otp, { email: form.email })
+      const response = await UserPostApi(Apis.user.send_otp, { email: form.email })
       if (response.status === 200) {
         SuccessAlert(response.msg)
       } else {
@@ -244,7 +244,7 @@ const SignupPage = () => {
                               <div className='capitalize text-[0.85rem]'>enter six digits code</div>
                               <input className='outline-none w-full h-10 border border-[grey] text-sm px-2 ipt' placeholder='Enter code here' name='verifycode' value={form.verifycode} onChange={inputHandler}></input>
                             </div>
-                            <div className='text-[0.85rem] text-right mt-2'>Didn't get code? <span className='text-orange cursor-pointer' onClick={ResendsCode}>Resend code</span></div>
+                            <div className='text-[0.85rem] text-right mt-2'>Didn't get code? <span className='text-orange cursor-pointer ml-0.5' onClick={ResendOTPCode}>Resend code</span></div>
                             <div className='flex items-center justify-center mt-12'>
                               <button className='outline-none bg-orange py-2 md:px-12 h-fit w-full md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]'>verify</button>
                             </div>

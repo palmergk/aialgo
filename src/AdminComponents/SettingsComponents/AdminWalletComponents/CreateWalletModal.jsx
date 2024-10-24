@@ -33,11 +33,12 @@ const CreateWalletModal = ({ closeView, refetchAdminWallets, cryptocurrency }) =
         if (!form.network) return ErrorAlert('Enter a network')
         if (!form.address) return ErrorAlert('Enter an address')
 
-        const formbody = new FormData()
-        formbody.append('crypto_id', crypto.id)
-        formbody.append('crypto_name', crypto.name)
-        formbody.append('network', form.network)
-        formbody.append('address', form.address)
+        const formbody = {
+            crypto_id: crypto.id,
+            crypto_name: crypto.name,
+            network: form.network,
+            address: form.address
+        }
 
         setLoading(true)
         try {
@@ -72,33 +73,30 @@ const CreateWalletModal = ({ closeView, refetchAdminWallets, cryptocurrency }) =
                                 <div className='px-2 py-1 h-fit md:w-48 w-40 bg-white sha cursor-pointer rounded-[3px]' onClick={() => setSelect(!select)} >
                                     <div className='flex justify-between items-center text-[0.8rem]'>
                                         <span>{crypto.name}</span>
-                                        <div className='text-sm'>
-                                            {!select ? <TiArrowSortedDown />
-                                                :
-                                                <TiArrowSortedUp />
-                                            }
-                                        </div>
+                                        <div className='text-sm'>{!select ? <TiArrowSortedDown /> : <TiArrowSortedUp />}</div>
                                     </div>
                                 </div>
-                                {select && <div className={`${cryptocurrency.length > 4 ? 'h-24' : 'h-fit'} overflow-y-auto scroll w-full absolute top-[1.9rem] left-0 bg-white border border-[lightgrey] rounded-md z-10 text-[0.85rem] font-bold capitalize`}>
-                                    {cryptocurrency.length > 0 ?
-                                        <>
-                                            {cryptocurrency.map((item, i) => (
-                                                <div key={i} className={`flex flex-col px-2 py-0.5  cursor-pointer hover:bg-[#ececec] ${i !== cryptocurrency.length - 1 && 'border-b border-[#ebeaea]'}`} onClick={() => { setCrypto({ name: item.crypto_name, id: item.id }); setSelect(false) }}>
-                                                    <div className='flex gap-2 items-center'>
-                                                        <img src={`${imageurl}/cryptocurrency/${item.crypto_img}`} className='h-auto w-4'></img>
-                                                        <div>{item.crypto_name}</div>
+                                {select &&
+                                    <div className={`${cryptocurrency.length > 4 ? 'h-24' : 'h-fit'} overflow-y-auto scroll w-full absolute top-[1.9rem] left-0 bg-white border border-[lightgrey] rounded-md z-10 text-[0.85rem] font-bold capitalize`}>
+                                        {cryptocurrency.length > 0 ?
+                                            <>
+                                                {cryptocurrency.map((item, i) => (
+                                                    <div key={i} className={`flex flex-col px-2 py-0.5  cursor-pointer hover:bg-[#ececec] ${i !== cryptocurrency.length - 1 && 'border-b border-[#ebeaea]'}`} onClick={() => { setCrypto({ name: item.crypto_name, id: item.id }); setSelect(false) }}>
+                                                        <div className='flex gap-2 items-center'>
+                                                            <img src={`${imageurl}/cryptocurrency/${item.crypto_img}`} className='h-auto w-4'></img>
+                                                            <div>{item.crypto_name}</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
-                                        </>
-                                        :
-                                        <div className='px-2 py-1 font-medium flex items-center gap-0.5 justify-center lowercase'>
-                                            <div>no crypto found...</div>
-                                            <SlSocialDropbox  />
-                                        </div>
-                                    }
-                                </div>}
+                                                ))}
+                                            </>
+                                            :
+                                            <div className='px-2 py-1 font-medium flex items-center gap-0.5 justify-center lowercase'>
+                                                <div>no crypto found...</div>
+                                                <SlSocialDropbox />
+                                            </div>
+                                        }
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div className='flex justify-between items-center gap-4'>

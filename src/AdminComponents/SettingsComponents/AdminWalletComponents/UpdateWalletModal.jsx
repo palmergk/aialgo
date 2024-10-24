@@ -37,11 +37,12 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
     if (!form.network) return ErrorAlert('Enter a network')
     if (!form.address) return ErrorAlert('Enter an address')
 
-    const formbody = new FormData()
-    formbody.append('wallet_id', singleWallet.id)
-    formbody.append('network', form.network)
-    formbody.append('address', form.address)
-
+    const formbody = {
+      wallet_id: singleWallet.id,
+      network: form.network,
+      address: form.address
+    }
+  
     setLoading(true)
     try {
       const response = await UserPutApi(Apis.admin.update_admin_wallet, formbody)

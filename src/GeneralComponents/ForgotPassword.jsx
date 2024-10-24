@@ -10,7 +10,7 @@ import Loading from './Loading';
 import ModalLayout from '../utils/ModalLayout';
 import { ErrorAlert, SuccessAlert } from '../utils/utils';
 
-const ForgottenPassword = ({ closeView }) => {
+const ForgotPassword = ({ closeView }) => {
     const toggler = useRef()
     const [screen, setScreen] = useState(1)
     const [eye, setEye] = useState(false)
@@ -32,16 +32,13 @@ const ForgottenPassword = ({ closeView }) => {
         })
     }
 
-    const FindEmail = async (e) => {
+    const SendOTP = async (e) => {
         e.preventDefault()
 
         if (!form.email) return ErrorAlert('Enter your email address')
-        const formbody = {
-            email: form.email
-        }
         setLoading(true)
         try {
-            const response = await UserPostApi(Apis.user.find_email, formbody)
+            const response = await UserPostApi(Apis.user.send_otp, { email: form.email })
             if (response.status === 200) {
                 SuccessAlert(response.msg)
                 setScreen(2)
@@ -114,7 +111,7 @@ const ForgottenPassword = ({ closeView }) => {
                     {loading && <Loading />}
                     {screen === 1 &&
                         <div className='md:w-[85%] w-11/12 mx-auto'>
-                            <form onSubmit={FindEmail}>
+                            <form onSubmit={SendOTP}>
                                 <div className='flex justify-center flex-col gap-2 items-center'>
                                     <div className='w-12 h-12 border-2 border-black rounded-full flex items-center justify-center'>
                                         <IoLockClosedOutline className='text-2xl' />
@@ -148,6 +145,7 @@ const ForgottenPassword = ({ closeView }) => {
                                     <div className='flex flex-col gap-2 relative'>
                                         <div className='text-xs capitalize font-[600]'>enter verification code:</div>
                                         <input className='outline-none w-full  border-b border-black lg:text-[0.9rem] text-base input-off ipt' type='text' placeholder='Six digits code' name='code' value={form.code} onChange={formHandler}></input>
+                                        <div className='text-xs text-right'>Didn't get code? <span className='text-orange cursor-pointer ml-0.5' onClick={SendOTP}>Resend code</span></div>
                                     </div>
                                     <div className='flex items-center justify-center mt-2'>
                                         <button className='outline-none bg-orange py-2 md:px-[7.5rem] h-fit md:w-fit w-full rounded-md capitalize text-[0.9rem] text-white cursor-pointer font-[550]' >verify email</button>
@@ -205,4 +203,4 @@ const ForgottenPassword = ({ closeView }) => {
     )
 }
 
-export default ForgottenPassword
+export default ForgotPassword
