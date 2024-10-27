@@ -22,7 +22,6 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
         setTimeout(() => {
             setCopy(false)
         }, 2000)
-
         navigator.clipboard.writeText(cryptoWallets?.address)
         setCopy(true)
     }
@@ -78,7 +77,7 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                     </div>
                     {Object.values(cryptoWallets).length !== 0 &&
                         <div className='flex flex-col gap-2 items-center'>
-                            <div className='text-center text-[0.85rem]'><span className='capitalize'>{cryptoWallets.crypto_name}</span> deposit address for <span className='capitalize'>{cryptoWallets.network} network:</span></div>
+                            <div className='text-center'><span className='capitalize'>{cryptoWallets.crypto_name}</span> deposit address for <span className='capitalize'>{cryptoWallets.network} network</span> below. Make the exact amount entered to the address.</div>
                             <div className='flex gap-1.5 items-center'>
                                 <div className='md:text-xs text-[0.65rem] text-[#5BB4FD]'>{cryptoWallets.address}</div>
                                 <button className='outline-none w-fit h-fit py-1.5 px-2 text-semi-white text-xs bg-[#252525] rounded-md capitalize flex items-center justify-center' onClick={() => copyFunction()}>
@@ -88,12 +87,7 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                         </div>
                     }
                     {Object.values(cryptoWallets).length !== 0 &&
-                        <div>
-                            <div className='text-center text-[0.85rem] italic mb-1'>or scan qr code:</div>
-                            <div className='flex items-center justify-center'>
-                                <QRCode value={cryptoWallets.address} className='h-32 w-auto' />
-                            </div>
-                        </div>
+                        <QRCode value={cryptoWallets.address} className='h-32 w-auto mx-auto' />
                     }
                     <div className='mx-auto my-3'>
                         <button className='outline-none w-fit h-fit py-2 px-14 text-xs text-semi-white bg-[#252525] rounded-md capitalize font-medium' onClick={ConfirmTaxPayment}>confirm payment</button>

@@ -110,12 +110,6 @@ const Profile = () => {
         setUserEdit(false)
         setSelect(false)
         setCommit(false)
-
-        imgref.current.value = null
-        setProfile({
-            img: user.image ? `${imageurl}/profiles/${user?.image}` : avatar,
-            image: user.image ? user.image : null
-        })
         setForm({
             full_name: user?.full_name,
             email: user?.email,
@@ -123,13 +117,17 @@ const Profile = () => {
             old_password: '',
             new_password: '',
         })
+        imgref.current.value = null
+        setProfile({
+            img: user.image ? `${imageurl}/profiles/${user?.image}` : avatar,
+            image: user.image ? user.image : null
+        })
     }
 
     const copyFunction = () => {
         setTimeout(() => {
             setCopy(false)
         }, 2000)
-
         navigator.clipboard.writeText(user?.referral_id)
         setCopy(true)
     }

@@ -99,12 +99,6 @@ const Personalize = () => {
   const cancelChanges = () => {
     setCommit(false)
     setSelect(false)
-    imgref.current.value = null
-
-    setProfile({
-      img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
-      image: user.image ? user.image : null
-    })
     setForm({
       full_name: user?.full_name,
       email: user?.email,
@@ -114,6 +108,11 @@ const Personalize = () => {
       facebook: adminStore?.facebook,
       instagram: adminStore?.instagram,
       telegram: adminStore?.telegram
+    })
+    imgref.current.value = null
+    setProfile({
+      img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
+      image: user.image ? user.image : null
     })
   }
 
