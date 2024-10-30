@@ -35,8 +35,6 @@ const AddWallet = () => {
 
     } catch (error) {
       //
-    } finally {
-      setDataLoading(false)
     }
   }, [])
 
@@ -57,6 +55,8 @@ const AddWallet = () => {
 
     } catch (error) {
       //
+    } finally {
+      setDataLoading(false)
     }
   }, [])
 

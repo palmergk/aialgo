@@ -18,7 +18,6 @@ import CryptoSelector from '../../../GeneralComponents/CryptoSelector'
 import { SlSocialDropbox } from 'react-icons/sl'
 
 
-
 const Withdraw = () => {
     const [user] = useAtom(PROFILE)
     const [userwallet, setUserWallet] = useAtom(WALLET)

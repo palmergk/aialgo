@@ -15,6 +15,7 @@ import { ErrorAlert, SuccessAlert } from '../../../../utils/utils'
 import SettingsLayout from '../../../../AdminComponents/SettingsComponents/SettingsLayout'
 import { RiDeleteBin2Line } from 'react-icons/ri';
 
+
 const Personalize = () => {
   const [user, setUser] = useAtom(PROFILE)
   const [adminStore, setAdminStore] = useAtom(ADMINSTORE)

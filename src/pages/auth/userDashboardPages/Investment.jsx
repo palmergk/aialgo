@@ -16,7 +16,6 @@ import { LuFileStack } from 'react-icons/lu';
 import { SlSocialDropbox } from 'react-icons/sl';
 
 
-
 const Investment = () => {
     const [searchParams] = useSearchParams()
     const params = searchParams.get('screen')

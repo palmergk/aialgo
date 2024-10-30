@@ -25,6 +25,7 @@ const MaritalStatus = [
     "seperated"
 ]
 
+
 const VerifyKYC = () => {
     const [, setNotifications] = useAtom(NOTIFICATIONS)
     const [, setUnreadNotis] = useAtom(UNREADNOTIS)
@@ -101,7 +102,7 @@ const VerifyKYC = () => {
 
         if (!file.type.startsWith('image/')) {
             idref.current.value = null
-            return ErrorAlert('File error, invalid image format.')
+            return ErrorAlert('File error, upload a valid image format (jpg, jpeg, png, svg)')
         }
         setId(file)
     }

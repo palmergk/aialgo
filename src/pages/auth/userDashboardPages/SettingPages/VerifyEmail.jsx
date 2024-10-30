@@ -7,6 +7,7 @@ import { useAtom } from 'jotai';
 import Loading from '../../../../GeneralComponents/Loading';
 import SettingsLayout from '../../../../UserComponents/SettingsLayout';
 
+
 const VerifyEmail = () => {
     const [user, setUser] = useAtom(PROFILE)
     const [screen, setScreen] = useState(1)

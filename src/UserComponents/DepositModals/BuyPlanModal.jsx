@@ -52,7 +52,7 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
                         ${buybal.price_start.toLocaleString()} - ${buybal.price_limit.toLocaleString()}
                     </div>}
                 </div>
-                <div className='flex flex-col gap-4 md:w-[90%] w-11/12 mx-auto mt-5'>
+                <div className='flex flex-col gap-4 px-4 mt-5'>
                     <div className='relative flex gap-3 items-center mx-auto'>
                         <div className='flex flex-col gap-1'>
                             <div className='capitalize text-[0.8rem] font-medium'>enter an amount ($)</div>
