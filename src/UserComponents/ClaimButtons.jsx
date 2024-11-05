@@ -59,7 +59,7 @@ const ClaimButtons = ({ item, refetchInvestments, refetchInvestmentsUnclaim }) =
 
     return (
         <div className='relative w-fit'>
-            <button className='outline-none py-2 px-6 text-xs font-medium text-semi-white bg-[#241a49]  hover:bg-[#17112e] rounded-full flex items-center gap-1' onClick={ClaimingInvestment}>
+            <button className='outline-none py-2 px-5 text-xs font-medium text-semi-white bg-[#241a49]  hover:bg-[#17112e] rounded-full flex items-center gap-1' onClick={ClaimingInvestment}>
                 <span>{claim.id === item.id && claim.status === 'true' ? 'Claimed' : 'Claim to wallet'}</span>
                 {claim.id === item.id && claim.status === 'true' ?
                     <IoMdCheckmarkCircleOutline className='text-[#52e652] text-sm' />

@@ -20,7 +20,6 @@ const SetDepositMinimum = ({ closeView }) => {
         const formbody = {
             deposit_minimum: parseFloat(amount)
         }
-
         setLoading(true)
         try {
             const response = await UserPutApi(Apis.admin.update_admin_store, formbody)

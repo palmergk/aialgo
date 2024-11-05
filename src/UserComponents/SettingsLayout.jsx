@@ -4,8 +4,8 @@ import Dashboard from '../pages/auth/userDashboardPages/Dashboard'
 
 
 const VerifyLinks = [
-    { path: 'profile', url: '/dashboard/settings/profile' },
-    { path: 'verify email', url: '/dashboard/settings/email-verify' },
+    { path: 'personalize', url: '/dashboard/settings/personalize' },
+    { path: 'verify email', url: '/dashboard/settings/verify-email' },
     { path: 'verify kyc', url: '/dashboard/settings/kyc' },
 ]
 

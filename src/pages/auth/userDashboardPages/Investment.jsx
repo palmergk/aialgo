@@ -160,64 +160,65 @@ const Investment = () => {
                             :
                             <>
                                 <div>
-                                    {investmentUnclaim.length > 0 ? <div>
-                                        {investmentUnclaim.map((item, i) => (
-                                            <div className='flex flex-col gap-4 mt-10' key={i}>
-                                                <div className='flex gap-2 items-center'>
-                                                    <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('DD-MM-yyyy')}</div>
-                                                    <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('h:mm')}</div>
-                                                </div>
-                                                <div className='flex flex-wrap gap-4 items-center justify-center'>
-                                                    <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
-                                                        <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>amount</div>
-                                                        <div className='flex justify-between items-center gap-2 font-bold'>
-                                                            <div className='flex items-center'>
-                                                                <BsCurrencyDollar />
-                                                                <div className='-ml-1'>{item.amount.toLocaleString()}</div>
-                                                            </div>
-                                                            <img src={lines} className='md:w-16 w-12 h-auto'></img>
-                                                        </div>
+                                    {investmentUnclaim.length > 0 ?
+                                        <>
+                                            {investmentUnclaim.map((item, i) => (
+                                                <div className='flex flex-col gap-4 mt-10' key={i}>
+                                                    <div className='flex gap-2 items-center'>
+                                                        <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('DD-MM-yyyy')}</div>
+                                                        <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('h:mm')}</div>
                                                     </div>
-                                                    <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
-                                                        <div className='flex justify-between'>
-                                                            <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>profit/ROI</div>
-                                                            <div className={`italic md:text-xs text-[0.65rem] ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
-                                                        </div>
-                                                        <div className='flex justify-between items-center gap-2 font-bold'>
-                                                            <div className='flex items-center'>
-                                                                <BsCurrencyDollar />
-                                                                <div className='-ml-1'>{item.profit.toLocaleString()}</div>
-                                                            </div>
-                                                            <img src={lines} className='md:w-16 w-12 h-auto'></img>
-                                                        </div>
-                                                    </div>
-                                                    <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
-                                                        <div className='flex justify-between'>
-                                                            <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>bonus</div>
-                                                            <div className={`italic md:text-xs text-[0.65rem] ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
-                                                        </div>
-                                                        <div className='flex justify-between items-center gap-2 font-bold'>
-                                                            <div>
+                                                    <div className='flex flex-wrap gap-4 items-center justify-center'>
+                                                        <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
+                                                            <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>amount</div>
+                                                            <div className='flex justify-between items-center gap-2 font-bold'>
                                                                 <div className='flex items-center'>
                                                                     <BsCurrencyDollar />
-                                                                    <div className='-ml-1'>{item.bonus.toLocaleString()}</div>
+                                                                    <div className='-ml-1'>{item.amount.toLocaleString()}</div>
                                                                 </div>
+                                                                <img src={lines} className='md:w-16 w-12 h-auto'></img>
                                                             </div>
-                                                            <img src={lines} className='md:w-16 w-12 h-auto'></img>
+                                                        </div>
+                                                        <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
+                                                            <div className='flex justify-between'>
+                                                                <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>profit/ROI</div>
+                                                                <div className={`italic md:text-xs text-[0.65rem] ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
+                                                            </div>
+                                                            <div className='flex justify-between items-center gap-2 font-bold'>
+                                                                <div className='flex items-center'>
+                                                                    <BsCurrencyDollar />
+                                                                    <div className='-ml-1'>{item.profit.toLocaleString()}</div>
+                                                                </div>
+                                                                <img src={lines} className='md:w-16 w-12 h-auto'></img>
+                                                            </div>
+                                                        </div>
+                                                        <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
+                                                            <div className='flex justify-between'>
+                                                                <div className='capitalize md:text-[0.9rem] text-xs font-[600]'>bonus</div>
+                                                                <div className={`italic md:text-xs text-[0.65rem] ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
+                                                            </div>
+                                                            <div className='flex justify-between items-center gap-2 font-bold'>
+                                                                <div>
+                                                                    <div className='flex items-center'>
+                                                                        <BsCurrencyDollar />
+                                                                        <div className='-ml-1'>{item.bonus.toLocaleString()}</div>
+                                                                    </div>
+                                                                </div>
+                                                                <img src={lines} className='md:w-16 w-12 h-auto'></img>
+                                                            </div>
+                                                        </div>
+                                                        <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-[0.9rem] text-xs py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
+                                                            <div className='font-[600] capitalize'>trading plan</div>
+                                                            <div className='flex justify-between items-center gap-2'>
+                                                                <div className='capitalize font-bold'>{item.trading_plan}</div>
+                                                                <img src={lines} className='md:w-16 w-12 h-auto'></img>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-[0.9rem] text-xs py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
-                                                        <div className='font-[600] capitalize'>trading plan</div>
-                                                        <div className='flex justify-between items-center gap-2'>
-                                                            <div className='capitalize font-bold'>{item.trading_plan}</div>
-                                                            <img src={lines} className='md:w-16 w-12 h-auto'></img>
-                                                        </div>
-                                                    </div>
+                                                    <ClaimButtons item={item} refetchInvestments={FetchInvestment} refetchInvestmentsUnclaim={FetchInvestmentUnclaim} />
                                                 </div>
-                                                <ClaimButtons item={item} refetchInvestments={FetchInvestment} refetchInvestmentsUnclaim={FetchInvestmentUnclaim} />
-                                            </div>
-                                        ))}
-                                    </div>
+                                            ))}
+                                        </>
                                         :
                                         <div className='mt-16'>
                                             <div className='w-fit h-fit rounded-xl flex flex-col items-center justify-center py-4 px-8 md:px-16 text-semi-white gap-4 border border-dashed border-[grey] bg-[#130e27] mx-auto'>

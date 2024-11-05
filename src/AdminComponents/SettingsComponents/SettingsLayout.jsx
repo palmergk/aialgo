@@ -4,7 +4,7 @@ import AdminDashboard from '../../pages/auth/adminDashboardPages/AdminDashboard'
 
 
 const SettingsLinks = [
-  { path: 'wallets', url: '/admin-controls/settings' },
+  { path: 'wallets', url: '/admin-controls/settings/wallets' },
   { path: 'packages', url: '/admin-controls/settings/packages' },
   { path: 'personalize', url: '/admin-controls/settings/personalize' },
 ]

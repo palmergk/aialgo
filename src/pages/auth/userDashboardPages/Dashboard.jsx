@@ -31,7 +31,7 @@ const MainLinks = [
 ]
 
 const OtherLinks = [
-    { path: 'settings', url: '/dashboard/settings/profile', icon: IoSettingsOutline },
+    { path: 'settings', url: '/dashboard/settings/personalize', icon: IoSettingsOutline },
     { path: 'feedback', url: '/dashboard/feedback', icon: LuSend },
 ]
 
@@ -201,7 +201,7 @@ const Dashboard = ({ children }) => {
                         <div className='flex flex-col gap-4'>
                             <div className='w-full h-fit rounded-md bg-[#130e27] py-2 px-4 text-light text-[0.85rem] flex items-center justify-between mt-4 relative'>
                                 <div className='flex gap-2 items-center'>
-                                    <Link className='xl:hidden cursor-pointer' to='/dashboard/settings/profile'>
+                                    <Link className='xl:hidden cursor-pointer' to='/dashboard/settings/personalize'>
                                         <img src={user.image ? `${imageurl}/profiles/${user.image}` : avatar} className='w-10 h-10 object-cover rounded-full border border-light'></img>
                                     </Link>
                                     <div className='capitalize font-medium'>hi, {user?.username}</div>
@@ -218,7 +218,11 @@ const Dashboard = ({ children }) => {
                                 <FaAngleRight className='text-[0.6rem]' />
                                 {location.pathname === '/dashboard' && <span>wallet</span>}
                                 {location.pathname.includes('/dashboard/settings') ?
-                                    <span>{location.pathname.slice(11, 19)}</span>
+                                    <div className='flex gap-1.5 items-center'>
+                                        <span>{location.pathname.slice(11, 19)}</span>
+                                        <FaAngleRight className='text-[0.6rem]' />
+                                        <span>{location.pathname.slice(20)}</span>
+                                    </div>
                                     :
                                     <span>{location.pathname.slice(11)}</span>
                                 }
@@ -254,7 +258,7 @@ const Dashboard = ({ children }) => {
                             {user.email_verified === 'true' && user.kyc_verified === 'true' && <MdVerified className='text-light text-xs' />}
                         </div>
                         <div className='text-[grey] text-[0.8rem] font-medium lowercase -mt-2 '>{user?.email}</div>
-                        <Link to='/dashboard/settings/profile' onClick={MoveToTop}>
+                        <Link to='/dashboard/settings/personalize' onClick={MoveToTop}>
                             <div className=' cursor-pointer text-[0.85rem] text-light border-light mt-2'>edit profile</div>
                         </Link>
                     </div>

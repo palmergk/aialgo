@@ -30,7 +30,7 @@ const MainLinks = [
 
 const OtherLinks = [
   { path: 'taxes', url: '/admin-controls/taxes', icon: TbReceiptTax },
-  { path: 'settings', url: '/admin-controls/settings', icon: IoSettingsOutline },
+  { path: 'settings', url: '/admin-controls/settings/wallets', icon: IoSettingsOutline },
 ]
 
 const toggleArray = [
@@ -183,7 +183,11 @@ const AdminDashboard = ({ children }) => {
                 <FaAngleRight className='text-[0.6rem]' />
                 {location.pathname === '/admin-controls' && <span>deposits</span>}
                 {location.pathname.includes('/admin-controls/settings') ?
-                  <span>{location.pathname.slice(16, 24)}</span>
+                  <div className='flex gap-1.5 items-center'>
+                    <span>{location.pathname.slice(16, 24)}</span>
+                    <FaAngleRight className='text-[0.6rem]' />
+                    <span>{location.pathname.slice(25)}</span>
+                  </div>
                   :
                   <span>{location.pathname.slice(16)}</span>
                 }

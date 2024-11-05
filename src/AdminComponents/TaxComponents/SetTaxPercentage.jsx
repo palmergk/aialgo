@@ -20,7 +20,6 @@ const SetTaxPercentage = ({ closeView }) => {
         const formbody = {
             tax_percentage: parseFloat(amount),
         }
-
         setLoading(true)
         try {
             const response = await UserPutApi(Apis.admin.update_admin_store, formbody)

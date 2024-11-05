@@ -47,8 +47,8 @@ export const UserDashboardPagesLinks = [
     { path: dashboard + '/withdraw', component: Withdraw },
     { path: dashboard + '/feedback', component: Feedback },
     { path: dashboard + '/tax-payment', component: TaxPayment },
-    { path: dashboard + settings + '/profile', component: Profile },
-    { path: dashboard + settings + '/email-verify', component: VerifyEmail },
+    { path: dashboard + settings + '/personalize', component: Profile },
+    { path: dashboard + settings + '/verify-email', component: VerifyEmail },
     { path: dashboard + settings + '/kyc', component: VerifyKYC },
 ]
 
@@ -60,7 +60,7 @@ export const AdminDashboardPagesLinks = [
     { path: admin + '/withdrawals', component: Withdrawals },
     { path: admin + '/users', component: Users },
     { path: admin + '/taxes', component: Taxes },
-    { path: admin + settings, component: AddWallet },
+    { path: admin + settings + '/wallets', component: AddWallet },
     { path: admin + settings + '/packages', component: Package },
     { path: admin + settings + '/personalize', component: Personalize },
 ]
