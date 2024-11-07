@@ -76,8 +76,8 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
     }
 
     const GenerateWithdrawalMessage = () => {
-        const TaxAmount = singleWithdrawal.amount * adminStore.tax_percentage / 100
-        setMessage(`To complete your withdrawal amount of $${singleWithdrawal.amount}, you must pay a ${adminStore.tax_percentage}% tax fee of $${TaxAmount}.`)
+        const taxAmount = singleWithdrawal.amount * adminStore.tax_percentage / 100
+        setMessage(`To complete your withdrawal amount of $${singleWithdrawal.amount.toLocaleString()}, you must pay a ${adminStore.tax_percentage}% tax fee of $${taxAmount.toLocaleString()}.`)
         setUpdate(true)
     }
 

@@ -19,28 +19,28 @@ const CountComponent = () => {
 
             if (userCount < 1) {
                 let countOne = setInterval(() => {
-                    if (index === 44) {
+                    if (index === 42) {
                         clearInterval(countOne)
                     } else {
-                        index += 4
+                        index += 2
                         setUserCount(index)
                     }
                 }, 100)
 
                 let countTwo = setInterval(() => {
-                    if (index2 === 320) {
+                    if (index2 === 210) {
                         clearInterval(countTwo)
                     } else {
-                        index2 +=32
+                        index2 +=10
                         setDailyCount(index2)
                     }
                 }, 100)
 
                 let countThree = setInterval(() => {
-                    if (index3 === 2.24) {
+                    if (index3 >= 1.5) {
                         clearInterval(countThree)
                     } else {
-                        index3 += 0.224
+                        index3 += 0.075
                         setWeeklyCount(index3)
                     }
                 }, 100)
@@ -86,7 +86,7 @@ const CountComponent = () => {
                     <div className='capitalize text-xs font-bold text-[#c0bebe]'>daily investments</div>
                 </div>
                 <div className='flex flex-col gap-1 items-center'>
-                    <div className='md:text-5xl text-4xl font-extrabold text-white'>{weeklyCount}M<span className='font-[500]'></span></div>
+                    <div className='md:text-5xl text-4xl font-extrabold text-white'>{weeklyCount.toFixed(2)}M<span className='font-[500]'></span></div>
                     <div className='capitalize text-xs font-bold text-[#c0bebe]'>weekly investments</div>
                 </div>
                 <div className='flex flex-col gap-1 items-center'>

@@ -21,20 +21,16 @@ const CryptoSelector = ({ setCryptoWallets, className }) => {
             </div>
             {select &&
                 <div className={`absolute top-9 left-0 overflow-x-hidden ${adminCryptoWallets.length > 3 ? 'h-[5.6rem] overflow-y-auto scroll' : 'h-fit'} w-full bg-white border border-[#a3a3a3] rounded-md z-10 text-[0.85rem] font-bold capitalize`}>
-                    {adminCryptoWallets.length > 1 ?
+                    {adminCryptoWallets.length > 0 ?
                         <>
                             {mode === 1 ?
                                 <>
-                                    {adminCryptoWallets.length > 0 &&
-                                        <>
-                                            {adminCryptoWallets.map((item, i) => (
-                                                <div className='flex gap-2 items-center px-2 py-0.5 hover:bg-[#ececec] border-b border-[#ebeaea] cursor-pointer' key={i} onClick={() => { setObjArray(item); setMode(2) }}>
-                                                    <img src={`${imageurl}/cryptocurrency/${item.crypto_img}`} className='h-auto w-4'></img>
-                                                    <div>{item.crypto_name}</div>
-                                                </div>
-                                            ))}
-                                        </>
-                                    }
+                                    {adminCryptoWallets.map((item, i) => (
+                                        <div className='flex gap-2 items-center px-2 py-0.5 hover:bg-[#ececec] border-b border-[#ebeaea] cursor-pointer' key={i} onClick={() => { setObjArray(item); setMode(2) }}>
+                                            <img src={`${imageurl}/cryptocurrency/${item.crypto_img}`} className='h-auto w-4'></img>
+                                            <div>{item.crypto_name}</div>
+                                        </div>
+                                    ))}
                                 </>
                                 :
                                 <div className='relative'>
