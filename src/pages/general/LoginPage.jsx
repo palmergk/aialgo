@@ -74,7 +74,7 @@ const LoginPage = () => {
                             <div className='loginBg rounded-xl flex items-center lg:h-[40rem] h-fit py-16'>
                                 <div className='w-11/12 mx-auto'>
                                     <div className='bg-white h-fit rounded-[20px] w-full lg:w-[39vw] lg:absolute lg:top-[3.1rem] lg:right-16 lg:shadow-sign py-16 lg:pt-16 lg:pb-24 overflow-hidden'>
-                                        <div className='relative w-full h-full'>
+                                        <div className='relative'>
                                             {loading && <Loading />}
                                             <div className='w-11/12 md:w-[70%] mx-auto'>
                                                 <div className='flex gap-2 items-center justify-center'>

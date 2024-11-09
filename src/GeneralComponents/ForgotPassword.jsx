@@ -17,6 +17,7 @@ const ForgotPassword = ({ closeView }) => {
     const [eye2, setEye2] = useState(false)
     const EyeIcon = eye === true ? IoEye : IoMdEyeOff
     const EyeIcon2 = eye2 === true ? IoEye : IoMdEyeOff
+    const [seconds, setSeconds] = useState(0)
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         email: '',
@@ -42,6 +43,7 @@ const ForgotPassword = ({ closeView }) => {
             if (response.status === 200) {
                 SuccessAlert(response.msg)
                 setScreen(2)
+                DelayResend()
             } else {
                 ErrorAlert(response.msg)
             }
@@ -50,6 +52,19 @@ const ForgotPassword = ({ closeView }) => {
         } finally {
             setLoading(false)
         }
+    }
+
+    const DelayResend = () => {
+        setSeconds(59)
+        let altsec = 59
+        let delay = setInterval(() => {
+            if (altsec === 0) {
+                clearInterval(delay)
+            } else {
+                altsec -= 1
+                setSeconds(altsec)
+            }
+        }, 1000)
     }
 
     const VerifyOTP = async (e) => {
@@ -139,13 +154,18 @@ const ForgotPassword = ({ closeView }) => {
                                         <MdVerified className='text-[1.7rem]' />
                                     </div>
                                     <div className='text-[0.9rem] font-extrabold'>Verify your email address</div>
-                                    <div className='text-center text-[0.8rem] font-[600]'>A verification code was sent to your email address, copy and paste the code below</div>
+                                    <div className='text-center text-[0.8rem] font-[600]'>A verification code was sent to your email address, enter the code below</div>
                                 </div>
                                 <div className='flex flex-col gap-5 mt-8'>
                                     <div className='flex flex-col gap-2 relative'>
                                         <div className='text-xs capitalize font-[600]'>enter verification code:</div>
                                         <input className='outline-none w-full  border-b border-black lg:text-[0.9rem] text-base input-off ipt' type='text' placeholder='Six digits code' name='code' value={form.code} onChange={formHandler}></input>
-                                        <div className='text-xs text-right'>Didn't get code? <span className='text-orange cursor-pointer ml-0.5' onClick={SendOTP}>Resend code</span></div>
+                                        <div className='text-xs flex justify-end gap-2 text-gray-600'>
+                                            {seconds > 0 && <span>00:{seconds < 10 && '0'}{seconds}</span>}
+                                            {seconds > 0 ?<span>Resend code</span>
+                                            :
+                                            <span className='text-orange cursor-pointer' onClick={SendOTP}>Resend code</span>}
+                                        </div>
                                     </div>
                                     <div className='flex items-center justify-center mt-2'>
                                         <button className='outline-none bg-orange py-2 md:px-[7.5rem] h-fit md:w-fit w-full rounded-md capitalize text-[0.9rem] text-white cursor-pointer font-[550]' >verify email</button>
@@ -168,12 +188,12 @@ const ForgotPassword = ({ closeView }) => {
                                     <div className='flex flex-col gap-2 relative'>
                                         <div className='text-xs capitalize font-[600]'>create new password</div>
                                         <input className='outline-none w-full  border-b border-black lg:text-[0.9rem] text-base input-off  ipt' type={eye === true ? 'text' : 'password'} placeholder='Six or more characters' name='new_password' value={form.new_password} onChange={formHandler}></input>
-                                        <EyeIcon className='absolute bottom-0 right-0 text-base text-orange cursor-pointer' onClick={() => setEye(!eye)} />
+                                        <EyeIcon className='absolute bottom-0 right-0 text-lg text-orange cursor-pointer' onClick={() => setEye(!eye)} />
                                     </div>
                                     <div className='flex flex-col gap-2 relative'>
                                         <div className='text-xs capitalize font-[600]'>confirm password</div>
                                         <input className='outline-none w-full  border-b border-black lg:text-[0.9rem] text-base input-off ipt' type={eye2 === true ? 'text' : 'password'} placeholder='Re-type password' name='confirm_password' value={form.confirm_password} onChange={formHandler}></input>
-                                        <EyeIcon2 className='absolute bottom-0 right-0 text-base text-orange cursor-pointer' onClick={() => setEye2(!eye2)} />
+                                        <EyeIcon2 className='absolute bottom-0 right-0 text-lg text-orange cursor-pointer' onClick={() => setEye2(!eye2)} />
                                     </div>
                                     <div className='flex items-center justify-center mt-2'>
                                         <button className='outline-none bg-orange py-2 md:px-24 h-fit ,md:w-fit w-full rounded-md capitalize text-[0.8rem] text-white cursor-pointer font-[550]'>change password</button>

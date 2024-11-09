@@ -11,7 +11,7 @@ const user_urls = {
     signup: user + 'create-account',
     login: user + 'login-account',
     profile: user + 'profile',
-    validate_email: user + 'validate-email',
+    verify_email: user + 'verify-email',
     send_otp: user + 'send-otp',
     verify_otp: user + 'verify-otp',
     change_password: user + 'change-password',

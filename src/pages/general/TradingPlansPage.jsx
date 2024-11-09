@@ -34,7 +34,7 @@ const TradingPlansPage = () => {
             <div className='z-20 font-bold capitalize text-4xl lg:text-5xl text-center'>trading plans</div>
             <div className='md:text-[1.1rem] text-center'>- Below are the different trading plans on the AI Algorithm Trading System -</div>
           </div>
-          <div className='flex flex-wrap gap-12 mt-20 text-[#30465c] justify-center'>
+          <div className='flex flex-wrap gap-12 md:mt-20 mt-14 text-[#30465c] justify-center'>
             {loading ?
               <>
                 {new Array(3).fill(0).map((ele, i) => (
@@ -66,7 +66,7 @@ const TradingPlansPage = () => {
                             <div className='border-b border-[#a5a3a3] w-full'></div>
                             <div className='text text-center'><span className='italic text-[0.8rem]'>Profit:</span> {item.profit_return}% return on investment plus additional bonus up to ${item.plan_bonus}.</div>
                             <Link to='/signup' onClick={MoveToTop} className='flex items-center justify-center'>
-                              <button className={`w-fit h-fit py-4 px-8 rounded-full capitalize  hover:translate-y-[-2px] transition-all ${item.price_start === 1000 || item.title === 'test run' ? 'bg-white text-[#30465c]  ' : 'bg-[#30465c] text-white'}`}>
+                              <button className={`w-fit h-fit py-4 px-8 rounded-full capitalize hover:scale-90 transition-all ${item.price_start === 1000 || item.title === 'test run' ? 'bg-white text-[#30465c]  ' : 'bg-[#30465c] text-white'}`}>
                                 join now
                               </button>
                             </Link>

@@ -11,6 +11,7 @@ import SettingsLayout from '../../../../UserComponents/SettingsLayout';
 const VerifyEmail = () => {
     const [user, setUser] = useAtom(PROFILE)
     const [screen, setScreen] = useState(1)
+    const [seconds, setSeconds] = useState(0)
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         email: user?.email,
@@ -29,15 +30,14 @@ const VerifyEmail = () => {
 
         if (user.email_verified === 'true') return ErrorAlert('Email address is verified')
         if (!form.email) return ErrorAlert('Enter your email address')
-        const formbody = {
-            email: form.email
-        }
+
         setLoading(true)
         try {
-            const response = await UserPostApi(Apis.user.send_otp, formbody)
+            const response = await UserPostApi(Apis.user.send_otp, { email: form.email })
             if (response.status === 200) {
                 SuccessAlert(response.msg)
                 setScreen(2)
+                DelayResend()
             } else {
                 ErrorAlert(response.msg)
             }
@@ -46,6 +46,19 @@ const VerifyEmail = () => {
         } finally {
             setLoading(false)
         }
+    }
+
+    const DelayResend = () => {
+        setSeconds(59)
+        let altsec = 59
+        let delay = setInterval(() => {
+            if (altsec === 0) {
+                clearInterval(delay)
+            } else {
+                altsec -= 1
+                setSeconds(altsec)
+            }
+        }, 1000)
     }
 
     const VerifyEmail = async e => {
@@ -104,11 +117,17 @@ const VerifyEmail = () => {
                     }
                     {screen === 2 &&
                         <form onSubmit={VerifyEmail}>
-                            <div className='flex flex-col gap-10 items-center'>
+                            <div className='flex flex-col gap-8 items-center'>
                                 <div className='flex flex-col gap-4 items-center'>
                                     <div className='text-[0.85rem]  text-semi-white text-center'> A six digits verification code was sent to <span className='text-[#7665D5]'>{form.email?.slice(0, 3)}*****{form.email?.slice(-10)}</span>, copy and enter below</div>
                                     <div className='relative'>
                                         <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-base text-semi-white ipt' type='text' placeholder='Enter verification code' name='code' value={form.code} onChange={formHandler}></input>
+                                        <div className='text-[0.8rem] flex justify-end gap-2 mt-2 text-gray-500'>
+                                            {seconds > 0 && <span>00:{seconds < 10 && '0'}{seconds}</span>}
+                                            {seconds > 0 ? <span>Resend code</span>
+                                                :
+                                                <span className='text-light cursor-pointer' onClick={SendOTP}>Resend code</span>}
+                                        </div>
                                     </div>
                                 </div>
                                 <button className='outline-none bg-light py-2 px-8 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-semibold'>verify</button>
