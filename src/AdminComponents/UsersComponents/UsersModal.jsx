@@ -192,7 +192,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                     <div className='flex flex-col gap-8'>
                                         <div className='flex flex-col gap-4 border p-1'>
                                             <div className='uppercase font-bold border px-1'>user details:</div>
-                                            <div className='md:w-24 md:h-24 w-20 h-20 p-0.5 rounded-full bg-[#c9b8eb] mx-auto' >
+                                            <div className='md:w-24 md:h-24 w-20 h-20 rounded-full border-2 border-[#c9b8eb] mx-auto' >
                                                 {Object.values(singleUser).length !== 0 &&
                                                     <>
                                                         {singleUser.image ?

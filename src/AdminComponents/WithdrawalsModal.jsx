@@ -2,15 +2,15 @@ import React, { useEffect, useRef, useState } from 'react'
 import Loading from '../GeneralComponents/Loading'
 import { Apis, UserPutApi, imageurl } from '../services/API'
 import moment from 'moment'
-import { FaCheck, FaXmark } from 'react-icons/fa6'
+import { FaXmark } from 'react-icons/fa6'
 import { ErrorAlert, SuccessAlert } from '../utils/utils'
-import { MdContentCopy } from 'react-icons/md'
 import avatar from '../assets/images/avatar.png'
 import ModalLayout from '../utils/ModalLayout'
 import { useAtom } from 'jotai'
 import { ADMINSTORE } from '../store'
 import { RiAiGenerate } from 'react-icons/ri'
 import StatusSelector from '../GeneralComponents/StatusSelector'
+import CopyButton from '../GeneralComponents/CopyButton'
 
 
 const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }) => {
@@ -20,7 +20,6 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
     const [select, setSelect] = useState(false)
     const [update, setUpdate] = useState(false)
     const [beforeshow, setBeforeshow] = useState(true)
-    const [copy, setCopy] = useState(false)
     const [loading, setLoading] = useState(false)
     const toggler = useRef()
 
@@ -48,15 +47,6 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
             }
         }
     }, [MoveToBottom])
-
-
-    const copyFunction = () => {
-        setTimeout(() => {
-            setCopy(false)
-        }, 2000)
-        navigator.clipboard.writeText(singleWithdrawal.withdrawal_address)
-        setCopy(true)
-    }
 
     const UpdateHandlerForText = () => {
         if (message === '' && status === singleWithdrawal.status) {
@@ -118,7 +108,7 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                             <div className='md:w-[90%] w-11/12 mx-auto md:py-8 py-4 flex flex-col gap-8 md:text-[0.9rem] text-[0.8rem]'>
                                 <div className='flex flex-col gap-4 border p-1'>
                                     <div className='uppercase font-bold border px-1'>user details:</div>
-                                    <div className='md:w-24 md:h-24 w-20 h-20 p-0.5 rounded-full bg-[#c9b8eb] mx-auto'>
+                                    <div className='md:w-24 md:h-24 w-20 h-20 rounded-full border-2 border-[#c9b8eb] mx-auto'>
                                         {Object.values(singleWithdrawal).length !== 0 &&
                                             <>
                                                 {singleWithdrawal.wthUser.image ? <img src={`${imageurl}/profiles/${singleWithdrawal.wthUser.image}`} className='w-full h-full rounded-full object-cover'></img>
@@ -158,10 +148,7 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                                             <div className='italic '>withdrawal address:</div>
                                             <div className='flex gap-1.5 items-center'>
                                                 {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{singleWithdrawal.withdrawal_address?.slice(0, 5)}.....{singleWithdrawal.withdrawal_address?.slice(-8)}</div>}
-                                                <button className='outline-none w-fit h-fit py-2 px-2.5 text-[0.8rem] text-black bg-[#c9b8eb] rounded-md capitalize flex items-center justify-center' onClick={() => copyFunction()}>
-                                                    {!copy && <MdContentCopy />}
-                                                    {copy && <FaCheck />}
-                                                </button>
+                                                <CopyButton content={singleWithdrawal.withdrawal_address} className='!bg-[#c9b8eb] !text-black' />
                                             </div>
                                         </div>
                                         <div className='flex justify-between items-center gap-4'>

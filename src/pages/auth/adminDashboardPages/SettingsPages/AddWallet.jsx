@@ -24,6 +24,7 @@ const AddWallet = () => {
   const [pagestart, setpagestart] = useState(1)
   const [pageend, setpageend] = useState(0)
   const [dataLoading, setDataLoading] = useState(true)
+  const [dataLoading2, setDataLoading2] = useState(true)
 
 
   const FetchCryptocurrency = useCallback(async () => {
@@ -32,9 +33,10 @@ const AddWallet = () => {
       if (response.status === 200) {
         setCryptocurrency(response.msg)
       }
-
     } catch (error) {
       //
+    } finally {
+      setDataLoading(false)
     }
   }, [])
 
@@ -52,11 +54,10 @@ const AddWallet = () => {
         setEnd(6)
         setpagestart(1)
       }
-
     } catch (error) {
       //
     } finally {
-      setDataLoading(false)
+      setDataLoading2(false)
     }
   }, [])
 
@@ -70,7 +71,6 @@ const AddWallet = () => {
   }
 
   let MovePage = () => {
-
     if (end < adminWallets.length) {
       let altstart = start
       let altend = end
@@ -86,7 +86,6 @@ const AddWallet = () => {
   }
 
   let BackPage = () => {
-
     if (end > 6) {
       let altstart = start
       let altend = end
@@ -107,8 +106,8 @@ const AddWallet = () => {
     <SettingsLayout>
       <div className='mt-10'>
         {modal && <UpdateWalletModal closeView={() => setModal(false)} singleWallet={singleWallet} refetchAdminWallets={FetchAdminWallets} />}
-        {modal2 && <CreateWalletModal closeView={() => setModal2(false)} refetchAdminWallets={FetchAdminWallets} cryptocurrency={cryptocurrency} />}
-        {modal3 && <CryptocurrencyComponent closeView={() => setModal3(false)} cryptocurrency={cryptocurrency} refetchCryptocurrency={FetchCryptocurrency} refetchAdminWallets={FetchAdminWallets} />}
+        {modal2 && <CreateWalletModal closeView={() => setModal2(false)} refetchAdminWallets={FetchAdminWallets} cryptocurrency={cryptocurrency} dataLoading={dataLoading} />}
+        {modal3 && <CryptocurrencyComponent closeView={() => setModal3(false)} cryptocurrency={cryptocurrency} dataLoading={dataLoading} refetchCryptocurrency={FetchCryptocurrency} refetchAdminWallets={FetchAdminWallets} />}
 
         <div className='flex justify-between items-center gap-4 mb-4'>
           <button className='w-fit h-fit py-2.5 px-3 md:text-sm text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium flex items-center gap-1 justify-center' onClick={() => setModal3(true)}>
@@ -120,7 +119,7 @@ const AddWallet = () => {
             <IoAddCircleSharp />
           </button>
         </div>
-        {dataLoading ?
+        {dataLoading2 ?
           <div className='w-full h-fit'>
             <div className='h-11 bg-gray-200 animate-pulse rounded-t-lg'></div>
             <div className='h-24 bg-gray-100 animate-pulse rounded-b-lg'></div>
@@ -170,7 +169,7 @@ const AddWallet = () => {
             }
           </div>
         }
-        {adminWallets.length > 0 && <div className='flex gap-2 items-center md:text-xs text-sm mt-4 justify-end text-admin-page '>
+        {adminWallets.length > 0 && <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page '>
           {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
           {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
           {end < adminWallets.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}

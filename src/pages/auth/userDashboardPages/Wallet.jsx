@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { BsCurrencyDollar } from "react-icons/bs";
-import { VscDebugDisconnect } from "react-icons/vsc";
 import { useAtom } from 'jotai';
 import { WALLET } from '../../../store';
 import wallet3d from '../../../assets/images/wallet3d.png'
@@ -20,6 +19,7 @@ const Wallet = () => {
     const [wallet] = useAtom(WALLET)
     const [ups, setUps] = useState({})
     const [testRun, setTestRun] = useState({})
+    const [dataLoading, setDataLoading] = useState(true)
 
     useEffect(() => {
         const FetchTestRun = async () => {
@@ -31,6 +31,8 @@ const Wallet = () => {
 
             } catch (error) {
                 //
+            } finally {
+                setDataLoading(false)
             }
         }
         FetchTestRun()
@@ -43,7 +45,7 @@ const Wallet = () => {
                 if (response.status === 200) {
                     setUps(response.msg)
                 }
-    
+
             } catch (error) {
                 //
             }
@@ -147,22 +149,41 @@ const Wallet = () => {
                 <div className='mt-12 flex flex-col gap-1'>
                     <div className='text-semi-white md:text-sm text-[0.8rem] capitalize'>Try our test run package</div>
                     <div className='w-fit h-fit py-1 bg-[#130e27]'>
-                        <div className='w-full h-fit flex gap-10 md:gap-20 pl-10 pr-2 py-1 text-[0.55rem] items-center text-white uppercase relative bg-[#25203d]'>
-                            <div className='flex flex-col gap-1 items-center'>
-                                <div>price</div>
-                                <div className='flex items-center gap-1'>
-                                    <div className='italic lowercase'>from</div>
-                                    <div className='text-[green] text-[0.85rem] font-bold'>{Object.values(testRun).length !== 0 ? <span>${testRun.price_start.toLocaleString()}</span> : <span>N/A</span>}</div>
+                        <div className='w-full h-fit pl-10 pr-2 py-1 text-[0.55rem] text-white uppercase relative bg-[#25203d]'>
+                            {dataLoading ?
+                                <div className='flex gap-10 md:gap-20 items-center'>
+                                    {new Array(2).fill(0).map((ele, i) => (
+                                        <div className='flex flex-col gap-2' key={i}>
+                                            {new Array(2).fill(0).map((ele, i) => (
+                                                <div className='w-10 h-2 bg-slate-300 animate-pulse rounded-full' key={i}></div>
+                                            ))}
+                                        </div>
+                                    ))}
+                                    <div className='flex flex-col gap-1'>
+                                        {new Array(2).fill(0).map((ele, i) => (
+                                            <div key={i} className='w-20 h-6 bg-slate-300 animate-pulse rounded-[3px]'></div>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='flex flex-col gap-1'>
-                                <div>profit</div>
-                                <div className='text-[green] text-[0.85rem] font-bold'>{Object.values(testRun).length !== 0 ? <span>{testRun.profit_return}%</span> : <span>N/A</span>}</div>
-                            </div>
-                            <Link to='/dashboard/deposit' className='flex flex-col gap-1' onClick={() => MoveToTop()}>
-                                <button className='outline-none flex items-center justify-center md:py-1 py-1.5 bg-[#130e27] w-20 h-fit rounded-[3px]  text-[0.7rem] text-[#c5c4c4] hover:bg-[#1a162b]'>purchase</button>
-                                <button className='outline-none flex items-center justify-center md:py-1 py-1.5 bg-[#130e27] w-20 h-fit rounded-[3px]  text-[0.7rem] text-[#c5c4c4] hover:bg-[#1a162b]'>upgrade</button>
-                            </Link>
+                                :
+                                <div className='flex gap-10 md:gap-20 items-center'>
+                                    <div className='flex flex-col gap-1 items-center'>
+                                        <div>price</div>
+                                        <div className='flex items-center gap-1'>
+                                            <div className='italic lowercase'>from</div>
+                                            <div className='text-[green] text-[0.85rem] font-bold'>{Object.values(testRun).length !== 0 ? <span>${testRun.price_start.toLocaleString()}</span> : <span>N/A</span>}</div>
+                                        </div>
+                                    </div>
+                                    <div className='flex flex-col gap-1 items-center'>
+                                        <div>profit</div>
+                                        <div className='text-[green] text-[0.85rem] font-bold'>{Object.values(testRun).length !== 0 ? <span>{testRun.profit_return}%</span> : <span>N/A</span>}</div>
+                                    </div>
+                                    <Link to='/dashboard/deposit' className='flex flex-col gap-1' onClick={() => MoveToTop()}>
+                                        <button className='outline-none flex items-center justify-center md:py-1 py-1.5 bg-[#130e27] w-20 h-fit rounded-[3px] text-[0.7rem] text-[#c5c4c4] hover:bg-[#1a162b]'>purchase</button>
+                                        <button className='outline-none flex items-center justify-center md:py-1 py-1.5 bg-[#130e27] w-20 h-fit rounded-[3px] text-[0.7rem] text-[#c5c4c4] hover:bg-[#1a162b]'>upgrade</button>
+                                    </Link>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

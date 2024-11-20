@@ -51,18 +51,16 @@ const AdminNotisField = ({ item, refetchNotifications, refetchUnreadNotis, setSh
     }
 
     return (
-        <div className='md:pt-2 pt-4 md:text-xs text-[0.8rem] text-black'>
-            <div className={`p-2 ${item.read === 'true' ? 'bg-white' : 'bg-[#bca2e6]'} relative w-full h-fit cursor-pointer rounded-md overflow-hidden shantf`}>
-                <Link to={item.URL} onClick={() => { MarkSingleRead(); setShowNotis(false); MoveToTop() }} className='flex flex-col gap-2'>
-                    <div className='flex gap-0.5 items-center'>
-                        <div className='capitalize font-extrabold border-b  border-[grey] w-fit'>{item.title}</div>
-                        <HiCheckCircle className='text-[#462c7c] ' />
-                    </div>
-                    <div className='font-semibold'>{item.content}</div>
-                    <div className=' text-[0.7rem] text-[#3d3d3d] font-bold mt-2'>{moment(item.createdAt).fromNow()}</div>
-                </Link>
-                <FaXmark className='text-[#5f5f5f] text-[0.85rem] cursor-pointer hover:bg-[grey] hover:text-[#272727] absolute top-0 right-0 rounded-full' onClick={DeleteNotification} />
-            </div>
+        <div className={`md:mt-2 mt-4 p-2 ${item.read === 'true' ? 'bg-white' : 'bg-[#bca2e6]'} relative w-full h-fit md:text-xs text-[0.8rem] text-black cursor-pointer rounded-md overflow-hidden shantf`}>
+            <Link to={item.URL} onClick={() => { MarkSingleRead(); setShowNotis(false); MoveToTop() }} className='flex flex-col gap-2'>
+                <div className='flex gap-0.5 items-center'>
+                    <div className='capitalize font-extrabold border-b  border-[grey] w-fit'>{item.title}</div>
+                    <HiCheckCircle className='text-[#462c7c] ' />
+                </div>
+                <div className='font-semibold'>{item.content}</div>
+                <div className=' text-[0.7rem] text-[#3d3d3d] font-bold mt-2'>{moment(item.createdAt).fromNow()}</div>
+            </Link>
+            <FaXmark className='text-[#5f5f5f] text-[0.85rem] cursor-pointer hover:bg-[grey] hover:text-[#272727] absolute top-0 right-0 rounded-full' onClick={DeleteNotification} />
         </div>
     )
 }

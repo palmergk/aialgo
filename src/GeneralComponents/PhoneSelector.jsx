@@ -38,7 +38,7 @@ const PhoneSelector = ({ phoneCode, setPhoneCode, className }) => {
                     </div>
                     <div className='overflow-y-auto scrollDiv h-28 px-2'>
                         {phones.map((item, i) => (
-                            <div className='flex flex-col mt-2' key={i}>
+                            <div className='mt-2' key={i}>
                                 <div className='text-black cursor-pointer hover:bg-semi-white text-[0.85rem] font-bold' onClick={() => { setPhoneCode(item.dial_code); setSelect(false) }}>{item.dial_code}</div>
                             </div>
                         ))}

@@ -1,10 +1,9 @@
 import React, { useRef, useState } from 'react'
-import { FaArrowLeft } from 'react-icons/fa6'
 import { FiUploadCloud } from 'react-icons/fi'
 import { MdOutlineEdit } from 'react-icons/md'
 import { PiWarningCircleBold } from 'react-icons/pi'
 import { Apis, imageurl, PostApi, UserPutApi } from '../../../services/API'
-import { ErrorAlert, SuccessAlert } from '../../../utils/utils'
+import { ErrorAlert, PredefineCryptoImages, SuccessAlert } from '../../../utils/utils'
 import Loading from '../../../GeneralComponents/Loading'
 
 const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchAdminWallets }) => {
@@ -42,6 +41,15 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
             image: file
         })
         setCommit(true)
+        console.log(file)
+    }
+
+    const handleUpload2 = (item) => {
+        setCryptoImg({
+            img: item,
+            image: item
+        })
+        setCommit(true)
     }
 
     const CommitHandler = () => {
@@ -54,7 +62,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
 
     const CreateCryptocurrency = async () => {
         if (!form.crypto_name) return ErrorAlert('Enter a crypto name')
-        if (cryptoImg.img === null) return ErrorAlert('Upload crypto image')
+        if (cryptoImg.image === null) return ErrorAlert('Upload crypto image')
 
         const formbody = new FormData()
         formbody.append('crypto_img', cryptoImg.image)
@@ -79,7 +87,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
 
     const UpdateCryptocurrency = async () => {
         if (!form.crypto_name) return ErrorAlert('Enter a crypto name')
-        if (cryptoImg.img === null) return ErrorAlert('Upload crypto image')
+        if (cryptoImg.image === null) return ErrorAlert('Upload crypto image')
 
         const formbody = new FormData()
         formbody.append('crypto_id', singleCrypto.id)
@@ -106,13 +114,9 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
     }
 
     const DeleteCryptocurrency = async () => {
-        const formbody = {
-            crypto_id: singleCrypto.id
-        }
-
         setLoading(true)
         try {
-            const response = await PostApi(Apis.admin.delete_cryptocurrency, formbody)
+            const response = await PostApi(Apis.admin.delete_cryptocurrency, { crypto_id: singleCrypto.id })
             if (response.status === 200) {
                 SuccessAlert(response.msg)
                 refetchCryptocurrency()
@@ -134,31 +138,42 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
         <div>
             {loading && <Loading />}
             <div className='flex flex-col gap-4'>
-                <div className='cursor-pointer text-base text-[#462c7c] -ml-1' onClick={() => setScreen(1)}>
-                    <FaArrowLeft />
-                </div>
                 <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>crypto name:</div>
                     <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.crypto_name} name='crypto_name' onChange={inputHandler} onKeyUp={CommitHandler}></input>
                 </div>
                 <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>crypto image:</div>
-                    <label className='cursor-pointer'>
-                        {cryptoImg.img ?
-                            <div className='flex items-center gap-1'>
-                                <img src={cryptoImg.img} className='h-10 w-auto'></img>
-                                <div className='text-sm bg-white rounded-lg p-1 sha'>
-                                    <MdOutlineEdit />
+                    <div className='flex flex-col gap-4 items-center'>
+                        <label className='cursor-pointer'>
+                            {cryptoImg.img ?
+                                <div className='flex items-center gap-1'>
+                                    <img src={cryptoImg.img} className='h-10 w-auto'></img>
+                                    <div className='text-sm bg-white rounded-lg p-1 sha'>
+                                        <MdOutlineEdit />
+                                    </div>
+                                </div>
+                                :
+                                <div className='w-fit h-fit border rounded-lg flex flex-col gap-2 items-center justify-center p-2'>
+                                    <div className='bg-gray-300 rounded-full p-2'><FiUploadCloud /></div>
+                                    <span className='text-xs'>click to add image</span>
+                                </div>
+                            }
+                            <input ref={imgref} type="file" onChange={handleUpload} hidden />
+                        </label>
+                        <div className='w-48 h-fit border overflow-x-auto scrollsdown'>
+                            <div className='w-fit flex flex-col'>
+                                <div className='border-b truncate text-center text-[0.7rem] italic py-0.5'>images of the popular coins:</div>
+                                <div className='flex items-center'>
+                                    {PredefineCryptoImages.map((item, i) => (
+                                        <div key={i} className='w-14 border-r py-1 px-2.5 cursor-pointer hover:bg-zinc-200' onClick={() => handleUpload2(item)}>
+                                            <img src={item} className='w-full h-auto'></img>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-                            :
-                            <div className='border rounded-lg flex flex-col gap-2 items-center justify-center p-2'>
-                                <div className='bg-gray-300 rounded-full p-2'><FiUploadCloud /></div>
-                                <span className='text-xs'>click to add image</span>
-                            </div>
-                        }
-                        <input ref={imgref} type="file" onChange={handleUpload} hidden />
-                    </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             {!singleCrypto.id ?
@@ -169,19 +184,21 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                 <div className='flex gap-4 items-center mt-8 relative'>
                     {commit && <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateCryptocurrency}>update</button>}
                     <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ml-auto' onClick={() => setdeleteState(true)}>delete</button>
-                    {deleteState && <div className='bg-white w-fit h-fit flex flex-col gap-4 items-center justify-center absolute bottom-0 right-0 p-3 rounded-md text-xs popsha'>
-                        <div className='flex flex-col items-center gap-2'>
-                            <div className='md:text-sm text-[0.8rem] text-center font-semibold flex items-center gap-1'>
-                                <span> Are you sure you want to Delete Crypto?</span>
-                                <PiWarningCircleBold className='text-[red]' />
+                    {deleteState &&
+                        <div className='bg-white w-fit h-fit flex flex-col gap-4 items-center justify-center absolute bottom-0 right-0 p-3 rounded-md text-xs popsha'>
+                            <div className='flex flex-col items-center gap-2'>
+                                <div className='md:text-sm text-[0.8rem] text-center font-semibold flex items-center gap-1'>
+                                    <span> Are you sure you want to Delete Crypto?</span>
+                                    <PiWarningCircleBold className='text-[red]' />
+                                </div>
+                                <div className='text-xs text-center italic text-[#eb2e2e]'>- Deleting this crypto will also delete all wallet addresses under it -</div>
                             </div>
-                            <div className='text-xs text-center italic text-[#eb2e2e]'>- Deleting this crypto will also delete all wallet addresses under it -</div>
+                            <div className='flex items-center gap-6'>
+                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={() => setdeleteState(false)}>cancel</button>
+                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={DeleteCryptocurrency}>proceed</button>
+                            </div>
                         </div>
-                        <div className='flex items-center gap-6'>
-                            <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={() => setdeleteState(false)}>cancel</button>
-                            <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={DeleteCryptocurrency}>proceed</button>
-                        </div>
-                    </div>}
+                    }
                 </div>
             }
 

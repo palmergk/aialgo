@@ -53,7 +53,7 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
                     </div>}
                 </div>
                 <div className='flex flex-col gap-4 px-4 mt-5'>
-                    <div className='relative flex gap-3 items-center mx-auto'>
+                    <div className='relative flex gap-3 items-center justify-center'>
                         <div className='flex flex-col gap-1'>
                             <div className='capitalize text-[0.8rem] font-medium'>enter an amount ($)</div>
                             <input className='outline-none border lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2 bg-[#ebeaea] border-[#5BB4FD]' value={amount} onChange={e => setAmount(e.target.value)} ></input>
@@ -64,9 +64,7 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
                         </div>
                     </div>
                     <div className='text-xs text-center font-medium'>low wallet balance? <span className='underline text-[#5BB4FD] cursor-pointer' onClick={() => { closeModal(); openModal() }}>Deposit</span></div>
-                    <div className='mb-2 mx-auto'>
-                        <button className='py-2 px-14 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={BuyPlanWithBalance}>confirm purchase</button>
-                    </div>
+                    <button className='mb-2 mx-auto w-fit h-fit py-2 px-14 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={BuyPlanWithBalance}>confirm purchase</button>
                 </div>
             </div>
         </div>

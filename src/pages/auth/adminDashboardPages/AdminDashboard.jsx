@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { ADMINSTORE, NOTIFICATIONS, PROFILE, UNREADNOTIS } from '../../../store'
+import React, { useEffect, useState } from 'react'
+import { ADMINSTORE, PROFILE } from '../../../store'
 import { useAtom } from 'jotai'
 import Cookies from 'js-cookie'
 import { CookieName, MoveToTop } from '../../../utils/utils'
@@ -43,8 +43,6 @@ const toggleArray = [
 
 const AdminDashboard = ({ children }) => {
   const [user] = useAtom(PROFILE)
-  const [, setNotifications] = useAtom(NOTIFICATIONS)
-  const [, setUnreadNotis] = useAtom(UNREADNOTIS)
   const [, setAdminStore] = useAtom(ADMINSTORE)
 
   const [logout, setLogOut] = useState(false)
@@ -56,40 +54,6 @@ const AdminDashboard = ({ children }) => {
     Cookies.remove(CookieName)
     navigate('/')
   }
-
-  const FetchNotifications = useCallback(async () => {
-    try {
-      const response = await UserGetApi(Apis.notification.user_notifications)
-      if (response.status === 200) {
-        setNotifications(response.msg)
-      }
-
-    } catch (error) {
-      //
-    } finally {
-    }
-  }, [])
-
-  useEffect(() => {
-    FetchNotifications()
-  }, [FetchNotifications])
-
-  const FetchUnreadNotis = useCallback(async () => {
-    try {
-      const response = await UserGetApi(Apis.notification.unread_notis)
-      if (response.status === 200) {
-        setUnreadNotis(response.msg)
-      }
-
-    } catch (error) {
-      //
-    }
-  }, [])
-
-  useEffect(() => {
-    FetchUnreadNotis()
-  }, [FetchUnreadNotis])
-
 
   useEffect(() => {
     const FetchAdminStore = async () => {
@@ -113,7 +77,7 @@ const AdminDashboard = ({ children }) => {
         <div className='text-white text-3xl cursor-pointer lg:hidden absolute top-4 right-4' onClick={() => setSlideShow(!slideShow)}>
           <LuX />
         </div>
-        <div className='lg:py-14 py-12 flex flex-col lg:gap-10 gap-8'>
+        <div className='py-12 flex flex-col lg:gap-10 gap-8'>
           <div className='flex justify-center items-center'>
             <img src={logo} className='w-10 h-auto'></img>
             <div className='capitalize font-bold text-lg lg:text-[#bbb9b9] text-semi-white'>AialgoControls</div>
@@ -144,19 +108,21 @@ const AdminDashboard = ({ children }) => {
                     <RiLogoutCircleLine className='text-[1.3rem] ' />
                     <div className='capitalize text-[0.85rem] lg:font-bold font-medium hover:font-bold'>logout</div>
                   </div>
-                  {logout && <div className='absolute lg:-top-5 -top-16 -left-6 lg:bg-admin-auth bg-[#27137e] w-fit  h-fit z-10 rounded-[10px] text-white p-4 lg:shadow-log3 shadow-log2'>
-                    <div className=' text-[0.8rem] mb-4 text-center'>Logout of your account?</div>
-                    <div className='flex gap-[1rem] items-center'>
-                      <button className='outline-none py-1 px-4 w-fit h-fit border border-white rounded-lg capitalize text-xs flex items-center gap-1 hover:bg-white lg:hover:text-admin-auth hover:text-[#27137e] lg:bg-admin-auth bg-[#27137e] ' onClick={() => setLogOut(!logout)}>
-                        <span>cancel</span>
-                        <TiCancel className='text-[0.8rem]' />
-                      </button>
-                      <button className='outline-none py-1 px-4 w-fit h-fit border border-white  rounded-lg capitalize text-xs flex items-center gap-1 hover:bg-white lg:hover:text-admin-auth hover:text-[#27137e] lg:bg-admin-auth bg-[#27137e]' onClick={logoutAccount}>
-                        <span>logout</span>
-                        <IoMdLogOut className='text-[0.7rem]' />
-                      </button>
+                  {logout &&
+                    <div className='absolute lg:-top-5 -top-16 -left-6 lg:bg-admin-auth bg-[#27137e] w-fit  h-fit z-10 rounded-[10px] text-white p-4 lg:shadow-log3 shadow-log2'>
+                      <div className=' text-[0.8rem] mb-4 text-center'>Logout of your account?</div>
+                      <div className='flex gap-[1rem] items-center'>
+                        <button className='outline-none py-1 px-4 w-fit h-fit border border-white rounded-lg capitalize text-xs flex items-center gap-1 hover:bg-white lg:hover:text-admin-auth hover:text-[#27137e] lg:bg-admin-auth bg-[#27137e] ' onClick={() => setLogOut(!logout)}>
+                          <span>cancel</span>
+                          <TiCancel className='text-[0.8rem]' />
+                        </button>
+                        <button className='outline-none py-1 px-4 w-fit h-fit border border-white  rounded-lg capitalize text-xs flex items-center gap-1 hover:bg-white lg:hover:text-admin-auth hover:text-[#27137e] lg:bg-admin-auth bg-[#27137e]' onClick={logoutAccount}>
+                          <span>logout</span>
+                          <IoMdLogOut className='text-[0.7rem]' />
+                        </button>
+                      </div>
                     </div>
-                  </div>}
+                  }
                 </div>
               </div>
             </div>
@@ -175,7 +141,7 @@ const AdminDashboard = ({ children }) => {
                   <div className='capitalize font-medium'>hi, {user?.username}</div>
                 </div>
                 <div>
-                  <AdminNotis refetchNotifications={FetchNotifications} refetchUnreadNotis={FetchUnreadNotis} />
+                  <AdminNotis />
                 </div>
               </div>
               <div className='flex gap-1.5 capitalize items-center text-[#292929] font-bold md:text-[0.85rem] text-xs '>

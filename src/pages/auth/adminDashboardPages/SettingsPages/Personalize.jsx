@@ -186,8 +186,8 @@ const Personalize = () => {
         {loading && <Loading />}
         <div className='md:w-3/4 w-11/12 mx-auto py-10'>
           <div className='flex flex-col gap-4 items-center justify-center'>
-            <div className='md:w-48 md:h-48 h-32 w-32 p-1 rounded-full bg-[#c9b8eb] flex items-center justify-center relative'>
-              <img className='w-full h-full rounded-full object-cover' src={profile.img}></img>
+            <div className='relative'>
+              <img className='md:w-48 md:h-48 h-36 w-36 border-4 border-[#c9b8eb] rounded-full object-cover' src={profile.img}></img>
               <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shantf' onClick={() => setSelect(!select)}><MdOutlineEdit /></div>
               {select &&
                 <div className='h-fit w-36 absolute md:-bottom-11 -bottom-9 right-0 bg-white border border-[lightgrey] rounded-md z-10 md:text-sm text-xs font-bold overflow-hidden capitalize'>

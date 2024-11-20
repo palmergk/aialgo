@@ -84,7 +84,6 @@ const Taxes = () => {
   }
 
   let MovePage = () => {
-
     if (end < allTaxes.length) {
       let altstart = start
       let altend = end
@@ -100,7 +99,6 @@ const Taxes = () => {
   }
 
   let BackPage = () => {
-
     if (end > 6) {
       let altstart = start
       let altend = end

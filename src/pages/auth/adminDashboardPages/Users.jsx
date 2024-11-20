@@ -84,7 +84,6 @@ const Users = () => {
   }
 
   let MovePage = () => {
-
     if (end < allusers.length) {
       let altstart = start
       let altend = end
@@ -100,7 +99,6 @@ const Users = () => {
   }
 
   let BackPage = () => {
-
     if (end > 6) {
       let altstart = start
       let altend = end

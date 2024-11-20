@@ -84,7 +84,6 @@ const UpdateDeposits = () => {
   }
 
   let MovePage = () => {
-
     if (end < allDeposits.length) {
       let altstart = start
       let altend = end
@@ -100,7 +99,6 @@ const UpdateDeposits = () => {
   }
 
   let BackPage = () => {
-
     if (end > 6) {
       let altstart = start
       let altend = end

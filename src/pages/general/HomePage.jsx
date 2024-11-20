@@ -98,7 +98,7 @@ const HomePage = () => {
                 <div className='border-t-4 md:w-48 w-32 absolute top-0 right-0'></div>
                 <div className='border-b-4 md:w-48 w-32 absolute bottom-0 left-0'></div>
               </div>
-              <div className='h-fit w-full md:px-28 px-6 pt-10 pb-16 bg-gradient-to-br from-[#182531] from-55% to-[#273f5e]'>
+              <div className='h-fit w-full md:px-20 xl:px-28 px-6 pt-10 pb-16 bg-gradient-to-br from-[#182531] from-55% to-[#273f5e]'>
                 <div className='text-center md:text-4xl text-2xl font-bold text-white capitalize'>Trade and earn like a pro</div>
                 <div className='text-center text-semi-white text-sm font-semibold md:w-3/4 mx-auto mt-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio illo distinctio natus minus ab quis assumenda tenetur saepe magni provident error enim alias dolorem fugit qui, neque ipsam porro repellat juvenille proceile mandete.</div>
                 <div className='flex flex-col md:gap-10 gap-7 mt-10'>

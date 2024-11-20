@@ -82,7 +82,6 @@ const Withdrawals = () => {
     }
 
     let MovePage = () => {
-
         if (end < allWithdrawals.length) {
             let altstart = start
             let altend = end
@@ -98,7 +97,6 @@ const Withdrawals = () => {
     }
 
     let BackPage = () => {
-
         if (end > 6) {
             let altstart = start
             let altend = end

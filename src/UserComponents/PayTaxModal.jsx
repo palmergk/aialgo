@@ -1,41 +1,56 @@
 import { useAtom } from 'jotai'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { NOTIFICATIONS, UNREADNOTIS } from '../store'
-import { MdContentCopy } from 'react-icons/md'
-import { FaCheck, FaXmark } from 'react-icons/fa6'
+import { MdOutlineEdit } from 'react-icons/md'
+import { FaAngleLeft, FaXmark } from 'react-icons/fa6'
 import Loading from '../GeneralComponents/Loading'
 import { ErrorAlert, SuccessAlert } from '../utils/utils'
 import { Apis, PostApi } from '../services/API'
 import QRCode from 'react-qr-code'
 import CryptoSelector from '../GeneralComponents/CryptoSelector'
+import { FiUploadCloud } from 'react-icons/fi'
+import CopyButton from '../GeneralComponents/CopyButton'
 
 const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
     const [, setNotifications] = useAtom(NOTIFICATIONS)
     const [, setUnreadNotis] = useAtom(UNREADNOTIS)
 
+    const [phase, setPhase] = useState(1)
     const [amount, setAmount] = useState('')
     const [cryptoWallets, setCryptoWallets] = useState({})
-    const [copy, setCopy] = useState(false)
+    const imgref = useRef()
+    const [proof, setProof] = useState({
+        img: null,
+        image: null
+    })
     const [loading, setLoading] = useState(false)
 
-    const copyFunction = () => {
-        setTimeout(() => {
-            setCopy(false)
-        }, 2000)
-        navigator.clipboard.writeText(cryptoWallets?.address)
-        setCopy(true)
-    }
-
-    const ConfirmTaxPayment = async () => {
+    const MovePhase = () => {
         if (!amount) return ErrorAlert('Enter an amount')
         if (isNaN(amount)) return ErrorAlert('Amount must be a number')
         if (amount < 1) return ErrorAlert('Minimum tax payment is $1')
         if (Object.values(cryptoWallets).length === 0) return ErrorAlert('Choose cryptocurrency')
+        setPhase(2)
+    }
 
-        const formbody = {
-            amount: parseFloat(amount),
-            wallet_id: cryptoWallets.id
+    const handleUpload = (event) => {
+        const file = event.target.files[0]
+        if (!file.type.startsWith('image/')) {
+            imgref.current.value = null
+            return ErrorAlert('File error, upload a valid image format (jpg, jpeg, png, svg)')
         }
+        setProof({
+            img: URL.createObjectURL(file),
+            image: file
+        })
+    }
+
+    const PayTax = async () => {
+        if (proof.image === null) return ErrorAlert('Attach a proof of payment')
+        const formbody = new FormData()
+        formbody.append('amount', parseFloat(amount))
+        formbody.append('wallet_id', cryptoWallets.id)
+        formbody.append('payment_proof', proof.image)
 
         setLoading(true)
         try {
@@ -64,34 +79,78 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                 {loading && <Loading />}
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                 <div className='font-bold uppercase border-b w-full text-center'>pay tax</div>
-                <div className='flex flex-col items-center gap-5 md:px-4 px-2 mt-5 text-[0.8rem]'>
-                    <div className='flex flex-col gap-1'>
-                        <div className='capitalize font-medium'>tax amount ($)</div>
-                        <div className='relative'>
-                            <input className='outline-none border lg:text-sm text-base w-52 h-8 rounded-[4px] pl-2 pr-16 bg-[#ebeaea] border-[#5BB4FD]' value={amount} onChange={e => setAmount(e.target.value)} ></input>
-                            <div className='text-xs absolute top-2 right-2'>min: 0.99</div>
-                        </div>
-                    </div>
-                    <div>
-                        <CryptoSelector setCryptoWallets={setCryptoWallets} />
-                    </div>
-                    {Object.values(cryptoWallets).length !== 0 &&
-                        <div className='flex flex-col gap-2 items-center'>
-                            <div className='text-center'><span className='capitalize'>{cryptoWallets.crypto_name}</span> deposit address for <span className='capitalize'>{cryptoWallets.network} network</span> below. Make the exact amount entered to the address.</div>
-                            <div className='flex gap-1.5 items-center'>
-                                <div className='md:text-xs text-[0.65rem] text-[#5BB4FD]'>{cryptoWallets.address}</div>
-                                <button className='outline-none w-fit h-fit py-1.5 px-2 text-semi-white text-xs bg-[#252525] rounded-md capitalize flex items-center justify-center' onClick={() => copyFunction()}>
-                                    {!copy ? <MdContentCopy /> : <FaCheck />}
-                                </button>
+                <div className='md:px-4 px-2 mt-5 text-[0.8rem]'>
+                    {phase === 1 ?
+                        <div className='flex flex-col gap-5 items-center'>
+                            <div className='flex flex-col gap-1'>
+                                <div className='capitalize font-medium'>tax amount ($)</div>
+                                <div className='relative w-fit'>
+                                    <input className='outline-none border lg:text-sm text-base w-52 h-8 rounded-[4px] pl-2 pr-16 bg-[#ebeaea] border-[#5BB4FD]' value={amount} onChange={e => setAmount(e.target.value)} ></input>
+                                    <div className='text-xs absolute top-2 right-2'>min: 0.99</div>
+                                </div>
                             </div>
+                            <CryptoSelector setCryptoWallets={setCryptoWallets} />
+                            {Object.values(cryptoWallets).length !== 0 &&
+                                <div className='flex flex-col gap-2 items-center'>
+                                    <div className='text-center'><span className='capitalize'>{cryptoWallets.crypto_name}</span> deposit address for <span className='capitalize'>{cryptoWallets.network} network</span> below. Make the exact amount entered to the address.</div>
+                                    <div className='flex gap-1.5 items-center'>
+                                        <div className='md:text-xs text-[0.65rem] text-[#5BB4FD]'>{cryptoWallets.address}</div>
+                                        <CopyButton content={cryptoWallets.address} />
+                                    </div>
+                                </div>
+                            }
+                            {Object.values(cryptoWallets).length !== 0 &&
+                                <QRCode value={cryptoWallets.address} className='h-32 w-auto mx-auto' />
+                            }
+                            <button className='my-3 mx-auto w-fit h-fit py-2 px-16 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={MovePhase}>
+                                confirm payment
+                            </button>
+                        </div>
+                        :
+                        <div className='flex flex-col gap-5'>
+                            <div className='cursor-pointer absolute top-4 left-1.5 text-lg' onClick={() => setPhase(1)}><FaAngleLeft /></div>
+                            <div className='flex flex-col gap-1.5'>
+                                <div className='flex justify-between'>
+                                    <span className='italic'>amount:</span>
+                                    <span>${amount.toLocaleString()}</span>
+                                </div>
+                                <div className='flex justify-between'>
+                                    <span className='italic'>crypto:</span>
+                                    <span>{cryptoWallets.crypto_name}</span>
+                                </div>
+                                <div className='flex justify-between'>
+                                    <span className='italic'>network:</span>
+                                    <span>{cryptoWallets.network}</span>
+                                </div>
+                                <div className='flex gap-1.5 items-center justify-center'>
+                                    <div className='md:text-xs text-[0.65rem] text-[#5BB4FD]'>{cryptoWallets.address}</div>
+                                    <CopyButton content={cryptoWallets.address} />
+                                </div>
+                            </div>
+                            <div className='flex flex-col gap-2 items-center'>
+                                <div className='italic'>attach a proof of payment:</div>
+                                <label className='cursor-pointer'>
+                                    {proof.img ?
+                                        <div className='flex items-center gap-1'>
+                                            <img src={proof.img} className='h-32 w-auto'></img>
+                                            <div className='text-base bg-white rounded-lg p-1 sha'>
+                                                <MdOutlineEdit />
+                                            </div>
+                                        </div>
+                                        :
+                                        <div className='border rounded-lg flex flex-col gap-2 items-center justify-center py-8 px-10'>
+                                            <div className='bg-gray-300 rounded-full p-2 text-2xl'><FiUploadCloud /></div>
+                                            <span className='text-xs'>click to add image</span>
+                                        </div>
+                                    }
+                                    <input ref={imgref} type="file" onChange={handleUpload} hidden />
+                                </label>
+                            </div>
+                            <button className='my-3 mx-auto w-fit h-fit py-2 px-16 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={PayTax}>
+                                confirm payment
+                            </button>
                         </div>
                     }
-                    {Object.values(cryptoWallets).length !== 0 &&
-                        <QRCode value={cryptoWallets.address} className='h-32 w-auto mx-auto' />
-                    }
-                    <div className='mx-auto my-3'>
-                        <button className='outline-none w-fit h-fit py-2 px-14 text-xs text-semi-white bg-[#252525] rounded-md capitalize font-medium' onClick={ConfirmTaxPayment}>confirm payment</button>
-                    </div>
                 </div>
             </div>
         </div>

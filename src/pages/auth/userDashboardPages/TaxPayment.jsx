@@ -84,7 +84,6 @@ const TaxPayment = () => {
     }
 
     let MovePage = () => {
-
         if (end < taxes.length) {
             let altstart = start
             let altend = end
@@ -100,7 +99,6 @@ const TaxPayment = () => {
     }
 
     let BackPage = () => {
-
         if (end > 6) {
             let altstart = start
             let altend = end
@@ -132,7 +130,7 @@ const TaxPayment = () => {
                 {screen === 1 &&
                     <div className='mt-10 bg-semi-white w-fit h-fit rounded-xl relative mx-auto'>
                         {modal && <PayTaxModal closeView={() => setModal(false)} setScreen={setScreen} refetchTaxes={FetchTaxes} />}
-                        <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-b-sm rounded-t-xl border-b border-[#5BB4FD] mx-auto flex flex-col gap-2'>
+                        <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-t-xl border-b border-[#5BB4FD] mx-auto flex flex-col gap-2'>
                             <button className='w-fit h-fit md:text-sm text-xs font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center ml-auto' onClick={() => { setModal(true) }}>
                                 <span>pay tax</span>
                                 <SiBitcoincash />

@@ -7,6 +7,7 @@ import Loading from '../../GeneralComponents/Loading';
 import { ErrorAlert, SuccessAlert } from '../../utils/utils';
 import ModalLayout from '../../utils/ModalLayout';
 import StatusSelector from '../../GeneralComponents/StatusSelector';
+import { Image } from 'antd'
 
 const TaxModal = ({ closeView, refetchAllTaxes, singleTax }) => {
     const [status, setStatus] = useState(singleTax?.status)
@@ -88,7 +89,7 @@ const TaxModal = ({ closeView, refetchAllTaxes, singleTax }) => {
                             <div className='md:w-[90%] w-11/12 mx-auto md:py-8 py-4 flex flex-col gap-8 md:text-[0.9rem] text-[0.8rem]'>
                                 <div className='flex flex-col gap-4 border p-1'>
                                     <div className='uppercase font-bold border px-1'>user details:</div>
-                                    <div className='md:w-24 md:h-24 w-20 h-20 p-0.5 rounded-full bg-[#c9b8eb] mx-auto'>
+                                    <div className='md:w-24 md:h-24 w-20 h-20 rounded-full border-2 border-[#c9b8eb] mx-auto'>
                                         {Object.values(singleTax).length !== 0 &&
                                             <>
                                                 {singleTax.taxPayer.image ? <img src={`${imageurl}/profiles/${singleTax.taxPayer.image}`} className='w-full h-full rounded-full object-cover'></img>
@@ -131,6 +132,10 @@ const TaxModal = ({ closeView, refetchAllTaxes, singleTax }) => {
                                         <div className='flex justify-between items-center gap-4'>
                                             <div className='italic'>date / time:</div>
                                             {Object.values(singleTax).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{moment(singleTax.createdAt).format('DD-MM-yyyy')} / {moment(singleTax.createdAt).format('h:mm')}</div>}
+                                        </div>
+                                        <div className='flex justify-between items-center gap-4'>
+                                            <div className='italic'>proof of payment:</div>
+                                            {Object.values(singleTax).length !== 0 &&<Image src={`${imageurl}/payment_proof/${singleTax.payment_proof}`} width={200} />}
                                         </div>
                                         <div className='flex flex-col gap-6 my-6'>
                                             <div className='flex justify-between items-center gap-4'>

@@ -1,4 +1,9 @@
 import toast from 'react-hot-toast';
+import bitcoin from '../assets/images/bitcoin.png'
+import usdt from '../assets/images/usdt.png'
+import ethereum from '../assets/images/ethereum.png'
+import solana from '../assets/images/solana.png'
+import xrp from '../assets/images/xrp.png'
 
 export const ErrorAlert = (message) => {
     return toast.error(message, {
@@ -56,6 +61,14 @@ export const questions = [
         title: 'When can i withdraw my profits?',
         content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, exercitationem fugiat dolorum at officiis laboriosam labore, cum quod magni animi cumque vero ea est ratione soluta facere sapiente. Laborum, quis?'
     },
+]
+
+export const PredefineCryptoImages = [
+    bitcoin,
+    usdt,
+    ethereum,
+    solana,
+    xrp
 ]
 
 

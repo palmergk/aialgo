@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../../../assets/images/logobrand.png'
 import { HiOutlineCollection } from "react-icons/hi";
 import { IoWalletOutline } from "react-icons/io5";
@@ -12,7 +12,7 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment'
 import avatar from '../../../assets/images/avatar.png'
-import { ADMINCRYPTOWALLETS, ADMINSTORE, NOTIFICATIONS, PROFILE, UNREADNOTIS, WALLET } from '../../../store';
+import { ADMINSTORE, PROFILE, WALLET } from '../../../store';
 import { Apis, UserGetApi, imageurl } from '../../../services/API';
 import { useAtom } from 'jotai';
 import Cookies from 'js-cookie';
@@ -20,6 +20,7 @@ import { CookieName, MoveToTop } from '../../../utils/utils';
 import { TiCancel } from "react-icons/ti";
 import { IoMdLogOut } from "react-icons/io";
 import { HiOutlineCreditCard } from "react-icons/hi2";
+import { TbReceiptTax } from "react-icons/tb";
 import Notifications from './Notifications';
 import { LiaBarsSolid } from 'react-icons/lia';
 
@@ -31,6 +32,7 @@ const MainLinks = [
 ]
 
 const OtherLinks = [
+    { path: 'taxes', url: '/dashboard/tax-payment', icon: TbReceiptTax },
     { path: 'settings', url: '/dashboard/settings/personalize', icon: IoSettingsOutline },
     { path: 'feedback', url: '/dashboard/feedback', icon: LuSend },
 ]
@@ -45,10 +47,7 @@ const toggleArray = [
 
 const Dashboard = ({ children }) => {
     const [user] = useAtom(PROFILE)
-    const [, setNotifications] = useAtom(NOTIFICATIONS)
-    const [, setUnreadNotis] = useAtom(UNREADNOTIS)
     const [wallet, setWallet] = useAtom(WALLET)
-    const [, setAdminCryptoWallets] = useAtom(ADMINCRYPTOWALLETS)
     const [, setAdminStore] = useAtom(ADMINSTORE)
 
     const [logout, setLogOut] = useState(false)
@@ -60,38 +59,6 @@ const Dashboard = ({ children }) => {
         Cookies.remove(CookieName)
         navigate('/')
     }
-
-    const FetchNotifications = useCallback(async () => {
-        try {
-            const response = await UserGetApi(Apis.notification.user_notifications)
-            if (response.status === 200) {
-                setNotifications(response.msg)
-            }
-
-        } catch (error) {
-            //
-        }
-    }, [])
-
-    useEffect(() => {
-        FetchNotifications()
-    }, [FetchNotifications])
-
-    const FetchUnreadNotis = useCallback(async () => {
-        try {
-            const response = await UserGetApi(Apis.notification.unread_notis)
-            if (response.status === 200) {
-                setUnreadNotis(response.msg)
-            }
-
-        } catch (error) {
-            //
-        }
-    }, [])
-
-    useEffect(() => {
-        FetchUnreadNotis()
-    }, [FetchUnreadNotis])
 
     useEffect(() => {
         const FetchWallet = async () => {
@@ -106,21 +73,6 @@ const Dashboard = ({ children }) => {
             }
         }
         FetchWallet()
-    }, [])
-
-    useEffect(() => {
-        const FetchAdminCrypto_Wallets = async () => {
-            try {
-                const response = await UserGetApi(Apis.user.get_crypto_and_their_wallets)
-                if (response.status === 200) {
-                    setAdminCryptoWallets(response.msg)
-                }
-
-            } catch (error) {
-                //
-            }
-        }
-        FetchAdminCrypto_Wallets()
     }, [])
 
     useEffect(() => {
@@ -145,7 +97,7 @@ const Dashboard = ({ children }) => {
                 <div className='text-white text-3xl cursor-pointer lg:hidden absolute top-4 right-4' onClick={() => setSlideShow(!slideShow)}>
                     <LuX />
                 </div>
-                <div className='lg:py-14 py-12 flex flex-col lg:gap-10 gap-8'>
+                <div className='py-12 flex flex-col lg:gap-10 gap-8'>
                     <div className='flex justify-center items-center'>
                         <img src={logo} className='w-10 h-auto'></img>
                         <div className='capitalize font-bold text-lg lg:text-[grey] text-semi-white'>AialgoVault</div>
@@ -176,19 +128,21 @@ const Dashboard = ({ children }) => {
                                         <RiLogoutCircleLine className='text-[1.3rem] ' />
                                         <div className='capitalize text-[0.85rem] lg:font-bold font-medium hover:font-bold'>logout</div>
                                     </div>
-                                    {logout && <div className='absolute lg:-top-5 -top-16 -left-6  lg:bg-admin bg-[#27137e] w-fit h-fit z-50 rounded-[10px] text-semi-white font-medium p-4 lg:shadow-log shadow-log2'>
-                                        <div className=' text-[0.8rem] mb-4 text-center'>Logout of your account?</div>
-                                        <div className='flex gap-4 items-center'>
-                                            <button className='outline-none py-1 px-4 w-fit h-fit border lg:border-[#1c1733] border-white rounded-lg capitalize text-xs flex items-center gap-1 lg:hover:bg-[#1c1733] hover:bg-white lg:text-light text-white hover:text-[#27137e] lg:hover:text-white' onClick={() => setLogOut(!logout)}>
-                                                <span>cancel</span>
-                                                <TiCancel className='text-[0.8rem] ' />
-                                            </button>
-                                            <button className='outline-none py-1 px-4 w-fit h-fit border lg:border-[#1c1733] border-white  rounded-lg capitalize text-xs flex items-center gap-1 lg:hover:bg-[#1c1733] hover:bg-white lg:text-light text-white hover:text-[#27137e] lg:hover:text-white' onClick={logoutAccount}>
-                                                <span>logout</span>
-                                                <IoMdLogOut className='text-[0.7rem]' />
-                                            </button>
+                                    {logout &&
+                                        <div className='absolute -top-16 -left-6  lg:bg-admin bg-[#27137e] w-fit h-fit z-50 rounded-[10px] text-semi-white font-medium p-4 lg:shadow-log shadow-log2'>
+                                            <div className=' text-[0.8rem] mb-4 text-center'>Logout of your account?</div>
+                                            <div className='flex gap-4 items-center'>
+                                                <button className='outline-none py-1 px-4 w-fit h-fit border lg:border-[#1c1733] border-white rounded-lg capitalize text-xs flex items-center gap-1 lg:hover:bg-[#1c1733] hover:bg-white lg:text-light text-white hover:text-[#27137e] lg:hover:text-white' onClick={() => setLogOut(!logout)}>
+                                                    <span>cancel</span>
+                                                    <TiCancel className='text-[0.8rem] ' />
+                                                </button>
+                                                <button className='outline-none py-1 px-4 w-fit h-fit border lg:border-[#1c1733] border-white  rounded-lg capitalize text-xs flex items-center gap-1 lg:hover:bg-[#1c1733] hover:bg-white lg:text-light text-white hover:text-[#27137e] lg:hover:text-white' onClick={logoutAccount}>
+                                                    <span>logout</span>
+                                                    <IoMdLogOut className='text-[0.7rem]' />
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>}
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -207,10 +161,7 @@ const Dashboard = ({ children }) => {
                                     <div className='capitalize font-medium'>hi, {user?.username}</div>
                                 </div>
                                 <div>
-                                    <Notifications
-                                        refetchNotifications={() => FetchNotifications()}
-                                        refetchUnreadNotis={() => FetchUnreadNotis()}
-                                    />
+                                    <Notifications />
                                 </div>
                             </div>
                             <div className='flex gap-1.5 capitalize items-center text-[grey] md:text-[0.85rem] text-xs font-bold'>

@@ -43,6 +43,7 @@ const VerifyKYC = () => {
     const idref = useRef()
     const [id, setId] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [dataloading, setDataLoading] = useState(true)
     const [form, setForm] = useState({
         first_name: '',
         last_name: '',
@@ -90,6 +91,8 @@ const VerifyKYC = () => {
 
         } catch (error) {
             //
+        } finally {
+            setDataLoading(false)
         }
     }, [])
 
@@ -99,7 +102,6 @@ const VerifyKYC = () => {
 
     const handleUpload = (event) => {
         const file = event.target.files[0]
-
         if (!file.type.startsWith('image/')) {
             idref.current.value = null
             return ErrorAlert('File error, upload a valid image format (jpg, jpeg, png, svg)')
@@ -170,10 +172,16 @@ const VerifyKYC = () => {
                         </div>
                         <div className='italic text-sm flex items-center gap-2'>
                             <span>Status:</span>
-                            {Object.values(kyc).length !== 0 ?
-                                <span className={`${kyc.status === 'failed' ? 'text-[#c42e2e]' : 'text-light'}`}>{kyc?.status}</span>
+                            {dataloading ?
+                                <div className='w-20 h-2 bg-slate-300 animate-pulse rounded-full'></div>
                                 :
-                                <span className='text-[#c42e2e]'>unverified</span>
+                                <>
+                                    {Object.values(kyc).length !== 0 ?
+                                        <span className={`${kyc.status === 'failed' ? 'text-[#c42e2e]' : 'text-light'}`}>{kyc?.status}</span>
+                                        :
+                                        <span className='text-[#c42e2e]'>unverified</span>
+                                    }
+                                </>
                             }
                         </div>
                     </div>
@@ -250,7 +258,7 @@ const VerifyKYC = () => {
                                 </div>
                             </div>
                         </div>
-                        <button className='outline-none bg-[#252525] py-2 px-8 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-[600] mt-6 mx-auto' onClick={Create_Update_KYC}>upload details</button>
+                        <button className='outline-none bg-[#252525] py-2 px-8 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-[600] mt-4 mx-auto' onClick={Create_Update_KYC}>upload details</button>
                     </div>
                 </div>
             </div>
