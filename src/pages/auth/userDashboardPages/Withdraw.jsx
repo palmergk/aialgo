@@ -179,7 +179,7 @@ const Withdraw = () => {
         <Dashboard>
             <div>
                 <div className='flex justify-between items-center gap-4'>
-                    <div className='uppercase font-bold md:text-2xl text-lg text-semi-white '>{screen === 1 ? 'withdraw' : 'withdrawal history'}</div>
+                    <div className='uppercase font-bold md:text-2xl text-lg text-semi-white'>{screen === 1 ? 'withdraw' : 'withdrawal history'}</div>
                     <div className='flex gap-1 capitalize font-bold md:text-[0.9rem] text-xs text-light items-center justify-center cursor-pointer' onClick={() => setScreen(screen === 1 ? 2 : 1)}>
                         <span>{screen === 1 ? 'history' : 'withdraw'}</span>
                         {screen === 1 ? <RiHistoryFill /> : <BiMoneyWithdraw />}

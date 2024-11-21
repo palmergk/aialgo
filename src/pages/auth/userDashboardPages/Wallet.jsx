@@ -16,41 +16,27 @@ import { Apis, UserGetApi } from '../../../services/API';
 
 
 const Wallet = () => {
-    const [wallet] = useAtom(WALLET)
+    const [wallet, setWallet] = useAtom(WALLET)
     const [ups, setUps] = useState({})
     const [testRun, setTestRun] = useState({})
     const [dataLoading, setDataLoading] = useState(true)
 
     useEffect(() => {
-        const FetchTestRun = async () => {
+        const FetchWallet = async () => {
             try {
-                const response = await UserGetApi(Apis.user.get_test_run_plan)
+                const response = await UserGetApi(Apis.user.wallet)
                 if (response.status === 200) {
-                    setTestRun(response.msg)
+                    setWallet(response.msg)
+                    setUps(response.ups)
+                    setTestRun(response.testRun)
                 }
-
             } catch (error) {
                 //
             } finally {
                 setDataLoading(false)
             }
         }
-        FetchTestRun()
-    }, [])
-
-    useEffect(() => {
-        const FetchUps = async () => {
-            try {
-                const response = await UserGetApi(Apis.user.ups)
-                if (response.status === 200) {
-                    setUps(response.msg)
-                }
-
-            } catch (error) {
-                //
-            }
-        }
-        FetchUps()
+        FetchWallet()
     }, [])
 
     let profitUp = 0
@@ -66,85 +52,95 @@ const Wallet = () => {
     return (
         <Dashboard>
             <div>
-                <div className='uppercase font-bold md:text-2xl text-lg text-semi-white '>wallet</div>
+                <div className='uppercase font-bold md:text-2xl text-lg text-semi-white'>wallet</div>
                 <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white bg-[#6859bb]  overflow-hidden'>
-                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
-                            <span>deposits</span>
-                            <span className='text-[0.65rem] md:text-xs italic lowercase'>confirmed</span>
-                        </div>
-                        <div className='flex flex-col items-center font-bold gap-4 mt-4'>
-                            <div className='flex items-center'>
-                                <BsCurrencyDollar />
-                                {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_deposit.toLocaleString()}</div>}
+                    {dataLoading ?
+                        <>
+                            {new Array(6).fill(0).map((ele, i) => (
+                                <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] bg-slate-300 animate-pulse rounded-[10px]' key={i}></div>
+                            ))}
+                        </>
+                        :
+                        <>
+                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white bg-[#6859bb]  overflow-hidden'>
+                                <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
+                                    <span>deposits</span>
+                                    <span className='text-[0.65rem] md:text-xs italic lowercase'>confirmed</span>
+                                </div>
+                                <div className='flex flex-col items-center font-bold gap-4 mt-4'>
+                                    <div className='flex items-center'>
+                                        <BsCurrencyDollar />
+                                        {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_deposit.toLocaleString()}</div>}
+                                    </div>
+                                    <img src={deposit3d} className='md:h-16 h-12 w-auto'></img>
+                                </div>
                             </div>
-                            <img src={deposit3d} className='md:h-16 h-12 w-auto'></img>
-                        </div>
-                    </div>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
-                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
-                            <span>profits</span>
-                            <span className='text-[0.65rem] md:text-xs italic lowercase'>claimed</span>
-                        </div>
-                        <div className='flex justify-between gap-2 font-bold mt-4'>
-                            <div className='flex items-center'>
-                                <BsCurrencyDollar />
-                                {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_profit.toLocaleString()}</div>}
+                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
+                                <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
+                                    <span>profits</span>
+                                    <span className='text-[0.65rem] md:text-xs italic lowercase'>claimed</span>
+                                </div>
+                                <div className='flex justify-between gap-2 font-bold mt-4'>
+                                    <div className='flex items-center'>
+                                        <BsCurrencyDollar />
+                                        {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_profit.toLocaleString()}</div>}
+                                    </div>
+                                    <img src={profit3d} className='md:h-12 h-8 w-[auto]'></img>
+                                </div>
+                                <div className='flex items-center text-xs capitalize font-medium gap-2 mt-6 w-fit h-fit mx-auto py-1 px-2 rounded-full border border-[green] text-white'>
+                                    <FaArrowTrendUp />
+                                    <div>+{profitUp.toFixed(2)}%</div>
+                                </div>
                             </div>
-                            <img src={profit3d} className='md:h-12 h-8 w-[auto]'></img>
-                        </div>
-                        <div className='flex items-center text-xs capitalize font-medium gap-2 mt-6 w-fit h-fit mx-auto py-1 px-2 rounded-full border border-[green] text-white'>
-                            <FaArrowTrendUp />
-                            <div>+{profitUp.toFixed(2)}%</div>
-                        </div>
-                    </div>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
-                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
-                            <span>bonuses</span>
-                            <span className='text-[0.65rem] md:text-xs italic lowercase'>claimed</span>
-                        </div>
-                        <div className='flex justify-between gap-2 font-bold mt-4'>
-                            <div className='flex items-center'>
-                                <BsCurrencyDollar />
-                                {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_bonus.toLocaleString()}</div>}
+                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
+                                <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
+                                    <span>bonuses</span>
+                                    <span className='text-[0.65rem] md:text-xs italic lowercase'>claimed</span>
+                                </div>
+                                <div className='flex justify-between gap-2 font-bold mt-4'>
+                                    <div className='flex items-center'>
+                                        <BsCurrencyDollar />
+                                        {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_bonus.toLocaleString()}</div>}
+                                    </div>
+                                    <img src={bonus3d} className='md:h-12 h-8 w-[auto]'></img>
+                                </div>
+                                <div className='flex items-center text-xs capitalize font-medium gap-2 mt-6 w-fit h-fit mx-auto py-1 px-2 rounded-full border border-[green] text-white'>
+                                    <FaArrowTrendUp />
+                                    <div>+{bonusUp.toFixed(2)}%</div>
+                                </div>
                             </div>
-                            <img src={bonus3d} className='md:h-12 h-8 w-[auto]'></img>
-                        </div>
-                        <div className='flex items-center text-xs capitalize font-medium gap-2 mt-6 w-fit h-fit mx-auto py-1 px-2 rounded-full border border-[green] text-white'>
-                            <FaArrowTrendUp />
-                            <div>+{bonusUp.toFixed(2)}%</div>
-                        </div>
-                    </div>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden' >
-                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>withdrawals</div>
-                        <div className='flex flex-col items-center font-bold mt-4 gap-4'>
-                            <div className='flex items-center' >
-                                <BsCurrencyDollar />
-                                {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_withdrawal.toLocaleString()}</div>}
+                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden' >
+                                <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>withdrawals</div>
+                                <div className='flex flex-col items-center font-bold mt-4 gap-4'>
+                                    <div className='flex items-center' >
+                                        <BsCurrencyDollar />
+                                        {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.total_withdrawal.toLocaleString()}</div>}
+                                    </div>
+                                    <img src={withdraw3d} className='md:h-14 h-10 w-auto'></img>
+                                </div>
                             </div>
-                            <img src={withdraw3d} className='md:h-14 h-10 w-auto'></img>
-                        </div>
-                    </div>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white capitalize bg-[#6859bb] overflow-hidden'>
-                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>referrals</div>
-                        <div className='flex flex-col items-center font-bold mt-4 gap-4'>
-                            <div className='flex items-center' >
-                                <BsCurrencyDollar />
-                                {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.referral.toLocaleString()}</div>}
+                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white capitalize bg-[#6859bb] overflow-hidden'>
+                                <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>referrals</div>
+                                <div className='flex flex-col items-center font-bold mt-4 gap-4'>
+                                    <div className='flex items-center' >
+                                        <BsCurrencyDollar />
+                                        {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.referral.toLocaleString()}</div>}
+                                    </div>
+                                    <img src={referral} className='md:h-14 h-10 w-auto'></img>
+                                </div>
                             </div>
-                            <img src={referral} className='md:h-14 h-10 w-auto'></img>
-                        </div>
-                    </div>
-                    <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27]'>
-                        <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>current balance</div>
-                        <div className='flex flex-col items-center font-bold mt-4 gap-4'>
-                            <div className='flex items-center'>
-                                <BsCurrencyDollar />
-                                {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.balance.toLocaleString()}</div>}
+                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27]'>
+                                <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>current balance</div>
+                                <div className='flex flex-col items-center font-bold mt-4 gap-4'>
+                                    <div className='flex items-center'>
+                                        <BsCurrencyDollar />
+                                        {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.balance.toLocaleString()}</div>}
+                                    </div>
+                                    <img src={wallet3d} className='md:h-[3.3rem] h-[2.3rem] w-auto'></img>
+                                </div>
                             </div>
-                            <img src={wallet3d} className='md:h-[3.3rem] h-[2.3rem] w-auto'></img>
-                        </div>
-                    </div>
+                        </>
+                    }
                 </div>
                 <div className='mt-12 flex flex-col gap-1'>
                     <div className='text-semi-white md:text-sm text-[0.8rem] capitalize'>Try our test run package</div>

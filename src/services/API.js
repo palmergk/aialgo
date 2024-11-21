@@ -20,9 +20,7 @@ const user_urls = {
     delete_photo: user + 'delete-profile-photo',
     delete_account: user + 'delete-account',
     wallet: user + 'user-wallet',
-    ups: user + 'user-ups',
     get_crypto_and_their_wallets: user + 'get_crypto_and_thier_wallets',
-    get_test_run_plan: user + 'get_test_run_plan'
 }
 
 const deposit = 'api/deposit/'
