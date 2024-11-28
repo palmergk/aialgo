@@ -64,7 +64,7 @@ const Header = () => {
                     <div className='flex gap-20'>
                         <Link to='/' className='flex items-center' onClick={MoveToTop}>
                             <img src={logo} className=' w-16 h-auto'></img>
-                            <div className='capitalize text-white font-bold'>ai algo trade</div>
+                            <div className='capitalize text-white font-bold'>AI algo trade</div>
                         </Link>
                         <div className='lg:flex gap-5 items-center hidden'>
                             <div className='relative'>
@@ -85,7 +85,7 @@ const Header = () => {
                                                 <div className='text-[0.95rem] font-medium capitalize'>trading plans</div>
                                             </div>
                                             <div className='text-[0.8rem] ml-[1.7rem]'>
-                                                View the different trading plans you can invest and trade cryptocurrency with on the AI algorithm trading system.
+                                                View the different trading plans on our platform you can invest and trade cryptocurrency on.
                                             </div>
                                         </Link>
                                     </div>
@@ -136,13 +136,13 @@ const Header = () => {
                                 </div>
                                 {overview && <div className='flex flex-col gap-3 border-b border-[grey] px-6 py-5'>
                                     <Link to='/trading' className='flex flex-col gap-2 hover:bg-[#303e4d] p-2 text-white ' onClick={() => { setDropDown(false); setOverview(false); MoveToTop() }}>
-                                            <div className='flex gap-2 items-center'>
-                                                <LuBoxes className=' text-[#4b6f96]' />
-                                                <div className='text-[0.95rem] font-medium capitalize'>trading plans</div>
-                                            </div>
-                                            <div className='text-[0.8rem] text-[#c2c1c1] ml-[1.7rem]'>
-                                                View the different trading plans you can invest and trade cryptocurrency with on the AI algorithm trading system.
-                                            </div>
+                                        <div className='flex gap-2 items-center'>
+                                            <LuBoxes className=' text-[#4b6f96]' />
+                                            <div className='text-[0.95rem] font-medium capitalize'>trading plans</div>
+                                        </div>
+                                        <div className='text-[0.8rem] text-[#c2c1c1] ml-[1.7rem]'>
+                                            View the different trading plans on our platform you can invest and trade cryptocurrency on.
+                                        </div>
                                     </Link>
                                 </div>}
                             </div>

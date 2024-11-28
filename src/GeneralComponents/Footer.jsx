@@ -18,7 +18,7 @@ const CompanyLinks = [
   { path: 'contact us', url: '/contact' },
   { path: 'trading plans', url: '/trading' },
   { path: 'terms and conditions', url: '/terms' },
-  { path: 'privacy', url: '/privacy' },
+  { path: 'privacy policy', url: '/privacy' },
 ]
 
 const Footer = () => {
@@ -31,9 +31,9 @@ const Footer = () => {
           <div className='flex flex-col gap-2 lg:col-span-3 text-ground'>
             <Link to='/' onClick={MoveToTop} className='flex items-center w-fit'>
               <img src={logo} className='w-20 h-auto -ml-4'></img>
-              <div className='capitalize text-white font-bold text-3xl'>Ai Algo Trade</div>
+              <div className='capitalize text-white font-bold text-3xl'>AI Algo Trade</div>
             </Link>
-            <div className='md:w-[80%] lg:w-[60%]'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod omnis voluptate similique facere! Neque, cupiditate minus ea nulla fugit.</div>
+            <div className='md:w-[80%] lg:w-[60%]'>Advanced trading mechanism, security, transparency and consitent market advantage for every level trader.</div>
             <div className='flex flex-col gap-2 mt-4'>
               <div className='flex items-center gap-2'>
                 <IoTimeOutline className='text-lg'/>

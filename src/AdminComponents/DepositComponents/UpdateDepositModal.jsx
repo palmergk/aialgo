@@ -145,7 +145,7 @@ const UpdateDepositModal = ({ closeView, refetchAllDeposits, singleDeposit }) =>
                           <StatusSelector Statuses={Statuses} status={status} HandleFunction={UpdateHandlerForStatus} select={select} toggle={() => setSelect(!select)} />
                           :
                           <>
-                            {Object.values(singleDeposit).length !== 0 && <div className={`md:text-base text-sm capitalize ${singleDeposit.status === 'confirmed' && 'text-[green]'} ${singleDeposit.status === 'failed' && 'text-[red]'}`}>{singleDeposit.status}</div>}
+                            {Object.values(singleDeposit).length !== 0 && <div className={`md:text-base text-sm capitalize ${singleDeposit.status === 'failed' ? 'text-[red]' : 'text-[green]'}`}>{singleDeposit.status}</div>}
                           </>
                         }
                       </div>

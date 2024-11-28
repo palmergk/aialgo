@@ -10,7 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@mui/material": "^6.1.8",
+    "@mui/x-charts": "^7.22.3",
     "antd": "^5.20.2",
+    "aos": "^2.3.4",
     "axios": "^1.6.7",
     "jotai": "^2.6.4",
     "js-cookie": "^3.0.5",

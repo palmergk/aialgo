@@ -23,7 +23,7 @@ const TaxModal = ({ closeView, refetchAllTaxes, singleTax }) => {
 
     const Statuses = [
         "processing",
-        "received",
+        "confirmed",
         "failed"
     ]
 
@@ -144,7 +144,7 @@ const TaxModal = ({ closeView, refetchAllTaxes, singleTax }) => {
                                                     <StatusSelector Statuses={Statuses} status={status} HandleFunction={UpdateHandlerForStatus} select={select} toggle={() => setSelect(!select)} />
                                                     :
                                                     <>
-                                                        {Object.values(singleTax).length !== 0 && <div className={`md:text-base text-sm capitalize ${singleTax.status === 'received' && 'text-[green]'} ${singleTax.status === 'failed' && 'text-[red]'}`}>{singleTax.status}</div>}
+                                                        {Object.values(singleTax).length !== 0 && <div className={`md:text-base text-sm capitalize ${singleTax.status === 'failed' ? 'text-[red]' : 'text-[green]'}`}>{singleTax.status}</div>}
                                                     </>
                                                 }
                                             </div>

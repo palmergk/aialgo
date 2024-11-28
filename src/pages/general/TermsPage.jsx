@@ -12,11 +12,11 @@ const TermsPage = () => {
                         <div className='w-[90%] mx-auto'>
                             <div className='flex flex-col gap-2 '>
                                 <span className='border-b w-full text-[1.8rem] lg:text-[2.5rem] uppercase font-bold'>terms & conditions</span>
-                                <span className='text-[0.9rem] text-[#757575]'>last updated: 28th of February 2024</span>
+                                <span className='text-[0.9rem] text-[#757575]'>last updated: 22nd of November 2024</span>
                             </div>
                             <div className='pt-8'>
                                 <div>
-                                    Welcome to our website. By browising and using this website, you signify your agreement to comply with and be bound with the following terms and conditions and <Link to='/privacy' onClick={MoveToTop} className='text-orange underline'>Privacy Policy</Link> of use which governs Ai Algo Trade relationship with you as related to this website. Please do not use this website if you disagree with any part of these terms and conditions.
+                                    Welcome to our website. By browising and using this website, you signify your agreement to comply with and be bound with the following terms and conditions and <Link to='/privacy' onClick={MoveToTop} className='text-orange underline'>Privacy Policy</Link> of use which governs AI Algo Trade relationship with you as related to this website. Please do not use this website if you disagree with any part of these terms and conditions.
                                 </div>
                                 <div>The use of the website is subject to the following terms:</div>
                                 <div className='flex flex-col gap-4 mt-8'>
@@ -36,7 +36,7 @@ const TermsPage = () => {
                                                     <div className='w-1.5 h-1.5 rounded-full bg-[#504f4f] mt-2'></div>
                                                 </div>
                                                 <div className='w-[98%]'>
-                                                    <div>“Content” refers to all information, data, materials, text, images, videos, audio, graphics, software, and any other digital assets or elements made available on our website or through our services. This includes, but is not limited to, any content provided by us, user-generated content, third-party content, product descriptions, reviews, and any other information presented or accessible within the scope of our platform or services. The term “Content“ encompasses all forms of media and resources that Users may encounter or interact with while using our Site.</div>
+                                                    <div>“Content” refers to all information, data, materials, text, images, videos, audio, graphics, software, and any other digital assets or elements made available on our website or through our services. The term “Content“ encompasses all forms of media and resources that Users may encounter or interact with while using our Site.</div>
                                                 </div>
                                             </div>
                                             <div className='flex gap-2 w-full'>
@@ -60,7 +60,7 @@ const TermsPage = () => {
                                                     <div className='w-1.5 h-1.5 rounded-full bg-[#504f4f] mt-2'></div>
                                                 </div>
                                                 <div className='w-[98%]'>
-                                                    <div>“Trading plans” means a trading service into which the User can make their deposit on.</div>
+                                                    <div>“Trading plans” means a trading service into which the user can buy investments on.</div>
                                                 </div>
                                             </div>
                                             <div className='flex gap-2 w-full'>
@@ -76,7 +76,7 @@ const TermsPage = () => {
                                                     <div className='w-1.5 h-1.5 rounded-full bg-[#504f4f] mt-2'></div>
                                                 </div>
                                                 <div className='w-[98%]'>
-                                                    <div>“Site” means the online platform or website operated by CEX.IO through which services are provided to you. It’s the place where we offer our services to you, providing a digital environment with all the features and tools you need to access and use our services. This includes Apps (e.g. mobile applications), websites, and application program interfaces.</div>
+                                                    <div>“Site” means the online platform or website operated by AI ALGO TRADE through which services are provided to you. It’s the place where we offer our services to you, providing a digital environment with all the features and tools you need to access and use our services.</div>
                                                 </div>
                                             </div>
                                             <div className='flex gap-2 w-full'>
@@ -92,7 +92,7 @@ const TermsPage = () => {
                                                     <div className='w-1.5 h-1.5 rounded-full bg-[#504f4f] mt-2'></div>
                                                 </div>
                                                 <div className='w-[98%]'>
-                                                    <div>“Test run” is a package outside the trading plan where users can make a deposit on to test the authenticy of the AI ALGO TRADE system but only once.</div>
+                                                    <div>“Test run” is a trading plan package where users can buy investments on to test the authenticy of the AI ALGO TRADE system but only once.</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -107,7 +107,7 @@ const TermsPage = () => {
                                                     <div className='w-1.5 h-1.5 rounded-full bg-[#504f4f] mt-2'></div>
                                                 </div>
                                                 <div className='w-[98%]'>
-                                                    <div>Digital Assets and associated activities involve a significant amount of risk. Prices can fluctuate, often significantly, on any given day. Because of such price fluctuations, you may occur a significant gain rise or significant reduce value of your profits generated. </div>
+                                                    <div>Digital Assets and associated activities involve a significant amount of risk. Prices can fluctuate, often significantly, on any given day. Because of such price fluctuations, you may occur a significant gain rise or significant reduce value of your earnings. </div>
                                                 </div>
                                             </div>
                                             <div className='flex gap-2 w-full'>
@@ -115,7 +115,7 @@ const TermsPage = () => {
                                                     <div className='w-1.5 h-1.5 rounded-full bg-[#504f4f] mt-2'></div>
                                                 </div>
                                                 <div className='w-[98%]'>
-                                                    <div>Taxes may be payable on any return and/or on any increase in the value of your Digital Assets and you should seek independent advice on your tax obligations. AI ALGO TRADE is not responsible for any violation made by the User due to his/her obligation to calculate and pay taxes and duties.</div>
+                                                    <div>Taxes may be payable on any return and you should seek independent advice on your tax obligations. AI ALGO TRADE is not responsible for any violation made by the User due to his/her obligation to calculate and pay taxes and duties.</div>
                                                 </div>
                                             </div>
                                             <div className='flex gap-2 w-full'>
@@ -146,7 +146,7 @@ const TermsPage = () => {
                                                     <div className='w-1.5 h-1.5 rounded-full bg-[#504f4f] mt-2'></div>
                                                 </div>
                                                 <div className='w-[98%]'>
-                                                    <div>Generally, our Site allows users to deposit, trade, and withdraw Digital Assets. The range of services is dependent of the trading plan your deposit fall under. </div>
+                                                    <div>Generally, our Site allows users to deposit, trade, and withdraw Digital Assets. </div>
                                                 </div>
                                             </div>
                                             <div className='flex gap-2 w-full'>
@@ -154,7 +154,7 @@ const TermsPage = () => {
                                                     <div className='w-1.5 h-1.5 rounded-full bg-[#504f4f] mt-2'></div>
                                                 </div>
                                                 <div className='w-[98%]'>
-                                                    <div>Trading plans means a trading service into which the user can make their deposit on. Profits generation varies base on user trading plan.</div>
+                                                    <div>Trading plans means a trading service into which the user can buy investments on. Profits generation varies base on user trading plan.</div>
                                                 </div>
                                             </div>
                                             <div className='flex gap-2 w-full'>

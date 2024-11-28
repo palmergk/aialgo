@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Apis, UserPutApi, imageurl } from '../../../../services/API'
 import { ADMINSTORE, PROFILE } from '../../../../store'
 import { useAtom } from 'jotai'
-import { IoEye } from 'react-icons/io5';
 import { MdVerified, MdOutlineDateRange, MdOutlineCancel, MdSentimentVeryDissatisfied, MdOutlineEdit, MdOutlinePhotoSizeSelectActual } from "react-icons/md";
 import moment from 'moment';
 import { LuUserCircle } from "react-icons/lu";
@@ -12,7 +11,6 @@ import { IoCheckbox } from "react-icons/io5";
 import { PiWarningCircleBold } from "react-icons/pi";
 import { FaRegEdit } from "react-icons/fa";
 import { CookieName, ErrorAlert, SuccessAlert } from '../../../../utils/utils';
-import { IoMdEyeOff } from 'react-icons/io';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import membership from '../../../../assets/images/membership.png'
@@ -21,6 +19,7 @@ import Loading from '../../../../GeneralComponents/Loading';
 import { RiDeleteBin2Line } from 'react-icons/ri';
 import SettingsLayout from '../../../../UserComponents/SettingsLayout';
 import CopyButton from '../../../../GeneralComponents/CopyButton';
+import PasswordToTextInput from '../../../../GeneralComponents/PasswordToTextInput';
 
 
 const Profile = () => {
@@ -33,12 +32,6 @@ const Profile = () => {
     const [passEdit, setPassEdit] = useState(false)
     const [commit, setCommit] = useState(false)
     const [screen, setScreen] = useState(1)
-    const [eye, setEye] = useState(false)
-    const [eye2, setEye2] = useState(false)
-    const [eye3, setEye3] = useState(false)
-    const EyeIcon = eye === true ? IoEye : IoMdEyeOff
-    const EyeIcon2 = eye2 === true ? IoEye : IoMdEyeOff
-    const EyeIcon3 = eye3 === true ? IoEye : IoMdEyeOff
     const [select, setSelect] = useState(false)
     const [loading, setLoading] = useState(false)
     const [loading2, setLoading2] = useState(false)
@@ -204,9 +197,9 @@ const Profile = () => {
 
     return (
         <SettingsLayout>
-            <div>
+            <div className='mt-10'>
                 {loading && <Loading className="!bg-[#0c091aa4]" />}
-                <div className='flex flex-col gap-4 items-center justify-center mt-10'>
+                <div className='flex flex-col gap-4 items-center justify-center'>
                     <div className='relative'>
                         <img className='md:w-48 md:h-48 h-36 w-36 border-4 border-light rounded-full object-cover' src={profile.img}></img>
                         <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shlz' onClick={() => setSelect(!select)}><MdOutlineEdit /></div>
@@ -287,7 +280,7 @@ const Profile = () => {
                                 </div>
                                 :
                                 <div className='flex md:gap-4 gap-2 items-center'>
-                                    <input className='outline-none border border-light bg-transparent lg:text-[0.8rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='full_name' value={form.full_name} onChange={formHandler} onKeyUp={CommitHandler} type='text'></input>
+                                    <input className='outline-none border border-light bg-transparent lg:text-[0.85rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='full_name' value={form.full_name} onChange={formHandler} onKeyUp={CommitHandler} type='text'></input>
                                     <div className='text-xl text-light cursor-pointer' onClick={() => setNameEdit(!nameEdit)}>
                                         <MdOutlineCancel />
                                     </div>
@@ -305,7 +298,7 @@ const Profile = () => {
                                 </div>
                                 :
                                 <div className='flex md:gap-4 gap-2 items-center'>
-                                    <input className='outline-none border border-light bg-transparent lg:text-[0.8rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='username' value={form.username} onChange={formHandler} onKeyUp={CommitHandler} type='text'></input>
+                                    <input className='outline-none border border-light bg-transparent lg:text-[0.85rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='username' value={form.username} onChange={formHandler} onKeyUp={CommitHandler} type='text'></input>
                                     <div className='text-xl text-light cursor-pointer' onClick={() => { setUserEdit(!userEdit) }}>
                                         <MdOutlineCancel />
                                     </div>
@@ -323,7 +316,7 @@ const Profile = () => {
                                 </div>
                                 :
                                 <div className='flex md:gap-4 gap-2 items-center'>
-                                    <input className='outline-none border border-light bg-transparent lg:text-[0.8rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='email' value={form.email} onChange={formHandler} onKeyUp={CommitHandler} type='email'></input>
+                                    <input className='outline-none border border-light bg-transparent lg:text-[0.85rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='email' value={form.email} onChange={formHandler} onKeyUp={CommitHandler} type='email'></input>
                                     <div className='text-xl text-light cursor-pointer' onClick={() => setEmailEdit(!emailEdit)}>
                                         <MdOutlineCancel />
                                     </div>
@@ -342,14 +335,8 @@ const Profile = () => {
                                 :
                                 <div className='flex md:gap-4 gap-2 items-center'>
                                     <div className='flex flex-col gap-6'>
-                                        <div className='relative'>
-                                            <input className='outline-none border border-light bg-transparent lg:text-[0.8rem] text-base md:w-60 w-48 h-fit rounded-[3px] pl-2 pr-8 py-1 ipt' placeholder='Enter old password' name='old_password' value={form.old_password} onChange={formHandler} onKeyUp={CommitHandler} type={`${eye ? 'text' : 'password'}`}></input>
-                                            <EyeIcon className='absolute top-2 right-2 text-light cursor-pointer text-lg' onClick={() => setEye(!eye)} />
-                                        </div>
-                                        <div className='relative'>
-                                            <input className='outline-none border border-light bg-transparent lg:text-[0.8rem] text-base md:w-60 w-48 h-fit rounded-[3px] pl-2 pr-8 py-1 ipt' placeholder='Create new password' name='new_password' value={form.new_password} onChange={formHandler} onKeyUp={CommitHandler} type={`${eye2 ? 'text' : 'password'}`}></input>
-                                            <EyeIcon2 className='absolute top-2 right-2 text-light cursor-pointer text-lg' onClick={() => setEye2(!eye2)} />
-                                        </div>
+                                        <PasswordToTextInput name='old_password' value={form.old_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Enter old password' className={{main: 'md:w-60 w-48 text-white'}} />
+                                        <PasswordToTextInput name='new_password' value={form.new_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Create new password' className={{main: 'md:w-60 w-48 text-white'}} />
                                     </div>
                                     <div className='text-xl text-light cursor-pointer' onClick={() => setPassEdit(!passEdit)}>
                                         <MdOutlineCancel />
@@ -408,10 +395,7 @@ const Profile = () => {
                                         <SlLockOpen />
                                     </div>
                                     <div className='flex flex-col gap-8 items-center justify-center mt-6'>
-                                        <div className='relative'>
-                                            <input className='outline-none border border-light bg-white lg:text-[0.85rem] text-base w-48 h-8 rounded-[4px] pl-2 pr-8 py-1 text-black ipt' placeholder='Enter your password' name='dl_password' value={form.dl_password} onChange={formHandler} type={`${eye3 === true ? 'text' : 'password'}`}></input>
-                                            <EyeIcon3 className='absolute top-2 right-2 cursor-pointer text-light text-lg' onClick={() => setEye3(!eye3)} />
-                                        </div>
+                                        <PasswordToTextInput name='dl_password' value={form.dl_password} onChange={formHandler} placeholder='Enter your password' className={{ main: 'bg-white rounded-[4px]' }} />
                                         <div className='flex md:gap-16 gap-6 items-center'>
                                             <button className='outline-none w-fit h-fit py-2 px-4 text-xs text-semi-white  bg-admin-btn  rounded-md capitalize flex items-center gap-1 font-bold' type='button' onClick={() => { setScreen(1); setForm({ ...form, dl_password: '' }) }}>
                                                 <span>cancel deletion</span>

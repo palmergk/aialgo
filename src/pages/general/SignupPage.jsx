@@ -2,8 +2,6 @@ import React, { useRef, useState } from 'react'
 import Pagelayout from '../../GeneralComponents/Pagelayout'
 import logo from '../../assets/images/logobrand.png'
 import { Link, useNavigate } from 'react-router-dom';
-import { IoEye } from "react-icons/io5";
-import { IoMdEyeOff } from "react-icons/io";
 import { SlCamera, SlUser } from 'react-icons/sl'
 import { MdVerified } from "react-icons/md";
 import Loading from '../../GeneralComponents/Loading'
@@ -12,16 +10,13 @@ import { Apis, UserPostApi } from '../../services/API'
 import Cookies from 'js-cookie'
 import { decodeToken } from 'react-jwt'
 import CountrySelector from '../../GeneralComponents/CountrySelector';
+import PasswordToTextInput from '../../GeneralComponents/PasswordToTextInput';
 
 
 const SignupPage = () => {
   const navigate = useNavigate()
   const [screen, setScreen] = useState(1)
-  const [eye, setEye] = useState(false)
-  const [eye2, setEye2] = useState(false)
   const [check, setCheck] = useState(false)
-  const EyeIcon = eye === true ? IoEye : IoMdEyeOff
-  const EyeIcon2 = eye2 === true ? IoEye : IoMdEyeOff
   const [seconds, setSeconds] = useState(0)
   const [loading, setLoading] = useState(false)
   const [usercountry, setUserCountry] = useState({
@@ -29,7 +24,6 @@ const SignupPage = () => {
     flag: null
   })
   const imgref = useRef()
-
   const [profile, setProfile] = useState({
     img: null,
     image: null
@@ -45,7 +39,7 @@ const SignupPage = () => {
     verifycode: ''
   })
 
-  const inputHandler = event => {
+  const formHandler = event => {
     setForm({
       ...form,
       [event.target.name]: event.target.value
@@ -176,104 +170,104 @@ const SignupPage = () => {
             <div className='col-span-1'>
               <div className='signupBg rounded-xl flex items-center lg:h-[40rem] h-fit py-16'>
                 <div className='w-11/12 mx-auto'>
-                  <div className={`bg-white h-fit rounded-[20px] py-8 w-full lg:w-[39vw] lg:absolute ${screen === 1 ? 'lg:top-[2.8rem]' : 'lg:top-[3.8rem]'}  lg:right-16 lg:shadow-sign overflow-hidden`}>
+                  <div className={`bg-white h-fit rounded-[20px] py-8 w-full lg:w-[39vw] lg:absolute ${screen === 1 ? 'lg:top-10' : 'lg:top-[3.8rem]'}  lg:right-16 lg:shadow-sign overflow-hidden`}>
                     <div className='relative'>
                       {loading && <Loading />}
-                      {screen === 1 &&
-                        <div className='w-11/12 md:w-[85%] mx-auto '>
-                          <div className='text-center text-[1.7rem] capitalize font-[550]'>create an account</div>
-                          <div className='text-sm mt-0.5 text-[#6b6a6a]  text-center font-[550]'>Start your trading journey today with the first step</div>
-                          <form onSubmit={submitForm}>
-                            <div className='flex flex-col gap-4 mt-4'>
-                              <div className='relative mx-auto'>
-                                <label className='cursor-pointer'>
-                                  {profile.img ?
-                                    <div className='relative'>
-                                      <img src={profile.img} alt="" className="w-[3.8rem] object-cover h-[3.8rem] rounded-full" />
-                                      <SlCamera className='absolute top-6 -right-1.5 text-base text-orange' />
-                                    </div>
-                                    :
-                                    <div className="w-fit mx-auto text-3xl bg-slate-200 p-4 rounded-full relative"> <SlUser />
-                                      <SlCamera className='absolute top-6 -right-1.5 text-base' />
-                                    </div>
-                                  }
-                                  <input ref={imgref} type="file" onChange={handleProfileUpload} hidden />
-                                </label>
-                              </div>
-                              <div className='flex flex-col gap-[0.3rem]'>
-                                <div className='text-sm capitalize font-[550]'>full name:</div>
-                                <input className='outline-none w-full  border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter your full name' type='text' name='full_name' value={form.full_name} onChange={inputHandler} ></input>
-                              </div>
-                              <div className='grid grid-cols-1 md:grid-cols-2 w-full md:gap-8 gap-4'>
-                                <div className='flex flex-col gap-[0.3rem] relative'>
-                                  <div className='text-sm capitalize font-[550]'>username:</div>
-                                  <input className='outline-none w-full border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter a username' type='text' name='username' value={form.username} onChange={inputHandler} ></input>
+                      <div>
+                        {screen === 1 &&
+                          <div className='w-11/12 md:w-[85%] mx-auto '>
+                            <div className='text-center text-[1.7rem] capitalize font-[550]'>create an account</div>
+                            <div className='text-sm mt-0.5 text-[#6b6a6a]  text-center font-[550]'>Start your trading journey today with the first step</div>
+                            <form onSubmit={submitForm}>
+                              <div className='flex flex-col gap-4 mt-4'>
+                                <div className='relative mx-auto'>
+                                  <label className='cursor-pointer'>
+                                    {profile.img ?
+                                      <div className='relative'>
+                                        <img src={profile.img} alt="" className="w-[3.8rem] object-cover h-[3.8rem] rounded-full" />
+                                        <SlCamera className='absolute top-6 -right-1.5 text-base text-orange' />
+                                      </div>
+                                      :
+                                      <div className="w-fit mx-auto text-3xl bg-slate-200 p-4 rounded-full relative"> <SlUser />
+                                        <SlCamera className='absolute top-6 -right-1.5 text-base' />
+                                      </div>
+                                    }
+                                    <input ref={imgref} type="file" onChange={handleProfileUpload} hidden />
+                                  </label>
                                 </div>
-                                <div className='flex flex-col gap-[0.3rem] relative'>
-                                  <div className='text-sm capitalize font-[550]'>email address:</div>
-                                  <input className='outline-none w-full border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter your email' type='email' name='email' value={form.email} onChange={inputHandler}></input>
+                                <div className='flex flex-col gap-1.5'>
+                                  <div className='text-sm capitalize font-[550]'>full name:</div>
+                                  <input className='outline-none w-full  border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter your full name' type='text' name='full_name' value={form.full_name} onChange={formHandler} ></input>
+                                </div>
+                                <div className='grid grid-cols-1 md:grid-cols-2 w-full md:gap-8 gap-4'>
+                                  <div className='flex flex-col gap-1.5 relative'>
+                                    <div className='text-sm capitalize font-[550]'>username:</div>
+                                    <input className='outline-none w-full border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter a username' type='text' name='username' value={form.username} onChange={formHandler} ></input>
+                                  </div>
+                                  <div className='flex flex-col gap-1.5 relative'>
+                                    <div className='text-sm capitalize font-[550]'>email address:</div>
+                                    <input className='outline-none w-full border-b border-[#4d4c4c] lg:text-sm text-base ipt input-off' placeholder='Enter your email' type='email' name='email' value={form.email} onChange={formHandler}></input>
+                                  </div>
+                                </div>
+                                <div className='grid grid-cols-1 md:grid-cols-2 md:gap-8 gap-4 w-full'>
+                                  <div className='flex flex-col gap-1.5'>
+                                    <div className='text-sm capitalize font-[550]'>country:</div>
+                                    <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} />
+                                  </div>
+                                  <div className='flex flex-col gap-1.5 relative'>
+                                    <div className='text-sm capitalize font-[550]'>referral code:</div>
+                                    <input className='outline-none w-full   border-b border-[#4d4c4c] lg:text-sm text-base  ipt input-off' placeholder='Optional' code type='text' name='referral_code' value={form.referral_code} onChange={formHandler}></input>
+                                  </div>
+                                </div>
+                                <div className='grid grid-cols-2 gap-8 w-full'>
+                                  <div className='flex flex-col gap-1.5'>
+                                    <div className='text-sm capitalize font-[550]'>password:</div>
+                                    <PasswordToTextInput name='password' value={form.password} onChange={formHandler} placeholder='Create a password' className={{ main: 'w-full pl-0 !py-0 border-t-0 border-r-0 border-l-0 rounded-none !border-black lg:text-sm', icon: 'text-orange top-auto !bottom-0 !right-0' }} />
+                                  </div>
+                                  <div className='flex flex-col gap-1.5'>
+                                    <div className='text-sm capitalize font-[550]'>confirm password:</div>
+                                    <PasswordToTextInput name='confirm_password' value={form.confirm_password} onChange={formHandler} placeholder='Re-type password' className={{ main: 'w-full pl-0 !py-0 border-t-0 border-r-0 border-l-0 rounded-none !border-black lg:text-sm', icon: 'text-orange top-auto !bottom-0 !right-0' }} />
+                                  </div>
+                                </div>
+                                <div className='flex gap-1 mt-4'>
+                                  <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }}></input>
+                                  <div className='text-xs capitalize'>by signing up, i agree with <Link to='/terms' className='text-orange font-[550]' onClick={MoveToTop}>terms and conditions</Link></div>
+                                </div>
+                                <div className='flex flex-col gap-2 items-center'>
+                                  <button className='outline-none bg-orange py-2 w-full md:px-32 h-fit md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]' type='submit'>create account</button>
+                                  <div className='text-[#6b6a6a] text-sm font-[550]'>Already have an account?
+                                    <Link to='/login' onClick={MoveToTop} className='cursor-pointer text-orange font-[550]' > Login</Link>
+                                  </div>
                                 </div>
                               </div>
-                              <div className='grid grid-cols-1 md:grid-cols-2 md:gap-8 gap-4 w-full'>
-                                <div className='flex flex-col gap-[0.3rem]'>
-                                  <div className='text-sm capitalize font-[550]'>country:</div>
-                                  <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} />
-                                </div>
-                                <div className='flex flex-col gap-[0.3rem] relative'>
-                                  <div className='text-sm capitalize font-[550]'>referral code:</div>
-                                  <input className='outline-none w-full   border-b border-[#4d4c4c] lg:text-sm text-base  ipt input-off' placeholder='Optional' code type='text' name='referral_code' value={form.referral_code} onChange={inputHandler}></input>
-                                </div>
-                              </div>
-                              <div className='grid grid-cols-2 gap-8 w-full'>
-                                <div className='flex flex-col gap-[0.3rem] relative'>
-                                  <div className='text-sm capitalize font-[550]'>password:</div>
-                                  <input className='outline-none w-full border-b border-[#4d4c4c]  lg:text-sm text-base pr-6 ipt input-off' placeholder='Create a password' type={eye === true ? 'text' : 'password'} name='password' value={form.password} onChange={inputHandler}></input>
-                                  <EyeIcon className='absolute bottom-0 right-0 text-lg text-orange cursor-pointer' onClick={() => setEye(!eye)} />
-                                </div>
-                                <div className='flex flex-col gap-[0.3rem] relative'>
-                                  <div className='text-sm capitalize font-[550]'>confirm password:</div>
-                                  <input className='outline-none w-full border-b border-[#4d4c4c] lg:text-sm text-base pr-6 ipt input-off' placeholder='Re-type password' type={eye2 === true ? 'text' : 'password'} name='confirm_password' value={form.confirm_password} onChange={inputHandler}></input>
-                                  <EyeIcon2 className='absolute bottom-0 right-0 text-lg text-orange cursor-pointer' onClick={() => setEye2(!eye2)} />
-                                </div>
-                              </div>
-                              <div className='flex gap-1 mt-4'>
-                                <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }}></input>
-                                <div className='text-xs capitalize'>by signing up, i agree with <Link to='/terms' className='text-orange font-[550]' onClick={MoveToTop}>terms and conditions</Link></div>
-                              </div>
-                              <div className='flex flex-col gap-2 items-center'>
-                                <button className='outline-none bg-orange py-2 w-full md:px-32 h-fit md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]' type='submit'>create account</button>
-                                <div className='text-[#6b6a6a] text-sm font-[550]'>Already have an account?
-                                  <Link to='/login' onClick={MoveToTop} className='cursor-pointer text-orange font-[550]' > Login</Link>
-                                </div>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                      }
-                      {screen === 2 &&
-                        <div className='w-11/12 md:w-[85%] mx-auto py-14'>
-                          <div className='flex items-center justify-center text-[3rem] text-orange'>
-                            <MdVerified />
+                            </form>
                           </div>
-                          <div className='text-center text-2xl capitalize font-[550] mt-4'>Verify Your Email</div>
-                          <div className='text-center mt-[0.5rem]'>A six digits code was sent to your email address <span className='text-orange'>{form.email?.slice(0, 3)}*******{form.email?.slice(-10)}</span>, copy and paste code below to verify your email.</div>
-                          <form onSubmit={VerifyEmail}>
-                            <div className='flex flex-col gap-1 mt-12 relative'>
-                              <div className='capitalize text-[0.85rem]'>enter six digits code</div>
-                              <input className='outline-none w-full h-10 border border-[grey] text-sm px-2 ipt' placeholder='Enter code here' name='verifycode' value={form.verifycode} onChange={inputHandler}></input>
+                        }
+                        {screen === 2 &&
+                          <div className='w-11/12 md:w-[85%] mx-auto py-14'>
+                            <div className='flex items-center justify-center text-[3rem] text-orange'>
+                              <MdVerified />
                             </div>
-                            <div className='text-[0.85rem] flex justify-end gap-2 mt-2 text-gray-600'>
-                              {seconds > 0 && <span>00:{seconds < 10 && '0'}{seconds}</span>}
-                              {seconds > 0 ? <span>Resend code</span>
-                                :
-                                <span className='text-orange cursor-pointer' onClick={SendOTP}>Resend code</span>}
-                            </div>
-                            <div className='flex items-center justify-center mt-10'>
-                              <button className='outline-none bg-orange py-2 md:px-12 h-fit w-full md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]'>verify</button>
-                            </div>
-                          </form>
-                        </div>
-                      }
+                            <div className='text-center text-2xl capitalize font-[550] mt-4'>Verify Your Email</div>
+                            <div className='text-center mt-[0.5rem]'>A six digits code was sent to your email address <span className='text-orange'>{form.email?.slice(0, 3)}*******{form.email?.slice(-10)}</span>, copy and paste code below to verify your email.</div>
+                            <form onSubmit={VerifyEmail}>
+                              <div className='flex flex-col gap-1 mt-12 relative'>
+                                <div className='capitalize text-[0.85rem]'>enter six digits code</div>
+                                <input className='outline-none w-full h-10 border border-[grey] text-sm px-2 ipt' placeholder='Enter code here' name='verifycode' value={form.verifycode} onChange={formHandler}></input>
+                              </div>
+                              <div className='text-[0.85rem] flex justify-end gap-2 mt-2 text-gray-600'>
+                                {seconds > 0 && <span>00:{seconds < 10 && '0'}{seconds}</span>}
+                                {seconds > 0 ? <span>Resend code</span>
+                                  :
+                                  <span className='text-orange cursor-pointer' onClick={SendOTP}>Resend code</span>}
+                              </div>
+                              <div className='flex items-center justify-center mt-10'>
+                                <button className='outline-none bg-orange py-2 md:px-12 h-fit w-full md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]'>verify</button>
+                              </div>
+                            </form>
+                          </div>
+                        }
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -42,7 +42,7 @@ const Wallet = () => {
     let profitUp = 0
     let bonusUp = 0
     if (Object.keys(ups).length !== 0) {
-        if (wallet?.total_profit > 0) {
+        if (wallet.total_profit !== 0) {
             profitUp = ups.new_profit / wallet.total_profit * 100
             bonusUp = ups.new_bonus / wallet.total_bonus * 100
         }
@@ -53,11 +53,13 @@ const Wallet = () => {
         <Dashboard>
             <div>
                 <div className='uppercase font-bold md:text-2xl text-lg text-semi-white'>wallet</div>
-                <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
+                <div className='flex flex-wrap gap-4 mt-10 items-center justify-center'>
                     {dataLoading ?
                         <>
                             {new Array(6).fill(0).map((ele, i) => (
-                                <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] bg-slate-300 animate-pulse rounded-[10px]' key={i}></div>
+                                <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] bg-slate-300 animate-pulse rounded-[10px] py-2 px-2 md:px-4' key={i}>
+                                    <div className='w-20 h-2 rounded-full bg-slate-400 animate-pulse'></div>
+                                </div>
                             ))}
                         </>
                         :

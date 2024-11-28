@@ -19,10 +19,10 @@ const CountComponent = () => {
 
             if (userCount < 1) {
                 let countOne = setInterval(() => {
-                    if (index === 42) {
+                    if (index === 85) {
                         clearInterval(countOne)
                     } else {
-                        index += 2
+                        index += 5
                         setUserCount(index)
                     }
                 }, 100)

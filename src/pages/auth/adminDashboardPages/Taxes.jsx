@@ -181,7 +181,7 @@ const Taxes = () => {
                           </div>
                           <div className='flex justify-between gap-4'>
                             <span>status:</span>
-                            <span className={`${item.status === 'received' && 'text-[green]'} ${item.status === 'failed' && 'text-[red]'}`}>{item.status}</span>
+                            <span className={`${item.status === 'confirmed' && 'text-[green]'} ${item.status === 'failed' && 'text-[red]'}`}>{item.status}</span>
                           </div>
                         </div>
                       </div>

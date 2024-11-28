@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import Pagelayout from '../../GeneralComponents/Pagelayout'
 import { FaHandsClapping } from "react-icons/fa6";
 import { MdMarkEmailUnread, MdLock } from "react-icons/md";
-import { IoEye } from "react-icons/io5";
-import { IoMdEyeOff } from "react-icons/io";
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/logobrand.png'
 import Loading from '../../GeneralComponents/Loading'
@@ -12,19 +10,18 @@ import { Apis, UserPostApi } from '../../services/API'
 import Cookies from 'js-cookie'
 import { decodeToken } from 'react-jwt'
 import ForgotPassword from '../../GeneralComponents/ForgotPassword';
+import PasswordToTextInput from '../../GeneralComponents/PasswordToTextInput';
 
 
 const LoginPage = () => {
     const navigate = useNavigate()
     const [modal, setModal] = useState(false)
-    const [eye, setEye] = useState(false)
-    const EyeIcon = eye === true ? IoEye : IoMdEyeOff
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         email: '',
         password: '',
     })
-    const inputHandler = event => {
+    const formHandler = event => {
         setForm({
             ...form,
             [event.target.name]: event.target.value
@@ -73,7 +70,7 @@ const LoginPage = () => {
                         <div className='col-span-1'>
                             <div className='loginBg rounded-xl flex items-center lg:h-[40rem] h-fit py-16'>
                                 <div className='w-11/12 mx-auto'>
-                                    <div className='bg-white h-fit rounded-[20px] w-full lg:w-[39vw] lg:absolute lg:top-[3.1rem] lg:right-16 lg:shadow-sign py-16 lg:pt-16 lg:pb-24 overflow-hidden'>
+                                    <div className='bg-white h-fit rounded-[20px] w-full lg:w-[39vw] lg:absolute lg:top-12 lg:right-16 lg:shadow-sign py-16 lg:pt-16 lg:pb-24 overflow-hidden'>
                                         <div className='relative'>
                                             {loading && <Loading />}
                                             <div className='w-11/12 md:w-[70%] mx-auto'>
@@ -84,22 +81,21 @@ const LoginPage = () => {
                                                 <div className='text-[0.9rem] mt-0.5 text-[#6b6a6a] capitalize text-center font-[550]'>continue to log in</div>
                                                 <form onSubmit={submitForm}>
                                                     <div className='flex gap-4 mt-[2rem] flex-col'>
-                                                        <div className='flex gap-2 flex-col relative'>
+                                                        <div className='flex gap-2 flex-col'>
                                                             <div className='flex gap-1 items-center'>
                                                                 <MdMarkEmailUnread className='text-[0.9rem]' />
                                                                 <div className='text-sm capitalize font-[550]'>email address</div>
                                                             </div>
-                                                            <input placeholder='Email address' className=' outline-none rounded-[3px] w-full h-fit py-2 bg-[#e9e9e9] px-4 justify-center lg:text-[0.9rem] text-base ipt' type='email' value={form.email} name='email' onChange={inputHandler}></input>
+                                                            <input placeholder='Email address' className=' outline-none rounded-[3px] w-full h-fit py-2 bg-[#e9e9e9] px-4 lg:text-[0.9rem] text-base ipt' type='email' value={form.email} name='email' onChange={formHandler}></input>
                                                         </div>
                                                     </div>
                                                     <div className='flex gap-4 mt-10 flex-col'>
-                                                        <div className='flex gap-2 flex-col relative'>
+                                                        <div className='flex gap-2 flex-col'>
                                                             <div className='flex gap-1 items-center'>
                                                                 <MdLock className='text-[0.9rem]' />
                                                                 <div className='text-sm capitalize font-[550]'>password</div>
                                                             </div>
-                                                            <input placeholder='Password' className=' outline-none rounded-[3px] w-full h-fit py-2  bg-[#e9e9e9] pl-4 pr-8 justify-center lg:text-[0.9rem] text-base ipt ' type={eye === true ? 'text' : 'password'} value={form.password} name='password' onChange={inputHandler}></input>
-                                                            <EyeIcon className='absolute top-10 right-2 cursor-pointer text-lg' onClick={() => setEye(!eye)} />
+                                                            <PasswordToTextInput name='password' value={form.password} onChange={formHandler} placeholder='Password' className={{ main: '!bg-[#e9e9e9] w-full pl-4 !py-2 !lg:text-[0.9rem] border-none', icon: '!text-black top-3' }} />
                                                         </div>
                                                     </div>
                                                     <div className='w-fit flex ml-auto'>

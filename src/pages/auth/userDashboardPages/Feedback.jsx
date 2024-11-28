@@ -61,7 +61,7 @@ const Feedback = () => {
             <div>
                 {loading && <Loading className="!bg-[#0c091aa4]" />}
                 <div className='uppercase font-bold md:text-2xl text-lg text-semi-white'>send feedback</div>
-                <div className='md:w-3/4 w-11/12 mx-auto flex flex-col gap-12 mt-16'>
+                <div className='md:w-3/4 w-11/12 mx-auto flex flex-col gap-12 mt-10'>
                     <div>
                         <div className='flex items-center justify-center'>
                             <div className='md:text-[2rem] text-2xl capitalize font-bold text-[#a09f9f] '>get in touch</div>

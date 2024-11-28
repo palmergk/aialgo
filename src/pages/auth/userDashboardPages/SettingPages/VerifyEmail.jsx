@@ -92,9 +92,9 @@ const VerifyEmail = () => {
 
     return (
         <SettingsLayout>
-            <div>
+            <div className='mt-16'>
                 {loading && <Loading className="!bg-[#0c091aa4]" />}
-                <div className='flex flex-col justify-center items-center gap-14 pt-16'>
+                <div className='flex flex-col justify-center items-center gap-14'>
                     <div className='flex flex-col gap-2 items-center text-semi-white'>
                         <div className='flex gap-2 items-center md:text-4xl text-2xl capitalize font-bold'>
                             <span>verify your email</span>
