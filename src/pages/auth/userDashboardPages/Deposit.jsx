@@ -62,7 +62,6 @@ const Deposit = () => {
                 setStart(0)
                 setEnd(6)
             }
-
         } catch (error) {
             //
         } finally {

@@ -43,13 +43,13 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
 
     return (
         <div className='w-full h-full absolute top-0 left-0 flex items-center justify-center bg-[#0c091aa4] z-20'>
-            <div className='w-96 h-fit bg-white rounded-lg py-4 relative overflow-hidden'>
+            <div className='w-96 h-fit bg-white rounded-lg py-5 relative overflow-hidden'>
                 {loading && <Loading />}
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeModal()} />
-                <div className='flex items-center gap-2 justify-center border-b pb-1.5'>
-                    <div className='text-[0.85rem] uppercase font-bold'>{buybal?.title} plan</div>
-                    {Object.values(buybal).length !== 0 && <div className='text-xs font-semibold bg-white py-1 px-2 rounded-md sha'>
-                        ${buybal.price_start.toLocaleString()} - ${buybal.price_limit.toLocaleString()}
+                <div className='flex items-center gap-2 justify-center border-b'>
+                    <div className='text-sm uppercase font-bold'>{buybal?.title} plan</div>
+                    {Object.values(buybal).length !== 0 && <div className='text-xs font-semibold'>
+                        (${buybal.price_start.toLocaleString()} - ${buybal.price_limit.toLocaleString()})
                     </div>}
                 </div>
                 <div className='flex flex-col gap-4 px-4 mt-5'>
@@ -64,7 +64,7 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
                         </div>
                     </div>
                     <div className='text-xs text-center font-medium'>low wallet balance? <span className='underline text-[#5BB4FD] cursor-pointer' onClick={() => { closeModal(); openModal() }}>Deposit</span></div>
-                    <button className='mb-2 mx-auto w-fit h-fit py-2 px-14 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={BuyPlanWithBalance}>confirm purchase</button>
+                    <button className='mb-1 mx-auto w-fit h-fit py-2 px-14 rounded-md bg-[#252525] text-white capitalize font-medium text-xs' onClick={BuyPlanWithBalance}>confirm purchase</button>
                 </div>
             </div>
         </div>

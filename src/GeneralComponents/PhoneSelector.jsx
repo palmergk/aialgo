@@ -32,14 +32,14 @@ const PhoneSelector = ({ phoneCode, setPhoneCode, className }) => {
                 </div>
             </div>
             {select &&
-                <div className={`h-fit w-full bg-white sha absolute top-8 left-0 z-10 py-2 rounded-sm ${className}`}>
+                <div className={`h-fit w-full bg-white sha absolute top-8 left-0 z-10 py-2 rounded-[3px] ${className}`}>
                     <div className='px-1'>
-                        <input className='ipt border border-[#a7a6a6] bg-transparent text-black px-1 py-1 w-full outline-none md:text-[0.85rem] text-base md:h-6 h-7 rounded-sm mb-1' type='text' placeholder='search' value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={FilterPhone}></input>
+                        <input className='ipt border border-zinc-400 bg-transparent text-black px-1 py-1 w-full outline-none md:text-[0.85rem] text-base md:h-6 h-7 rounded-sm mb-1' type='text' placeholder='search' value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={FilterPhone}></input>
                     </div>
                     <div className='overflow-y-auto scrollDiv h-28 px-2'>
                         {phones.map((item, i) => (
                             <div className='mt-2' key={i}>
-                                <div className='text-black cursor-pointer hover:bg-semi-white text-[0.85rem] font-bold' onClick={() => { setPhoneCode(item.dial_code); setSelect(false) }}>{item.dial_code}</div>
+                                <div className='text-black cursor-pointer hover:bg-[#ececec] text-[0.85rem] font-bold' onClick={() => { setPhoneCode(item.dial_code); setSelect(false) }}>{item.dial_code}</div>
                             </div>
                         ))}
                     </div>

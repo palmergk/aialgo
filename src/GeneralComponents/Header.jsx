@@ -77,14 +77,14 @@ const Header = () => {
                                         <TfiAngleDown className={`mt-1 text-[0.5rem] text-[#1E2833] ${overviewLg ? ' rotate-180' : 'rotate-0'} sl_trans`} />
                                     </div>
                                 </div>
-                                <div className={`bg-white p-8 w-96 h-fit absolute top-[4.2rem] -left-40 rounded-xl shadow-md ${overviewLg ? 'flex' : 'hidden'}`} ref={ref}>
+                                <div className={`bg-white p-6 w-96 h-fit absolute top-[4.2rem] -left-40 rounded-xl shadow-md ${overviewLg ? 'flex' : 'hidden'}`} ref={ref}>
                                     <div className='w-full'>
-                                        <Link to='/trading' className='flex flex-col gap-2 hover:bg-[#929da0] rounded-lg p-2 text-[grey] hover:text-white' onClick={() => { setOverviewLg(false); MoveToTop() }}>
+                                        <Link to='/trading' className='flex flex-col gap-2 hover:bg-[#929da0] rounded-lg p-4 text-[grey] hover:text-white' onClick={() => { setOverviewLg(false); MoveToTop() }}>
                                             <div className='flex gap-2 items-center text-[#1E2833]'>
                                                 <LuBoxes />
                                                 <div className='text-[0.95rem] font-medium capitalize'>trading plans</div>
                                             </div>
-                                            <div className='text-[0.8rem] ml-[1.7rem]'>
+                                            <div className='text-[0.8rem] ml-6'>
                                                 View the different trading plans on our platform you can invest and trade cryptocurrency on.
                                             </div>
                                         </Link>
@@ -98,9 +98,9 @@ const Header = () => {
                                     <div className={`text-[0.9rem] font-medium text-white capitalize cursor-pointer ${companyLg ? 'flex' : 'hidden'}`}>company</div>
                                     <TfiAngleDown className={`mt-1 text-[0.5rem] text-white  ${companyLg ? ' rotate-180' : 'rotate-0'} sl_trans`} />
                                 </div>
-                                <div className={`flex flex-col gap-5 bg-white py-8 pl-10 pr-3 w-56 h-fit absolute top-[3.7rem] -left-8 rounded-xl shadow-md ${companyLg ? 'flex' : 'hidden'}`} ref={ref2}>
+                                <div className={`flex flex-col gap-5 bg-white py-8 pl-8 pr-3 w-52 h-fit absolute top-[3.7rem] -left-8 rounded-xl shadow-md ${companyLg ? 'flex' : 'hidden'}`} ref={ref2}>
                                     {CompanyLinks.map((item, i) => (
-                                        <Link key={i} to={item.url} onClick={() => { setCompanyLg(false); MoveToTop() }} className='flex gap-2 items-center hover:bg-[#d4dcdf] rounded-lg p-3 transition-all'>
+                                        <Link key={i} to={item.url} onClick={() => { setCompanyLg(false); MoveToTop() }} className='flex gap-2 items-center hover:bg-[#d4dcdf] hover:rounded-lg p-3 transition-all'>
                                             <item.icon className='text-[1.2rem] text-[#1E2833]' />
                                             <div className='text-[#1E2833] text-[0.95rem] font-medium capitalize'>{item.path}</div>
                                         </Link>
@@ -134,31 +134,35 @@ const Header = () => {
                                     </div>
                                     <TfiAngleDown className={`text-sm ${overview ? ' rotate-180' : 'rotate-0'} sl_trans`} />
                                 </div>
-                                {overview && <div className='flex flex-col gap-3 border-b border-[grey] px-6 py-5'>
-                                    <Link to='/trading' className='flex flex-col gap-2 hover:bg-[#303e4d] p-2 text-white ' onClick={() => { setDropDown(false); setOverview(false); MoveToTop() }}>
-                                        <div className='flex gap-2 items-center'>
-                                            <LuBoxes className=' text-[#4b6f96]' />
-                                            <div className='text-[0.95rem] font-medium capitalize'>trading plans</div>
-                                        </div>
-                                        <div className='text-[0.8rem] text-[#c2c1c1] ml-[1.7rem]'>
-                                            View the different trading plans on our platform you can invest and trade cryptocurrency on.
-                                        </div>
-                                    </Link>
-                                </div>}
+                                {overview &&
+                                    <div className='flex flex-col gap-3 border-b border-[grey] px-6 py-5'>
+                                        <Link to='/trading' className='flex flex-col gap-2 hover:bg-[#303e4d] p-2 text-white ' onClick={() => { setDropDown(false); setOverview(false); MoveToTop() }}>
+                                            <div className='flex gap-2 items-center'>
+                                                <LuBoxes className=' text-[#4b6f96]' />
+                                                <div className='text-[0.95rem] font-medium capitalize'>trading plans</div>
+                                            </div>
+                                            <div className='text-[0.8rem] text-[#c2c1c1] ml-6'>
+                                                View the different trading plans on our platform you can invest and trade cryptocurrency on.
+                                            </div>
+                                        </Link>
+                                    </div>
+                                }
                             </div>
                             <div className={`${company && 'bg-[#25303d]'}`}>
                                 <div className='flex justify-between items-center text-white border-b border-[grey] px-6 py-5 cursor-pointer' onClick={() => { setCompany(!company); setOverview(false) }}>
                                     <span className='text-[0.9rem] font-medium capitalize'>company</span>
                                     <TfiAngleDown className={`text-sm ${company ? ' rotate-180' : 'rotate-0'} sl_trans`} />
                                 </div>
-                                {company && <div className='flex flex-col gap-8 px-6 py-5'>
-                                    {CompanyLinks.map((item, i) => (
-                                        <Link key={i} to={item.url} onClick={() => { setDropDown(false); setCompany(false); MoveToTop() }} className='flex gap-2 items-center text-white w-fit'>
-                                            <item.icon className='text-[1.2rem] text-[#4b6f96] ' />
-                                            <div className='text-[0.9rem] font-medium hover:text-[#4b6f96] capitalize'>{item.path}</div>
-                                        </Link>
-                                    ))}
-                                </div>}
+                                {company &&
+                                    <div className='flex flex-col gap-8 px-6 py-5'>
+                                        {CompanyLinks.map((item, i) => (
+                                            <Link key={i} to={item.url} onClick={() => { setDropDown(false); setCompany(false); MoveToTop() }} className='flex gap-2 items-center text-white w-fit'>
+                                                <item.icon className='text-[1.2rem] text-[#4b6f96] ' />
+                                                <div className='text-[0.9rem] font-medium hover:text-[#4b6f96] capitalize'>{item.path}</div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div className='flex gap-8 justify-center py-8'>

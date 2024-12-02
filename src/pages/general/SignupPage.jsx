@@ -222,11 +222,11 @@ const SignupPage = () => {
                                 <div className='grid grid-cols-2 gap-8 w-full'>
                                   <div className='flex flex-col gap-1.5'>
                                     <div className='text-sm capitalize font-[550]'>password:</div>
-                                    <PasswordToTextInput name='password' value={form.password} onChange={formHandler} placeholder='Create a password' className={{ main: 'w-full pl-0 !py-0 border-t-0 border-r-0 border-l-0 rounded-none !border-black lg:text-sm', icon: 'text-orange top-auto !bottom-0 !right-0' }} />
+                                    <PasswordToTextInput name='password' value={form.password} onChange={formHandler} placeholder='Create a password' className={{ main: 'w-full !pl-0 !py-0 border-t-0 border-r-0 border-l-0 rounded-none !border-black lg:text-sm', icon: 'text-orange top-auto !bottom-0 !right-0' }} />
                                   </div>
                                   <div className='flex flex-col gap-1.5'>
                                     <div className='text-sm capitalize font-[550]'>confirm password:</div>
-                                    <PasswordToTextInput name='confirm_password' value={form.confirm_password} onChange={formHandler} placeholder='Re-type password' className={{ main: 'w-full pl-0 !py-0 border-t-0 border-r-0 border-l-0 rounded-none !border-black lg:text-sm', icon: 'text-orange top-auto !bottom-0 !right-0' }} />
+                                    <PasswordToTextInput name='confirm_password' value={form.confirm_password} onChange={formHandler} placeholder='Re-type password' className={{ main: 'w-full !pl-0 !py-0 border-t-0 border-r-0 border-l-0 rounded-none !border-black lg:text-sm', icon: 'text-orange top-auto !bottom-0 !right-0' }} />
                                   </div>
                                 </div>
                                 <div className='flex gap-1 mt-4'>

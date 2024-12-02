@@ -183,11 +183,11 @@ const ForgotPassword = ({ closeView }) => {
                                     <div className='flex flex-col gap-5 mt-8'>
                                         <div className='flex flex-col gap-2'>
                                             <div className='text-xs capitalize font-[600]'>create new password</div>
-                                            <PasswordToTextInput name='new_password' value={form.new_password} onChange={formHandler} placeholder='Six or more characters' className={{ main: 'w-full pl-0 !py-0 border-t-0 border-r-0 border-l-0 rounded-none !border-black', icon: 'text-orange top-auto !bottom-0 !right-0' }} />
+                                            <PasswordToTextInput name='new_password' value={form.new_password} onChange={formHandler} placeholder='Six or more characters' className={{ main: 'w-full !pl-0 !py-0 border-t-0 border-r-0 border-l-0 rounded-none !border-black', icon: 'text-orange top-auto !bottom-0 !right-0' }} />
                                         </div>
                                         <div className='flex flex-col gap-2'>
                                             <div className='text-xs capitalize font-[600]'>confirm password</div>
-                                            <PasswordToTextInput name='confirm_password' value={form.confirm_password} onChange={formHandler} placeholder='Re-type password' className={{ main: 'w-full pl-0 !py-0 border-t-0 border-r-0 border-l-0 rounded-none !border-black', icon: 'text-orange top-auto !bottom-0 !right-0' }} />
+                                            <PasswordToTextInput name='confirm_password' value={form.confirm_password} onChange={formHandler} placeholder='Re-type password' className={{ main: 'w-full !pl-0 !py-0 border-t-0 border-r-0 border-l-0 rounded-none !border-black', icon: 'text-orange top-auto !bottom-0 !right-0' }} />
                                         </div>
                                         <div className='flex items-center justify-center mt-2'>
                                             <button className='outline-none bg-orange py-2 md:px-24 h-fit ,md:w-fit w-full rounded-md capitalize text-[0.8rem] text-white cursor-pointer font-[550]'>change password</button>

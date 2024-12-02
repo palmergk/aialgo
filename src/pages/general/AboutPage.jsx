@@ -45,34 +45,28 @@ const AboutPage = () => {
             <div className='grid grid-cols-1 lg:grid-cols-3 lg:gap-16 gap-20'>
               <div className='lg:col-span-1 relative'>
                 <img src={thumbsupimg} className='rounded-[15px] h-[20rem] w-full object-cover object-center'></img>
-                <div className='w-fit h-fit bg-[#192633] rounded-[15px] absolute top-[-4.5rem] left-0 flex justify-center flex-col items-center py-2 px-4 shd lg:-ml-16 -ml-2'>
+                <div className='w-fit h-fit bg-[#192633] rounded-[15px] absolute top-[-4.5rem] left-0 flex justify-center flex-col items-center py-2 px-4 shd lg:-ml-16 -ml-2' >
                   <Gauge
-                    width={120}
-                    height={120}
-                    value={95}
-                    startAngle={0}
-                    endAngle={360}
-                    innerRadius="80%"
-                    outerRadius="100%"
-                    sx={(theme) => ({
+                    width={120} height={120} value={90}
+                    sx={() => ({
                       [`& .${gaugeClasses.valueText}`]: {
-                        fontSize: 30,
-                        fontWeight: 700,
-                        color: 'white'
+                        fontSize: 22,
+                        fontWeight: 500,
+                      },
+                      [`& .${gaugeClasses.valueText} text`]: {
+                        fill: "white"
                       },
                       [`& .${gaugeClasses.valueArc}`]: {
                         fill: 'white',
                       },
-                      [`& .${gaugeClasses.referenceArc}`]: {
-                        fill: theme.palette.text.disabled,
-                      },
                     })}
+                    text={({ value }) => `${value}%`}
                   />
-                  <div className='text-orange text-[0.8rem] capitalize'>overall experiences</div>
+                  <div className='text-orange text-[0.8rem] capitalize'>overall experience</div>
                 </div>
               </div>
               <div className='lg:col-span-2'>
-                <div className='text-[0.95rem] text-orange -mt-10'>About the System</div>
+                <div className='text-[0.95rem] text-orange -mt-8'>About the System</div>
                 <div className='text-white font-semibold capitalize text-[1.4rem] lg:text-[1.8rem] mt-4'>transparent, full-control & consistent market advantage</div>
                 <div className='text-ground text-sm pt-4'>With our advanced trading mechanism, you consistently get good market advantages with the best returns, 100% transparency and full control of your trading account and assets. </div>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-8'>
@@ -114,7 +108,7 @@ const AboutPage = () => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-6 md:mt-20 mt-10' data-aos="fade-zoom-in" data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600">
               <Link to='/signup' onClick={MoveToTop}>
-                <div className='md:w-full w-fit h-fit  bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shd'>
+                <div className='w-full h-fit  bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shd'>
                   <div className='border-2 border-[#525151] rounded-full w-16 h-16 flex text-[2.2rem] pt-2 justify-center items-center'>
                     <img src={efficient} className='h-auto w-8'></img>
                   </div>
@@ -127,7 +121,7 @@ const AboutPage = () => {
                 </div>
               </Link>
               <Link to='/trading' onClick={MoveToTop}>
-                <div className='md:w-full w-fit h-fit bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shd md:-mt-10'>
+                <div className='w-full h-fit bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shd md:-mt-10'>
                   <div className='border-2 border-[#525151] rounded-full w-16 h-16 flex text-[2.1rem] pt-4 justify-center '>
                     <img src={tplan} className='h-[1.8rem] w-auto'></img>
                   </div>
@@ -142,7 +136,7 @@ const AboutPage = () => {
                 </div>
               </Link>
               <Link to='/signup' onClick={MoveToTop}>
-                <div className='md:w-full w-fit h-fit bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shd'>
+                <div className='w-full h-fit bg-[#192633] hover:bg-[#1f2f3f] hover:scale-90 transition-all rounded-md p-4 flex flex-col gap-4 items-center mx-auto shd'>
                   <div className='border-2 border-[#525151] rounded-full w-16 h-16 flex text-[2.2rem] pt-2 justify-center items-center'>
                     <img src={assist} className='h-8 w-auto'></img>
                   </div>

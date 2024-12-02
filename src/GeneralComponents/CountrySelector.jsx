@@ -36,13 +36,13 @@ const CountrySelector = ({ usercountry, setUserCountry, className }) => {
                 </div>
             </div>
             {select &&
-                <div className={`h-fit w-full bg-white sha absolute top-8 left-0 z-10 py-2 rounded-sm ${className}`}>
+                <div className={`h-fit w-full bg-white sha absolute top-8 left-0 z-10 py-2 rounded-[3px] ${className}`}>
                     <div className='px-4'>
-                        <input className='ipt border border-[#a7a6a6] bg-transparent text-black px-2 py-1 w-full outline-none md:text-[0.85rem] text-base md:h-6 h-7 rounded-sm mb-1' type='text' placeholder='search' value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={FilterCountry}></input>
+                        <input className='ipt border border-zinc-400 bg-transparent text-black px-2 py-1 w-full outline-none md:text-[0.85rem] text-base md:h-6 h-7 rounded-sm mb-1' type='text' placeholder='search' value={search} onChange={(e) => setSearch(e.target.value)} onKeyUp={FilterCountry}></input>
                     </div>
                     <div className='overflow-y-auto scroll h-28 px-4'>
                         {countries.map((item, i) => (
-                            <div key={i} className='flex gap-2 items-center mt-2 text-black text-[0.85rem] font-bold cursor-pointer hover:bg-semi-white' onClick={() => { setUserCountry(item); setSelect(false) }}>
+                            <div key={i} className='flex gap-2 items-center mt-2 text-black text-[0.85rem] font-bold cursor-pointer hover:bg-[#ececec]' onClick={() => { setUserCountry(item); setSelect(false) }}>
                                 <img src={item.flag} className='w-4 h-auto object-cover'></img>
                                 <div>{item.name}</div>
                             </div>

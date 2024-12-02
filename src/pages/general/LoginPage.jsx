@@ -95,7 +95,7 @@ const LoginPage = () => {
                                                                 <MdLock className='text-[0.9rem]' />
                                                                 <div className='text-sm capitalize font-[550]'>password</div>
                                                             </div>
-                                                            <PasswordToTextInput name='password' value={form.password} onChange={formHandler} placeholder='Password' className={{ main: '!bg-[#e9e9e9] w-full pl-4 !py-2 !lg:text-[0.9rem] border-none', icon: '!text-black top-3' }} />
+                                                            <PasswordToTextInput name='password' value={form.password} onChange={formHandler} placeholder='Password' className={{ main: '!bg-[#e9e9e9] w-full pl-4 !py-2 !lg:text-[0.9rem] border-none', icon: '!text-black top-3 right-4' }} />
                                                         </div>
                                                     </div>
                                                     <div className='w-fit flex ml-auto'>
