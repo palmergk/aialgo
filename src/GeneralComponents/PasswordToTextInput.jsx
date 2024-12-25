@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { IoMdEyeOff } from 'react-icons/io'
-import { IoEye } from 'react-icons/io5'
+import { HiOutlineEye } from "react-icons/hi2";
+import { HiOutlineEyeSlash } from "react-icons/hi2";
 
 const PasswordToTextInput = ({name, value, onChange, onKeyUp, placeholder, className}) => {
     const [eye, setEye] = useState(false)
-    const EyeIcon = eye ? IoEye : IoMdEyeOff
+    const EyeIcon = eye ? HiOutlineEye : HiOutlineEyeSlash
 
     return (
         <div className='relative'>

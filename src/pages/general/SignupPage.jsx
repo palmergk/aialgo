@@ -233,7 +233,7 @@ const SignupPage = () => {
                                   <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }}></input>
                                   <div className='text-xs capitalize'>by signing up, i agree with <Link to='/terms' className='text-orange font-[550]' onClick={MoveToTop}>terms and conditions</Link></div>
                                 </div>
-                                <div className='flex flex-col gap-2 items-center'>
+                                <div className='flex flex-col gap-2 items-center w-'>
                                   <button className='outline-none bg-orange py-2 w-full md:px-32 h-fit md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]' type='submit'>create account</button>
                                   <div className='text-[#6b6a6a] text-sm font-[550]'>Already have an account?
                                     <Link to='/login' onClick={MoveToTop} className='cursor-pointer text-orange font-[550]' > Login</Link>

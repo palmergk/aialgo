@@ -120,7 +120,7 @@ const UpdateDeposits = () => {
         {modal && <UpdateDepositModal closeView={() => setModal(false)} singleDeposit={singleDeposit} refetchAllDeposits={FetchAllDeposits} />}
         {modal2 && <SetDepositMinimum closeView={() => setModal2(false)} />}
 
-        <div className='uppercase font-bold md:text-2xl text-lg text-black'>all deposits</div>
+        <div className='uppercase font-bold md:text-2xl text-lg'>all deposits</div>
         <div className='mt-10'>
           <div className='relative w-fit mx-auto'>
             <input className='border border-[grey] bg-transparent md:w-80 w-60 h-10 outline-none pl-4 pr-16 md:text-[0.9rem] text-base rounded-full text-black' value={search} type='text' onChange={e => setSearch(e.target.value)} onKeyUp={HandleSearch} ></input>
@@ -143,64 +143,66 @@ const UpdateDeposits = () => {
               <div className='h-24 bg-gray-100 animate-pulse rounded-b-lg'></div>
             </div>
             :
-            <div>
+            <>
               {allDeposits.length > 0 ?
-                <div className='flex flex-col gap-4'>
-                  {allDeposits.slice(start, end).map((item, i) => (
-                    <div key={i} className='w-full h-fit relative sha rounded-lg text-black font-medium'>
-                      <div className='p-4 bg-semi-white text-sm rounded-t-lg flex justify-between gap-4'>
-                        <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
-                        <div className='flex gap-4 items-center'>
-                          <div>ID: {item.gen_id}</div>
-                          <div className='hover:text-[#9f7ae7] cursor-pointer bg-white py-0.5 rounded-[3px]' onClick={() => SingleDepositFunction(item)}><BsThreeDotsVertical /></div>
+                <>
+                  <div className='flex flex-col gap-4'>
+                    {allDeposits.slice(start, end).map((item, i) => (
+                      <div key={i} className='w-full h-fit relative sha rounded-lg text-black font-medium'>
+                        <div className='p-4 bg-semi-white text-sm rounded-t-lg flex justify-between gap-4'>
+                          <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                          <div className='flex gap-4 items-center'>
+                            <div>ID: {item.gen_id}</div>
+                            <div className='hover:text-[#9f7ae7] cursor-pointer bg-white py-0.5 rounded-[3px]' onClick={() => SingleDepositFunction(item)}><BsThreeDotsVertical /></div>
+                          </div>
+                        </div>
+                        <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
+                          <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
+                            <div className='flex justify-between gap-4'>
+                              <span>username:</span>
+                              <span>{item.depositUser.username}</span>
+                            </div>
+                            <div className='flex justify-between gap-4'>
+                              <span>email:</span>
+                              <span className='lowercase'>{item.depositUser.email}</span>
+                            </div>
+                            <div className='flex justify-between gap-4'>
+                              <span>amount:</span>
+                              <span>${item.amount.toLocaleString()}</span>
+                            </div>
+                          </div>
+                          <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-100 overflow-hidden'>
+                            <div className='flex justify-between gap-4'>
+                              <span>crypto:</span>
+                              <span>{item.crypto}</span>
+                            </div>
+                            <div className='flex justify-between gap-4'>
+                              <span>network:</span>
+                              <span>{item.network}</span>
+                            </div>
+                            <div className='flex justify-between gap-4'>
+                              <span>status:</span>
+                              <span className={`${item.status === 'confirmed' && 'text-[green]'} ${item.status === 'failed' && 'text-[red]'}`}>{item.status}</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
-                        <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
-                          <div className='flex justify-between gap-4'>
-                            <span>username:</span>
-                            <span>{item.depositUser.username}</span>
-                          </div>
-                          <div className='flex justify-between gap-4'>
-                            <span>email:</span>
-                            <span className='lowercase'>{item.depositUser.email}</span>
-                          </div>
-                          <div className='flex justify-between gap-4'>
-                            <span>amount:</span>
-                            <span>${item.amount.toLocaleString()}</span>
-                          </div>
-                        </div>
-                        <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-100 overflow-hidden'>
-                          <div className='flex justify-between gap-4'>
-                            <span>crypto:</span>
-                            <span>{item.crypto}</span>
-                          </div>
-                          <div className='flex justify-between gap-4'>
-                            <span>network:</span>
-                            <span>{item.network}</span>
-                          </div>
-                          <div className='flex justify-between gap-4'>
-                            <span>status:</span>
-                            <span className={`${item.status === 'confirmed' && 'text-[green]'} ${item.status === 'failed' && 'text-[red]'}`}>{item.status}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                  <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page '>
+                    {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
+                    {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
+                    {end < allDeposits.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
+                  </div>
+                </>
                 :
                 <div className='flex flex-col gap-2 justify-center items-center mt-12'>
                   <SlSocialDropbox className='text-4xl' />
                   <div>no records found...</div>
                 </div>
               }
-            </div>
+            </>
           }
-          {allDeposits.length > 0 && <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page '>
-            {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
-            {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
-            {end < allDeposits.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
-          </div>}
         </div>
 
       </div>

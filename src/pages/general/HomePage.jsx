@@ -5,16 +5,14 @@ import { Link } from 'react-router-dom';
 import rocket from '../../assets/images/rocket.png'
 import light from '../../assets/images/light.png'
 import { FiPlus, FiMinus } from "react-icons/fi";
-import { MdJoinRight, MdExpandLess, MdExpandMore } from "react-icons/md";
-import { BsFillChatQuoteFill } from "react-icons/bs";
+import { MdJoinRight } from "react-icons/md";
 import CountComponent from '../../GeneralComponents/CountComponent';
-import { FAQS, Testimonials } from '../../utils/utils';
+import { FAQS } from '../../utils/utils';
+import TestimonialComponent from '../../GeneralComponents/TestimonialComponent';
 
 
 const HomePage = () => {
   const [faq, setFaq] = useState('')
-  const [start, setStart] = useState(0)
-  const [end, setEnd] = useState(3)
 
   const handleQuestions = i => {
     if (i !== faq) {
@@ -22,20 +20,6 @@ const HomePage = () => {
     } else {
       setFaq('')
     }
-  }
-
-  const MoreReviews = () => {
-    let altstart = start
-    let altend = end
-    if (end < 6) {
-      altstart += 3
-      altend += 3
-    } else {
-      altstart -= 3
-      altend -= 3
-    }
-    setStart(altstart)
-    setEnd(altend)
   }
 
   return (
@@ -125,36 +109,8 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <div className='w-11/12 lg:w-[70%] mx-auto mt-20 overflow-hidden h-fit'>
-            <div className='relative w-fit mx-auto text-semi-white'>
-              <div className='text-[2rem] md:text-[3rem]  font-semibold capitalize'>Testimonials</div>
-              <div className='border-t-4 md:w-40 w-28 absolute top-0 right-0'></div>
-              <div className='border-b-4 md:w-40 w-28 absolute bottom-0 left-0'></div>
-            </div>
-            <div className='flex flex-col gap-8' data-aos="fade-zoom-in" data-aos-offset="200" data-aos-easing="ease-in-sine" data-aos-duration="600">
-              <div className='flex flex-wrap items-center justify-center gap-6 mt-10'>
-                {Testimonials.slice(start, end).map((item, i) => (
-                  <div className='w-[17rem] h-fit bg-[#192633] rounded-md p-4 flex flex-col gap-4 items-center shd' key={i}>
-                    <div className='flex items-center relative'>
-                      <img src={item.image} className='w-16 h-16 rounded-full object-cover'></img>
-                      <BsFillChatQuoteFill className='absolute bottom-2 -right-3 text-2xl text-orange' />
-                    </div>
-                    <div className='text-ground text-xs text-center mt-1'>{item.review}</div>
-                    <div className='border-b-[3px] w-9 border-orange mt-3'></div>
-                    <div className='flex flex-col gap-1'>
-                      <div className='capitalize'>{item.name}</div>
-                      <div className='text-[#c0bebe] text-[0.65rem] text-center capitalize'>{item.location}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className='mx-auto'>
-                <button className='w-fit h-fit px-6 py-1 bg-orange outline-none rounded-[3px] text-[0.85rem] capitalize  flex items-center justify-center  hover:bg-[#642626]' onClick={MoreReviews}>
-                  <span>{end < 6 ? 'more' : 'previous'}</span>
-                  {end < 6 ? <MdExpandMore /> : <MdExpandLess />}
-                </button>
-              </div>
-            </div>
+          <div className='mt-20'>
+            <TestimonialComponent />
           </div>
           <div className='mt-16'>
             <coingecko-coin-heatmap-widget height="400" locale="en" top="20"></coingecko-coin-heatmap-widget>

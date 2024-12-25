@@ -183,63 +183,67 @@ const TaxPayment = () => {
                                     }
                                 </div>
                             </div>
-                            {dataLoading ?
-                                <div className='w-full h-fit'>
-                                    <div className='h-11 bg-gray-400 animate-pulse rounded-t-lg'></div>
-                                    <div className='h-24 bg-slate-300 animate-pulse rounded-b-lg'></div>
-                                </div>
-                                :
-                                <div className='md:w-[95%] mx-auto'>
-                                    {taxes.length > 0 ?
-                                        <div className='flex flex-col gap-4'>
-                                            {taxes.slice(start, end).map((item, i) => (
-                                                <div key={i} className='w-full h-fit relative text-semi-white rounded-lg shadow-log'>
-                                                    <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg flex justify-between gap-4'>
-                                                        <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
-                                                        <div>ID: {item.gen_id}</div>
-                                                    </div>
-                                                    <div className='bg-[#1b1730] grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
-                                                        <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
-                                                            <div className='flex justify-between gap-4'>
-                                                                <span>amount:</span>
-                                                                <span>${item.amount.toLocaleString()}</span>
+                            <div className='md:w-[95%] mx-auto'>
+                                {dataLoading ?
+                                    <div className='w-full h-fit'>
+                                        <div className='h-11 bg-gray-400 animate-pulse rounded-t-lg'></div>
+                                        <div className='h-24 bg-slate-300 animate-pulse rounded-b-lg'></div>
+                                    </div>
+                                    :
+                                    <>
+                                        {taxes.length > 0 ?
+                                            <>
+                                                <div className='flex flex-col gap-4'>
+                                                    {taxes.slice(start, end).map((item, i) => (
+                                                        <div key={i} className='w-full h-fit relative text-semi-white rounded-lg shadow-log'>
+                                                            <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg flex justify-between gap-4'>
+                                                                <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                                                                <div>ID: {item.gen_id}</div>
                                                             </div>
-                                                            <div className='flex justify-between gap-4'>
-                                                                <span>crypto:</span>
-                                                                <span>{item.crypto}</span>
-                                                            </div>
-                                                            <div className='flex justify-between gap-4'>
-                                                                <span>network:</span>
-                                                                <span>{item.network}</span>
+                                                            <div className='bg-[#1b1730] grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
+                                                                <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
+                                                                    <div className='flex justify-between gap-4'>
+                                                                        <span>amount:</span>
+                                                                        <span>${item.amount.toLocaleString()}</span>
+                                                                    </div>
+                                                                    <div className='flex justify-between gap-4'>
+                                                                        <span>crypto:</span>
+                                                                        <span>{item.crypto}</span>
+                                                                    </div>
+                                                                    <div className='flex justify-between gap-4'>
+                                                                        <span>network:</span>
+                                                                        <span>{item.network}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-800 overflow-hidden'>
+                                                                    <div className='flex justify-between gap-4'>
+                                                                        <span>address:</span>
+                                                                        <span>{item.deposit_address?.slice(0, 5)}.....{item.deposit_address?.slice(-10)}</span>
+                                                                    </div>
+                                                                    <div className='flex justify-between gap-4'>
+                                                                        <span>status:</span>
+                                                                        <span className={`${item.status === 'confirmed' && 'text-[#adad40]'} ${item.status === 'failed' && 'text-[#c42e2e]'}`}>{item.status}</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-800 overflow-hidden'>
-                                                            <div className='flex justify-between gap-4'>
-                                                                <span>address:</span>
-                                                                <span>{item.deposit_address?.slice(0, 5)}.....{item.deposit_address?.slice(-10)}</span>
-                                                            </div>
-                                                            <div className='flex justify-between gap-4'>
-                                                                <span>status:</span>
-                                                                <span className={`${item.status === 'confirmed' && 'text-[#adad40]'} ${item.status === 'failed' && 'text-[#c42e2e]'}`}>{item.status}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    ))}
                                                 </div>
-                                            ))}
-                                        </div>
-                                        :
-                                        <div className='flex flex-col gap-2 justify-center items-center mt-16 text-semi-white'>
-                                            <SlSocialDropbox className='text-4xl' />
-                                            <div>no records found...</div>
-                                        </div>
-                                    }
-                                </div>
-                            }
-                            {taxes.length > 0 && <div className='flex gap-2 items-center text-xs mt-4 justify-end text-light '>
-                                {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
-                                {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
-                                {end < taxes.length && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
-                            </div>}
+                                                <div className='flex gap-2 items-center text-xs mt-4 justify-end text-light '>
+                                                    {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
+                                                    {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
+                                                    {end < taxes.length && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
+                                                </div>
+                                            </>
+                                            :
+                                            <div className='flex flex-col gap-2 justify-center items-center mt-16 text-semi-white'>
+                                                <SlSocialDropbox className='text-4xl' />
+                                                <div>no records found...</div>
+                                            </div>
+                                        }
+                                    </>
+                                }
+                            </div>
                         </>
                     }
                 </div>

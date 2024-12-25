@@ -42,6 +42,34 @@ export const MoveToTop = () => {
     })
 }
 
+export const PredefineCryptoImages = [
+    {
+        name: 'bitcoin.png',
+        abb: 'btc',
+        path: bitcoin
+    },
+    {
+        name: 'usdt.png',
+        abb: 'usdt',
+        path: usdt
+    },
+    {
+        name: 'ethereum.png',
+        abb: 'eth',
+        path: ethereum
+    },
+    {
+        name: 'solana.png',
+        abb: 'sol',
+        path: solana
+    },
+    {
+        name: 'xrp.png',
+        abb: 'xrp',
+        path: xrp
+    },
+]
+
 export const FAQS = [
     {
         title: 'What is artificial intelligence?',
@@ -69,50 +97,36 @@ export const FAQS = [
     },
 ]
 
-export const PredefineCryptoImages = [
-    bitcoin,
-    usdt,
-    ethereum,
-    solana,
-    xrp
-]
-
 export const Testimonials = [
     {
         name: 'henry calvin',
         image: us,
         location: 'NYC, US',
-        review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.'
-    },
-    {
-        name: 'charlie brown',
-        image: australia,
-        location: 'sydney austrialia',
-        review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.'
+        review: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam natus deleniti consectetur sed, expedita illo quae sapiente nihil incidunt praesentium, nemo vero esse amet reprehenderit? Architecto, culpa reiciendis! Evienet accusatinum'
     },
     {
         name: 'carlos rivera',
         image: spain,
         location: 'seville, spain',
-        review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.'
+        review: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam natus deleniti consectetur sed, expedita illo quae sapiente nihil incidunt praesentium, nemo vero esse amet reprehenderit? Architecto, culpa reiciendis! Evienet accusatinum'
     },
     {
         name: 'arthur allen',
         image: uk,
         location: 'manchester, UK',
-        review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.'
+        review: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam natus deleniti consectetur sed, expedita illo quae sapiente nihil incidunt praesentium, nemo vero esse amet reprehenderit? Architecto, culpa reiciendis! Evienet accusatinum'
     },
     {
         name: 'jeremy davis',
         image: us2,
         location: 'atlanta, US',
-        review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.'
+        review: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam natus deleniti consectetur sed, expedita illo quae sapiente nihil incidunt praesentium, nemo vero esse amet reprehenderit? Architecto, culpa reiciendis! Evienet accusatinum'
     },
     {
         name: 'kabir kumar',
         image: india,
         location: 'surat, india',
-        review: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro repellat nisi odit, corporis dicta deleniti nobis dolor omnis veritatis odio.'
+        review: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam natus deleniti consectetur sed, expedita illo quae sapiente nihil incidunt praesentium, nemo vero esse amet reprehenderit? Architecto, culpa reiciendis! Evienet accusatinum'
     }
 ]
 

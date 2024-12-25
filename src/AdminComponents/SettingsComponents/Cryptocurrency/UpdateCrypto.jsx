@@ -41,16 +41,19 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
             image: file
         })
         setCommit(true)
-        console.log(file)
     }
 
     const handleUpload2 = (item) => {
+        const file = new File([`${item.path}`], `${item.name}`,
+            { type: 'image/png' }
+        )
         setCryptoImg({
-            img: item,
-            image: item
+            img: item.path,
+            image: file
         })
         setCommit(true)
     }
+    console.log(cryptoImg)
 
     const CommitHandler = () => {
         if (form.crypto_name === singleCrypto.crypto_name && cryptoImg.image === singleCrypto.crypto_img) {
@@ -163,11 +166,14 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                         </label>
                         <div className='w-48 h-fit border overflow-x-auto scrollsdown'>
                             <div className='w-fit flex flex-col'>
-                                <div className='border-b truncate text-center text-[0.7rem] italic py-0.5'>images of the popular coins:</div>
+                                <div className='border-b truncate text-[0.7rem] text-center italic py-0.5'>images of the popular coins:</div>
                                 <div className='flex items-center'>
                                     {PredefineCryptoImages.map((item, i) => (
-                                        <div key={i} className='w-14 border-r py-1 px-2.5 cursor-pointer hover:bg-zinc-200' onClick={() => handleUpload2(item)}>
-                                            <img src={item} className='w-full h-auto'></img>
+                                        <div key={i} className='w-14 border-r'>
+                                            <div className='py-1 px-2.5 hover:bg-zinc-200 cursor-pointer' onClick={() => handleUpload2(item)}>
+                                                <img src={item.path} className='w-full h-auto'></img>
+                                            </div>
+                                            <div className='w-full border-t h-fit text-center uppercase text-[0.6rem]'>{item.abb}</div>
                                         </div>
                                     ))}
                                 </div>

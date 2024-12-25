@@ -28,6 +28,7 @@ const Personalize = () => {
   const EyeIcon2 = eye2 === true ? IoEye : IoMdEyeOff
   const imgref = useRef()
   const [loading, setLoading] = useState(false)
+  const [dataLoading, setDataLoading] = useState(true)
 
   const [profile, setProfile] = useState({
     img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
@@ -67,6 +68,8 @@ const Personalize = () => {
 
       } catch (error) {
         //
+      } finally {
+        setDataLoading(false)
       }
     }
     FetchAdminStore()
@@ -118,6 +121,7 @@ const Personalize = () => {
   }
 
   const DeletePhoto = async () => {
+    setLoading(true)
     try {
       const response = await UserPutApi(Apis.user.delete_photo)
       if (response.status === 200) {
@@ -132,6 +136,8 @@ const Personalize = () => {
       }
     } catch (error) {
       ErrorAlert(`${error.message}`)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -244,24 +250,31 @@ const Personalize = () => {
               <div className='flex flex-col gap-1.5'>
                 <div className='md:text-sm text-xs capitalize font-[550] '>company medias:</div>
                 <div className='grid md:grid-cols-3 grid-cols-2 gap-4 items-center'>
-                  <div className='flex gap-1.5 items-center'>
-                    <div className='text-black text-lg'>
-                      <GrFacebookOption />
-                    </div>
-                    <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.facebook} name='facebook' placeholder='Enter fb link' onChange={formHandler} onKeyUp={CommitHandler}></input>
-                  </div>
-                  <div className='flex gap-1.5 items-center'>
-                    <div className='text-black text-lg'>
-                      <TfiInstagram />
-                    </div>
-                    <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.instagram} name='instagram' placeholder='Enter IG link' onChange={formHandler} onKeyUp={CommitHandler}></input>
-                  </div>
-                  <div className='flex gap-1.5 items-center'>
-                    <div className='text-black text-lg'>
-                      <PiTelegramLogoLight />
-                    </div>
-                    <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.telegram} name='telegram' placeholder='Enter Tg link' onChange={formHandler} onKeyUp={CommitHandler}></input>
-                  </div>
+                  {dataLoading ?
+                    <>
+                      {new Array(3).fill(0).map((ele, i) => (
+                        <div className='flex gap-1.5 items-center' key={i}>
+                          <div className='w-5 h-5 rounded-md bg-gray-200 animate-pulse'></div>
+                          <div className='w-full h-10 rounded-sm bg-gray-200 animate-pulse'></div>
+                        </div>
+                      ))}
+                    </>
+                    :
+                    <>
+                      <div className='flex gap-1.5 items-center text-lg'>
+                        <GrFacebookOption />
+                        <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.facebook} name='facebook' placeholder='Enter fb link' onChange={formHandler} onKeyUp={CommitHandler}></input>
+                      </div>
+                      <div className='flex gap-1.5 items-center text-lg'>
+                        <TfiInstagram />
+                        <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.instagram} name='instagram' placeholder='Enter IG link' onChange={formHandler} onKeyUp={CommitHandler}></input>
+                      </div>
+                      <div className='flex gap-1.5 items-center text-lg'>
+                        <PiTelegramLogoLight />
+                        <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.telegram} name='telegram' placeholder='Enter Tg link' onChange={formHandler} onKeyUp={CommitHandler}></input>
+                      </div>
+                    </>
+                  }
                 </div>
               </div>
             }

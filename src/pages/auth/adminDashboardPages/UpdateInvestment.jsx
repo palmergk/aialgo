@@ -117,7 +117,7 @@ const UpdateInvestment = () => {
         {modal && <UpdateInvestmentModal closeView={() => setModal(false)} singleInvestment={singleInvestment} refetchAllInvestments={FetchAllInvestments} />}
 
         <div className='flex justify-between items-center'>
-          <div className='uppercase font-bold md:text-2xl text-lg text-black'>all investments</div>
+          <div className='uppercase font-bold md:text-2xl text-lg'>all investments</div>
         </div>
         <div className='mt-10'>
           <div className='relative w-fit mx-auto mb-6'>
@@ -137,60 +137,62 @@ const UpdateInvestment = () => {
               <div className='h-24 bg-gray-100 animate-pulse rounded-b-lg'></div>
             </div>
             :
-            <div>
+            <>
               {allInvestments.length > 0 ?
-                <div className='flex flex-col gap-4'>
-                  {allInvestments.slice(start, end).map((item, i) => (
-                    <div key={i} className='w-full h-fit relative sha rounded-lg text-black font-medium'>
-                      <div className='p-4 bg-semi-white text-sm rounded-t-lg flex justify-between gap-4'>
-                        <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
-                        <div className='flex gap-4 items-center'>
-                          <div>ID: {item.gen_id}</div>
-                          <div className='hover:text-[#9f7ae7] cursor-pointer bg-white py-0.5 rounded-[3px]' onClick={() => SingleInvestmentFunction(item)}><BsThreeDotsVertical /></div>
+                <>
+                  <div className='flex flex-col gap-4'>
+                    {allInvestments.slice(start, end).map((item, i) => (
+                      <div key={i} className='w-full h-fit relative sha rounded-lg text-black font-medium'>
+                        <div className='p-4 bg-semi-white text-sm rounded-t-lg flex justify-between gap-4'>
+                          <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                          <div className='flex gap-4 items-center'>
+                            <div>ID: {item.gen_id}</div>
+                            <div className='hover:text-[#9f7ae7] cursor-pointer bg-white py-0.5 rounded-[3px]' onClick={() => SingleInvestmentFunction(item)}><BsThreeDotsVertical /></div>
+                          </div>
+                        </div>
+                        <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
+                          <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
+                            <div className='flex justify-between gap-4'>
+                              <span>username:</span>
+                              <span>{item.investmentUser.username}</span>
+                            </div>
+                            <div className='flex justify-between gap-4'>
+                              <span>email:</span>
+                              <span className='lowercase'>{item.investmentUser.email}</span>
+                            </div>
+                            <div className='flex justify-between gap-4'>
+                              <span>amount:</span>
+                              <span>${item.amount.toLocaleString()}</span>
+                            </div>
+                          </div>
+                          <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-100 overflow-hidden'>
+                            <div className='flex justify-between gap-4'>
+                              <span>plan:</span>
+                              <span>{item.trading_plan}</span>
+                            </div>
+                            <div className='flex justify-between gap-4'>
+                              <span>status:</span>
+                              <span className={`${item.status === 'completed' && 'text-[green]'}`}>{item.status}</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
-                        <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
-                          <div className='flex justify-between gap-4'>
-                            <span>username:</span>
-                            <span>{item.investmentUser.username}</span>
-                          </div>
-                          <div className='flex justify-between gap-4'>
-                            <span>email:</span>
-                            <span className='lowercase'>{item.investmentUser.email}</span>
-                          </div>
-                          <div className='flex justify-between gap-4'>
-                            <span>amount:</span>
-                            <span>${item.amount.toLocaleString()}</span>
-                          </div>
-                        </div>
-                        <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-100 overflow-hidden'>
-                          <div className='flex justify-between gap-4'>
-                            <span>plan:</span>
-                            <span>{item.trading_plan}</span>
-                          </div>
-                          <div className='flex justify-between gap-4'>
-                            <span>status:</span>
-                            <span className={`${item.status === 'completed' && 'text-[green]'}`}>{item.status}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                  <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page'>
+                    {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
+                    {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
+                    {end < allInvestments.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
+                  </div>
+                </>
                 :
                 <div className='flex flex-col gap-2 justify-center items-center mt-16'>
                   <SlSocialDropbox className='text-4xl' />
                   <div>no records found...</div>
                 </div>
               }
-            </div>
+            </>
           }
-          {allInvestments.length > 0 && <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page '>
-            {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
-            {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
-            {end < allInvestments.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
-          </div>}
         </div>
 
       </div>

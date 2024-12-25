@@ -159,6 +159,7 @@ const Profile = () => {
     }
 
     const DeletePhoto = async () => {
+        setLoading(true)
         try {
             const response = await UserPutApi(Apis.user.delete_photo)
             if (response.status === 200) {
@@ -173,6 +174,8 @@ const Profile = () => {
             }
         } catch (error) {
             ErrorAlert(`${error.message}`)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -335,8 +338,8 @@ const Profile = () => {
                                 :
                                 <div className='flex md:gap-4 gap-2 items-center'>
                                     <div className='flex flex-col gap-6'>
-                                        <PasswordToTextInput name='old_password' value={form.old_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Enter old password' className={{main: 'md:w-60 w-48 text-white'}} />
-                                        <PasswordToTextInput name='new_password' value={form.new_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Create new password' className={{main: 'md:w-60 w-48 text-white'}} />
+                                        <PasswordToTextInput name='old_password' value={form.old_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Enter old password' className={{ main: 'md:w-60 w-48 text-white' }} />
+                                        <PasswordToTextInput name='new_password' value={form.new_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Create new password' className={{ main: 'md:w-60 w-48 text-white' }} />
                                     </div>
                                     <div className='text-xl text-light cursor-pointer' onClick={() => setPassEdit(!passEdit)}>
                                         <MdOutlineCancel />

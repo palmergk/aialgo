@@ -15,7 +15,7 @@ const Feedback = () => {
 
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
-        title: '',
+        subject: '',
         message: '',
     })
 
@@ -33,7 +33,7 @@ const Feedback = () => {
 
         const formbody = {
             email: user.email,
-            title: form.title,
+            subject: form.subject,
             message: form.message
         }
 
@@ -43,7 +43,7 @@ const Feedback = () => {
             if (response.status === 200) {
                 SuccessAlert(response.msg)
                 setForm({
-                    title: '',
+                    subject: '',
                     message: ''
                 })
             } else {
@@ -79,8 +79,8 @@ const Feedback = () => {
                     <form onSubmit={submitForm}>
                         <div className='flex flex-col gap-4'>
                             <div className='flex flex-col gap-2'>
-                                <div className='text-xs uppercase font-bold text-[#a09f9f]'>title</div>
-                                <input placeholder='Enter Message Title' className={`p-3 text-semi-white lg:text-[0.9rem]  outline-none bg-transparent rounded-md border border-light ipt`} name='title' value={form.title} onChange={formHandler}></input>
+                                <div className='text-xs uppercase font-bold text-[#a09f9f]'>subject</div>
+                                <input placeholder='Enter Message Title' className={`p-3 text-semi-white lg:text-[0.9rem]  outline-none bg-transparent rounded-md border border-light ipt`} name='subject' value={form.subject} onChange={formHandler}></input>
                             </div>
                             <div className='flex flex-col gap-2 mt-2'>
                                 <div className='text-xs uppercase font-bold text-[#a09f9f]'>message*</div>

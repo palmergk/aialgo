@@ -59,7 +59,7 @@ const Header = () => {
 
     return (
         <>
-            <div className={`fixed top-0 left-0 h-fit w-full bg-[#1E2833] z-50 border-y border-[grey]`}>
+            <div className='fixed top-0 left-0 h-fit w-full bg-[#1E2833] z-50 border-y border-[grey]'>
                 <div className={`flex items-center justify-between ${dropDown && 'border-b lg:border-0 border-[grey]'} px-6 lg:px-8 py-2`}>
                     <div className='flex gap-20'>
                         <Link to='/' className='flex items-center' onClick={MoveToTop}>
@@ -114,13 +114,11 @@ const Header = () => {
                             <button className=' outline-0 w-fit h-fit py-1 px-6 border-2 text-[0.9rem] text-white font-medium rounded-lg border-orange hover:bg-orange hover:text-white flex items-center justify-center capitalize'>sign in</button>
                         </Link>
                         <Link to='/signup' onClick={MoveToTop}>
-                            <button className=' outline-0 w-fit h-fit py-1 px-6 text-[0.9rem] text-white rounded-lg bg-orange hover:bg-[#1E2833] border-2 border-orange hover:border-orange font-medium flex items-center justify-center capitalize' >sign up</button>
+                            <button className=' outline-0 w-fit h-fit py-1 px-6 text-[0.9rem] text-white rounded-lg bg-orange hover:bg-transparent border-2 border-orange hover:border-orange font-medium flex items-center justify-center capitalize' >sign up</button>
                         </Link>
                     </div>
-                    <div className='lg:hidden'>
-                        <div className='text-white text-3xl cursor-pointer' onClick={() => setDropDown(!dropDown)}>
-                            {!dropDown ? <LiaBarsSolid /> : <LuX />}
-                        </div>
+                    <div className='text-white text-3xl cursor-pointer lg:hidden' onClick={() => setDropDown(!dropDown)}>
+                        {!dropDown ? <LiaBarsSolid /> : <LuX />}
                     </div>
                 </div>
                 {dropDown &&
@@ -170,7 +168,7 @@ const Header = () => {
                                 <button className=' outline-0 w-fit h-fit py-1 px-6 border-2 text-[0.9rem] text-white font-medium rounded-lg border-orange hover:bg-orange hover:text-white flex items-center justify-center capitalize'>sign in</button>
                             </Link>
                             <Link to='/signup' onClick={() => { setDropDown(false); MoveToTop() }}>
-                                <button className=' outline-0 w-fit h-fit py-1 px-6 text-[0.9rem] text-white rounded-lg bg-orange hover:bg-[#1E2833] border-2 border-orange hover:border-orange font-medium flex items-center justify-center capitalize' >sign up</button>
+                                <button className=' outline-0 w-fit h-fit py-1 px-6 text-[0.9rem] text-white rounded-lg bg-orange hover:bg-transparent border-2 border-orange hover:border-orange font-medium flex items-center justify-center capitalize' >sign up</button>
                             </Link>
                         </div>
                     </div>

@@ -121,14 +121,18 @@ const Users = () => {
         {modal2 && <CreateUsersModal closeView={() => setModal2(false)} refetchAllUsers={FetchAllUsers} />}
         {modal3 && <SetReferralModal closeView={() => setModal3(false)} />}
         <div className='flex justify-between items-center'>
-          <div className='uppercase font-bold md:text-2xl text-lg text-black'>all users</div>
-          <div className='h-fit py-2.5 px-4 w-36 text-xs capitalize bg-[#c9b8eb] rounded-full text-black font-bold flex justify-between items-center cursor-default'>
-            <div className='flex items-center gap-1'>
-              <TbUsers className='text-base' />
-              <span>total users:</span>
+          <div className='uppercase font-bold md:text-2xl text-lg'>all users</div>
+          {dataLoading ?
+            <div className='w-36 h-10 rounded-full bg-gray-100 animate-pulse'></div>
+            :
+            <div className='h-fit w-fit py-2.5 px-4 text-xs capitalize bg-[#c9b8eb] rounded-full font-bold flex items-center gap-3 cursor-default'>
+              <div className='flex items-center gap-1'>
+                <TbUsers className='text-base' />
+                <span>total users:</span>
+              </div>
+              <span className='text-[0.85rem]'>{allusers.length}</span>
             </div>
-            <div className='text-[0.85rem]'>{allusers.length}</div>
-          </div>
+          }
         </div>
         <div className='mt-10'>
           <div className='relative w-fit mx-auto'>
@@ -158,26 +162,28 @@ const Users = () => {
               <div className='h-24 bg-gray-100 animate-pulse rounded-b-lg'></div>
             </div>
             :
-            <div>
+            <>
               {allusers.length > 0 ?
-                <div className='flex flex-col gap-4'>
-                  {allusers.slice(start, end).map((item, i) => (
-                    <UserTableBody key={i} item={item} setModal={setModal} setSingleUser={setSingleUser} setUserFigures={setUserFigures} />
-                  ))}
-                </div>
+                <>
+                  <div className='flex flex-col gap-4'>
+                    {allusers.slice(start, end).map((item, i) => (
+                      <UserTableBody key={i} item={item} setModal={setModal} setSingleUser={setSingleUser} setUserFigures={setUserFigures} />
+                    ))}
+                  </div>
+                  <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page'>
+                    {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
+                    {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
+                    {end < allusers.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
+                  </div>
+                </>
                 :
                 <div className='flex flex-col gap-2 justify-center items-center mt-12'>
                   <SlSocialDropbox className='text-4xl' />
                   <div>no records found...</div>
                 </div>
               }
-            </div>
+            </>
           }
-          {allusers.length > 0 && <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page '>
-            {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
-            {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
-            {end < allusers.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
-          </div>}
         </div>
       </div>
     </AdminDashboard>
