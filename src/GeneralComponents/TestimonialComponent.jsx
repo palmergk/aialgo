@@ -25,15 +25,15 @@ const TestimonialComponent = () => {
                 <div className='border-t-4 md:w-40 w-28 absolute top-0 right-0'></div>
                 <div className='border-b-4 md:w-40 w-28 absolute bottom-0 left-0'></div>
             </div>
-            <div className='h-fit max-w-[48rem] overflow-hidden mx-auto flex flex-col gap-4'>
+            <div className='h-fit md:w-5/6 overflow-x-hidden mx-auto flex flex-col gap-4'>
                 <div className='w-fit'>
-                    <div className='flex slider w-full md:-ml-10 -ml-5' >
+                    <div className='flex w-full md:-ml-10 -ml-5 slider' >
                         {Testimonials.map((item, i) => (
                             <div key={i} className='md:w-[32rem] w-72 border border-zinc-300 lg:p-10 p-5'>
                                 <div className='flex flex-col gap-10'>
-                                    <img alt='customer photo' src={item.image} className='size-28 rounded-full object-cover border-4 border-gray-200'></img>
+                                    <img alt='customer photo' src={item.image} className='md:size-28 size-20 rounded-full object-cover border-4 border-gray-200'></img>
                                     <div className='flex flex-col gap-6'>
-                                        <div className='text-xl font-bold capitalize'>{item.name}</div>
+                                        <div className='md:text-xl text-lg font-bold capitalize'>{item.name}</div>
                                         <div className='md:text-base text-sm pb-5'>{item.review}</div>
                                     </div>
                                 </div>

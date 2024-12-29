@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import logo from '../assets/images/logobrand.png'
 import { Link } from 'react-router-dom';
 import { LuCopyright } from "react-icons/lu";
@@ -11,6 +11,7 @@ import { PiHeadsetLight } from "react-icons/pi";
 import { IoTimeOutline } from "react-icons/io5";
 import { useAtom } from 'jotai';
 import { ADMINSTORE } from '../store';
+import { Apis, UserGetApi } from '../services/API';
 
 const CompanyLinks = [
   { path: 'home', url: '/' },
@@ -22,7 +23,23 @@ const CompanyLinks = [
 ]
 
 const Footer = () => {
-  const [adminstore] = useAtom(ADMINSTORE)
+  const [adminstore, setAdminStore] = useAtom(ADMINSTORE)
+
+  useEffect(() => {
+    const FetchAdminStore = async () => {
+      try {
+        const response = await UserGetApi(Apis.admin.get_admin_store)
+        if (response.status === 200) {
+          setAdminStore(response.msg)
+        }
+
+      } catch (error) {
+        //
+      }
+    }
+    FetchAdminStore()
+  }, [])
+
 
   return (
     <div className='bg-[#1E2833] pb-4 z-10 border-t border-[#171a1d] pt-10'>
@@ -36,15 +53,15 @@ const Footer = () => {
             <div className='md:w-[80%] lg:w-[60%]'>Advanced trading mechanism, security, transparency and consitent market advantage for every level trader.</div>
             <div className='flex flex-col gap-2 mt-4'>
               <div className='flex items-center gap-2'>
-                <IoTimeOutline className='text-lg'/>
+                <IoTimeOutline className='text-lg' />
                 <span>Working hours: 24/7</span>
               </div>
               <div className='flex items-center gap-2'>
-                <AiOutlineMail className='text-lg'/>
+                <AiOutlineMail className='text-lg' />
                 <span>support@aialgorithm.com</span>
               </div>
               <div className='flex items-center gap-2'>
-                <PiHeadsetLight className='text-lg'/>
+                <PiHeadsetLight className='text-lg' />
                 <span>+ Coming soon</span>
               </div>
             </div>

@@ -81,10 +81,12 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <div className='mt-20 md:w-11/12 mx-auto'>
+        </div>
+        <div className='md:w-5/6 w-11/12 mx-auto'>
+          <div className='mt-20'>
             <CountComponent />
           </div>
-          <div className='mt-20 md:w-11/12 mx-auto'>
+          <div className='mt-20'>
             <div className='flex flex-col gap-10'>
               <div className='relative w-fit mx-auto text-semi-white'>
                 <div className='text-[2rem] md:text-[3rem]  font-semibold capitalize'>faq questions</div>
@@ -109,7 +111,7 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <div className='mt-20'>
+          <div className='mt-20 overflow-x-hidden'>
             <TestimonialComponent />
           </div>
           <div className='mt-16'>
