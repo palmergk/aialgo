@@ -31,7 +31,7 @@ const TestimonialComponent = () => {
                         {Testimonials.map((item, i) => (
                             <div key={i} className='md:w-[32rem] w-72 border border-zinc-300 lg:p-10 p-5'>
                                 <div className='flex flex-col gap-10'>
-                                    <img alt='customer photo' src={item.image} className='md:size-28 size-20 rounded-full object-cover border-4 border-gray-200'></img>
+                                    <img alt='customer photo' src={item.image} className='md:size-28 size-24 rounded-full object-cover border-4 border-gray-200'></img>
                                     <div className='flex flex-col gap-6'>
                                         <div className='md:text-xl text-lg font-bold capitalize'>{item.name}</div>
                                         <div className='md:text-base text-sm pb-5'>{item.review}</div>

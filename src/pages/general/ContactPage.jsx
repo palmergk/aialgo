@@ -57,15 +57,15 @@ const ContactPage = () => {
 
   return (
     <Pagelayout>
-      <div className='bg-[#1E2833] py-16 text-semi-white'>
+      <div className='bg-[#1E2833] py-16'>
         <div className='w-11/12 mx-auto'>
           <div className='grid lg:grid-cols-2 grid-cols-1 gap-10'>
             <div className='flex flex-col gap-6'>
-              <div className='flex flex-col gap-8'>
-                <div className='text-4xl font-bold'>Get in touch</div>
-                <div className='font-medium'>We're here for you every step of the way. Whether you have questions, need help, or want to share feedback, our friendly customer support team is ready to assist. Reach out to us below.</div>
+              <div className='flex flex-col gap-6'>
+                <div className='md:text-4xl text-3xl font-bold text-white'>Get in touch</div>
+                <div className='font-medium text-ground'>We're here for you every step of the way. Whether you have questions, need help, or want to share feedback, our friendly customer support team is ready to assist. Reach out to us.</div>
               </div>
-              <img src={contactimg} alt='contact image' className='w-auto h-auto'></img>
+              <img src={contactimg} alt='contact image' className='w-full h-auto'></img>
             </div>
             <div className='w-full h-fit rounded-xl b text-white py-8 md:px-8 px-5 relative bg-gradient-to-bl from-orange to-[#1B2530]'>
               {loading && <Loading />}
