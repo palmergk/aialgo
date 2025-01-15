@@ -10,11 +10,8 @@ import { MoveToTop } from '../utils/utils';
 const NotisField = ({ item, refetchNotifications, refetchUnreadNotis, start, end, pagestart, setStart, setEnd, setpagestart, setpageend, setShowNotis }) => {
 
     const MarkSingleRead = async () => {
-        const formbody = {
-            notification_id: item.id,
-        }
         try {
-            const response = await UserPutApi(Apis.notification.update_single, formbody)
+            const response = await UserPutApi(Apis.notification.update_single, { notification_id: item.id })
             if (response.status === 200) {
                 refetchNotifications()
                 refetchUnreadNotis()
@@ -24,16 +21,11 @@ const NotisField = ({ item, refetchNotifications, refetchUnreadNotis, start, end
     }
 
     const DeleteNotification = async () => {
-        const formbody = {
-            notification_id: item.id,
-        }
-
         try {
-            const response = await PostApi(Apis.notification.delete_notification, formbody)
+            const response = await PostApi(Apis.notification.delete_notification, { notification_id: item.id })
             if (response.status === 200) {
                 refetchNotifications()
                 refetchUnreadNotis()
-                setpageend(response.msg.length / 6)
                 if (pagestart > Math.ceil(response.msg.length / 6)) {
                     let altstart = start
                     let altend = end
@@ -45,6 +37,7 @@ const NotisField = ({ item, refetchNotifications, refetchUnreadNotis, start, end
                     setStart(altstart)
                     altlengthstart -= 1
                     setpagestart(altlengthstart)
+                    setpageend(response.msg.length / 6)
                 }
             }
         } catch (error) {

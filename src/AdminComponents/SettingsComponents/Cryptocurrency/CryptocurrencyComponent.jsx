@@ -14,7 +14,7 @@ const CryptocurrencyComponent = ({ closeView, cryptocurrency, dataLoading, refet
 
     return (
         <ModalLayout toggler={toggler} closeView={closeView}>
-            <div className='xl:w-1/3 lg:w-2/5 md:w-1/2 w-11/12 h-[55vh] bg-white rounded-lg overflow-x-hidden relative py-5 overflow-y-auto scroll' ref={toggler}>
+            <div className='max-w-md mx-auto h-[55vh] bg-white rounded-lg overflow-x-hidden relative py-5 overflow-y-auto scroll' ref={toggler}>
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                 {screen === 2 && <div className='cursor-pointer absolute top-6 left-2 text-lg' onClick={() => setScreen(1)}><FaAngleLeft /></div>}
                 <div className='text-xl uppercase text-center font-bold border-b'>add crypto</div>

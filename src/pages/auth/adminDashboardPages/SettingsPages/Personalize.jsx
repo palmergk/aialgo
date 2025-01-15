@@ -14,6 +14,7 @@ import avatar from '../../../../assets/images/avatar.png'
 import { ErrorAlert, SuccessAlert } from '../../../../utils/utils'
 import SettingsLayout from '../../../../AdminComponents/SettingsComponents/SettingsLayout'
 import { RiDeleteBin2Line } from 'react-icons/ri';
+import PasswordToTextInput from '../../../../GeneralComponents/PasswordToTextInput'
 
 
 const Personalize = () => {
@@ -236,14 +237,8 @@ const Personalize = () => {
             <div className='flex flex-col gap-1.5'>
               <div className='md:text-sm text-xs capitalize font-[550] '>change password:</div>
               <div className='grid md:grid-cols-2 grid-cols-1 gap-6 items-center'>
-                <div className='relative'>
-                  <input className='outline-none border border-[#c9b8eb] w-full pl-2 pr-7 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type={`${eye ? 'text' : 'password'}`} value={form.old_password} name='old_password' placeholder='Enter old password' onChange={formHandler} onKeyUp={CommitHandler}></input>
-                  <EyeIcon className='absolute top-3 right-2 text-lg text-[#9f7ae7] cursor-pointer' onClick={() => setEye(!eye)} />
-                </div>
-                <div className='relative'>
-                  <input className='outline-none border border-[#c9b8eb] w-full pl-2 pr-7 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type={`${eye2 ? 'text' : 'password'}`} value={form.new_password} name='new_password' placeholder='Create new password' onChange={formHandler} onKeyUp={CommitHandler}></input>
-                  <EyeIcon2 className='absolute top-3 right-2 text-lg text-[#9f7ae7] cursor-pointer' onClick={() => setEye2(!eye2)} />
-                </div>
+                <PasswordToTextInput name='old_password' value={form.old_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Enter old password' className={{ main: '!w-full !md:py-2 !py-1.5 !rounded-sm !border-[#c9b8eb]', icon: "!text-[#9f7ae7] !top-2.5" }} />
+                <PasswordToTextInput name='new_password' value={form.new_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Enter new password' className={{ main: '!w-full !md:py-2 !py-1.5 !rounded-sm !border-[#c9b8eb]', icon: "!text-[#9f7ae7] !top-2.5" }} />
               </div>
             </div>
             {user.id === 1 &&

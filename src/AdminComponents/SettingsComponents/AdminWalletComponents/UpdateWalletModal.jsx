@@ -87,7 +87,7 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
 
   return (
     <ModalLayout closeView={closeView} toggler={toggler}>
-      <div className='xl:w-1/3 lg:w-2/5 md:w-1/2 w-11/12 h-fit bg-white rounded-lg overflow-hidden relative py-5' ref={toggler}>
+      <div className='max-w-md h-fit mx-auto bg-white rounded-lg overflow-hidden relative py-5' ref={toggler}>
         {loading && <Loading />}
         <div className='text-xl uppercase text-center font-bold border-b'>update wallet</div>
         <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />

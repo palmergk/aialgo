@@ -39,7 +39,7 @@ const SetDepositMinimum = ({ closeView }) => {
 
     return (
         <ModalLayout closeView={closeView} toggler={toggler}>
-            <div className='xl:w-1/3 lg:w-2/5 md:w-1/2 w-10/12 bg-white rounded-lg overflow-hidden relative py-5' ref={toggler}>
+            <div className='max-w-md h-fit mx-auto bg-white rounded-lg overflow-hidden relative py-5' ref={toggler}>
                 {loading && <Loading />}
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                 <div className='md:text-xl text-lg uppercase text-center font-bold border-b w-full'>set deposit minimum</div>

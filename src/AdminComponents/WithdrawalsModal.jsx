@@ -97,7 +97,7 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
 
     return (
         <ModalLayout closeView={closeView} toggler={toggler}>
-            <div className={`bg-white rounded-lg lg:w-1/2 md:w-4/6 w-11/12 lg:h-[90vh] md:h-[80vh] h-[70vh] overflow-x-hidden overflow-y-auto scroll ${beforeshow && 'flex items-center justify-center'} move`} ref={toggler}>
+            <div className={`bg-white rounded-lg max-w-2xl mx-auto lg:h-[90vh] h-[75vh] overflow-x-hidden overflow-y-auto scroll ${beforeshow && 'flex items-center justify-center'} move`} ref={toggler}>
                 <div className='relative'>
                     {loading && <Loading />}
                     {beforeshow ?

@@ -33,11 +33,8 @@ const ClaimButtons = ({ item, refetchInvestments, refetchInvestmentsUnclaim }) =
         }
 
         setLoading(true)
-        const formbody = {
-            invest_id: item.id
-        }
         try {
-            const response = await PostApi(Apis.investment.claim_investment, formbody)
+            const response = await PostApi(Apis.investment.claim_investment, { invest_id: item.id })
             if (response.status === 200) {
                 setClaim({
                     id: response.invt.id,

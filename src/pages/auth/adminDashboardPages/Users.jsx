@@ -42,6 +42,7 @@ const Users = () => {
         setEnd(6)
         setpagestart(1)
         setSearch('')
+        console.log(response.msg)
       }
 
     } catch (error) {
