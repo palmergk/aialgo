@@ -25,8 +25,7 @@ const ContactPage = () => {
   const submitForm = async event => {
     event.preventDefault()
 
-    if (!form.email) return ErrorAlert('Enter your email address')
-    if (!form.message) return ErrorAlert('Write a message')
+    if (!form.email || !form.message) return ErrorAlert('Enter the required field(s)')
 
     const formbody = {
       email: form.email,

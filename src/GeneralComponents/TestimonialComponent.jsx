@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import { Testimonials } from '../utils/utils'
 
@@ -21,7 +21,7 @@ const TestimonialComponent = () => {
     return (
         <div className='flex flex-col gap-10'>
             <div className='relative w-fit mx-auto text-semi-white'>
-                <div className='text-[2rem] md:text-[3rem]  font-semibold capitalize'>Testimonials</div>
+                <div className='text-[2rem] md:text-[3rem] font-semibold capitalize'>Testimonials</div>
                 <div className='border-t-4 md:w-40 w-28 absolute top-0 right-0'></div>
                 <div className='border-b-4 md:w-40 w-28 absolute bottom-0 left-0'></div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FiUploadCloud } from 'react-icons/fi'
 import { MdOutlineEdit } from 'react-icons/md'
 import { PiWarningCircleBold } from 'react-icons/pi'
@@ -44,16 +44,24 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
     }
 
     const handleUpload2 = (item) => {
-        const file = new File([`${item.path}`], `${item.name}`,
-            { type: 'image/png' }
-        )
-        setCryptoImg({
-            img: item.path,
-            image: file
-        })
+        const imageElement = document.getElementById('imgg')
+        const canvas = document.createElement('canvas');
+        canvas.width = imageElement.naturalWidth
+        canvas.height = imageElement.naturalHeight
+        const dataUrl = canvas.toDataURL('image/png')
+        fetch(dataUrl)
+            .then(res => res.blob())
+            .then(blob => {
+                const file = new File([blob], `${item.name}`, { type: 'image/png' });
+                console.log(file)
+                setCryptoImg({
+                    img: item.path,
+                    image: file
+                })
+            })
+            .catch(err => console.error('Error converting image:', err));
         setCommit(true)
     }
-    console.log(cryptoImg)
 
     const CommitHandler = () => {
         if (form.crypto_name === singleCrypto.crypto_name && cryptoImg.image === singleCrypto.crypto_img) {
@@ -147,7 +155,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                 </div>
                 <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>crypto image:</div>
-                    <div className='flex flex-col gap-4 items-center'>
+                    <div className='flex flex-col gap-4 items-center w-'>
                         <label className='cursor-pointer'>
                             {cryptoImg.img ?
                                 <div className='flex items-center gap-1'>
@@ -171,7 +179,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                                     {PredefineCryptoImages.map((item, i) => (
                                         <div key={i} className='w-14 border-r'>
                                             <div className='py-1 px-2.5 hover:bg-zinc-200 cursor-pointer' onClick={() => handleUpload2(item)}>
-                                                <img src={item.path} className='w-full h-auto'></img>
+                                                <img src={item.path} className='w-full h-auto' id='imgg'></img>
                                             </div>
                                             <div className='w-full border-t h-fit text-center uppercase text-[0.6rem]'>{item.abb}</div>
                                         </div>

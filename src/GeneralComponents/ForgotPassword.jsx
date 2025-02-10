@@ -8,15 +8,17 @@ import Loading from './Loading';
 import ModalLayout from '../utils/ModalLayout';
 import { ErrorAlert, SuccessAlert } from '../utils/utils';
 import PasswordToTextInput from './PasswordToTextInput';
+import PinForm from '../utils/PinForm';
 
 const ForgotPassword = ({ closeView }) => {
     const toggler = useRef()
     const [screen, setScreen] = useState(1)
     const [seconds, setSeconds] = useState(0)
     const [loading, setLoading] = useState(false)
+    const [pins, setPins] = useState(['', '', '', '', '', '']);
+    const checkPins = pins.join('')
     const [form, setForm] = useState({
         email: '',
-        code: '',
         new_password: '',
         confirm_password: ''
     })
@@ -65,10 +67,10 @@ const ForgotPassword = ({ closeView }) => {
     const VerifyOTP = async (e) => {
         e.preventDefault()
 
-        if (!form.code) return ErrorAlert('Enter verification code')
+        if (checkPins.length < 5) return ErrorAlert('Enter verification code')
         const formbody = {
             email: form.email,
-            code: form.code
+            code: checkPins
         }
         setLoading(true)
         try {
@@ -153,17 +155,24 @@ const ForgotPassword = ({ closeView }) => {
                                     <div className='text-center text-[0.8rem] font-[600]'>A verification code was sent to your email address, enter the code below</div>
                                 </div>
                                 <div className='flex flex-col gap-5 mt-8'>
-                                    <div className='flex flex-col gap-2 relative'>
+                                    <div className='flex flex-col gap-2 relative items-start'>
                                         <div className='text-xs capitalize font-[600]'>enter verification code:</div>
-                                        <input className='outline-none w-full  border-b border-black lg:text-[0.85rem] text-base input-off ipt' type='text' placeholder='Six digits code' name='code' value={form.code} onChange={formHandler}></input>
-                                        <div className='text-xs flex justify-end gap-2 text-gray-600'>
+                                        <PinForm
+                                            pins={pins}
+                                            setPins={setPins}
+                                        />
+                                        <div className='text-xs flex gap-2 text-gray-600 w-fit ml-auto'>
                                             {seconds > 0 && <span>00:{seconds < 10 && '0'}{seconds}</span>}
                                             {seconds > 0 ? <span>Resend code</span>
                                                 :
-                                                <span className='text-orange cursor-pointer' onClick={SendOTP}>Resend code</span>}
+                                                <div className='flex gap-2 items-center'>
+                                                    <div>didn't get code?</div>
+                                                    <div className='text-light cursor-pointer' onClick={SendOTP}> Resend code</div>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
-                                    <div className='flex items-center justify-center mt-2'>
+                                    <div className='flex items-center justify-center'>
                                         <button className='outline-none bg-orange py-2 md:px-[7.5rem] h-fit md:w-fit w-full rounded-md capitalize text-[0.9rem] text-white cursor-pointer font-[550]' >verify email</button>
                                     </div>
                                 </div>

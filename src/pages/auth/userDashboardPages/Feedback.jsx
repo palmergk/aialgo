@@ -12,7 +12,6 @@ import Loading from '../../../GeneralComponents/Loading'
 
 const Feedback = () => {
     const [user] = useAtom(PROFILE)
-
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         subject: '',

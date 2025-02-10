@@ -11,13 +11,16 @@ import Cookies from 'js-cookie'
 import { decodeToken } from 'react-jwt'
 import CountrySelector from '../../GeneralComponents/CountrySelector';
 import PasswordToTextInput from '../../GeneralComponents/PasswordToTextInput';
+import PinForm from '../../utils/PinForm';
 
 
 const SignupPage = () => {
   const navigate = useNavigate()
-  const [screen, setScreen] = useState(1)
+  const [screen, setScreen] = useState(2)
   const [check, setCheck] = useState(false)
   const [seconds, setSeconds] = useState(0)
+  const [pins, setPins] = useState(['', '', '', '', '', '']);
+  const checkPins = pins.join('')
   const [loading, setLoading] = useState(false)
   const [usercountry, setUserCountry] = useState({
     name: 'select',
@@ -32,11 +35,10 @@ const SignupPage = () => {
   const [form, setForm] = useState({
     full_name: '',
     username: '',
-    email: '',
+    email: 'giddysbabey@gmail.com',
     referral_code: '',
     password: '',
     confirm_password: '',
-    verifycode: ''
   })
 
   const formHandler = event => {
@@ -104,10 +106,10 @@ const SignupPage = () => {
   const VerifyEmail = async e => {
     e.preventDefault()
 
-    if (!form.verifycode) return ErrorAlert('Enter verification code')
+    if (checkPins.length < 5) return ErrorAlert('Enter verification code')
     const formbody = {
       email: form.email,
-      code: form.verifycode
+      code: checkPins
     }
 
     setLoading(true)
@@ -253,16 +255,23 @@ const SignupPage = () => {
                             <form onSubmit={VerifyEmail}>
                               <div className='flex flex-col gap-1 mt-12 relative'>
                                 <div className='capitalize text-[0.85rem]'>enter six digits code</div>
-                                <input className='outline-none w-full h-10 border border-[grey] text-sm px-2 ipt' placeholder='Enter code here' name='verifycode' value={form.verifycode} onChange={formHandler}></input>
+                                <PinForm
+                                  pins={pins}
+                                  setPins={setPins}
+                                />
                               </div>
                               <div className='text-[0.85rem] flex justify-end gap-2 mt-2 text-gray-600'>
                                 {seconds > 0 && <span>00:{seconds < 10 && '0'}{seconds}</span>}
                                 {seconds > 0 ? <span>Resend code</span>
                                   :
-                                  <span className='text-orange cursor-pointer' onClick={SendOTP}>Resend code</span>}
+                                  <div className='flex gap-2 items-center'>
+                                    <div>didn't get code?</div>
+                                    <div className='text-orange cursor-pointer' onClick={SendOTP}> Resend code</div>
+                                  </div>
+                                }
                               </div>
                               <div className='flex items-center justify-center mt-10'>
-                                <button className='outline-none bg-orange py-2 md:px-12 h-fit w-full md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]'>verify</button>
+                                <button className='outline-none bg-orange py-2 md:px-24 h-fit w-full md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]'>verify</button>
                               </div>
                             </form>
                           </div>
