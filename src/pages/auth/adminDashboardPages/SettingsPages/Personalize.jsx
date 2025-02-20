@@ -2,11 +2,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useAtom } from 'jotai'
 import { ADMINSTORE, PROFILE } from '../../../../store'
 import Loading from '../../../../GeneralComponents/Loading'
-import { Apis, imageurl, UserGetApi, UserPutApi } from '../../../../services/API'
+import { Apis, imageurl, UserPutApi } from '../../../../services/API'
 import { MdOutlineEdit, MdOutlinePhotoSizeSelectActual } from 'react-icons/md'
 import { FaRegRectangleXmark } from 'react-icons/fa6'
-import { IoCheckbox, IoEye } from 'react-icons/io5'
-import { IoMdEyeOff } from 'react-icons/io'
+import { IoCheckbox } from 'react-icons/io5'
 import { PiTelegramLogoLight } from "react-icons/pi";
 import { TfiInstagram } from "react-icons/tfi";
 import { GrFacebookOption } from 'react-icons/gr';
@@ -23,10 +22,6 @@ const Personalize = () => {
 
   const [commit, setCommit] = useState(false)
   const [select, setSelect] = useState(false)
-  const [eye, setEye] = useState(false)
-  const [eye2, setEye2] = useState(false)
-  const EyeIcon = eye === true ? IoEye : IoMdEyeOff
-  const EyeIcon2 = eye2 === true ? IoEye : IoMdEyeOff
   const imgref = useRef()
   const [loading, setLoading] = useState(false)
   const [dataLoading, setDataLoading] = useState(true)
@@ -54,27 +49,13 @@ const Personalize = () => {
   }
 
   useEffect(() => {
-    const FetchAdminStore = async () => {
-      try {
-        const response = await UserGetApi(Apis.admin.get_admin_store)
-        if (response.status === 200) {
-          setAdminStore(response.msg)
-          setForm({
-            ...form,
-            facebook: response.msg.facebook,
-            instagram: response.msg.instagram,
-            telegram: response.msg.telegram
-          })
-        }
-
-      } catch (error) {
-        //
-      } finally {
-        setDataLoading(false)
-      }
-    }
-    FetchAdminStore()
-  }, [])
+    setForm({
+      ...form,
+      facebook: adminStore?.facebook || '',
+      instagram: adminStore?.instagram || '',
+      telegram: adminStore?.telegram || ''
+    })
+  }, [adminStore])
 
   const CommitHandler = () => {
     if (form.full_name === user.full_name && form.username === user.username && form.email === user.email && form.old_password === '' && form.new_password === '' && form.facebook === adminStore.facebook && form.instagram === adminStore.instagram && form.telegram === adminStore.telegram && profile.image === user.image) {
@@ -245,7 +226,7 @@ const Personalize = () => {
               <div className='flex flex-col gap-1.5'>
                 <div className='md:text-sm text-xs capitalize font-[550] '>company medias:</div>
                 <div className='grid md:grid-cols-3 grid-cols-2 gap-4 items-center'>
-                  {dataLoading ?
+                  {Object.values(adminStore).length === 0 ?
                     <>
                       {new Array(3).fill(0).map((ele, i) => (
                         <div className='flex gap-1.5 items-center' key={i}>

@@ -99,7 +99,7 @@ const VerifyEmail = () => {
                                 <div className='flex flex-col gap-2'>
                                     <div className='text-[0.85rem] capitalize text-semi-white'> email address</div>
                                     <div className='relative'>
-                                        <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-base text-semi-white ipt' type='email' placeholder='Enter your email address' name='email' value={form.email}></input>
+                                        <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-base text-semi-white ipt' type='email' placeholder='Enter your email address' name='email' defaultValue={form.email} readOnly></input>
                                     </div>
                                 </div>
                                 <button className='outline-none bg-light py-2 px-12 rounded-md capitalize text-xs md:text-sm text-white cursor-pointer font-semibold'>verify</button>

@@ -16,11 +16,13 @@ import { Link, useSearchParams } from 'react-router-dom'
 import Loading from '../../../GeneralComponents/Loading'
 import CryptoSelector from '../../../GeneralComponents/CryptoSelector'
 import { SlSocialDropbox } from 'react-icons/sl'
+import { useSelector } from 'react-redux'
 
 
 const Withdraw = () => {
     const [user] = useAtom(PROFILE)
-    const [userwallet, setUserWallet] = useAtom(WALLET)
+    // const [userwallet, setUserWallet] = useAtom(WALLET)
+    const userwallet = useSelector(state => state.data.wallet)
     const [, setNotifications] = useAtom(NOTIFICATIONS)
     const [, setUnreadNotis] = useAtom(UNREADNOTIS)
 

@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Notfound from './utils/Notfound'
 import { AdminDashboardPagesLinks, GeneralPagesLinks, UserDashboardPagesLinks } from './services/PageLinks'
 import AuthRoute from './services/AuthRoute'
 import AdminRoute from './services/AdminRoute'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 
 const App = () => {
+  useEffect(() => {
+    AOS.init({ once: false });
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

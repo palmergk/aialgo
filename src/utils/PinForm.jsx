@@ -49,7 +49,7 @@ export default function PinForm ({pins, setPins}) {
             key={index}
             type="text"
             maxLength={1}
-            className={`border border-gray-400 h-12 w-12 outline-none text-2xl rounded-lg py-2.5 px-3 text-center`}
+            className={`border border-gray-400 h-11 w-11 outline-none text-2xl rounded-lg py-2.5 px-3 text-center`}
             defaultValue={part}
             onChange={(e) => handleInputChange(index, e.target.value)}
             onKeyDown={(e) => handleInputBackspace(index, e)}

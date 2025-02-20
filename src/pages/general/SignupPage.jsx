@@ -253,7 +253,7 @@ const SignupPage = () => {
                             <div className='text-center text-2xl capitalize font-[550] mt-4'>Verify Your Email</div>
                             <div className='text-center mt-[0.5rem]'>A six digits code was sent to your email address <span className='text-orange'>{form.email?.slice(0, 3)}*******{form.email?.slice(-10)}</span>, copy and paste code below to verify your email.</div>
                             <form onSubmit={VerifyEmail}>
-                              <div className='flex flex-col gap-1 mt-12 relative'>
+                              <div className='flex flex-col gap-1 items-start mt-12 relative'>
                                 <div className='capitalize text-[0.85rem]'>enter six digits code</div>
                                 <PinForm
                                   pins={pins}

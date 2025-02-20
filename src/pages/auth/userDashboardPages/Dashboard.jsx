@@ -23,6 +23,8 @@ import { HiOutlineCreditCard } from "react-icons/hi2";
 import { TbReceiptTax } from "react-icons/tb";
 import Notifications from './Notifications';
 import { LiaBarsSolid } from 'react-icons/lia';
+import { useDispatch, useSelector } from 'react-redux'
+import { updateWallet } from '../../../redux/reducer';
 
 const MainLinks = [
     { path: 'wallet', url: '/dashboard', icon: IoWalletOutline },
@@ -47,7 +49,9 @@ const toggleArray = [
 
 const Dashboard = ({ children }) => {
     const [user] = useAtom(PROFILE)
-    const [wallet, setWallet] = useAtom(WALLET)
+    // const [wallet, setWallet] = useAtom(WALLET)
+    const dispatch = useDispatch()
+    const wallet = useSelector(state => state.data.wallet)
     const [, setAdminStore] = useAtom(ADMINSTORE)
 
     const [logout, setLogOut] = useState(false)
@@ -65,7 +69,8 @@ const Dashboard = ({ children }) => {
             try {
                 const response = await UserGetApi(Apis.user.wallet)
                 if (response.status === 200) {
-                    setWallet(response.msg)
+                    // setWallet(response.msg)
+                    dispatch(updateWallet(response.msg))
                 }
 
             } catch (error) {

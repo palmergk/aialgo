@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import Loading from '../../GeneralComponents/Loading'
 import { FaXmark } from 'react-icons/fa6'
-import { useAtom } from 'jotai'
 import { useNavigate } from 'react-router-dom'
 import { Apis, PostApi } from '../../services/API'
-import { WALLET } from '../../store'
 import { ErrorAlert, SuccessAlert } from '../../utils/utils'
+import { useSelector } from 'react-redux'
 
 const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
-    const [userwallet] = useAtom(WALLET)
+    const userwallet = useSelector(state => state.data.wallet)
     const [amount, setAmount] = useState('')
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()

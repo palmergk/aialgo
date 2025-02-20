@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { BsCurrencyDollar } from "react-icons/bs";
-import { useAtom } from 'jotai';
-import { WALLET } from '../../../store';
 import wallet3d from '../../../assets/images/wallet3d.png'
 import deposit3d from '../../../assets/images/deposit3d.png'
 import withdraw3d from '../../../assets/images/withdraw3d.png'
@@ -16,7 +14,7 @@ import { Apis, UserGetApi } from '../../../services/API';
 
 
 const Wallet = () => {
-    const [wallet, setWallet] = useAtom(WALLET)
+    const [wallet, setWallet] = useState({})
     const [ups, setUps] = useState({})
     const [testRun, setTestRun] = useState({})
     const [dataLoading, setDataLoading] = useState(true)
