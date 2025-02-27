@@ -19,7 +19,7 @@ const CountComponent = () => {
 
             if (userCount < 1) {
                 let countOne = setInterval(() => {
-                    if (index === 85) {
+                    if (index >= 85) {
                         clearInterval(countOne)
                     } else {
                         index += 5
@@ -28,10 +28,10 @@ const CountComponent = () => {
                 }, 100)
 
                 let countTwo = setInterval(() => {
-                    if (index2 === 210) {
+                    if (index2 >= 210) {
                         clearInterval(countTwo)
                     } else {
-                        index2 +=10
+                        index2 += 10
                         setDailyCount(index2)
                     }
                 }, 100)
@@ -46,7 +46,7 @@ const CountComponent = () => {
                 }, 100)
 
                 let countFour = setInterval(() => {
-                    if (index4 === 95) {
+                    if (index4 >= 95) {
                         clearInterval(countFour)
                     } else {
                         index4 += 5

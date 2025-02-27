@@ -258,7 +258,7 @@ const VerifyKYC = () => {
                                 </div>
                             </div>
                         </div>
-                        <button className='outline-none bg-[#252525] py-2 px-8 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-[600] mt-4 mx-auto' onClick={Create_Update_KYC}>upload details</button>
+                        <button className='outline-none bg-[#252525] py-2.5 px-10 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-[600] mt-4 mx-auto' onClick={Create_Update_KYC}>upload details</button>
                     </div>
                 </div>
             </div>

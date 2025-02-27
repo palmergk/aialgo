@@ -16,7 +16,7 @@ import PinForm from '../../utils/PinForm';
 
 const SignupPage = () => {
   const navigate = useNavigate()
-  const [screen, setScreen] = useState(2)
+  const [screen, setScreen] = useState(1)
   const [check, setCheck] = useState(false)
   const [seconds, setSeconds] = useState(0)
   const [pins, setPins] = useState(['', '', '', '', '', '']);
@@ -35,7 +35,7 @@ const SignupPage = () => {
   const [form, setForm] = useState({
     full_name: '',
     username: '',
-    email: 'giddysbabey@gmail.com',
+    email: '',
     referral_code: '',
     password: '',
     confirm_password: '',

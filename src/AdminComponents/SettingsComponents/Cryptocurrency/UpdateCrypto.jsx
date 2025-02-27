@@ -44,23 +44,33 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
     }
 
     const handleUpload2 = (item) => {
-        const imageElement = document.getElementById('imgg')
-        const canvas = document.createElement('canvas');
-        canvas.width = imageElement.naturalWidth
-        canvas.height = imageElement.naturalHeight
-        const dataUrl = canvas.toDataURL('image/png')
-        fetch(dataUrl)
-            .then(res => res.blob())
-            .then(blob => {
-                const file = new File([blob], `${item.name}`, { type: 'image/png' });
-                console.log(file)
-                setCryptoImg({
-                    img: item.path,
-                    image: file
+        const imageElement = new Image()
+        imageElement.src = item.path
+
+        imageElement.onload = () => {
+            const canvas = document.createElement('canvas')
+            canvas.width = imageElement.naturalWidth
+            canvas.height = imageElement.naturalHeight
+            const ctx = canvas.getContext('2d')
+            ctx.drawImage(imageElement, 0, 0)
+            const dataUrl = canvas.toDataURL('image/png')
+
+            fetch(dataUrl)
+                .then(res => res.blob())
+                .then(blob => {
+                    const file = new File([blob], `${item.name}.png`, { type: 'image/png' })
+
+                    setCryptoImg({
+                        img: item.path,
+                        image: file
+                    })
                 })
-            })
-            .catch(err => console.error('Error converting image:', err));
-        setCommit(true)
+                .catch(err => console.error('Error converting image:', err))
+
+            setCommit(true)
+        }
+
+        imageElement.onerror = () => console.error('Error loading image')
     }
 
     const CommitHandler = () => {
@@ -179,7 +189,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                                     {PredefineCryptoImages.map((item, i) => (
                                         <div key={i} className='w-14 border-r'>
                                             <div className='py-1 px-2.5 hover:bg-zinc-200 cursor-pointer' onClick={() => handleUpload2(item)}>
-                                                <img src={item.path} className='w-full h-auto' id='imgg'></img>
+                                                <img src={item.path} className='w-full h-auto'></img>
                                             </div>
                                             <div className='w-full border-t h-fit text-center uppercase text-[0.6rem]'>{item.abb}</div>
                                         </div>

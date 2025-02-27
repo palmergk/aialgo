@@ -43,7 +43,7 @@ export default function PinForm ({pins, setPins}) {
 
   return (
     <div>
-      <div className='flex items-center justify-center gap-3'>
+      <div className='grid grid-cols-6 items-center justify-center gap-3'>
         {pins.map((part, index) => (
           <input
             key={index}

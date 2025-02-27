@@ -167,7 +167,7 @@ const ForgotPassword = ({ closeView }) => {
                                                 :
                                                 <div className='flex gap-2 items-center'>
                                                     <div>didn't get code?</div>
-                                                    <div className='text-light cursor-pointer' onClick={SendOTP}> Resend code</div>
+                                                    <div className='text-orange cursor-pointer' onClick={SendOTP}> Resend code</div>
                                                 </div>
                                             }
                                         </div>

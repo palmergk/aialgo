@@ -102,7 +102,7 @@ const VerifyEmail = () => {
                                         <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-base text-semi-white ipt' type='email' placeholder='Enter your email address' name='email' defaultValue={form.email} readOnly></input>
                                     </div>
                                 </div>
-                                <button className='outline-none bg-light py-2 px-12 rounded-md capitalize text-xs md:text-sm text-white cursor-pointer font-semibold'>verify</button>
+                                <button className='outline-none bg-light py-2.5 px-14 rounded-md capitalize text-xs md:text-sm text-white cursor-pointer font-semibold'>verify</button>
                             </div>
                         </form>
                     }
@@ -126,7 +126,7 @@ const VerifyEmail = () => {
                                         }
                                     </div>
                                 </div>
-                                <button className='outline-none bg-light py-2 px-12 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-semibold'>verify</button>
+                                <button className='outline-none bg-light py-2.5 px-14 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-semibold'>verify</button>
                             </div>
                         </form>
                     }
