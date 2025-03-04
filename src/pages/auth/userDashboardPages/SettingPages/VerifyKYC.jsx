@@ -62,6 +62,16 @@ const VerifyKYC = () => {
         })
     }
 
+    useEffect(() => {
+        if (!form.date_of_birth) {
+            const today = new Date().toISOString().split("T")[0]
+            setForm({
+                ...form,
+                date_of_birth: today
+            })
+        }
+    }, [])
+
     const FetchKyc = useCallback(async () => {
         try {
             const response = await UserGetApi(Apis.kyc.user_kyc)
@@ -210,7 +220,9 @@ const VerifyKYC = () => {
                         <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold '>date of birth:</div>
-                                <input type='date' value={form.date_of_birth} name='date_of_birth' className='w-full h-fit text-black py-1 px-2 rounded-[3px] shantf outline-none text-[0.8rem] font-semibold bg-white text-left' placeholder={`${!form.date_of_birth ? 'select' : ''}`} onChange={formHandler} />
+                                <input type='date' value={form.date_of_birth} name='date_of_birth' className='w-full h-fit text-black py-1 px-2 rounded-[3px] shantf outline-none text-[0.8rem] font-semibold bg-white text-left' placeholder="Select date"
+                                    onChange={formHandler}
+                                />
                             </div>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='text-sm capitalize font-semibold'>country:</div>
