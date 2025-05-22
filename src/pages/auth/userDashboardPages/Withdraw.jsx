@@ -16,13 +16,15 @@ import { Link, useSearchParams } from 'react-router-dom'
 import Loading from '../../../GeneralComponents/Loading'
 import CryptoSelector from '../../../GeneralComponents/CryptoSelector'
 import { SlSocialDropbox } from 'react-icons/sl'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateWallet } from '../../../redux/reducer'
 
 
 const Withdraw = () => {
     const [user] = useAtom(PROFILE)
     // const [userwallet, setUserWallet] = useAtom(WALLET)
     const userwallet = useSelector(state => state.data.wallet)
+    const dispatch = useDispatch()
     const [, setNotifications] = useAtom(NOTIFICATIONS)
     const [, setUnreadNotis] = useAtom(UNREADNOTIS)
 
@@ -34,12 +36,14 @@ const Withdraw = () => {
     const [cryptoWallets, setCryptoWallets] = useState({})
     const [check, setCheck] = useState('')
     const [search, setSearch] = useState('')
-    const [start, setStart] = useState(0)
-    const [end, setEnd] = useState(6)
-    const [pagestart, setpagestart] = useState(1)
-    const [pageend, setpageend] = useState(0)
     const [loading, setLoading] = useState(false)
     const [dataLoading, setDataLoading] = useState(true)
+    //pagination
+    const [currentPage, setCurrentPage] = useState(1)
+    const perPage = 6
+    const totalPages = Math.ceil(withdrawals.length / perPage)
+    const startIndex = (currentPage - 1) * perPage
+    const currentWithdrawals = withdrawals.slice(startIndex, startIndex + perPage)
 
     const [form, setForm] = useState({
         amount: '',
@@ -59,10 +63,6 @@ const Withdraw = () => {
             if (response.status === 200) {
                 setWithdrawals(response.msg)
                 setOriginal(response.msg)
-                setpageend(response.msg.length / 6)
-                setpagestart(1)
-                setStart(0)
-                setEnd(6)
             }
 
         } catch (error) {
@@ -98,7 +98,8 @@ const Withdraw = () => {
             if (response.status === 200) {
                 SuccessAlert(response.msg)
                 FetchWithdrawals()
-                setUserWallet(response.wallet)
+                // setUserWallet(response.wallet)
+                dispatch(updateWallet(response.wallet))
                 setNotifications(response.notis)
                 setUnreadNotis(response.unread)
                 setForm({
@@ -122,57 +123,23 @@ const Withdraw = () => {
         const altwithdrawals = original
         if (!search) {
             setWithdrawals(original)
-            setpageend(original.length / 6)
-            setpagestart(1)
-            setStart(0)
-            setEnd(6)
         }
         else {
+            setCurrentPage(1)
             const showSearch = altwithdrawals.filter(item => moment(item.createdAt).format('DD-MM-yyyy').includes(search) || moment(item.createdAt).format('h:mm').includes(search) || item.amount.toString().includes(search) || item.crypto.toLowerCase().includes(search.toLowerCase()) || item.network.toLowerCase().includes(search.toLowerCase()) || item.status.includes(search.toLowerCase()) || item.gen_id.includes(search))
             setWithdrawals(showSearch)
-            setpageend(showSearch.length / 6)
-            setpagestart(1)
-            setStart(0)
-            setEnd(6)
         }
     }
 
     const CancelWrite = () => {
         setSearch('')
+        setCurrentPage(1)
         setWithdrawals(original)
-        setpageend(original.length / 6)
-        setpagestart(1)
-        setStart(0)
-        setEnd(6)
     }
 
-    let MovePage = () => {
-        if (end < withdrawals.length) {
-            let altstart = start
-            let altend = end
-            let altlengthstart = pagestart
-
-            altend += 6
-            setEnd(altend)
-            altstart += 6
-            setStart(altstart)
-            altlengthstart += 1
-            setpagestart(altlengthstart)
-        }
-    }
-
-    let BackPage = () => {
-        if (end > 6) {
-            let altstart = start
-            let altend = end
-            let altlengthstart = pagestart
-
-            altend -= 6
-            setEnd(altend)
-            altstart -= 6
-            setStart(altstart)
-            altlengthstart -= 1
-            setpagestart(altlengthstart)
+    const ChangePage = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setCurrentPage(newPage)
         }
     }
 
@@ -260,7 +227,7 @@ const Withdraw = () => {
                                         {withdrawals.length > 0 ?
                                             <>
                                                 <div className='flex flex-col gap-4'>
-                                                    {withdrawals.slice(start, end).map((item, i) => (
+                                                    {currentWithdrawals.map((item, i) => (
                                                         <div key={i} className='w-full h-fit relative text-semi-white rounded-lg shadow-log'>
                                                             <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg flex justify-between gap-4'>
                                                                 <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
@@ -296,9 +263,9 @@ const Withdraw = () => {
                                                     ))}
                                                 </div>
                                                 <div className='flex gap-2 items-center text-xs mt-4 justify-end text-light '>
-                                                    {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
-                                                    {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
-                                                    {end < withdrawals.length && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
+                                                    {currentPage > 1 && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage - 1)}><FaAngleLeft /></div>}
+                                                    {totalPages > 1 && <div className='font-bold text-[grey]'>{currentPage} of {totalPages}</div>}
+                                                    {currentPage < totalPages && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage + 1)}><FaAngleRight /></div>}
                                                 </div>
                                             </>
                                             :

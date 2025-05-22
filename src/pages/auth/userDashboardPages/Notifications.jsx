@@ -18,12 +18,14 @@ const Notifications = () => {
 
     const [mark, setMark] = useState(false)
     const [showNotis, setShowNotis] = useState(false)
-    const [start, setStart] = useState(0)
-    const [end, setEnd] = useState(6)
-    const [pagestart, setpagestart] = useState(1)
-    const [pageend, setpageend] = useState(0)
     const [dataLoading, setDataloading] = useState(true)
     const toggler = useRef()
+    //pagination
+    const [currentPage, setCurrentPage] = useState(1)
+    const perPage = 6
+    const totalPages = Math.ceil(notis.length / perPage)
+    const startIndex = (currentPage - 1) * perPage
+    const currentNotis = notis.slice(startIndex, startIndex + perPage)
 
     useEffect(
         () => {
@@ -82,40 +84,21 @@ const Notifications = () => {
         }
     }
 
-    let MovePage = () => {
-        if (end < notis.length) {
-            let altstart = start
-            let altend = end
-            let altlengthstart = pagestart
-
-            altend += 6
-            setEnd(altend)
-            altstart += 6
-            setStart(altstart)
-            altlengthstart += 1
-            setpagestart(altlengthstart)
+    const ChangePage = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setCurrentPage(newPage)
         }
     }
 
-    let BackPage = () => {
-        if (end > 6) {
-            let altstart = start
-            let altend = end
-            let altlengthstart = pagestart
+    useEffect(() => {
+        if (currentPage > totalPages) return setCurrentPage(currentPage - 1)
+    }, [totalPages])
 
-            altend -= 6
-            setEnd(altend)
-            altstart -= 6
-            setStart(altstart)
-            altlengthstart -= 1
-            setpagestart(altlengthstart)
-        }
-    }
 
     return (
         <div>
             <>
-                <div className={`relative ${showNotis ? 'hidden' : 'flex'}`} onClick={() => { setShowNotis(true); setpageend(notis.length / 6) }}>
+                <div className={`relative ${showNotis ? 'hidden' : 'flex'}`} onClick={() => setShowNotis(true)}>
                     <div className='flex items-center justify-center border w-9 h-9 rounded-full text-xl text-light border-light cursor-pointer'>
                         <IoNotificationsOutline />
                     </div>
@@ -175,14 +158,14 @@ const Notifications = () => {
                             {notis.length > 0 ?
                                 <>
                                     <div className={`pt-1 pb-4 px-2 ${notis.length > 3 && 'md:h-[28rem]'} overflow-y-auto scroll`}>
-                                        {notis.slice(start, end).map((item, i) => (
-                                            <NotisField key={i} item={item} refetchNotifications={FetchNotifications} refetchUnreadNotis={FetchUnreadNotis} start={start} setStart={setStart} end={end} setEnd={setEnd} pagestart={pagestart} setpagestart={setpagestart} setpageend={setpageend} setShowNotis={setShowNotis} />
+                                        {currentNotis.map((item, i) => (
+                                            <NotisField key={i} item={item} refetchNotifications={FetchNotifications} refetchUnreadNotis={FetchUnreadNotis} />
                                         ))}
                                     </div>
                                     <div className='flex gap-2 items-center text-xs md:p-2 px-2 pb-4 justify-end'>
-                                        {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-zinc-700 text-zinc-700 hover:bg-zinc-700 hover:text-zinc-200 cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
-                                        {Math.ceil(pageend) > 1 && <div className='font-bold text-zinc-700'>{pagestart} of {Math.ceil(pageend)}</div>}
-                                        {end < notis.length && <div className='py-1 px-2 rounded-md border border-zinc-700 text-zinc-700 hover:bg-zinc-700 hover:text-zinc-200 cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
+                                        {currentPage > 1 && <div className='py-1 px-2 rounded-md border border-zinc-700 text-zinc-700 hover:bg-zinc-700 hover:text-zinc-200 cursor-pointer' onClick={() => ChangePage(currentPage - 1)}><FaAngleLeft /></div>}
+                                        {totalPages > 1 && <div className='font-bold text-zinc-700'>{currentPage} of {totalPages}</div>}
+                                        {currentPage < totalPages && <div className='py-1 px-2 rounded-md border border-zinc-700 text-zinc-700 hover:bg-zinc-700 hover:text-zinc-200 cursor-pointer' onClick={() => ChangePage(currentPage + 1)}><FaAngleRight /></div>}
                                     </div>
                                 </>
                                 :

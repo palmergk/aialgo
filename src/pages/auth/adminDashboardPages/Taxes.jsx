@@ -19,11 +19,13 @@ const Taxes = () => {
   const [modal, setModal] = useState(false)
   const [modal2, setModal2] = useState(false)
   const [search, setSearch] = useState('')
-  const [start, setStart] = useState(0)
-  const [end, setEnd] = useState(6)
-  const [pagestart, setpagestart] = useState(1)
-  const [pageend, setpageend] = useState(0)
   const [dataLoading, setDataLoading] = useState(true)
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1)
+  const perPage = 6
+  const totalPages = Math.ceil(allTaxes.length / perPage)
+  const startIndex = (currentPage - 1) * perPage
+  const currentAllTaxes = allTaxes.slice(startIndex, startIndex + perPage)
 
 
   const FetchAllTaxes = useCallback(async () => {
@@ -32,11 +34,6 @@ const Taxes = () => {
       if (response.status === 200) {
         setAllTaxes(response.msg)
         setOriginal(response.msg)
-        setpageend(response.msg.length / 6)
-        setStart(0)
-        setEnd(6)
-        setpagestart(1)
-        setSearch('')
       }
 
     } catch (error) {
@@ -50,66 +47,27 @@ const Taxes = () => {
     FetchAllTaxes()
   }, [FetchAllTaxes])
 
-  const SingleTaxFunction = (item) => {
-    setSingleTax(item)
-    setModal(true)
-  }
-
   const HandleSearch = () => {
     const altTaxes = original
     if (!search) {
       setAllTaxes(original)
-      setpageend(original.length / 6)
-      setpagestart(1)
-      setStart(0)
-      setEnd(6)
     }
     else {
+      setCurrentPage(1)
       const showSearch = altTaxes.filter(item => item.taxPayer.username.includes(search.toLowerCase()) || item.taxPayer.email.includes(search.toLowerCase()) || moment(item.createdAt).format('DD-MM-yyyy').includes(search) || item.amount.toString().includes(search) || item.crypto.toLowerCase().includes(search.toLowerCase()) || item.status.includes(search.toLowerCase()) || item.gen_id.includes(search))
       setAllTaxes(showSearch)
-      setpageend(showSearch.length / 6)
-      setpagestart(1)
-      setStart(0)
-      setEnd(6)
     }
   }
 
   const CancelWrite = () => {
     setSearch('')
+    setCurrentPage(1)
     setAllTaxes(original)
-    setpageend(original.length / 6)
-    setpagestart(1)
-    setStart(0)
-    setEnd(6)
   }
 
-  let MovePage = () => {
-    if (end < allTaxes.length) {
-      let altstart = start
-      let altend = end
-      let altlengthstart = pagestart
-
-      altend += 6
-      setEnd(altend)
-      altstart += 6
-      setStart(altstart)
-      altlengthstart += 1
-      setpagestart(altlengthstart)
-    }
-  }
-
-  let BackPage = () => {
-    if (end > 6) {
-      let altstart = start
-      let altend = end
-      let altlengthstart = pagestart
-
-      altend -= 6
-      setEnd(altend)
-      altstart -= 6
-      setStart(altstart)
-      altlengthstart -= 1
-      setpagestart(altlengthstart)
+  const ChangePage = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage)
     }
   }
 
@@ -147,13 +105,13 @@ const Taxes = () => {
               {allTaxes.length > 0 ?
                 <>
                   <div className='flex flex-col gap-4'>
-                    {allTaxes.slice(start, end).map((item, i) => (
+                    {currentAllTaxes.map((item, i) => (
                       <div key={i} className='w-full h-fit relative sha rounded-lg text-black font-medium'>
                         <div className='p-4 bg-semi-white text-sm rounded-t-lg flex justify-between gap-4'>
                           <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
                           <div className='flex gap-4 items-center'>
                             <div>ID: {item.gen_id}</div>
-                            <div className='hover:text-[#9f7ae7] cursor-pointer bg-white py-0.5 rounded-[3px]' onClick={() => SingleTaxFunction(item)}><BsThreeDotsVertical /></div>
+                            <div className='hover:text-[#9f7ae7] cursor-pointer bg-white py-0.5 rounded-[3px]' onClick={() => { setSingleTax(item); setModal(true) }}><BsThreeDotsVertical /></div>
                           </div>
                         </div>
                         <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
@@ -189,10 +147,10 @@ const Taxes = () => {
                       </div>
                     ))}
                   </div>
-                  <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page'>
-                    {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
-                    {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
-                    {end < allTaxes.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
+                  <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page '>
+                    {currentPage > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage - 1)}><FaAngleLeft /></div>}
+                    {totalPages > 1 && <div className='font-bold text-[grey]'>{currentPage} of {totalPages}</div>}
+                    {currentPage < totalPages && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage + 1)}><FaAngleRight /></div>}
                   </div>
                 </>
                 :

@@ -19,12 +19,14 @@ const AddWallet = () => {
   const [modal2, setModal2] = useState(false)
   const [modal3, setModal3] = useState(false)
   const [singleWallet, setSingleWallet] = useState({})
-  const [start, setStart] = useState(0)
-  const [end, setEnd] = useState(6)
-  const [pagestart, setpagestart] = useState(1)
-  const [pageend, setpageend] = useState(0)
   const [dataLoading, setDataLoading] = useState(true)
   const [dataLoading2, setDataLoading2] = useState(true)
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1)
+  const perPage = 6
+  const totalPages = Math.ceil(adminWallets.length / perPage)
+  const startIndex = (currentPage - 1) * perPage
+  const currentAdminWallets = adminWallets.slice(startIndex, startIndex + perPage)
 
 
   const FetchCryptocurrency = useCallback(async () => {
@@ -49,10 +51,6 @@ const AddWallet = () => {
       const response = await UserGetApi(Apis.admin.get_admin_wallets)
       if (response.status === 200) {
         setAdminWallets(response.msg)
-        setpageend(response.msg.length / 6)
-        setStart(0)
-        setEnd(6)
-        setpagestart(1)
       }
     } catch (error) {
       //
@@ -65,41 +63,11 @@ const AddWallet = () => {
     FetchAdminWallets()
   }, [FetchAdminWallets])
 
-  const SingleWalletFunction = (item) => {
-    setSingleWallet(item)
-    setModal(true)
-  }
-
-  let MovePage = () => {
-    if (end < adminWallets.length) {
-      let altstart = start
-      let altend = end
-      let altlengthstart = pagestart
-
-      altend += 6
-      setEnd(altend)
-      altstart += 6
-      setStart(altstart)
-      altlengthstart += 1
-      setpagestart(altlengthstart)
+  const ChangePage = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage)
     }
   }
-
-  let BackPage = () => {
-    if (end > 6) {
-      let altstart = start
-      let altend = end
-      let altlengthstart = pagestart
-
-      altend -= 6
-      setEnd(altend)
-      altstart -= 6
-      setStart(altstart)
-      altlengthstart -= 1
-      setpagestart(altlengthstart)
-    }
-  }
-
 
 
   return (
@@ -127,40 +95,47 @@ const AddWallet = () => {
           :
           <div>
             {adminWallets.length > 0 ?
-              <div className='flex flex-col gap-4'>
-                {adminWallets.slice(start, end).map((item, i) => (
-                  <div key={i} className='w-full h-fit relative sha rounded-lg text-black font-medium'>
-                    <div className='p-4 bg-semi-white text-sm rounded-t-lg flex justify-between gap-4'>
-                      <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
-                      <div>
-                        <div className='hover:text-[#9f7ae7] cursor-pointer bg-white py-0.5 rounded-[3px]' onClick={() => SingleWalletFunction(item)}><BsThreeDotsVertical /></div>
+              <>
+                <div className='flex flex-col gap-4'>
+                  {currentAdminWallets.map((item, i) => (
+                    <div key={i} className='w-full h-fit relative sha rounded-lg text-black font-medium'>
+                      <div className='p-4 bg-semi-white text-sm rounded-t-lg flex justify-between gap-4'>
+                        <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                        <div>
+                          <div className='hover:text-[#9f7ae7] cursor-pointer bg-white py-0.5 rounded-[3px]' onClick={() => { setSingleWallet(item); setModal(true) }}><BsThreeDotsVertical /></div>
+                        </div>
+                      </div>
+                      <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
+                        <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
+                          <div className='flex justify-between gap-4'>
+                            <span>crypto:</span>
+                            <span>{item.crypto_name}</span>
+                          </div>
+                          <div className='flex justify-between gap-4'>
+                            <span>network:</span>
+                            <span>{item.network}</span>
+                          </div>
+                          <div className='flex justify-between gap-4'>
+                            <span>address:</span>
+                            <span>{item.address?.slice(0, 7)}.....{item.address?.slice(-8)}</span>
+                          </div>
+                        </div>
+                        <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-100 overflow-hidden'>
+                          <div className='flex justify-between gap-4'>
+                            <span>qr code:</span>
+                            <QRCode value={item.address} className='w-4 h-auto' />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
-                      <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
-                        <div className='flex justify-between gap-4'>
-                          <span>crypto:</span>
-                          <span>{item.crypto_name}</span>
-                        </div>
-                        <div className='flex justify-between gap-4'>
-                          <span>network:</span>
-                          <span>{item.network}</span>
-                        </div>
-                        <div className='flex justify-between gap-4'>
-                          <span>address:</span>
-                          <span>{item.address?.slice(0, 7)}.....{item.address?.slice(-8)}</span>
-                        </div>
-                      </div>
-                      <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-100 overflow-hidden'>
-                        <div className='flex justify-between gap-4'>
-                          <span>qr code:</span>
-                          <QRCode value={item.address} className='w-4 h-auto' />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+                <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page'>
+                  {currentPage > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage - 1)}><FaAngleLeft /></div>}
+                  {totalPages > 1 && <div className='font-bold text-[grey]'>{currentPage} of {totalPages}</div>}
+                  {currentPage < totalPages && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage + 1)}><FaAngleRight /></div>}
+                </div>
+              </>
               :
               <div className='flex flex-col gap-2 justify-center items-center mt-8'>
                 <SlSocialDropbox className='text-4xl' />
@@ -169,11 +144,6 @@ const AddWallet = () => {
             }
           </div>
         }
-        {adminWallets.length > 0 && <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page '>
-          {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
-          {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
-          {end < adminWallets.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
-        </div>}
       </div>
     </SettingsLayout>
   )

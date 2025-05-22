@@ -17,18 +17,20 @@ import { IoAddCircleSharp } from 'react-icons/io5';
 
 const Users = () => {
   const [orignal, setOriginal] = useState([])
-  const [allusers, setAllUsers] = useState([])
+  const [allUsers, setAllUsers] = useState([])
   const [modal, setModal] = useState(false)
   const [modal2, setModal2] = useState(false)
   const [modal3, setModal3] = useState(false)
   const [singleUser, setSingleUser] = useState({})
   const [search, setSearch] = useState('')
   const [userFigures, setUserFigures] = useState({})
-  const [start, setStart] = useState(0)
-  const [end, setEnd] = useState(6)
-  const [pagestart, setpagestart] = useState(1)
-  const [pageend, setpageend] = useState(0)
   const [dataLoading, setDataLoading] = useState(true)
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1)
+  const perPage = 6
+  const totalPages = Math.ceil(allUsers.length / perPage)
+  const startIndex = (currentPage - 1) * perPage
+  const currentAllUsers = allUsers.slice(startIndex, startIndex + perPage)
 
 
   const FetchAllUsers = useCallback(async () => {
@@ -37,12 +39,6 @@ const Users = () => {
       if (response.status === 200) {
         setAllUsers(response.msg)
         setOriginal(response.msg)
-        setpageend(response.msg.length / 6)
-        setStart(0)
-        setEnd(6)
-        setpagestart(1)
-        setSearch('')
-        console.log(response.msg)
       }
 
     } catch (error) {
@@ -60,60 +56,25 @@ const Users = () => {
     const altusers = orignal
     if (!search) {
       setAllUsers(orignal)
-      setpageend(orignal.length / 6)
-      setpagestart(1)
-      setStart(0)
-      setEnd(6)
     }
     else {
+      setCurrentPage(1)
       const showSearch = altusers.filter(item => item.full_name.includes(search.toLowerCase()) || item.username.includes(search.toLowerCase()) || item.email.includes(search.toLowerCase()) || moment(item.createdAt).format('DD-MM-yyyy').includes(search))
       setAllUsers(showSearch)
-      setpageend(showSearch.length / 6)
-      setpagestart(1)
-      setStart(0)
-      setEnd(6)
     }
   }
 
   const CancelWrite = () => {
     setSearch('')
+    setCurrentPage(1)
     setAllUsers(orignal)
-    setpageend(orignal.length / 6)
-    setpagestart(1)
-    setStart(0)
-    setEnd(6)
   }
 
-  let MovePage = () => {
-    if (end < allusers.length) {
-      let altstart = start
-      let altend = end
-      let altlengthstart = pagestart
-
-      altend += 6
-      setEnd(altend)
-      altstart += 6
-      setStart(altstart)
-      altlengthstart += 1
-      setpagestart(altlengthstart)
+  const ChangePage = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage)
     }
   }
-
-  let BackPage = () => {
-    if (end > 6) {
-      let altstart = start
-      let altend = end
-      let altlengthstart = pagestart
-
-      altend -= 6
-      setEnd(altend)
-      altstart -= 6
-      setStart(altstart)
-      altlengthstart -= 1
-      setpagestart(altlengthstart)
-    }
-  }
-
 
   return (
     <AdminDashboard>
@@ -131,7 +92,7 @@ const Users = () => {
                 <TbUsers className='text-base' />
                 <span>total users:</span>
               </div>
-              <span className='text-[0.85rem]'>{allusers.length}</span>
+              <span className='text-[0.85rem]'>{allUsers.length}</span>
             </div>
           }
         </div>
@@ -164,17 +125,17 @@ const Users = () => {
             </div>
             :
             <>
-              {allusers.length > 0 ?
+              {allUsers.length > 0 ?
                 <>
                   <div className='flex flex-col gap-4'>
-                    {allusers.slice(start, end).map((item, i) => (
+                    {currentAllUsers.map((item, i) => (
                       <UserTableBody key={i} item={item} setModal={setModal} setSingleUser={setSingleUser} setUserFigures={setUserFigures} />
                     ))}
                   </div>
-                  <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page'>
-                    {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
-                    {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
-                    {end < allusers.length && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
+                  <div className='flex gap-2 items-center text-xs mt-4 justify-end text-admin-page '>
+                    {currentPage > 1 && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage - 1)}><FaAngleLeft /></div>}
+                    {totalPages > 1 && <div className='font-bold text-[grey]'>{currentPage} of {totalPages}</div>}
+                    {currentPage < totalPages && <div className='py-1 px-2 rounded-md border border-admin-page hover:bg-admin-page hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage + 1)}><FaAngleRight /></div>}
                   </div>
                 </>
                 :

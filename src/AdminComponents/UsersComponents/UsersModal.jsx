@@ -14,16 +14,19 @@ import { PiDownloadLight } from "react-icons/pi"
 import StatusSelector from '../../GeneralComponents/StatusSelector';
 import { LuBan } from 'react-icons/lu';
 import PasswordToTextInput from '../../GeneralComponents/PasswordToTextInput';
+import { useAtom } from 'jotai';
+import { PROFILE } from '../../store';
 
 
 const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => {
+    const [user] = useAtom(PROFILE)
     const toggler = useRef()
     const [beforeshow, setBeforeshow] = useState(true)
     const [screen, setScreen] = useState(1)
     const [fundScreen, setFundScreen] = useState(1)
     const [withdrawalScreen, setWithdrawalScreen] = useState(1)
     const [suspendScreen, setSuspendScreen] = useState(1)
-    const [status, setStatus] = useState(Object.values(singleUser).length !== 0 && singleUser.kycUser[0]?.status)
+    const [status, setStatus] = useState(Object.values(singleUser).length !== 0 ? singleUser.kycUser[0]?.status : Statuses[0])
     const [select, setSelect] = useState(false)
     const [update, setUpdate] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -64,7 +67,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
 
     useEffect(() => {
         if (!loading2) {
-            if (suspendScreen !== 1 || fundScreen !== 1 || withdrawalScreen !== 1 || select || form.message !== '') {
+            if (suspendScreen !== 1 || fundScreen !== 1 || withdrawalScreen !== 1 || select || form.message !== '' || screen === 2 && status !== 'processing') {
                 MoveToBottom()
             }
         }
@@ -229,7 +232,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                     </div>
                                                 </div>
                                             </div>
-                                            {singleUser?.role !== 'admin' &&
+                                            {singleUser?.role === 'user' &&
                                                 <div className='flex flex-col gap-4 border p-1'>
                                                     <div className='uppercase font-bold border px-1'>financial details:</div>
                                                     <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
@@ -244,7 +247,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                     </div>
                                                 </div>
                                             }
-                                            {singleUser?.account_deletion === 'true' &&
+                                            {singleUser?.account_deletion === 'true' && user.role === 'super admin' &&
                                                 <div className='border p-2 flex items-center gap-3'>
                                                     <span className='italic text-[red]'>this acccount was deleted</span>
                                                     <div className='w-fit relative'>
@@ -258,7 +261,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                     </div>
                                                 </div>
                                             }
-                                            {singleUser?.role !== 'admin' &&
+                                            {singleUser?.role === 'user' &&
                                                 <>
                                                     <div className='mt-4'>
                                                         {fundScreen === 1 ?
@@ -312,7 +315,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                     </div>
                                                 </>
                                             }
-                                            {singleUser?.id !== 1 &&
+                                            {singleUser?.role !== 'super admin' && user.role === 'super admin' &&
                                                 <div>
                                                     {suspendScreen === 1 ?
                                                         <div className='flex justify-center'>
@@ -432,10 +435,6 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                 </button>
                                                             </a>
                                                         </div>
-                                                        <div className='flex justify-between items-center gap-4 mt-3'>
-                                                            <div className='italic '>message:</div>
-                                                            <textarea placeholder='Provide a reason for failed verification...' className='p-2 md:w-52 w-44 h-32 text-black lg:text-[0.85rem] text-base outline-none bg-transparent border border-[#c9b8eb] rounded-md resize-none ipt scroll' name='message' value={form.message} onChange={formHandler} onKeyUp={UpdateHandlerForText}></textarea>
-                                                        </div>
                                                         <div className='flex justify-between items-center gap-4 my-6'>
                                                             <div className='italic'>status:</div>
                                                             {singleUser.kycUser[0]?.status === 'processing' ?
@@ -444,6 +443,10 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                 <div className={`md:text-base text-sm capitalize ${singleUser.kycUser[0].status === 'failed' ? 'text-[red]' : 'text-[green]'}`}>{singleUser.kycUser[0]?.status}</div>
                                                             }
                                                         </div>
+                                                        {status === 'failed' && <div className='flex justify-between items-center gap-4 mb-6'>
+                                                            <div className='italic '>message:</div>
+                                                            <textarea placeholder='Provide a reason for failed verification...' className='p-2 md:w-52 w-44 h-32 text-black lg:text-[0.85rem] text-base outline-none bg-transparent border border-[#c9b8eb] rounded-md resize-none ipt scroll' name='message' value={form.message} onChange={formHandler} onKeyUp={UpdateHandlerForText}></textarea>
+                                                        </div>}
                                                     </div>
                                                     :
                                                     <div className='text-base text-center'>No KYC details submitted yet...</div>

@@ -7,6 +7,7 @@ const TestimonialComponent = () => {
     const containerRef = useRef(null)
     const [index, setIndex] = useState(0)
     const [slideWidth, setSlideWidth] = useState(0)
+    const spacing = 10
 
     useEffect(() => {
         if (containerRef.current) {
@@ -32,7 +33,7 @@ const TestimonialComponent = () => {
 
     useEffect(() => {
         if (sliderRef.current) {
-            sliderRef.current.style.transform = `translateX(-${index * slideWidth}px)`
+            sliderRef.current.style.transform = `translateX(-${index * (slideWidth - spacing)}px)`
             sliderRef.current.style.transition = 'all 0.6s ease-in-out'
         }
     }, [index, slideWidth])
@@ -48,7 +49,7 @@ const TestimonialComponent = () => {
                 <div className='w-full overflow-hidden'>
                     <div ref={sliderRef} className='flex w-full'>
                         {Testimonials.map((item, i) => (
-                            <div ref={i === 0 ? containerRef : null} key={i} className='flex-shrink-0 max-w-[32rem] border border-zinc-300 lg:p-10 p-5'>
+                            <div ref={i === 0 ? containerRef : null} key={i} className={`flex-shrink-0 max-w-[32rem] border-y border-l ${i === Testimonials.length - 1 && 'border-r'} border-zinc-300 lg:p-10 p-5`}>
                                 <div className='flex flex-col gap-10'>
                                     <img alt='customer photo' src={item.image} className='md:size-28 size-24 rounded-full object-cover border-4 border-gray-200' />
                                     <div className='flex flex-col gap-6'>

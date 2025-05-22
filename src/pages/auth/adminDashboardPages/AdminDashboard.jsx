@@ -73,7 +73,7 @@ const AdminDashboard = ({ children }) => {
 
   return (
     <div className='w-full flex relative overflow-hidden'>
-      <div className={`h-screen w-full xl:w-[20%] lg:w-[25%] lg:bg-admin-auth bg-[#27137eee] lg:relative lg:block overflow-x-hidden overflow-y-auto scrollDiv z-50 ${slideShow ? 'block fixed top-0 left-0' : 'hidden'}`}>
+      <div className={`h-screen w-full xl:w-[20%] lg:w-[25%] lg:bg-admin-auth bg-[#27137eee] backdrop-blur-sm lg:backdrop-blur-none lg:relative lg:block overflow-x-hidden overflow-y-auto scrollDiv z-50 ${slideShow ? 'block fixed top-0 left-0' : 'hidden'}`}>
         <div className='text-white text-3xl cursor-pointer lg:hidden absolute top-4 right-4' onClick={() => setSlideShow(!slideShow)}>
           <LuX />
         </div>

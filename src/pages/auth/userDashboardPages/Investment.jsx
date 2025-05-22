@@ -21,22 +21,24 @@ const Investment = () => {
     const params = searchParams.get('screen')
     const [screen, setScreen] = useState(params ? parseInt(params) : 1)
     const [original, setOriginal] = useState([])
-    const [investment, setInvestment] = useState([])
-    const [investmentUnclaim, setInvestUnclaim] = useState([])
+    const [investments, setInvestments] = useState([])
+    const [investmentsUnclaim, setInvestsUnclaim] = useState([])
     const [search, setSearch] = useState('')
-    const [start, setStart] = useState(0)
-    const [end, setEnd] = useState(6)
-    const [pagestart, setpagestart] = useState(1)
-    const [pageend, setpageend] = useState(0)
     const [dataLoading, setDataLoading] = useState(true)
     const [dataLoading2, setDataLoading2] = useState(true)
+    //pagination
+    const [currentPage, setCurrentPage] = useState(1)
+    const perPage = 6
+    const totalPages = Math.ceil(investments.length / perPage)
+    const startIndex = (currentPage - 1) * perPage
+    const currentInvestments = investments.slice(startIndex, startIndex + perPage)
 
 
     const FetchInvestmentUnclaim = useCallback(async () => {
         try {
             const response = await UserGetApi(Apis.investment.user_unclaim)
             if (response.status === 200) {
-                setInvestUnclaim(response.msg)
+                setInvestsUnclaim(response.msg)
             }
 
         } catch (error) {
@@ -53,9 +55,8 @@ const Investment = () => {
         try {
             const response = await UserGetApi(Apis.investment.user_investment)
             if (response.status === 200) {
-                setInvestment(response.msg)
+                setInvestments(response.msg)
                 setOriginal(response.msg)
-                setpageend(response.msg.length / 6)
             }
 
         } catch (error) {
@@ -70,60 +71,25 @@ const Investment = () => {
 
 
     const HandleSearch = () => {
-        const altinvestment = original
+        const altinvestments = original
         if (!search) {
-            setInvestment(original)
-            setpageend(original.length / 6)
-            setpagestart(1)
-            setStart(0)
-            setEnd(6)
-
+            setInvestments(original)
         } else {
-            const showSearch = altinvestment.filter(item => moment(item.createdAt).format('DD-MM-yyyy').includes(search) || moment(item.createdAt).format('h:mm').includes(search) || item.amount.toString().includes(search) || item.trading_plan.includes(search.toLowerCase()) || item.status.includes(search.toLowerCase()) || item.claim.includes(search.toLowerCase()) || item.gen_id.includes(search))
-            setInvestment(showSearch)
-            setpageend(showSearch.length / 6)
-            setpagestart(1)
-            setStart(0)
-            setEnd(6)
+            setCurrentPage(1)
+            const showSearch = altinvestments.filter(item => moment(item.createdAt).format('DD-MM-yyyy').includes(search) || moment(item.createdAt).format('h:mm').includes(search) || item.amount.toString().includes(search) || item.trading_plan.includes(search.toLowerCase()) || item.status.includes(search.toLowerCase()) || item.claim.includes(search.toLowerCase()) || item.gen_id.includes(search))
+            setInvestments(showSearch)
         }
     }
 
     const CancelWrite = () => {
         setSearch('')
-        setInvestment(original)
-        setpageend(original.length / 6)
-        setpagestart(1)
-        setStart(0)
-        setEnd(6)
+        setCurrentPage(1)
+        setInvestments(original)
     }
 
-    let MovePage = () => {
-        if (end < investment.length) {
-            let altstart = start
-            let altend = end
-            let altlengthstart = pagestart
-
-            altend += 6
-            setEnd(altend)
-            altstart += 6
-            setStart(altstart)
-            altlengthstart += 1
-            setpagestart(altlengthstart)
-        }
-    }
-
-    let BackPage = () => {
-        if (end > 6) {
-            let altstart = start
-            let altend = end
-            let altlengthstart = pagestart
-
-            altend -= 6
-            setEnd(altend)
-            altstart -= 6
-            setStart(altstart)
-            altlengthstart -= 1
-            setpagestart(altlengthstart)
+    const ChangePage = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setCurrentPage(newPage)
         }
     }
 
@@ -158,9 +124,9 @@ const Investment = () => {
                                 </div>
                                 :
                                 <>
-                                    {investmentUnclaim.length > 0 ?
+                                    {investmentsUnclaim.length > 0 ?
                                         <div className='flex flex-col gap-10'>
-                                            {investmentUnclaim.map((item, i) => (
+                                            {investmentsUnclaim.map((item, i) => (
                                                 <div className='flex flex-col gap-4' key={i}>
                                                     <div className='flex gap-2 items-center'>
                                                         <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('DD-MM-yyyy')}</div>
@@ -254,10 +220,10 @@ const Investment = () => {
                                     </div>
                                     :
                                     <>
-                                        {investment.length > 0 ?
+                                        {investments.length > 0 ?
                                             <>
                                                 <div className='flex flex-col gap-4'>
-                                                    {investment.slice(start, end).map((item, i) => (
+                                                    {currentInvestments.map((item, i) => (
                                                         <div key={i} className='w-full h-fit relative text-semi-white  rounded-lg shadow-log'>
                                                             <div className='p-4 bg-[#141220] text-sm rounded-t-lg font-medium flex justify-between gap-4'>
                                                                 <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
@@ -297,9 +263,9 @@ const Investment = () => {
                                                     ))}
                                                 </div>
                                                 <div className='flex gap-2 items-center text-xs mt-4 justify-end text-light '>
-                                                    {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
-                                                    {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
-                                                    {end < investment.length && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
+                                                    {currentPage > 1 && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage - 1)}><FaAngleLeft /></div>}
+                                                    {totalPages > 1 && <div className='font-bold text-[grey]'>{currentPage} of {totalPages}</div>}
+                                                    {currentPage < totalPages && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage + 1)}><FaAngleRight /></div>}
                                                 </div>
                                             </>
                                             :

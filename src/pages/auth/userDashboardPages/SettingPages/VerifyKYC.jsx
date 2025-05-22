@@ -133,6 +133,7 @@ const VerifyKYC = () => {
         if (!form.phone_number) return ErrorAlert('Enter your mobile number')
         if (!form.id_number) return ErrorAlert('Enter an identification number')
         if (id === null) return ErrorAlert('Provide a valid ID')
+        if (kyc.status === 'processing') return ErrorAlert(`You can't re-upload while KYC details is still processing`)
         if (kyc.status === 'verified') return ErrorAlert('KYC is verified')
 
         if (form.first_name === kyc.first_name && form.last_name === kyc.last_name && form.address === kyc.address && form.state === kyc.state && form.postal === kyc.postal && form.date_of_birth === kyc.date_of_birth && form.phone_number === kyc.phone_number && form.id_number === kyc.id_number && phoneCode === kyc.phone_code && gender === kyc.gender && marital === kyc.marital_status && usercountry.name === kyc.country && id.name === kyc.valid_id) return ErrorAlert('No changes made')

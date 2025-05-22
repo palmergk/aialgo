@@ -207,7 +207,7 @@ const Profile = () => {
                         <img className='md:w-48 md:h-48 h-36 w-36 border-4 border-light rounded-full object-cover' src={profile.img}></img>
                         <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shlz' onClick={() => setSelect(!select)}><MdOutlineEdit /></div>
                         {select &&
-                            <div className='h-fit w-36 absolute md:-bottom-11 -bottom-9 right-0 bg-white border border-[lightgrey] rounded-md z-10 md:text-sm text-xs font-bold overflow-hidden capitalize'>
+                            <div className='h-fit w-36 absolute -bottom-11 right-0 bg-white border border-[lightgrey] rounded-md z-10 text-sm font-bold overflow-hidden capitalize'>
                                 <label>
                                     <div className='px-2 py-1 cursor-pointer hover:bg-[#ececec] border-b border-[#ebeaea] flex justify-between items-center'>
                                         <span>choose photo</span>

@@ -33,6 +33,10 @@ export const UserRole = [
         role: 'admin',
         url: '/admin-controls'
     },
+    {
+        role: 'super admin',
+        url: '/admin-controls'
+    },
 ]
 
 export const MoveToTop = () => {

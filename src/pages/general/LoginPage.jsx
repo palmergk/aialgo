@@ -56,7 +56,6 @@ const LoginPage = () => {
             setLoading(false)
         }
     }
-    document.documentElement.style.overflow = modal === true ? 'hidden' : 'auto'
 
     return (
         <Pagelayout>

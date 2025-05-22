@@ -24,11 +24,13 @@ const TaxPayment = () => {
     const [taxes, setTaxes] = useState([])
     const [modal, setModal] = useState(false)
     const [search, setSearch] = useState('')
-    const [start, setStart] = useState(0)
-    const [end, setEnd] = useState(6)
-    const [pagestart, setpagestart] = useState(1)
-    const [pageend, setpageend] = useState(0)
     const [dataLoading, setDataLoading] = useState(true)
+    //pagination
+    const [currentPage, setCurrentPage] = useState(1)
+    const perPage = 6
+    const totalPages = Math.ceil(taxes.length / perPage)
+    const startIndex = (currentPage - 1) * perPage
+    const currentTaxes = taxes.slice(startIndex, startIndex + perPage)
 
 
     const FetchTaxes = useCallback(async () => {
@@ -59,62 +61,25 @@ const TaxPayment = () => {
         const altTaxes = original
         if (!search) {
             setTaxes(original)
-            setpageend(original.length / 6)
-            setpagestart(1)
-            setStart(0)
-            setEnd(6)
         }
         else {
+            setCurrentPage(1)
             const showSearch = altTaxes.filter(item => moment(item.createdAt).format('DD-MM-yyyy').includes(search) || moment(item.createdAt).format('h:mm').includes(search) || item.amount.toString().includes(search) || item.crypto.toLowerCase().includes(search.toLowerCase()) || item.network.toLowerCase().includes(search.toLowerCase()) || item.status.includes(search.toLowerCase()) || item.gen_id.includes(search))
             setTaxes(showSearch)
-            setpageend(showSearch.length / 6)
-            setpagestart(1)
-            setStart(0)
-            setEnd(6)
         }
     }
 
     const CancelWrite = () => {
         setSearch('')
+        setCurrentPage(1)
         setTaxes(original)
-        setpageend(original.length / 6)
-        setpagestart(1)
-        setStart(0)
-        setEnd(6)
     }
 
-    let MovePage = () => {
-        if (end < taxes.length) {
-            let altstart = start
-            let altend = end
-            let altlengthstart = pagestart
-
-            altend += 6
-            setEnd(altend)
-            altstart += 6
-            setStart(altstart)
-            altlengthstart += 1
-            setpagestart(altlengthstart)
+    const ChangePage = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setCurrentPage(newPage)
         }
     }
-
-    let BackPage = () => {
-        if (end > 6) {
-            let altstart = start
-            let altend = end
-            let altlengthstart = pagestart
-
-            altend -= 6
-            setEnd(altend)
-            altstart -= 6
-            setStart(altstart)
-            altlengthstart -= 1
-            setpagestart(altlengthstart)
-        }
-    }
-
-
-
 
 
     return (
@@ -194,7 +159,7 @@ const TaxPayment = () => {
                                         {taxes.length > 0 ?
                                             <>
                                                 <div className='flex flex-col gap-4'>
-                                                    {taxes.slice(start, end).map((item, i) => (
+                                                    {currentTaxes.map((item, i) => (
                                                         <div key={i} className='w-full h-fit relative text-semi-white rounded-lg shadow-log'>
                                                             <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg flex justify-between gap-4'>
                                                                 <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
@@ -230,9 +195,9 @@ const TaxPayment = () => {
                                                     ))}
                                                 </div>
                                                 <div className='flex gap-2 items-center text-xs mt-4 justify-end text-light '>
-                                                    {pagestart > 1 && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={BackPage}><FaAngleLeft /></div>}
-                                                    {Math.ceil(pageend) > 1 && <div className='font-bold text-[grey]'>{pagestart} of {Math.ceil(pageend)}</div>}
-                                                    {end < taxes.length && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={MovePage}><FaAngleRight /></div>}
+                                                    {currentPage > 1 && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage - 1)}><FaAngleLeft /></div>}
+                                                    {totalPages > 1 && <div className='font-bold text-[grey]'>{currentPage} of {totalPages}</div>}
+                                                    {currentPage < totalPages && <div className='py-1 px-2 rounded-md border border-light hover:bg-light hover:text-white cursor-pointer' onClick={() => ChangePage(currentPage + 1)}><FaAngleRight /></div>}
                                                 </div>
                                             </>
                                             :

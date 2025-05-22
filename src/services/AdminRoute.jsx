@@ -24,7 +24,7 @@ const AdminRoute = ({ children }) => {
                     return navigate('/login')
                 }
                 const unauthorized = decodeToken(token)
-                if (unauthorized.role !== 'admin') {
+                if (unauthorized.role !== 'admin' && unauthorized.role !== 'super admin') {
                     return navigate('/login')
                 }
                 const response = await UserGetApi(Apis.user.profile)
