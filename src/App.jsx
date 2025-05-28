@@ -21,10 +21,10 @@ const App = () => {
           <Route key={index} path={`${item.path}`} element={<item.component />} />
         ))}
         {UserDashboardPagesLinks.map((item, index) => (
-          <Route key={index} path={`${item.path}`} element={<AuthRoute><item.component /></AuthRoute>} />
+          <Route key={index} path={`${item.path}`} element={<item.component />} />
         ))}
         {AdminDashboardPagesLinks.map((item, index) => (
-          <Route key={index} path={`${item.path}`} element={<AdminRoute><item.component /></AdminRoute>} />
+          <Route key={index} path={`${item.path}`} element={<item.component />} />
         ))}
       </Routes>
     </BrowserRouter>
