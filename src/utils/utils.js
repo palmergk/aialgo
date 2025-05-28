@@ -125,12 +125,6 @@ export const Testimonials = [
         location: 'atlanta, US',
         review: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam natus deleniti consectetur sed, expedita illo quae sapiente nihil incidunt praesentium, nemo vero esse amet reprehenderit? Architecto, culpa reiciendis! Evienet accusatinum'
     },
-    {
-        name: 'kabir kumar',
-        image: india,
-        location: 'surat, india',
-        review: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam natus deleniti consectetur sed, expedita illo quae sapiente nihil incidunt praesentium, nemo vero esse amet reprehenderit? Architecto, culpa reiciendis! Evienet accusatinum'
-    }
 ]
 
 

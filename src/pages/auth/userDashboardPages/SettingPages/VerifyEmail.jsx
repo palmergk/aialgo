@@ -44,8 +44,8 @@ const VerifyEmail = () => {
     }
 
     const DelayResend = () => {
-        setSeconds(59)
-        let altsec = 59
+        setSeconds(40)
+        let altsec = 40
         let delay = setInterval(() => {
             if (altsec === 0) {
                 clearInterval(delay)
@@ -91,7 +91,7 @@ const VerifyEmail = () => {
                             <span>verify your email</span>
                             <MdVerified className='text-light' />
                         </div>
-                        <div className='italic text-sm flex items-center gap-2'><span>Status:</span> <span className={`${user.email_verified === 'true' ? 'text-light' : 'text-[#c42e2e]'}`}>{user.email_verified === 'true' ? 'verified' : 'unverified'}</span></div>
+                        <div className='italic text-sm flex items-center gap-2'><span>Status:</span> <span className={`${user.email_verified === 'true' ? 'text-[green]' : 'text-[#c42e2e]'}`}>{user.email_verified === 'true' ? 'verified' : 'unverified'}</span></div>
                     </div>
                     {screen === 1 &&
                         <form onSubmit={SendOTP}>
@@ -99,10 +99,10 @@ const VerifyEmail = () => {
                                 <div className='flex flex-col gap-2'>
                                     <div className='text-[0.85rem] capitalize text-semi-white'> email address</div>
                                     <div className='relative'>
-                                        <input className='outline-none rounded-[3px] w-64 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-base text-semi-white ipt' type='email' placeholder='Enter your email address' name='email' defaultValue={form.email} readOnly></input>
+                                        <input className='outline-none rounded-[3px] w-72 md:w-80 h-10 bg-transparent px-3 border border-light lg:text-[0.9rem] text-base text-semi-white ipt' type='email' placeholder='Enter your email address' name='email' defaultValue={form.email} readOnly></input>
                                     </div>
                                 </div>
-                                <button className='outline-none bg-light py-2.5 px-14 rounded-md capitalize text-xs md:text-sm text-white cursor-pointer font-semibold'>verify</button>
+                                <button className='outline-none bg-light py-2 px-11 rounded-md capitalize text-sm text-white cursor-pointer font-semibold'>verify</button>
                             </div>
                         </form>
                     }
@@ -117,7 +117,8 @@ const VerifyEmail = () => {
                                     />
                                     <div className='text-[0.8rem] flex gap-2  text-gray-500 w-fit ml-auto'>
                                         {seconds > 0 && <span>00:{seconds < 10 && '0'}{seconds}</span>}
-                                        {seconds > 0 ? <span>Resend code</span>
+                                        {seconds > 0 ?
+                                            <span>Resend code</span>
                                             :
                                             <div className='flex gap-2 items-center'>
                                                 <div>didn't get code?</div>

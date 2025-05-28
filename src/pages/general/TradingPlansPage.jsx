@@ -7,7 +7,7 @@ import noplans from '../../assets/images/noplans.png'
 
 const TradingPlansPage = () => {
   const [tradingPlans, setTradingPlans] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [dataLoading, setDataLoading] = useState(true)
 
   useEffect(() => {
     const FetchTradingPlans = async () => {
@@ -16,11 +16,11 @@ const TradingPlansPage = () => {
         if (response.status === 200) {
           setTradingPlans(response.msg)
         }
-  
+
       } catch (error) {
         //
-      }finally{
-        setLoading(false)
+      } finally {
+        setDataLoading(false)
       }
     }
     FetchTradingPlans()
@@ -34,11 +34,11 @@ const TradingPlansPage = () => {
             <div className='z-20 font-bold capitalize text-4xl lg:text-5xl text-center'>trading plans</div>
             <div className='md:text-[1.1rem] text-center'>- Below are the different trading plans on the AI Algorithm Trading System -</div>
           </div>
-          <div className='flex flex-wrap gap-12 md:mt-20 mt-14 text-[#30465c] justify-center'>
-            {loading ?
+          <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-12 md:mt-20 mt-14 text-[#30465c] justify-center'>
+            {dataLoading ?
               <>
                 {new Array(3).fill(0).map((ele, i) => (
-                  <div className='w-[23rem] md:h-[27.5rem] h-[26rem] rounded-md bg-slate-300 animate-pulse' key={i}>
+                  <div className='w-full h-96 rounded-md bg-slate-300 animate-pulse' key={i}>
                   </div>
                 ))
                 }
@@ -48,13 +48,12 @@ const TradingPlansPage = () => {
                 {tradingPlans.length > 0 ?
                   <>
                     {tradingPlans.map((item, i) => (
-                      <div key={i} className={`w-[23rem] h-fit rounded-md ${item.price_start === 1000 || item.title === 'test run' ? 'bg-[#30465c] text-white shabox' : 'bg-transparent'}`}>
-                        {item.price_start === 1000 && <div className='mt-4 '>
-                          <div className='w-[4.4rem] h-[1.7185rem] flex items-center justify-center bg-white rotate-[320deg]  text-xs uppercase plan text-[#30465c]'>popular</div>
-                        </div>}
-                        {item.title === 'test run' && <div className='mt-4 '>
-                          <div className='w-[4.4rem] h-[1.7185rem] flex items-center justify-center bg-white rotate-[320deg]  text-xs uppercase plan text-[#30465c]'>one trial</div>
-                        </div>}
+                      <div key={i} className={`w-full h-fit rounded-md ${item.price_start === 1000 || item.title === 'test run' ? 'bg-[#30465c] text-white shabox' : 'bg-transparent'}`}>
+                        {item.price_start === 1000 || item.title === 'test run' ? <div className='mt-4 '>
+                          <div className='w-[4.4rem] h-[1.7185rem] flex items-center justify-center bg-white rotate-[320deg]  text-xs uppercase plan text-[#30465c]'>{item.title === 'test run' ? 'one trial' : item.price_start === 1000 ? 'popular' : 'new'}</div>
+                        </div>
+                          : <div></div>
+                        }
                         <div className={`flex flex-col items-center md:p-10 p-8 ${item.price_start === 1000 || item.title === 'test run' ? 'mt-[-2.8rem]' : ''}`}>
                           <div className='capitalize text'>{item.title}</div>
                           <div className='flex gap-1 my-12 items-center'>

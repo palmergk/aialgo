@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react'
-import { PiWarningCircleBold } from 'react-icons/pi';
 import { FaXmark } from 'react-icons/fa6';
 import Loading from '../../../GeneralComponents/Loading';
 import ModalLayout from '../../../utils/ModalLayout';
@@ -24,18 +23,26 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
 
     const [form, setForm] = useState({
         title: singlePlan?.title,
-        price_start: singlePlan?.price_start,
-        price_limit: singlePlan?.price_limit,
-        profit_return: singlePlan?.profit_return,
-        plan_bonus: singlePlan?.plan_bonus,
-        duration: singlePlan?.duration,
+        price_start: Number(singlePlan?.price_start).toLocaleString(),
+        price_limit: Number(singlePlan?.price_limit).toLocaleString(),
+        profit_return: Number(singlePlan?.profit_return).toLocaleString(),
+        plan_bonus: Number(singlePlan?.plan_bonus).toLocaleString(),
+        duration: Number(singlePlan?.duration).toLocaleString(),
     })
 
-    const inputHandler = event => {
-        setForm({
-            ...form,
-            [event.target.name]: event.target.value
-        })
+    const inputHandler = e => {
+        const { name, value } = e.target
+        if (name === 'title') {
+            setForm({ ...form, title: value })
+        } else if (name === 'profit_return') {
+            const formatVal = value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+            setForm({ ...form, [name]: formatVal })
+        }
+        else {
+            const formatVal = value.replace(/\D/g, '')
+            const formatted = Number(formatVal).toLocaleString()
+            setForm({ ...form, [name]: formatted })
+        }
     }
 
     const CommitHandlerForText = () => {
@@ -57,16 +64,21 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
 
     const UpdateTradingPlan = async () => {
         if (!form.title || !form.price_limit || !form.price_start || !form.profit_return || !form.plan_bonus || !form.duration) return ErrorAlert('Enter all fields')
-        if (isNaN(form.price_start) || isNaN(form.price_limit) || isNaN(form.profit_return) || isNaN(form.plan_bonus) || isNaN(form.duration)) return ErrorAlert('Enter valid numbers')
+
+        const psamt = parseFloat(form.price_start.replace(/,/g, ''))
+        const plamt = parseFloat(form.price_limit.replace(/,/g, ''))
+        const pramt = parseFloat(form.profit_return.replace(/,/g, ''))
+        const pbamt = parseFloat(form.plan_bonus.replace(/,/g, ''))
+        const damt = parseFloat(form.duration.replace(/,/g, ''))
 
         const formbody = {
             plan_id: singlePlan.id,
             title: form.title,
-            price_start: parseFloat(form.price_start),
-            price_limit: parseFloat(form.price_limit),
-            profit_return: parseFloat(form.profit_return),
-            plan_bonus: parseFloat(form.plan_bonus),
-            duration: parseFloat(form.duration),
+            price_start: psamt,
+            price_limit: plamt,
+            profit_return: pramt,
+            plan_bonus: pbamt,
+            duration: damt,
             duration_type: type
         }
 
@@ -122,35 +134,35 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
                     <div className='flex flex-col gap-4 relative'>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>title:</div>
-                            <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.title} name='title' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
+                            <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.title} name='title' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>price start ($):</div>
                             <div>
-                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.price_start} name='price_start' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
+                                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.price_start} name='price_start' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
                             </div>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>price limit ($):</div>
                             <div>
-                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.price_limit} name='price_limit' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
+                                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.price_limit} name='price_limit' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
                             </div>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>profit return (%):</div>
                             <div>
-                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.profit_return} name='profit_return' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
+                                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.profit_return} name='profit_return' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
                             </div>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>plan bonus ($):</div>
                             <div>
-                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.plan_bonus} name='plan_bonus' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
+                                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.plan_bonus} name='plan_bonus' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
                             </div>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>duration:</div>
-                            <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.duration} name='duration' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
+                            <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.duration} name='duration' onChange={inputHandler} onKeyUp={CommitHandlerForText}></input>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>duration type:</div>
@@ -161,13 +173,10 @@ const UpdatePackageModal = ({ closeView, singlePlan, refetchTradingPlans }) => {
                         {commit && <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateTradingPlan}>update</button>}
                         <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ml-auto' onClick={() => setDeleteState(true)}>delete</button>
                         {deleteState && <div className='bg-white w-fit h-fit flex flex-col gap-4 items-center justify-center absolute bottom-0 right-0 p-3 rounded-md text-xs popsha'>
-                            <div className='md:text-sm text-[0.8rem] text-center font-semibold flex items-center gap-1'>
-                                <span> Are you sure you want to Delete Plan?</span>
-                                <PiWarningCircleBold className='text-[red]' />
-                            </div>
+                            <div className='text-sm text-center font-semibold'>Are you sure you want to Delete Plan?</div>
                             <div className='flex items-center gap-6'>
-                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={() => setDeleteState(false)}>cancel</button>
-                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={DeleteTradingPlan}>proceed</button>
+                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 hover:bg-green-600 text-white rounded-md font-medium' onClick={() => setDeleteState(false)}>cancel</button>
+                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 hover:bg-red-600 text-white rounded-md font-medium' onClick={DeleteTradingPlan}>proceed</button>
                             </div>
                         </div>}
                     </div>

@@ -52,8 +52,8 @@ const ForgotPassword = ({ closeView }) => {
     }
 
     const DelayResend = () => {
-        setSeconds(59)
-        let altsec = 59
+        setSeconds(40)
+        let altsec = 40
         let delay = setInterval(() => {
             if (altsec === 0) {
                 clearInterval(delay)
@@ -163,7 +163,8 @@ const ForgotPassword = ({ closeView }) => {
                                         />
                                         <div className='text-xs flex gap-2 text-gray-600 w-fit ml-auto'>
                                             {seconds > 0 && <span>00:{seconds < 10 && '0'}{seconds}</span>}
-                                            {seconds > 0 ? <span>Resend code</span>
+                                            {seconds > 0 ?
+                                                <span>Resend code</span>
                                                 :
                                                 <div className='flex gap-2 items-center'>
                                                     <div>didn't get code?</div>

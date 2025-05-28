@@ -13,16 +13,19 @@ const SetTaxPercentage = ({ closeView }) => {
     const toggler = useRef()
     const [loading, setLoading] = useState(false)
 
-    const UpdateTaxPercentage = async () => {
-        if (!amount) return ErrorAlert('Enter an amount')
-        if (isNaN(amount)) return ErrorAlert('Amount must be a number')
+    const handleAmount = (e) => {
+        const formatVal = e.target.value.replace(/\D/g, '')
+        const formatted = Number(formatVal).toLocaleString()
+        setAmount(formatted)
+    }
 
-        const formbody = {
-            tax_percentage: parseFloat(amount),
-        }
+    const UpdateTaxPercentage = async () => {
+        const amt = parseFloat(amount.replace(/,/g, ''))
+        if (!amt || amt < 1) return ErrorAlert('Enter an amount')
+
         setLoading(true)
         try {
-            const response = await UserPutApi(Apis.admin.update_admin_store, formbody)
+            const response = await UserPutApi(Apis.admin.update_admin_store, { tax_percentage: amt })
             if (response.status === 200) {
                 setAdminStore(response.store)
                 SuccessAlert('Tax percentage updated')
@@ -48,7 +51,7 @@ const SetTaxPercentage = ({ closeView }) => {
                         <div className='flex gap-4 items-center justify-center'>
                             <div className='flex flex-col gap-1'>
                                 <div className='capitalize text-xs'>enter an amount (%)</div>
-                                <input className='outline-none border lg:text-[0.85rem] text-base md:w-44 w-36 h-8 rounded-[3px] px-2 bg-[#ebeaea] ipt border-[#9f7ae7]' value={amount} onChange={e => setAmount(e.target.value)}></input>
+                                <input className='outline-none border lg:text-[0.85rem] text-base md:w-44 w-36 h-8 rounded-[3px] px-2 bg-[#ebeaea] ipt border-[#9f7ae7]' value={amount} onChange={handleAmount}></input>
                             </div>
                             <div className='text-xs py-1 px-3 h-fit w-fit bg-white sha flex flex-col gap-2 text-black items-center font-medium rounded-[3px]'>
                                 <div>current:</div>
@@ -58,7 +61,7 @@ const SetTaxPercentage = ({ closeView }) => {
                         <div className='italic text-xs mt-4 text-[green] text-center'>- users are taxed {Object.values(adminStore).length !== 0 && <span>{adminStore.tax_percentage}%</span>} on every withdrawal -</div>
                     </div>
                     <div className='mx-auto mt-4'>
-                        <button className='w-fit h-fit py-2.5 px-8 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateTaxPercentage}>set</button>
+                        <button className='w-fit h-fit py-2.5 px-8 md:text-[0.85rem] text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateTaxPercentage}>update</button>
                     </div>
                 </div>
             </div>

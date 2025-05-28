@@ -6,7 +6,7 @@ import { Apis, PostApi, UserPutApi } from '../services/API'
 import { MoveToTop } from '../utils/utils'
 import { FaXmark } from 'react-icons/fa6'
 
-const AdminNotisField = ({ item, refetchNotifications, refetchUnreadNotis }) => {
+const AdminNotisField = ({ item, refetchNotifications, refetchUnreadNotis, setShowNotis }) => {
 
     const MarkSingleRead = async () => {
         try {
@@ -32,7 +32,7 @@ const AdminNotisField = ({ item, refetchNotifications, refetchUnreadNotis }) => 
 
     return (
         <div className={`md:mt-2 mt-4 p-2 ${item.read === 'true' ? 'bg-white' : 'bg-[#bca2e6]'} relative w-full h-fit md:text-xs text-[0.8rem] text-black cursor-pointer rounded-md overflow-hidden shantf`}>
-            <Link to={item.URL} onClick={() => { MarkSingleRead(); MoveToTop() }} className='flex flex-col gap-2'>
+            <Link to={item.URL} onClick={() => { MarkSingleRead(); MoveToTop(); setShowNotis(false) }} className='flex flex-col gap-2'>
                 <div className='flex gap-0.5 items-center'>
                     <div className='capitalize font-extrabold border-b  border-[grey] w-fit'>{item.title}</div>
                     <HiCheckCircle className='text-[#462c7c] ' />

@@ -24,7 +24,6 @@ const Personalize = () => {
   const [select, setSelect] = useState(false)
   const imgref = useRef()
   const [loading, setLoading] = useState(false)
-  const [dataLoading, setDataLoading] = useState(true)
 
   const [profile, setProfile] = useState({
     img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
@@ -175,8 +174,8 @@ const Personalize = () => {
         <div className='md:w-3/4 w-11/12 mx-auto py-10'>
           <div className='flex flex-col gap-4 items-center justify-center'>
             <div className='relative'>
-              <img className='md:w-48 md:h-48 h-36 w-36 border-4 border-[#c9b8eb] rounded-full object-cover' src={profile.img}></img>
-              <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shantf' onClick={() => setSelect(!select)}><MdOutlineEdit /></div>
+              <img className='md:w-48 md:h-48 h-40 w-40 border-4 border-[#c9b8eb] rounded-full object-cover' src={profile.img}></img>
+              <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-7 h-7 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shantf' onClick={() => setSelect(!select)}><MdOutlineEdit /></div>
               {select &&
                 <div className='h-fit w-36 absolute -bottom-11 right-0 bg-white border border-[lightgrey] rounded-md z-10 text-sm font-bold overflow-hidden capitalize'>
                   <label>
@@ -195,7 +194,7 @@ const Personalize = () => {
             </div>
             <div className='flex flex-col gap-1'>
               <div className='capitalize font-bold md:text-2xl text-lg text-center'>{user?.full_name}</div>
-              <div className='capitalize font-bold text-[#9f7ae7] text-center text-sm'>admin</div>
+              <div className='capitalize font-bold text-[#9f7ae7] text-center text-sm'>{user?.role}</div>
             </div>
           </div>
           <form className='flex flex-col gap-6 mt-10' onSubmit={SubmitForm}>
@@ -222,7 +221,7 @@ const Personalize = () => {
                 <PasswordToTextInput name='new_password' value={form.new_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Enter new password' className={{ main: '!w-full !md:py-2 !py-1.5 !rounded-sm !border-[#c9b8eb]', icon: "!text-[#9f7ae7] !top-2.5" }} />
               </div>
             </div>
-            {user.id === 1 &&
+            {user.role === 'super admin' &&
               <div className='flex flex-col gap-1.5'>
                 <div className='md:text-sm text-xs capitalize font-[550] '>company medias:</div>
                 <div className='grid md:grid-cols-3 grid-cols-2 gap-4 items-center'>
@@ -256,11 +255,11 @@ const Personalize = () => {
             }
             {commit &&
               <div className='flex md:gap-8 gap-4 items-center justify-center mt-4'>
-                <button className='outline-none w-fit h-fit py-2 px-6 text-xs text-semi-white  bg-[#462c7c] rounded-md capitalize flex items-center gap-1 font-[550]' type='button' onClick={cancelChanges}>
+                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-[#462c7c] rounded-md capitalize flex items-center gap-1 font-[550]' type='button' onClick={cancelChanges}>
                   <span>cancel</span>
                   <FaRegRectangleXmark />
                 </button>
-                <button className='outline-none w-fit h-fit py-2 px-6 text-xs text-semi-white  bg-[#462c7c] rounded-md capitalize flex items-center gap-1 font-[550]'>
+                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-[#462c7c] rounded-md capitalize flex items-center gap-1 font-[550]'>
                   <span>save</span>
                   <IoCheckbox />
                 </button>

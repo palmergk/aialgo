@@ -66,17 +66,17 @@ const Footer = () => {
               </div>
             </div>
             <div className='flex gap-4 items-center mt-4'>
-              <a href={adminstore?.telegram}>
+              <a href={adminstore?.telegram} target="_blank" rel="noopener noreferrer">
                 <div className='h-8 w-8 bg-white rounded-full flex items-center justify-center hover:translate-y-[-0.1rem] cursor-pointer  transition-all text-[#1E2833] text-lg hover:text-orange'>
                   <PiTelegramLogoLight />
                 </div>
               </a>
-              <a href={adminstore?.instagram}>
+              <a href={adminstore?.instagram} target="_blank" rel="noopener noreferrer">
                 <div className='h-8 w-8 bg-white  rounded-full flex items-center justify-center hover:translate-y-[-0.1rem] cursor-pointer transition-all text-[#1E2833] text-lg hover:text-orange'>
                   <TfiInstagram />
                 </div>
               </a>
-              <a href={adminstore?.facebook}>
+              <a href={adminstore?.facebook} target="_blank" rel="noopener noreferrer">
                 <div className='h-8 w-8 bg-white  rounded-full flex items-center justify-center hover:translate-y-[-0.1rem] cursor-pointer transition-all text-[#1E2833] text-lg hover:text-orange'>
                   <GrFacebookOption />
                 </div>

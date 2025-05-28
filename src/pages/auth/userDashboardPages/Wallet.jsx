@@ -51,18 +51,18 @@ const Wallet = () => {
         <Dashboard>
             <div>
                 <div className='uppercase font-bold md:text-2xl text-lg text-semi-white'>wallet</div>
-                <div className='flex flex-wrap gap-4 mt-10 items-center justify-center'>
+                <div className='grid md:grid-cols-3 grid-cols-2 gap-4 mt-10 items-center justify-center'>
                     {dataLoading ?
                         <>
                             {new Array(6).fill(0).map((ele, i) => (
-                                <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] bg-slate-300 animate-pulse rounded-[10px] py-2 px-2 md:px-4' key={i}>
+                                <div className='w-full md:h-40 h-32 bg-slate-300 animate-pulse rounded-[10px] py-2 px-2 md:px-4' key={i}>
                                     <div className='w-20 h-2 rounded-full bg-slate-400 animate-pulse'></div>
                                 </div>
                             ))}
                         </>
                         :
                         <>
-                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white bg-[#6859bb]  overflow-hidden'>
+                            <div className='w-full h-full rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white bg-[#6859bb]  overflow-hidden'>
                                 <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
                                     <span>deposits</span>
                                     <span className='text-[0.65rem] md:text-xs italic lowercase'>confirmed</span>
@@ -75,7 +75,7 @@ const Wallet = () => {
                                     <img src={deposit3d} className='md:h-16 h-12 w-auto'></img>
                                 </div>
                             </div>
-                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
+                            <div className='w-full h-full rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
                                 <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
                                     <span>profits</span>
                                     <span className='text-[0.65rem] md:text-xs italic lowercase'>claimed</span>
@@ -92,7 +92,7 @@ const Wallet = () => {
                                     <div>+{profitUp.toFixed(2)}%</div>
                                 </div>
                             </div>
-                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
+                            <div className='w-full h-full rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden'>
                                 <div className='capitalize text-xs md:text-[0.9rem] font-semibold flex justify-between items-center'>
                                     <span>bonuses</span>
                                     <span className='text-[0.65rem] md:text-xs italic lowercase'>claimed</span>
@@ -109,7 +109,7 @@ const Wallet = () => {
                                     <div>+{bonusUp.toFixed(2)}%</div>
                                 </div>
                             </div>
-                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden' >
+                            <div className='w-full h-full rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27] overflow-hidden' >
                                 <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>withdrawals</div>
                                 <div className='flex flex-col items-center font-bold mt-4 gap-4'>
                                     <div className='flex items-center' >
@@ -119,7 +119,7 @@ const Wallet = () => {
                                     <img src={withdraw3d} className='md:h-14 h-10 w-auto'></img>
                                 </div>
                             </div>
-                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white capitalize bg-[#6859bb] overflow-hidden'>
+                            <div className='w-full h-full rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white capitalize bg-[#6859bb] overflow-hidden'>
                                 <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>referrals</div>
                                 <div className='flex flex-col items-center font-bold mt-4 gap-4'>
                                     <div className='flex items-center' >
@@ -129,7 +129,7 @@ const Wallet = () => {
                                     <img src={referral} className='md:h-14 h-10 w-auto'></img>
                                 </div>
                             </div>
-                            <div className='w-[9.8rem] md:w-[15.5rem] md:h-[10rem] h-[8.5rem] rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27]'>
+                            <div className='w-full h-full rounded-[10px] text-lg md:text-2xl py-2 px-2 md:px-4 text-semi-white border border-[grey] bg-[#130e27]'>
                                 <div className='capitalize text-xs md:text-[0.9rem] font-semibold'>current balance</div>
                                 <div className='flex flex-col items-center font-bold mt-4 gap-4'>
                                     <div className='flex items-center'>
@@ -145,7 +145,7 @@ const Wallet = () => {
                 <div className='mt-12 flex flex-col gap-1'>
                     <div className='text-semi-white md:text-sm text-[0.8rem] capitalize'>Try our test run package</div>
                     <div className='w-fit h-fit py-1 bg-[#130e27]'>
-                        <div className='w-full h-fit pl-10 pr-2 py-1 text-[0.55rem] text-white uppercase relative bg-[#25203d]'>
+                        <div className='w-full h-full pl-10 pr-2 py-1 text-[0.55rem] text-white uppercase relative bg-[#25203d]'>
                             {dataLoading ?
                                 <div className='flex gap-10 md:gap-20 items-center'>
                                     {new Array(2).fill(0).map((ele, i) => (

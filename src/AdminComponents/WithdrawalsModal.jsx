@@ -155,16 +155,18 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                                             <div className='italic '>date / time:</div>
                                             {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{moment(singleWithdrawal.createdAt).format('DD-MM-yyyy')} / {moment(singleWithdrawal.createdAt).format('h:mm')}</div>}
                                         </div>
-                                        <div className='flex justify-between items-center gap-4'>
-                                            <div className='italic'>message:</div>
-                                            <div className='flex flex-col gap-1.5'>
-                                                <textarea placeholder='Write A Message' className='p-2 md:w-52 w-44 h-32 text-black lg:text-[0.85rem] text-base outline-none bg-transparent border border-[#c9b8eb] rounded-md resize-none ipt scroll' value={message} onChange={e => setMessage(e.target.value)} onKeyUp={UpdateHandlerForText}></textarea>
-                                                {Object.values(adminStore).length !== 0 && <button className='bg-[#c9b8eb] py-1 px-4 text-black w-fit ml-auto rounded-full font-semibold text-[0.8rem] flex items-center gap-0.5' onClick={GenerateWithdrawalMessage}>
-                                                    <span>Generate</span>
-                                                    <RiAiGenerate className='text-xs' />
-                                                </button>}
+                                        {singleWithdrawal?.status === 'processing' &&
+                                            <div className='flex justify-between items-center gap-4'>
+                                                <div className='italic'>message:</div>
+                                                <div className='flex flex-col gap-1.5'>
+                                                    <textarea placeholder='Write A Message' className='p-2 md:w-52 w-44 h-32 text-black lg:text-[0.85rem] text-base outline-none bg-transparent border border-[#c9b8eb] rounded-md resize-none ipt scroll' value={message} onChange={e => setMessage(e.target.value)} onKeyUp={UpdateHandlerForText}></textarea>
+                                                    {Object.values(adminStore).length !== 0 && <button className='bg-[#c9b8eb] py-1 px-4 text-black w-fit ml-auto rounded-full font-semibold text-[0.8rem] flex items-center gap-0.5' onClick={GenerateWithdrawalMessage}>
+                                                        <span>Generate</span>
+                                                        <RiAiGenerate className='text-xs' />
+                                                    </button>}
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
                                         <div className='flex justify-between items-center gap-4 my-6'>
                                             <div className='italic '>status:</div>
                                             {singleWithdrawal?.status === 'processing' ?

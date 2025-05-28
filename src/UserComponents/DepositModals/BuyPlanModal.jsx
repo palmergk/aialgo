@@ -12,14 +12,21 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
+    const handleAmount = (e) => {
+        const formatVal = e.target.value.replace(/\D/g, '')
+        const formatted = Number(formatVal).toLocaleString()
+        setAmount(formatted)
+    }
+
     const BuyPlanWithBalance = async () => {
-        if (!amount) return ErrorAlert('Enter an amount')
-        if (isNaN(amount)) return ErrorAlert('Amount must be a number')
-        if (amount < buybal.price_start || amount > buybal.price_limit) return ErrorAlert(`${buybal.title} plan is from $${buybal.price_start.toLocaleString()} - $${buybal.price_limit.toLocaleString()}`)
-        if (Object.values(userwallet).length === 0 || amount > userwallet.balance) return ErrorAlert('Insufficient wallet balance')
+        const amt = parseFloat(amount.replace(/,/g, ''))
+        if (!amt) return ErrorAlert('Enter an amount')
+        if (isNaN(amt)) return ErrorAlert('Amount must be a number')
+        if (amt < buybal.price_start || amt > buybal.price_limit) return ErrorAlert(`${buybal.title} plan is from $${buybal.price_start.toLocaleString()} - $${buybal.price_limit.toLocaleString()}`)
+        if (Object.values(userwallet).length === 0 || amt > userwallet.balance) return ErrorAlert('Insufficient wallet balance')
 
         const formbody = {
-            amount: parseFloat(amount),
+            amount: amt,
             plan_id: buybal.id,
         }
 
@@ -51,14 +58,14 @@ const BuyPlanModal = ({ closeModal, buybal, openModal }) => {
                         (${buybal.price_start.toLocaleString()} - ${buybal.price_limit.toLocaleString()})
                     </div>}
                 </div>
-                <div className='flex flex-col gap-4 px-4 mt-5'>
-                    <div className='relative flex gap-3 items-center justify-center'>
+                <div className='flex flex-col gap-4 px-6 mt-5'>
+                    <div className='relative grid grid-cols-2 gap-4 items-center'>
                         <div className='flex flex-col gap-1'>
                             <div className='capitalize text-[0.8rem] font-medium'>enter an amount ($)</div>
-                            <input className='outline-none border lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2 bg-[#ebeaea] border-[#5BB4FD]' value={amount} onChange={e => setAmount(e.target.value)} ></input>
+                            <input className='outline-none border lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2 bg-[#ebeaea] border-[#5BB4FD]' value={amount} onChange={handleAmount} ></input>
                         </div>
-                        <div className='h-fit w-fit text-nowrap py-2 px-4 bg-[#5BB4FD] flex flex-col gap-1 items-center justify-center text-white text-[0.85rem] rounded-md'>
-                            <div className='text-xs italic text-center'>wallet balance:</div>
+                        <div className='h-fit w-full text-nowrap py-2 px-4 bg-[#5BB4FD] flex flex-col gap-1 items-center justify-center text-white text-[0.85rem] rounded-md'>
+                            <div className='text-sm italic text-center'>wallet balance:</div>
                             {Object.values(userwallet).length !== 0 && <div>${userwallet.balance.toLocaleString()}</div>}
                         </div>
                     </div>

@@ -50,11 +50,15 @@ const Withdraw = () => {
         withdrawal_address: ''
     })
 
-    const inputHandler = event => {
-        setForm({
-            ...form,
-            [event.target.name]: event.target.value
-        })
+    const inputHandler = e => {
+        const { name, value } = e.target
+        if (name === 'amount') {
+            const formatVal = value.replace(/\D/g, '')
+            const formatted = Number(formatVal).toLocaleString()
+            setForm({ ...form, amount: formatted })
+        } else {
+            setForm({ ...form, [name]: value })
+        }
     }
 
     const FetchWithdrawals = useCallback(async () => {
@@ -77,16 +81,17 @@ const Withdraw = () => {
     }, [FetchWithdrawals])
 
     const makeWithdrawal = async () => {
-        if (!form.amount) return ErrorAlert('Enter an amount')
-        if (isNaN(form.amount)) return ErrorAlert('Amount must be a number')
-        if (form.amount < user.withdrawal_minimum) return ErrorAlert(`Minimum withdrawal amount is $${user.withdrawal_minimum.toLocaleString()} `)
-        if (Object.values(userwallet).length === 0 || form.amount > userwallet.balance) return ErrorAlert('Insufficient wallet balance')
+        const amt = parseFloat(form.amount.replace(/,/g, ''))
+        if (!amt) return ErrorAlert('Enter an amount')
+        if (isNaN(amt)) return ErrorAlert('Amount must be a number')
+        if (amt < user.withdrawal_minimum) return ErrorAlert(`Minimum withdrawal amount is $${user.withdrawal_minimum.toLocaleString()} `)
+        if (Object.values(userwallet).length === 0 || amt > userwallet.balance) return ErrorAlert('Insufficient wallet balance')
         if (Object.values(cryptoWallets).length === 0) return ErrorAlert('Choose cryptocurrency')
         if (!form.withdrawal_address) return ErrorAlert('Enter your wallet address')
         if (!check) return ErrorAlert('Confirm you provided your correct wallet address')
 
         const formbody = {
-            amount: parseFloat(form.amount),
+            amount: amt,
             withdrawal_address: form.withdrawal_address,
             crypto: cryptoWallets.crypto_name,
             network: cryptoWallets.network,
@@ -156,8 +161,8 @@ const Withdraw = () => {
                 </div>
                 <div className='mt-10'>
                     {screen === 1 &&
-                        <div className='text-black font-medium h-fit w-fit bg-semi-white rounded-xl relative mx-auto'>
-                            {loading && <Loading className="!bg-[#97979767]" />}
+                        <div className='text-black font-medium h-fit max-w-md bg-semi-white rounded-xl overflow-hidden relative mx-auto'>
+                            {loading && <Loading />}
                             <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-t-xl border-b border-light mx-auto flex flex-col gap-2'>
                                 <Link to='/dashboard/tax-payment' onClick={MoveToTop} className='w-fit ml-auto'>
                                     <button className='w-fit h-fit md:text-sm text-xs font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center'>
@@ -167,18 +172,18 @@ const Withdraw = () => {
                                 </Link>
                                 <div className='border-t pt-2 text-center'>Withdraw funds</div>
                             </div>
-                            <div className='grid grid-cols-1 gap-8 py-6 md:px-14 px-5 overflow-hidden'>
-                                <div className='flex gap-3 items-center'>
-                                    <div className='flex flex-col gap-1'>
+                            <div className='flex flex-col gap-8 py-6 md:px-8 px-6 overflow-hidden'>
+                                <div className='grid grid-cols-4 gap-4 items-center'>
+                                    <div className='flex flex-col gap-1 col-span-2'>
                                         <div className='capitalize text-[0.8rem] font-medium'>withdawal amount ($)</div>
                                         <div className='relative'>
-                                            <input className='outline-none border lg:text-sm text-base md:w-48 w-40 h-8 rounded-[4px] pl-2 pr-16 bg-white border-light' name='amount' value={form.amount} onChange={inputHandler} ></input>
+                                            <input className='outline-none border lg:text-sm text-base w-full h-8 rounded-[4px] pl-2 pr-16 bg-white border-light' name='amount' value={form.amount} onChange={inputHandler} ></input>
                                             <div className='text-xs absolute top-2 right-2'>min: {user?.withdrawal_minimum}</div>
                                         </div>
                                     </div>
-                                    <div className='w-fit h-fit rounded-md flex flex-col py-2 justify-center items-center md:px-4 px-3 text-semi-white gap-1 bg-light'>
+                                    <div className='col-span-2 w-full h-fit rounded-md flex flex-col py-2 justify-center items-center text-semi-white gap-1 bg-light'>
                                         <div className='flex  justify-center items-center gap-1'>
-                                            <div className='md:text-[0.85rem] text-xs font-semibold'>Withdrawable</div>
+                                            <div className='text-sm font-semibold'>Withdrawable</div>
                                             <img src={wthwallet} className='md:h-6 h-4 w-auto'></img>
                                         </div>
                                         <div className='flex items-center justify-center md:text-base text-sm'>
@@ -190,13 +195,13 @@ const Withdraw = () => {
                                     <CryptoSelector setCryptoWallets={setCryptoWallets} className={{ bg: "!bg-white", text: "!text-light" }} />
                                 </div>
                                 {Object.values(cryptoWallets).length !== 0 && <div className='flex flex-col gap-2 items-center'>
-                                    <div className='text-[0.85rem] text-center'>Enter your <span className=' capitalize'>{cryptoWallets.crypto_name}</span> wallet address for <span className=' capitalize'> {cryptoWallets.network}</span> Network:</div>
+                                    <div className='text-sm text-center'>Enter your <span className=' capitalize'>{cryptoWallets.crypto_name}</span> wallet address for <span className=' capitalize'> {cryptoWallets.network}</span> Network:</div>
                                     <input className='outline-none border bg-white lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2 border-light' name='withdrawal_address' value={form.withdrawal_address} onChange={inputHandler} type='text'></input>
                                 </div>}
-                                <div className='flex flex-col gap-1 items-center relative'>
+                                <div className='flex flex-col gap-1.5 items-center relative'>
                                     <div className='flex gap-1.5 items-center'>
                                         <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }}></input>
-                                        <div className='text-[#252525] text-[0.8rem]'>I provided my correct wallet address</div>
+                                        <div className='text-[#252525] text-sm'>I provided my correct wallet address</div>
                                     </div>
                                     <button className='outline-none w-fit h-fit py-2 px-12 md:text-sm text-xs text-semi-white bg-[#252525] rounded-md capitalize font-semibold' onClick={makeWithdrawal}>confirm withdrawal</button>
                                 </div>

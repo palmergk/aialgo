@@ -26,10 +26,7 @@ const Profile = () => {
     const [user, setUser] = useAtom(PROFILE)
     const [adminStore] = useAtom(ADMINSTORE)
 
-    const [nameEdit, setNameEdit] = useState(false)
-    const [userEdit, setUserEdit] = useState(false)
-    const [emailEdit, setEmailEdit] = useState(false)
-    const [passEdit, setPassEdit] = useState(false)
+    const [edit, setEdit] = useState([])
     const [commit, setCommit] = useState(false)
     const [screen, setScreen] = useState(1)
     const [select, setSelect] = useState(false)
@@ -71,6 +68,16 @@ const Profile = () => {
         }
     }, [MoveToBottom])
 
+    const AddRemoveEdit = (ele) => {
+        const findEle = edit.find(item => item === ele)
+        if (!findEle) {
+            setEdit([...edit, ele])
+        } else {
+            const filterout = edit.filter(item => item !== ele)
+            setEdit(filterout)
+        }
+    }
+
     const CommitHandler = () => {
         if (form.full_name === user.full_name && form.username === user.username && form.email === user.email && form.old_password === '' && form.new_password === '' && profile.image === user.image) {
             setCommit(false)
@@ -97,10 +104,7 @@ const Profile = () => {
     }
 
     const cancelChanges = () => {
-        setEmailEdit(false)
-        setNameEdit(false)
-        setPassEdit(false)
-        setUserEdit(false)
+        setEdit([])
         setSelect(false)
         setCommit(false)
         setForm({
@@ -134,10 +138,7 @@ const Profile = () => {
             if (response.status === 200) {
                 SuccessAlert(response.msg)
                 setUser(response.user)
-                setEmailEdit(false)
-                setNameEdit(false)
-                setPassEdit(false)
-                setUserEdit(false)
+                setEdit([])
                 setCommit(false)
                 setSelect(false)
                 setForm({
@@ -204,8 +205,8 @@ const Profile = () => {
                 {loading && <Loading className="!bg-[#0c091aa4]" />}
                 <div className='flex flex-col gap-4 items-center justify-center'>
                     <div className='relative'>
-                        <img className='md:w-48 md:h-48 h-36 w-36 border-4 border-light rounded-full object-cover' src={profile.img}></img>
-                        <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-6 h-6 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shlz' onClick={() => setSelect(!select)}><MdOutlineEdit /></div>
+                        <img className='md:w-48 md:h-48 h-40 w-40 border-4 border-light rounded-full object-cover' src={profile.img}></img>
+                        <div className='absolute bottom-5 right-1 bg-white md:w-8 md:h-8 w-7 h-7 md:text-xl text-base flex items-center justify-center rounded-full cursor-pointer shlz' onClick={() => setSelect(!select)}><MdOutlineEdit /></div>
                         {select &&
                             <div className='h-fit w-36 absolute -bottom-11 right-0 bg-white border border-[lightgrey] rounded-md z-10 text-sm font-bold overflow-hidden capitalize'>
                                 <label>
@@ -263,97 +264,101 @@ const Profile = () => {
                         <div>acount details</div>
                         <LuUserCircle className='text-light' />
                     </div>
-                    <div className='md:w-[80%] w-11/12 mx-auto md:text-[0.85rem] text-xs text-semi-white flex flex-col gap-6'>
+                    <div className='md:w-5/6 w-[95%] mx-auto md:text-[0.85rem] text-xs text-semi-white flex flex-col gap-6'>
                         <div className='flex items-center justify-between'>
-                            <div className='capitalize'>referral id:</div>
+                            <div className='capitalize'>referral ID:</div>
                             <div className='flex gap-4 items-center'>
                                 <span>{user?.referral_id}</span>
                                 <CopyButton content={user.referral_id} className='!bg-light !text-white' />
                             </div>
                         </div>
-                        <div className='italic md:text-[0.75rem] text-[0.65rem] text-center ml-auto -mt-4 text-[#2fbe2f] py-0.5 px-1 bg-[#130e27]'>refer and earn {adminStore?.referral_bonus_percentage}% commission on your referral(s) first deposit</div>
+                        <div className='bg-semi-white ml-auto -mt-4 p-1 text-xs rounded-md flex gap-2 items-center justify-center'>
+                            <div className='bg-white text-center text-black py-1 px-2 rounded-md font-medium'>Refer and earn {adminStore?.referral_bonus_percentage}% commission on your referrals first deposit</div>
+                            <div className='bg-white text-center text-black py-1 px-2 rounded-md font-medium'>Your referrals: {user?.referrals}</div>
+                        </div>
                         <div className='flex justify-between items-center capitalize'>
                             <div>full name:</div>
-                            {!nameEdit ?
-                                <div className='flex gap-4'>
-                                    <span>{user?.full_name}</span>
-                                    <div className='text-lg text-light cursor-pointer' onClick={() => { setNameEdit(!nameEdit) }}>
-                                        <FaRegEdit />
-                                    </div>
-                                </div>
-                                :
+                            {edit.includes('name') ?
                                 <div className='flex md:gap-4 gap-2 items-center'>
-                                    <input className='outline-none border border-light bg-transparent lg:text-[0.85rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='full_name' value={form.full_name} onChange={formHandler} onKeyUp={CommitHandler} type='text'></input>
-                                    <div className='text-xl text-light cursor-pointer' onClick={() => setNameEdit(!nameEdit)}>
+                                    <input className='outline-none border border-light bg-transparent lg:text-[0.85rem] text-base md:w-64 w-48 h-fit rounded-[3px] px-2 py-1' name='full_name' value={form.full_name} onChange={formHandler} onKeyUp={CommitHandler} type='text'></input>
+                                    <div className='text-xl text-light cursor-pointer' onClick={() => AddRemoveEdit('name')}>
                                         <MdOutlineCancel />
                                     </div>
                                 </div>
+                                :
+                                <div className='flex gap-4'>
+                                    <span>{user?.full_name}</span>
+                                    <div className='text-lg text-light cursor-pointer' onClick={() => AddRemoveEdit('name')}>
+                                        <FaRegEdit />
+                                    </div>
+                                </div>
+
                             }
                         </div>
                         <div className='flex justify-between items-center'>
                             <div className='capitalize'>username:</div>
-                            {!userEdit ?
-                                <div className='flex gap-4'>
-                                    <span>{user?.username}</span>
-                                    <div className='text-lg text-light cursor-pointer' onClick={() => setUserEdit(!userEdit)}>
-                                        <FaRegEdit />
+                            {edit.includes('user') ?
+                                <div className='flex md:gap-4 gap-2 items-center'>
+                                    <input className='outline-none border border-light bg-transparent lg:text-[0.85rem] text-base md:w-64 w-48 h-fit rounded-[3px] px-2 py-1' name='username' value={form.username} onChange={formHandler} onKeyUp={CommitHandler} type='text'></input>
+                                    <div className='text-xl text-light cursor-pointer' onClick={() => AddRemoveEdit('user')}>
+                                        <MdOutlineCancel />
                                     </div>
                                 </div>
                                 :
-                                <div className='flex md:gap-4 gap-2 items-center'>
-                                    <input className='outline-none border border-light bg-transparent lg:text-[0.85rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='username' value={form.username} onChange={formHandler} onKeyUp={CommitHandler} type='text'></input>
-                                    <div className='text-xl text-light cursor-pointer' onClick={() => { setUserEdit(!userEdit) }}>
-                                        <MdOutlineCancel />
+                                <div className='flex gap-4'>
+                                    <span>{user?.username}</span>
+                                    <div className='text-lg text-light cursor-pointer' onClick={() => AddRemoveEdit('user')}>
+                                        <FaRegEdit />
                                     </div>
                                 </div>
                             }
                         </div>
                         <div className='flex justify-between items-center'>
                             <div className='capitalize'>email:</div>
-                            {!emailEdit ?
-                                <div className='flex gap-4'>
-                                    <span>{user?.email}</span>
-                                    <div className='text-lg text-light cursor-pointer' onClick={() => setEmailEdit(!emailEdit)}>
-                                        <FaRegEdit />
+                            {edit.includes('email') ?
+                                <div className='flex md:gap-4 gap-2 items-center'>
+                                    <input className='outline-none border border-light bg-transparent lg:text-[0.85rem] text-base md:w-64 w-48 h-fit rounded-[3px] px-2 py-1' name='email' value={form.email} onChange={formHandler} onKeyUp={CommitHandler} type='email'></input>
+                                    <div className='text-xl text-light cursor-pointer' onClick={() => AddRemoveEdit('email')}>
+                                        <MdOutlineCancel />
                                     </div>
                                 </div>
                                 :
-                                <div className='flex md:gap-4 gap-2 items-center'>
-                                    <input className='outline-none border border-light bg-transparent lg:text-[0.85rem] text-base md:w-60 w-48 h-fit rounded-[3px] px-2 py-1' name='email' value={form.email} onChange={formHandler} onKeyUp={CommitHandler} type='email'></input>
-                                    <div className='text-xl text-light cursor-pointer' onClick={() => setEmailEdit(!emailEdit)}>
-                                        <MdOutlineCancel />
+                                <div className='flex gap-4'>
+                                    <span>{user?.email}</span>
+                                    <div className='text-lg text-light cursor-pointer' onClick={() => AddRemoveEdit('email')}>
+                                        <FaRegEdit />
                                     </div>
                                 </div>
                             }
                         </div>
                         <div className='flex justify-between items-center'>
                             <div className='capitalize'>password:</div>
-                            {!passEdit ?
-                                <div className='flex gap-4 items-center'>
-                                    <span>*********</span>
-                                    <div className='text-lg text-light cursor-pointer' onClick={() => setPassEdit(!passEdit)}>
-                                        <FaRegEdit />
+                            {edit.includes('pass') ?
+                                <div className='flex md:gap-4 gap-2 items-center'>
+                                    <div className='flex flex-col gap-6'>
+                                        <PasswordToTextInput name='old_password' value={form.old_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Enter old password' className={{ main: 'md:w-64 w-48 text-white' }} />
+                                        <PasswordToTextInput name='new_password' value={form.new_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Create new password' className={{ main: 'md:w-64 w-48 text-white' }} />
+                                    </div>
+                                    <div className='text-xl text-light cursor-pointer' onClick={() => AddRemoveEdit('pass')}>
+                                        <MdOutlineCancel />
                                     </div>
                                 </div>
                                 :
-                                <div className='flex md:gap-4 gap-2 items-center'>
-                                    <div className='flex flex-col gap-6'>
-                                        <PasswordToTextInput name='old_password' value={form.old_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Enter old password' className={{ main: 'md:w-60 w-48 text-white' }} />
-                                        <PasswordToTextInput name='new_password' value={form.new_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Create new password' className={{ main: 'md:w-60 w-48 text-white' }} />
-                                    </div>
-                                    <div className='text-xl text-light cursor-pointer' onClick={() => setPassEdit(!passEdit)}>
-                                        <MdOutlineCancel />
+                                <div className='flex gap-4 items-center'>
+                                    <span>*********</span>
+                                    <div className='text-lg text-light cursor-pointer' onClick={() => AddRemoveEdit('pass')}>
+                                        <FaRegEdit />
                                     </div>
                                 </div>
                             }
                         </div>
                         {commit &&
                             <div className='flex md:gap-8 gap-4 items-center justify-center md:mt-8 mt-4'>
-                                <button className='outline-none w-fit h-fit py-2 px-6 text-xs text-semi-white  bg-[#594ca1] rounded-md capitalize flex items-center gap-1 font-[550]' type='button' onClick={cancelChanges}>
+                                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-light rounded-md capitalize flex items-center gap-1 font-[550]' type='button' onClick={cancelChanges}>
                                     <span>cancel</span>
                                     <FaRegRectangleXmark />
                                 </button>
-                                <button className='outline-none w-fit h-fit py-2 px-6 text-xs text-semi-white  bg-[#594ca1] rounded-md capitalize flex items-center gap-1 font-[550]'>
+                                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-light rounded-md capitalize flex items-center gap-1 font-[550]'>
                                     <span>save</span>
                                     <IoCheckbox />
                                 </button>
@@ -370,7 +375,7 @@ const Profile = () => {
                         </div>
                         :
                         <div className='w-fit h-fit bg-semi-white rounded-xl md:p-8 p-4 mx-auto relative overflow-hidden'>
-                            {loading2 && <Loading className="!bg-[#97979767]" />}
+                            {loading2 && <Loading />}
                             {screen === 2 &&
                                 <div>
                                     <div className='text-center md:text-lg text-sm text-black font-medium'>Are you sure you want to delete your account?</div>

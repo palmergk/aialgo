@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FiUploadCloud } from 'react-icons/fi'
 import { MdOutlineEdit } from 'react-icons/md'
-import { PiWarningCircleBold } from 'react-icons/pi'
 import { Apis, imageurl, PostApi, UserPutApi } from '../../../services/API'
 import { ErrorAlert, PredefineCryptoImages, SuccessAlert } from '../../../utils/utils'
 import Loading from '../../../GeneralComponents/Loading'
@@ -175,19 +174,19 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                                     </div>
                                 </div>
                                 :
-                                <div className='w-fit h-fit border rounded-lg flex flex-col gap-2 items-center justify-center p-2'>
+                                <div className='w-fit h-fit border border-gray-300 rounded-lg flex flex-col gap-2 items-center justify-center p-2'>
                                     <div className='bg-gray-300 rounded-full p-2'><FiUploadCloud /></div>
                                     <span className='text-xs'>click to add image</span>
                                 </div>
                             }
                             <input ref={imgref} type="file" onChange={handleUpload} hidden />
                         </label>
-                        <div className='w-48 h-fit border overflow-x-auto scrollsdown'>
+                        <div className='w-48 h-fit border border-gray-300 overflow-x-auto scrollsdown'>
                             <div className='w-fit flex flex-col'>
                                 <div className='border-b truncate text-[0.7rem] text-center italic py-0.5'>images of the popular coins:</div>
                                 <div className='flex items-center'>
                                     {PredefineCryptoImages.map((item, i) => (
-                                        <div key={i} className='w-14 border-r'>
+                                        <div key={i} className={`w-14 ${i !== PredefineCryptoImages.length - 1 && 'border-r'}`}>
                                             <div className='py-1 px-2.5 hover:bg-zinc-200 cursor-pointer' onClick={() => handleUpload2(item)}>
                                                 <img src={item.path} className='w-full h-auto'></img>
                                             </div>
@@ -211,15 +210,12 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                     {deleteState &&
                         <div className='bg-white w-fit h-fit flex flex-col gap-4 items-center justify-center absolute bottom-0 right-0 p-3 rounded-md text-xs popsha'>
                             <div className='flex flex-col items-center gap-2'>
-                                <div className='md:text-sm text-[0.8rem] text-center font-semibold flex items-center gap-1'>
-                                    <span> Are you sure you want to Delete Crypto?</span>
-                                    <PiWarningCircleBold className='text-[red]' />
-                                </div>
-                                <div className='text-xs text-center italic text-[#eb2e2e]'>- Deleting this crypto will also delete all wallet addresses under it -</div>
+                                <div className='text-sm text-center font-semibold'>Are you sure you want to Delete Crypto?</div>
+                                <div className='text-xs text-center italic text-red-500'>- Deleting this crypto will also delete all wallet addresses under it -</div>
                             </div>
-                            <div className='flex items-center gap-6'>
-                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={() => setdeleteState(false)}>cancel</button>
-                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={DeleteCryptocurrency}>proceed</button>
+                            <div className='flex items-center gap-8'>
+                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white hover:bg-green-600 rounded-md font-medium' onClick={() => setdeleteState(false)}>cancel</button>
+                                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white hover:bg-red-600 rounded-md font-medium' onClick={DeleteCryptocurrency}>proceed</button>
                             </div>
                         </div>
                     }

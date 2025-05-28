@@ -91,7 +91,9 @@ const Notifications = () => {
     }
 
     useEffect(() => {
-        if (currentPage > totalPages) return setCurrentPage(currentPage - 1)
+        if (!dataLoading) {
+            if (currentPage > totalPages) return setCurrentPage(currentPage - 1)
+        }
     }, [totalPages])
 
 
@@ -125,8 +127,8 @@ const Notifications = () => {
                 </div>
             </>
             <div className={`md:absolute md:top-14 md:right-0 md:left-auto fixed top-0 left-0 md:w-60 w-full md:h-fit h-screen bg-white overflow-y-auto md:rounded-sm z-50 ${showNotis ? 'block' : 'hidden'}`} ref={toggler}>
-                <div className='text-black flex flex-col relative'>
-                    <div className='flex justify-between items-center px-2 md:pt-3 pt-5'>
+                <div className='text-black flex flex-col md:w-full w-11/12 mx-auto'>
+                    <div className='flex justify-between items-center md:px-2 md:pt-3 pt-5'>
                         <div className='flex gap-1 items-center md:text-base text-2xl capitalize font-extrabold'>
                             <div className='cursor-pointer md:hidden' onClick={() => setShowNotis(false)}><FaAngleLeft /></div>
                             <div>notifications</div>
@@ -157,12 +159,12 @@ const Notifications = () => {
                         <>
                             {notis.length > 0 ?
                                 <>
-                                    <div className={`pt-1 pb-4 px-2 ${notis.length > 3 && 'md:h-[28rem]'} overflow-y-auto scroll`}>
+                                    <div className={`pt-1 pb-4 md:px-2 md:overflow-y-auto scroll ${notis.length > 3 && 'md:h-[28rem]'}`}>
                                         {currentNotis.map((item, i) => (
-                                            <NotisField key={i} item={item} refetchNotifications={FetchNotifications} refetchUnreadNotis={FetchUnreadNotis} />
+                                            <NotisField key={i} item={item} refetchNotifications={FetchNotifications} refetchUnreadNotis={FetchUnreadNotis} setShowNotis={setShowNotis} />
                                         ))}
                                     </div>
-                                    <div className='flex gap-2 items-center text-xs md:p-2 px-2 pb-4 justify-end'>
+                                    <div className='flex gap-2 items-center text-xs md:p-2 pb-4 justify-end'>
                                         {currentPage > 1 && <div className='py-1 px-2 rounded-md border border-zinc-700 text-zinc-700 hover:bg-zinc-700 hover:text-zinc-200 cursor-pointer' onClick={() => ChangePage(currentPage - 1)}><FaAngleLeft /></div>}
                                         {totalPages > 1 && <div className='font-bold text-zinc-700'>{currentPage} of {totalPages}</div>}
                                         {currentPage < totalPages && <div className='py-1 px-2 rounded-md border border-zinc-700 text-zinc-700 hover:bg-zinc-700 hover:text-zinc-200 cursor-pointer' onClick={() => ChangePage(currentPage + 1)}><FaAngleRight /></div>}

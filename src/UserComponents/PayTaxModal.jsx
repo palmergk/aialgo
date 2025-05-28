@@ -25,10 +25,17 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
     })
     const [loading, setLoading] = useState(false)
 
+    const handleAmount = (e) => {
+        const formatVal = e.target.value.replace(/\D/g, '')
+        const formatted = Number(formatVal).toLocaleString()
+        setAmount(formatted)
+    }
+
     const MovePhase = () => {
-        if (!amount) return ErrorAlert('Enter an amount')
-        if (isNaN(amount)) return ErrorAlert('Amount must be a number')
-        if (amount < 1) return ErrorAlert('Minimum tax payment is $1')
+        const amt = parseFloat(amount.replace(/,/g, ''))
+        if (!amt) return ErrorAlert('Enter an amount')
+        if (isNaN(amt)) return ErrorAlert('Amount must be a number')
+        if (amt < 1) return ErrorAlert('Minimum tax payment is $1')
         if (Object.values(cryptoWallets).length === 0) return ErrorAlert('Choose cryptocurrency')
         setPhase(2)
     }
@@ -47,8 +54,9 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
 
     const PayTax = async () => {
         if (proof.image === null) return ErrorAlert('Attach a proof of payment')
+        const amt = parseFloat(amount.replace(/,/g, ''))
         const formbody = new FormData()
-        formbody.append('amount', parseFloat(amount))
+        formbody.append('amount', amt)
         formbody.append('wallet_id', cryptoWallets.id)
         formbody.append('payment_proof', proof.image)
 
@@ -85,7 +93,7 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                             <div className='flex flex-col gap-1'>
                                 <div className='capitalize font-medium'>tax amount ($)</div>
                                 <div className='relative w-fit'>
-                                    <input className='outline-none border lg:text-sm text-base w-52 h-8 rounded-[4px] pl-2 pr-16 bg-[#ebeaea] border-[#5BB4FD]' value={amount} onChange={e => setAmount(e.target.value)} ></input>
+                                    <input className='outline-none border lg:text-sm text-base w-52 h-8 rounded-[4px] pl-2 pr-16 bg-[#ebeaea] border-[#5BB4FD]' value={amount} onChange={handleAmount} ></input>
                                     <div className='text-xs absolute top-2 right-2'>min: 0.99</div>
                                 </div>
                             </div>
@@ -109,18 +117,18 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                         :
                         <div className='flex flex-col gap-5'>
                             <div className='cursor-pointer absolute top-4 left-1.5 text-lg' onClick={() => setPhase(1)}><FaAngleLeft /></div>
-                            <div className='flex flex-col gap-1.5'>
+                            <div className='flex flex-col gap-1.5 border p-2 rounded-md'>
                                 <div className='flex justify-between'>
                                     <span className='italic'>amount:</span>
                                     <span>${amount.toLocaleString()}</span>
                                 </div>
                                 <div className='flex justify-between'>
                                     <span className='italic'>crypto:</span>
-                                    <span>{cryptoWallets.crypto_name}</span>
+                                    <span className='capitalize'>{cryptoWallets.crypto_name}</span>
                                 </div>
                                 <div className='flex justify-between'>
                                     <span className='italic'>network:</span>
-                                    <span>{cryptoWallets.network}</span>
+                                    <span className='capitalize'>{cryptoWallets.network}</span>
                                 </div>
                                 <div className='flex gap-1.5 items-center justify-center'>
                                     <div className='md:text-xs text-[0.65rem] text-[#5BB4FD]'>{cryptoWallets.address}</div>
@@ -131,14 +139,14 @@ const PayTaxModal = ({ closeView, setScreen, refetchTaxes }) => {
                                 <div className='italic'>attach a proof of payment:</div>
                                 <label className='cursor-pointer'>
                                     {proof.img ?
-                                        <div className='flex items-center gap-1'>
-                                            <img src={proof.img} className='h-32 w-auto'></img>
-                                            <div className='text-base bg-white rounded-lg p-1 sha'>
+                                        <div className='relative w-fit'>
+                                            <img src={proof.img} className='h-40 w-auto border border-[#5BB4FD] rounded-md'></img>
+                                            <div className='absolute top-1 right-1 text-base bg-white border rounded-md p-1'>
                                                 <MdOutlineEdit />
                                             </div>
                                         </div>
                                         :
-                                        <div className='border rounded-lg flex flex-col gap-2 items-center justify-center py-8 px-10'>
+                                        <div className='border border-dashed border-gray-400 rounded-lg flex flex-col gap-2 items-center justify-center h-40 w-60'>
                                             <div className='bg-gray-300 rounded-full p-2 text-2xl'><FiUploadCloud /></div>
                                             <span className='text-xs'>click to add image</span>
                                         </div>

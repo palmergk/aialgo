@@ -69,6 +69,12 @@ const AddWallet = () => {
     }
   }
 
+  useEffect(() => {
+    if (!dataLoading) {
+      if (currentPage > totalPages) return setCurrentPage(currentPage - 1)
+    }
+  }, [totalPages])
+
 
   return (
     <SettingsLayout>

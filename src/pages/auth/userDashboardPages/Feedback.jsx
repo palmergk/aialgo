@@ -60,7 +60,7 @@ const Feedback = () => {
             <div>
                 {loading && <Loading className="!bg-[#0c091aa4]" />}
                 <div className='uppercase font-bold md:text-2xl text-lg text-semi-white'>send feedback</div>
-                <div className='md:w-3/4 w-11/12 mx-auto flex flex-col gap-12 mt-10'>
+                <div className='md:w-3/4 w-full mx-auto flex flex-col gap-12 mt-10'>
                     <div>
                         <div className='flex items-center justify-center'>
                             <div className='md:text-[2rem] text-2xl capitalize font-bold text-[#a09f9f] '>get in touch</div>
@@ -86,7 +86,7 @@ const Feedback = () => {
                                 <textarea placeholder='Write A Message' className='p-3 h-36 text-semi-white lg:text-[0.9rem] outline-none bg-transparent rounded-md resize-none border border-light ipt' name='message' value={form.message} onChange={formHandler}></textarea>
                             </div>
                             <div className='flex justify-end'>
-                                <button className='outline-none bg-light text-xs md:text-sm text-white flex gap-1 items-center justify-center w-fit h-fit md:px-8 px-6 py-2 md:py-1.5 rounded-[3px] capitalize font-[600]'>
+                                <button className='outline-none bg-light text-sm text-white flex gap-1 items-center justify-center w-fit h-fit px-8 py-2 rounded-[3px] capitalize font-[600]'>
                                     <div>send</div>
                                     <BiMailSend />
                                 </button>

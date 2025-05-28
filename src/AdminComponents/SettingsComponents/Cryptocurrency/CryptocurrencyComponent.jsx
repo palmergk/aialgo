@@ -52,10 +52,10 @@ const CryptocurrencyComponent = ({ closeView, cryptocurrency, dataLoading, refet
                                             {cryptocurrency.length > 0 ?
                                                 <tbody>
                                                     {cryptocurrency.map((item, i) => (
-                                                        <tr className='text-[0.8rem]  text-black font-[550] bg-white' key={i}>
+                                                        <tr className='text-[0.8rem]  text-black font-[550] bg-white border-b border-dashed' key={i}>
                                                             <td className='p-4 truncate'><img src={`${imageurl}/cryptocurrency/${item.crypto_img}`} className='w-5 h-auto mx-auto'></img></td>
                                                             <td className='p-4 text-center truncate capitalize'>{item.crypto_name}</td>
-                                                            <td className='p-2 text-center truncate capitalize cursor-pointer text-black hover:text-[#895ee0]' onClick={() => { setSingleCrypto(item); setScreen(2) }}><button className='w-fit h-fit py-1 px-1.5 text-xs capitalize border border-[#462c7c] rounded-md text-black font-medium'>edit</button></td>
+                                                            <td className='p-2 text-center truncate capitalize cursor-pointer text-black hover:text-[#895ee0]' onClick={() => { setSingleCrypto(item); setScreen(2) }}><button className='w-fit h-fit py-1 px-1.5 text-xs capitalize border border-[#462c7c] hover:bg-[#462c7c] hover:text-white rounded-md text-black font-medium'>edit</button></td>
                                                         </tr>
                                                     ))}
                                                 </tbody>

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Apis, PostApi, UserPutApi } from '../services/API';
 import { MoveToTop } from '../utils/utils';
 
-const NotisField = ({ item, refetchNotifications, refetchUnreadNotis }) => {
+const NotisField = ({ item, refetchNotifications, refetchUnreadNotis, setShowNotis }) => {
 
     const MarkSingleRead = async () => {
         try {
@@ -33,7 +33,7 @@ const NotisField = ({ item, refetchNotifications, refetchUnreadNotis }) => {
 
     return (
         <div className={`md:mt-2 mt-4 p-2 ${item.read === 'true' ? 'bg-white' : 'bg-[#c0b9e4]'} relative w-full h-fit md:text-xs text-[0.8rem] cursor-pointer rounded-md overflow-hidden shantf`} >
-            <Link to={item.URL} onClick={() => { MarkSingleRead(); MoveToTop() }} className='flex flex-col gap-2'>
+            <Link to={item.URL} onClick={() => { MarkSingleRead(); MoveToTop(); setShowNotis(false) }} className='flex flex-col gap-2'>
                 <div className='flex gap-0.5 items-center border-b border-[grey] w-fit'>
                     <div className='capitalize font-extrabold'>{item.title}</div>
                     {item.status !== 'failed' ?

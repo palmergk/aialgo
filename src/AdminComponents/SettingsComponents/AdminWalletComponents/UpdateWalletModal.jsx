@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react'
-import { PiWarningCircleBold } from "react-icons/pi";
 import ModalLayout from '../../../utils/ModalLayout';
 import Loading from '../../../GeneralComponents/Loading';
 import { Apis, PostApi, UserPutApi } from '../../../services/API';
@@ -42,7 +41,7 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
       network: form.network,
       address: form.address
     }
-  
+
     setLoading(true)
     try {
       const response = await UserPutApi(Apis.admin.update_admin_wallet, formbody)
@@ -110,13 +109,10 @@ const UpdateWalletModal = ({ closeView, singleWallet, refetchAdminWallets }) => 
             {commit && <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium' onClick={UpdateWallet}>update</button>}
             <button className='w-fit h-fit py-2 px-6 text-xs capitalize bg-[#462c7c] rounded-md text-white font-medium ml-auto' onClick={() => setdeleteState(true)}>delete</button>
             {deleteState && <div className='bg-white w-fit h-fit flex flex-col gap-4 items-center justify-center absolute bottom-0 right-0 p-3 rounded-md text-xs popsha'>
-              <div className='md:text-sm text-[0.8rem] flex items-center gap-1 justify-center text-center font-semibold'>
-                <span> Are you sure you want to Delete Wallet?</span>
-                <PiWarningCircleBold className='text-[red]' />
-              </div>
+              <div className='text-sm text-center font-semibold'>Are you sure you want to Delete Wallet?</div>
               <div className='flex items-center gap-6'>
-                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={() => setdeleteState(false)}>cancel</button>
-                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 text-white rounded-md font-medium' onClick={DeleteWallet}>proceed</button>
+                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 hover:bg-green-600 text-white rounded-md font-medium' onClick={() => setdeleteState(false)}>cancel</button>
+                <button className='w-fit h-fit py-2 px-4 capitalize bg-zinc-500 hover:bg-red-600 text-white rounded-md font-medium' onClick={DeleteWallet}>proceed</button>
               </div>
             </div>}
           </div>

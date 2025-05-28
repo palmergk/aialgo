@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { NOTIFICATIONS, UNREADNOTIS } from '../../../../store'
-import { MdVerified } from 'react-icons/md'
+import { MdOutlineEdit, MdVerified } from 'react-icons/md'
 import { useAtom } from 'jotai'
 import { FiUploadCloud } from 'react-icons/fi'
-import { Apis, PostApi, UserGetApi } from '../../../../services/API'
+import { Apis, PostApi, UserGetApi, imageurl } from '../../../../services/API'
 import { ErrorAlert, SuccessAlert } from '../../../../utils/utils'
 import CountrySelector from '../../../../GeneralComponents/CountrySelector'
 import PhoneSelector from '../../../../GeneralComponents/PhoneSelector'
@@ -22,7 +22,8 @@ const MaritalStatus = [
     "single",
     "married",
     "divorced",
-    "seperated"
+    "seperated",
+    "widowed"
 ]
 
 
@@ -40,13 +41,20 @@ const VerifyKYC = () => {
         flag: null
     })
     const [phoneCode, setPhoneCode] = useState('+44')
-    const idref = useRef()
-    const [id, setId] = useState(null)
+    const [frontID, setFrontID] = useState({
+        img: null,
+        image: null
+    })
+    const frontIdref = useRef()
+    const [backID, setBackID] = useState({
+        img: null,
+        image: null
+    })
+    const backIdref = useRef()
     const [loading, setLoading] = useState(false)
     const [dataloading, setDataLoading] = useState(true)
     const [form, setForm] = useState({
-        first_name: '',
-        last_name: '',
+        full_name: '',
         date_of_birth: '',
         state: '',
         postal: '',
@@ -76,26 +84,31 @@ const VerifyKYC = () => {
         try {
             const response = await UserGetApi(Apis.kyc.user_kyc)
             if (response.status === 200) {
-                setKyc(response.msg)
+                const data = response.msg
+                setKyc(data)
                 setForm({
-                    first_name: response.msg.first_name,
-                    last_name: response.msg.last_name,
-                    date_of_birth: response.msg.date_of_birth,
-                    state: response.msg.state,
-                    postal: response.msg.postal,
-                    address: response.msg.address,
-                    id_number: response.msg.id_number,
-                    phone_number: response.msg.phone_number,
+                    full_name: data.full_name,
+                    date_of_birth: data.date_of_birth,
+                    state: data.state,
+                    postal: data.postal,
+                    address: data.address,
+                    id_number: data.id_number,
+                    phone_number: data.phone_number,
                 })
-                setGender(response.msg.gender)
-                setMarital(response.msg.marital_status)
+                setGender(data.gender)
+                setMarital(data.marital_status)
                 setUserCountry({
-                    name: response.msg.country,
-                    flag: response.msg.country_flag
+                    name: data.country,
+                    flag: data.country_flag
                 })
-                setPhoneCode(response.msg.phone_code)
-                setId({
-                    name: response.msg.valid_id
+                setPhoneCode(data.phone_code)
+                setFrontID({
+                    img: `${imageurl}/identity/${data.gen_id}/${data.front_id}`,
+                    image: data.front_id
+                })
+                setBackID({
+                    img: `${imageurl}/identity/${data.gen_id}/${data.back_id}`,
+                    image: data.back_id
                 })
             }
 
@@ -110,19 +123,18 @@ const VerifyKYC = () => {
         FetchKyc()
     }, [FetchKyc])
 
-    const handleUpload = (event) => {
-        const file = event.target.files[0]
+    const handleUpload = (e, tag) => {
+        const file = e.target.files[0]
         if (!file.type.startsWith('image/')) {
-            idref.current.value = null
+            tag === 'front' ? frontIdref.current.value : backIdref.current.value = null
             return ErrorAlert('File error, upload a valid image format (jpg, jpeg, png, svg)')
         }
-        setId(file)
+        tag === 'front' ? setFrontID({ img: URL.createObjectURL(file), image: file }) : setBackID({ img: URL.createObjectURL(file), image: file })
     }
 
     const Create_Update_KYC = async () => {
 
-        if (!form.first_name) return ErrorAlert('Enter your first name')
-        if (!form.last_name) return ErrorAlert('Enter your last name')
+        if (!form.full_name) return ErrorAlert('Enter your full name')
         if (gender === 'select') return ErrorAlert('Select a gender')
         if (marital === 'select') return ErrorAlert('Select marital status')
         if (!form.date_of_birth) return ErrorAlert('Enter date of birth')
@@ -132,16 +144,17 @@ const VerifyKYC = () => {
         if (!form.postal) return ErrorAlert('Enter postal / zipcode')
         if (!form.phone_number) return ErrorAlert('Enter your mobile number')
         if (!form.id_number) return ErrorAlert('Enter an identification number')
-        if (id === null) return ErrorAlert('Provide a valid ID')
-        if (kyc.status === 'processing') return ErrorAlert(`You can't re-upload while KYC details is still processing`)
+        if (!frontID.image) return ErrorAlert('Provide a valid front ID image')
+        if (!backID.image) return ErrorAlert('Provide a valid back ID image')
+        if (kyc.status === 'processing') return ErrorAlert(`You can't re-upload while KYC details is processing`)
         if (kyc.status === 'verified') return ErrorAlert('KYC is verified')
 
-        if (form.first_name === kyc.first_name && form.last_name === kyc.last_name && form.address === kyc.address && form.state === kyc.state && form.postal === kyc.postal && form.date_of_birth === kyc.date_of_birth && form.phone_number === kyc.phone_number && form.id_number === kyc.id_number && phoneCode === kyc.phone_code && gender === kyc.gender && marital === kyc.marital_status && usercountry.name === kyc.country && id.name === kyc.valid_id) return ErrorAlert('No changes made')
+        if (form.full_name === kyc.full_name && form.address === kyc.address && form.state === kyc.state && form.postal === kyc.postal && form.date_of_birth === kyc.date_of_birth && form.phone_number === kyc.phone_number && form.id_number === kyc.id_number && phoneCode === kyc.phone_code && gender === kyc.gender && marital === kyc.marital_status && usercountry.name === kyc.country && frontID.image === kyc.front_id && backID.image === kyc.back_id) return ErrorAlert('No changes made')
 
         const formbody = new FormData()
-        formbody.append('valid_id', id)
-        formbody.append('first_name', form.first_name)
-        formbody.append('last_name', form.last_name)
+        formbody.append('front_id', frontID.image)
+        formbody.append('back_id', backID.image)
+        formbody.append('full_name', form.full_name)
         formbody.append('date_of_birth', form.date_of_birth)
         formbody.append('state', form.state)
         formbody.append('postal', form.postal)
@@ -188,7 +201,7 @@ const VerifyKYC = () => {
                                 :
                                 <>
                                     {Object.values(kyc).length !== 0 ?
-                                        <span className={`${kyc.status === 'failed' ? 'text-[#c42e2e]' : 'text-light'}`}>{kyc?.status}</span>
+                                        <span className={`${kyc.status === 'failed' ? 'text-[#c42e2e]' : kyc.status === 'verified' ? 'text-[green]' : 'text-light'}`}>{kyc?.status}</span>
                                         :
                                         <span className='text-[#c42e2e]'>unverified</span>
                                     }
@@ -197,54 +210,50 @@ const VerifyKYC = () => {
                         </div>
                     </div>
                     <div className='flex flex-col gap-6 text-black md:w-3/4 w-[95%] mx-auto bg-semi-white py-6 md:px-8 px-5 rounded-md relative overflow-hidden'>
-                        {loading && <Loading className="!bg-[#97979767]" />}
+                        {loading && <Loading />}
                         <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
-                                <div className='md:text-sm text-xs capitalize font-semibold '>first name:</div>
-                                <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.first_name} name='first_name' onChange={formHandler}></input>
+                                <div className='md:text-sm text-xs capitalize font-semibold'>full name:</div>
+                                <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.full_name} name='full_name' onChange={formHandler}></input>
                             </div>
-                            <div className='flex flex-col gap-1.5'>
-                                <div className='md:text-sm text-xs capitalize font-semibold '>last name:</div>
-                                <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.last_name} name='last_name' onChange={formHandler}></input>
-                            </div>
-                        </div>
-                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>gender:</div>
                                 <StatusSelector Statuses={Genders} status={gender} HandleFunction={(item) => setGender(item)} select={select} toggle={() => setSelect(!select)} className="shantf !w-full" />
                             </div>
+                        </div>
+                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>marital status:</div>
                                 <StatusSelector Statuses={MaritalStatus} status={marital} HandleFunction={(item) => setMarital(item)} select={select2} toggle={() => setSelect2(!select2)} className="shantf !w-full" />
                             </div>
-                        </div>
-                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
-                                <div className='md:text-sm text-xs capitalize font-semibold '>date of birth:</div>
+                                <div className='md:text-sm text-xs capitalize font-semibold'>date of birth:</div>
                                 <input type='date' value={form.date_of_birth} name='date_of_birth' className='w-full h-fit text-black py-1 px-2 rounded-[3px] shantf outline-none text-[0.8rem] font-semibold bg-white text-left' placeholder="Select date"
                                     onChange={formHandler}
                                 />
                             </div>
+                        </div>
+                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='text-sm capitalize font-semibold'>country:</div>
                                 <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} className='shantf' />
                             </div>
-                        </div>
-                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
-                                <div className='md:text-sm text-xs capitalize font-semibold '>address & city:</div>
+                                <div className='md:text-sm text-xs capitalize font-semibold'>address & city:</div>
                                 <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.address} name='address' onChange={formHandler}></input>
                             </div>
-                            <div className='flex flex-col gap-1.5'>
-                                <div className='md:text-sm text-xs capitalize font-semibold '>state / province:</div>
-                                <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.state} name='state' onChange={formHandler}></input>
-                            </div>
                         </div>
                         <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
+                            <div className='flex flex-col gap-1.5'>
+                                <div className='md:text-sm text-xs capitalize font-semibold'>state / province:</div>
+                                <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.state} name='state' onChange={formHandler}></input>
+                            </div>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>postal / zipcode:</div>
                                 <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.postal} name='postal' onChange={formHandler}></input>
                             </div>
+                        </div>
+                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>phone number:</div>
                                 <div className='flex gap-2 items-center'>
@@ -252,26 +261,52 @@ const VerifyKYC = () => {
                                     <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.phone_number} name='phone_number' onChange={formHandler}></input>
                                 </div>
                             </div>
-                        </div>
-                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>identification number:</div>
                                 <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.id_number} name='id_number' onChange={formHandler}></input>
                             </div>
+                        </div>
+                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
-                                <div className='md:text-sm text-xs capitalize font-semibold'>valid identity document:</div>
-                                <div className='w-full rounded-sm h-fit flex items-center gap-4 relative p-1 border border-light'>
-                                    <label className='cursor-pointer'>
-                                        <div className='bg-white h-fit w-fit px-2 py-1 text-sm rounded-sm font-medium shantf'>
-                                            <div className='bg-semi-white rounded-full p-2'><FiUploadCloud /></div>
+                                <div className='md:text-sm text-xs capitalize font-semibold'>front ID image:</div>
+                                <label className='cursor-pointer h-40 w-full'>
+                                    {frontID.img ?
+                                        <div className='relative w-full h-full'>
+                                            <img src={frontID.img} className='h-full w-full border border-light rounded-md'></img>
+                                            <div className='absolute top-1 right-1 text-base bg-white border rounded-md p-1'>
+                                                <MdOutlineEdit />
+                                            </div>
                                         </div>
-                                        <input ref={idref} type="file" onChange={handleUpload} hidden />
-                                    </label>
-                                    <div className='text-sm text-center'>{id === null ? 'No file choosen' : id.name}</div>
-                                </div>
+                                        :
+                                        <div className='border border-dashed border-light rounded-lg flex flex-col gap-2 items-center justify-center h-full w-full'>
+                                            <div className='bg-gray-300 rounded-full p-2 text-2xl'><FiUploadCloud /></div>
+                                            <span className='text-xs'>click to add image</span>
+                                        </div>
+                                    }
+                                    <input ref={frontIdref} type="file" onChange={(e) => handleUpload(e, 'front')} hidden />
+                                </label>
+                            </div>
+                            <div className='flex flex-col gap-1.5'>
+                                <div className='md:text-sm text-xs capitalize font-semibold'>back ID image:</div>
+                                <label className='cursor-pointer w-full h-40'>
+                                    {backID.img ?
+                                        <div className='relative w-full h-full'>
+                                            <img src={backID.img} className='h-full w-full border border-light rounded-md'></img>
+                                            <div className='absolute top-1 right-1 text-base bg-white border rounded-md p-1'>
+                                                <MdOutlineEdit />
+                                            </div>
+                                        </div>
+                                        :
+                                        <div className='border border-dashed border-light rounded-lg flex flex-col gap-2 items-center justify-center h-full w-full'>
+                                            <div className='bg-gray-300 rounded-full p-2 text-2xl'><FiUploadCloud /></div>
+                                            <span className='text-xs'>click to add image</span>
+                                        </div>
+                                    }
+                                    <input ref={backIdref} type="file" onChange={(e) => handleUpload(e, 'back')} hidden />
+                                </label>
                             </div>
                         </div>
-                        <button className='outline-none bg-[#252525] py-2.5 px-10 h-fit w-fit rounded-md capitalize md:text-sm text-xs text-white cursor-pointer font-[600] mt-4 mx-auto' onClick={Create_Update_KYC}>upload details</button>
+                        <button className='outline-none bg-[#252525] py-2.5 px-10 h-fit w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[600] mt-4 mx-auto' onClick={Create_Update_KYC}>upload details</button>
                     </div>
                 </div>
             </div>

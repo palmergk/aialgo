@@ -47,6 +47,7 @@ const AdminDashboard = ({ children }) => {
 
   const [logout, setLogOut] = useState(false)
   const [slideShow, setSlideShow] = useState(false)
+  const [visible, setVisible] = useState(slideShow)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -70,10 +71,19 @@ const AdminDashboard = ({ children }) => {
     FetchAdminStore()
   }, [])
 
+  useEffect(() => {
+    if (slideShow) {
+      setVisible(true);
+    } else {
+      const timeout = setTimeout(() => setVisible(false), 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [slideShow]);
+
 
   return (
     <div className='w-full flex relative overflow-hidden'>
-      <div className={`h-screen w-full xl:w-[20%] lg:w-[25%] lg:bg-admin-auth bg-[#27137eee] backdrop-blur-sm lg:backdrop-blur-none lg:relative lg:block overflow-x-hidden overflow-y-auto scrollDiv z-50 ${slideShow ? 'block fixed top-0 left-0' : 'hidden'}`}>
+      <div className={`fixed top-0 left-0 h-screen w-full xl:w-[20%] lg:w-[25%] lg:bg-admin-auth bg-[#27137eee] backdrop-blur-sm lg:backdrop-blur-none lg:relative lg:block overflow-x-hidden overflow-y-auto scrollDiv z-50 transition-transform duration-500 ease-in-out transform ${slideShow ? 'translate-x-0' : '-translate-x-full'} ${visible ? 'opacity-100' : 'opacity-0'} lg:translate-x-0 lg:opacity-100 lg:transition-none lg:duration-0 lg:ease-none`}>
         <div className='text-white text-3xl cursor-pointer lg:hidden absolute top-4 right-4' onClick={() => setSlideShow(!slideShow)}>
           <LuX />
         </div>

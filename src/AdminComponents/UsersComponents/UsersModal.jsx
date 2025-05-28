@@ -22,7 +22,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
     const [user] = useAtom(PROFILE)
     const toggler = useRef()
     const [beforeshow, setBeforeshow] = useState(true)
-    const [screen, setScreen] = useState(1)
+    const [screen, setScreen] = useState(0)
     const [fundScreen, setFundScreen] = useState(1)
     const [withdrawalScreen, setWithdrawalScreen] = useState(1)
     const [suspendScreen, setSuspendScreen] = useState(1)
@@ -33,6 +33,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
     const [loading2, setLoading2] = useState(false)
     const [reactivate, setReactivate] = useState(false)
     const [rvtloading, setRvtLoading] = useState(false)
+    const [tag, setTag] = useState('fund')
     const [form, setForm] = useState({
         fundAmount: '',
         minimumAmount: '',
@@ -40,11 +41,15 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
         message: ''
     })
 
-    const formHandler = (event) => {
-        setForm({
-            ...form,
-            [event.target.name]: event.target.value
-        })
+    const formHandler = e => {
+        const { name, value } = e.target
+        if (['fundAmount', 'minimumAmount'].includes(name)) {
+            const formatVal = value.replace(/\D/g, '')
+            const formatted = Number(formatVal).toLocaleString()
+            setForm({ ...form, [name]: formatted })
+        } else {
+            setForm({ ...form, [name]: value })
+        }
     }
 
     setTimeout(() => {
@@ -55,6 +60,16 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
         "processing",
         "verified",
         "failed"
+    ]
+
+    const Options = [
+        "fund",
+        "deduct"
+    ]
+
+    const Screens = [
+        "main field",
+        "kyc field"
     ]
 
     const MoveToBottom = () => {
@@ -75,22 +90,23 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
 
     const UpdateUser = async () => {
         if (fundScreen !== 1) {
-            if (!form.fundAmount) return ErrorAlert('Enter an amount')
-            if (isNaN(form.fundAmount)) return ErrorAlert('Amount must be a number')
+            if (!form.fundAmount || form.fundAmount < 1) return ErrorAlert('Enter an amount')
         }
         if (withdrawalScreen !== 1) {
-            if (!form.minimumAmount) return ErrorAlert('Enter an amount')
-            if (isNaN(form.minimumAmount)) return ErrorAlert('Amount must be a number')
+            if (!form.minimumAmount || form.minimumAmount < 1) return ErrorAlert('Enter an amount')
         }
         if (suspendScreen !== 1) {
             if (!form.password) return ErrorAlert('Enter your password')
         }
 
+        const famt = parseFloat(form.fundAmount.replace(/,/g, ''))
+        const mamt = parseFloat(form.minimumAmount.replace(/,/g, ''))
         const formbody = {
             user_id: singleUser.id,
             password: form.password,
-            fundAmount: parseFloat(form.fundAmount),
-            minimumAmount: parseFloat(form.minimumAmount)
+            fundAmount: famt,
+            tag: tag,
+            minimumAmount: mamt
         }
 
         setLoading(true)
@@ -183,14 +199,15 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                         <>
                             <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                             <div className='md:w-[90%] w-11/12 mx-auto md:py-8 py-4 md:text-[0.9rem] text-[0.8rem]'>
-                                {singleUser.role !== 'admin' &&
-                                    <div className='flex items-center justify-between py-2'>
-                                        <button className={`py-1 px-4 text-sm font-medium rounded-full ${screen === 1 ? 'bg-[#7c6d9e] text-white' : 'bg-[#c9b8eb] text-[#363636]'}`} onClick={() => setScreen(1)}>main field</button>
-                                        <button className={`py-1 px-4 text-sm font-medium rounded-full ${screen === 2 ? 'bg-[#7c6d9e] text-white' : 'bg-[#c9b8eb] text-[#363636]'}`} onClick={() => setScreen(2)}>kyc field</button>
+                                {singleUser.role === 'user' &&
+                                    <div className="bg-semi-white rounded-md p-1 gap-10 flex items-center justify-center mb-4">
+                                        {Screens.map((item, index) => (
+                                            <div onClick={() => setScreen(screen === 0 ? 1 : 0)} className={`cursor-pointer w-full py-2 text-xs uppercase ${screen === index ? 'bg-white text-dark rounded-md' : ''} text-center `} key={index}>{item}</div>
+                                        ))}
                                     </div>
                                 }
                                 <div>
-                                    {screen === 1 &&
+                                    {screen === 0 &&
                                         <div className='flex flex-col gap-8'>
                                             <div className='flex flex-col gap-4 border p-1'>
                                                 <div className='uppercase font-bold border px-1'>user details:</div>
@@ -272,14 +289,19 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                             <div className='w-fit h-fit py-6 rounded-md bg-white mx-auto text-black relative overflow-hidden popsha'>
                                                                 {loading && <Loading />}
                                                                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-lg' onClick={() => setFundScreen(1)} />
-                                                                <div className='font-bold border-b text-center uppercase'>Fund {singleUser?.username} account</div>
-                                                                <div className='flex flex-col gap-8 items-center justify-center mt-6 md:px-8 px-6'>
+                                                                <div className='font-bold border-b text-center uppercase'>{tag === 'fund' ? 'fund' : 'deduct'} {singleUser?.username} account</div>
+                                                                <div className="bg-semi-white rounded-md p-1 gap-4 flex items-center justify-center mt-2 mx-2">
+                                                                    {Options.map((item, i) => (
+                                                                        <div onClick={() => setTag(item)} className={`cursor-pointer w-full py-1 text-xs uppercase ${tag === item ? 'bg-white text-dark rounded-md' : ''} text-center `} key={i}>{item}</div>
+                                                                    ))}
+                                                                </div>
+                                                                <div className='flex flex-col gap-6 items-center justify-center mt-6 md:px-8 px-6'>
                                                                     <div className='flex flex-col gap-1'>
                                                                         <div className='text-[0.8rem] capitalize'>Enter an amount ($)</div>
                                                                         <input className='outline-none lg:text-[0.85rem] text-base w-full border h-8 rounded-[3px] px-2 bg-[#ebeaea] ipt border-[#9f7ae7]' name='fundAmount' value={form.fundAmount} onChange={formHandler}></input>
                                                                     </div>
                                                                     <div className='mx-auto'>
-                                                                        <button className='outline-none w-fit h-fit py-2 px-4 md:text-[0.8rem] text-xs text-white bg-[#9f7ae7] rounded-md capitalize font-semibold' onClick={UpdateUser}>send funds</button>
+                                                                        <button className='outline-none w-fit h-fit py-2 px-4 md:text-[0.8rem] text-xs text-white bg-[#9f7ae7] rounded-md capitalize font-semibold' onClick={UpdateUser}>{tag === 'fund' ? 'send' : 'deduct'} funds</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -295,7 +317,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                 {loading && <Loading />}
                                                                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-lg' onClick={() => setWithdrawalScreen(1)} />
                                                                 <div className='font-bold border-b text-center uppercase'>set {singleUser?.username} withdrawal minimum</div>
-                                                                <div className='flex flex-col gap-8 items-center justify-center mt-6 md:px-8 px-6'>
+                                                                <div className='flex flex-col gap-6 items-center justify-center mt-6 md:px-8 px-6'>
                                                                     <div className='flex gap-4 items-center'>
                                                                         <div className='flex flex-col gap-1'>
                                                                             <div className='text-[0.8rem] capitalize'>Enter an amount ($)</div>
@@ -307,7 +329,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                                         </div>
                                                                     </div>
                                                                     <div className='mx-auto'>
-                                                                        <button className='outline-none w-fit h-fit py-2 px-6 md:text-[0.8rem] text-xs text-white bg-[#9f7ae7] rounded-md capitalize font-semibold' onClick={UpdateUser}>set</button>
+                                                                        <button className='outline-none w-fit h-fit py-2 px-6 md:text-[0.8rem] text-xs text-white bg-[#9f7ae7] rounded-md capitalize font-semibold' onClick={UpdateUser}>update</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -373,19 +395,15 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                             }
                                         </div>
                                     }
-                                    {screen === 2 &&
+                                    {screen === 1 &&
                                         <div className='flex flex-col gap-8'>
                                             <div className='flex flex-col gap-4 border p-1'>
                                                 <div className='uppercase font-bold border px-1'>user kyc details:</div>
                                                 {Object.values(singleUser).length !== 0 && singleUser.kycUser.length !== 0 ?
                                                     <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>first name:</div>
-                                                            <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.first_name}</div>
-                                                        </div>
-                                                        <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>last name:</div>
-                                                            <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.last_name}</div>
+                                                            <div className='italic '>full name:</div>
+                                                            <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.full_name}</div>
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
                                                             <div className='italic '>gender:</div>
@@ -401,7 +419,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
                                                             <div className='italic '>date of birth:</div>
-                                                            <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.date_of_birth}</div>
+                                                            <div className='md:text-[0.95rem] text-sm'>{moment(singleUser.kycUser[0]?.date_of_birth).format('DD-MM-yyyy')}</div>
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
                                                             <div className='italic '>address:</div>
@@ -425,10 +443,22 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                         </div>
                                                         <div className='flex flex-col gap-2'>
                                                             <div className='flex justify-between items-center gap-4 mt-3'>
-                                                                <div className='italic '>valid ID:</div>
-                                                                <Image src={`${imageurl}/identity/${singleUser.kycUser[0]?.valid_id}`} width={200} />
+                                                                <div className='italic '>front ID image:</div>
+                                                                <Image src={`${imageurl}/identity/${singleUser.kycUser[0]?.gen_id}/${singleUser.kycUser[0]?.front_id}`} width={200} />
                                                             </div>
-                                                            <a href={`${imageurl}/identity/${singleUser.kycUser[0]?.valid_id}`} download="user valid ID">
+                                                            <a href={`${imageurl}/identity/${singleUser.kycUser[0]?.gen_id}/${singleUser.kycUser[0]?.front_id}`} download="user valid ID">
+                                                                <button className='bg-[#c9b8eb] py-1 px-4 text-black w-fit ml-auto rounded-full font-semibold text-[0.8rem] flex items-center gap-0.5'>
+                                                                    <span>Download</span>
+                                                                    <PiDownloadLight />
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                        <div className='flex flex-col gap-2'>
+                                                            <div className='flex justify-between items-center gap-4 mt-3'>
+                                                                <div className='italic '>back ID image:</div>
+                                                                <Image src={`${imageurl}/identity/${singleUser.kycUser[0]?.gen_id}/${singleUser.kycUser[0]?.back_id}`} width={200} />
+                                                            </div>
+                                                            <a href={`${imageurl}/identity/${singleUser.kycUser[0]?.gen_id}/${singleUser.kycUser[0]?.back_id}`} download="user valid ID">
                                                                 <button className='bg-[#c9b8eb] py-1 px-4 text-black w-fit ml-auto rounded-full font-semibold text-[0.8rem] flex items-center gap-0.5'>
                                                                     <span>Download</span>
                                                                     <PiDownloadLight />

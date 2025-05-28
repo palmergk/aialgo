@@ -19,6 +19,10 @@ const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {
         "days",
     ]
 
+    const ProfitReturns = [
+        0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5
+    ]
+
     const [form, setForm] = useState({
         title: '',
         price_start: '',
@@ -28,25 +32,43 @@ const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {
         duration: '',
     })
 
-    const inputHandler = event => {
-        setForm({
-            ...form,
-            [event.target.name]: event.target.value
-        })
+    const inputHandler = e => {
+        const { name, value } = e.target
+        if (name === 'title') {
+            setForm({ ...form, title: value })
+        } else if (name === 'profit_return') {
+            const formatVal = value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+            setForm({ ...form, [name]: formatVal })
+        }
+        else {
+            const formatVal = value.replace(/\D/g, '')
+            const formatted = Number(formatVal).toLocaleString()
+            setForm({ ...form, [name]: formatted })
+        }
+    }
+
+    const handleReturns = (item) => {
+        const returnPercentage = item * 100
+        setForm({ ...form, profit_return: Number(returnPercentage).toLocaleString() })
     }
 
     const CreatePackage = async () => {
         if (!form.title || !form.price_limit || !form.price_start || !form.profit_return || !form.plan_bonus || !form.duration) return ErrorAlert('Enter all fields')
-        if (isNaN(form.price_start) || isNaN(form.price_limit) || isNaN(form.profit_return) || isNaN(form.plan_bonus) || isNaN(form.duration)) return ErrorAlert('Enter valid numbers')
         if (type === 'select') return ErrorAlert('Select duration type')
+
+        const psamt = parseFloat(form.price_start.replace(/,/g, ''))
+        const plamt = parseFloat(form.price_limit.replace(/,/g, ''))
+        const pramt = parseFloat(form.profit_return.replace(/,/g, ''))
+        const pbamt = parseFloat(form.plan_bonus.replace(/,/g, ''))
+        const damt = parseFloat(form.duration.replace(/,/g, ''))
 
         const formbody = {
             title: form.title,
-            price_start: parseFloat(form.price_start),
-            price_limit: parseFloat(form.price_limit),
-            profit_return: parseFloat(form.profit_return),
-            plan_bonus: parseFloat(form.plan_bonus),
-            duration: parseFloat(form.duration),
+            price_start: psamt,
+            price_limit: plamt,
+            profit_return: pramt,
+            plan_bonus: pbamt,
+            duration: damt,
             duration_type: type
         }
 
@@ -79,35 +101,45 @@ const CreatePackageModal = ({ closeView, refetchTradingPlans }) => {
                     <div className='flex flex-col gap-4 relative'>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>title:</div>
-                            <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.title} name='title' onChange={inputHandler}></input>
+                            <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.title} name='title' onChange={inputHandler}></input>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>price start ($):</div>
                             <div>
-                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.price_start} name='price_start' onChange={inputHandler}></input>
+                                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.price_start} name='price_start' onChange={inputHandler}></input>
                             </div>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>price limit ($):</div>
                             <div>
-                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.price_limit} name='price_limit' onChange={inputHandler}></input>
+                                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.price_limit} name='price_limit' onChange={inputHandler}></input>
                             </div>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>profit return (%):</div>
-                            <div>
-                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.profit_return} name='profit_return' onChange={inputHandler}></input>
+                            <div className='flex flex-col gap-1 items-end'>
+                                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.profit_return} name='profit_return' onChange={inputHandler}></input>
+                                <div className='w-48 h-fit border border-gray-300 overflow-x-auto scrollsdown'>
+                                    <div className='w-fit flex flex-col'>
+                                        <div className='border-b truncate text-[0.7rem] text-center italic py-0.5'>profit returns types:</div>
+                                        <div className='flex items-center'>
+                                            {ProfitReturns.map((item, i) => (
+                                                <div key={i} className={`w-8 text-center text-xs p-1 hover:bg-zinc-200 cursor-pointer ${i !== ProfitReturns.length - 1 && 'border-r'}`} onClick={() => handleReturns(item)}>{item}x</div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>plan bonus ($):</div>
                             <div>
-                                <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.plan_bonus} name='plan_bonus' onChange={inputHandler}></input>
+                                <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.plan_bonus} name='plan_bonus' onChange={inputHandler}></input>
                             </div>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>duration:</div>
-                            <input className='outline-none border border-[#9f7ae7] md:w-48 w-40 py-1 px-2 lg:text-sm text-base' value={form.duration} name='duration' onChange={inputHandler}></input>
+                            <input className='outline-none border border-[#9f7ae7] w-48 py-1 px-2 lg:text-sm text-base' value={form.duration} name='duration' onChange={inputHandler}></input>
                         </div>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>duration type:</div>

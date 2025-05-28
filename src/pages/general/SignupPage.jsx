@@ -148,8 +148,8 @@ const SignupPage = () => {
   }
 
   const DelayResend = () => {
-    setSeconds(59)
-    let altsec = 59
+    setSeconds(40)
+    let altsec = 40
     let delay = setInterval(() => {
       if (altsec === 0) {
         clearInterval(delay)
@@ -262,7 +262,8 @@ const SignupPage = () => {
                               </div>
                               <div className='text-[0.85rem] flex justify-end gap-2 mt-2 text-gray-600'>
                                 {seconds > 0 && <span>00:{seconds < 10 && '0'}{seconds}</span>}
-                                {seconds > 0 ? <span>Resend code</span>
+                                {seconds > 0 ?
+                                  <span>Resend code</span>
                                   :
                                   <div className='flex gap-2 items-center'>
                                     <div>didn't get code?</div>

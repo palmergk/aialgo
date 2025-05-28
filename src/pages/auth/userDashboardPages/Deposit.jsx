@@ -113,17 +113,32 @@ const Deposit = () => {
                             {modal && <BuyPlanModal buybal={buybal} closeModal={() => setModal(false)} openModal={() => setModal2(true)} />}
                             {modal2 && <FundModal closeModal={() => setModal2(false)} setScreen={setScreen} refetchDeposits={FetchDeposits} />}
                             <div className='md:text-2xl text-xl text-black font-bold uppercase bg-white w-full h-fit py-1 px-4 rounded-t-xl border-b border-[#5BB4FD] mx-auto flex flex-col gap-2'>
-                                <button className='w-fit h-fit md:text-sm text-xs font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center ml-auto' onClick={() => { setModal2(true) }}>
+                                <button className='w-fit h-fit text-sm font-medium py-2 px-6 capitalize bg-[#252525] rounded-lg text-white flex items-center gap-1.5 justify-center ml-auto' onClick={() => { setModal2(true) }}>
                                     <span>fund wallet</span>
                                     <SiBitcoincash />
                                 </button>
                                 <div className='border-t pt-2 text-center'>trading plans</div>
                             </div>
-                            <div className='w-fit h-[26rem] py-6 md:px-4 px-3 overflow-y-auto overflow-x-hidden scrollDiv'>
+                            <div className='max-w-lg h-[26rem] py-6 md:px-5 px-3 overflow-y-auto overflow-x-hidden scrollDiv'>
                                 {dataLoading ?
-                                    <div className='grid grid-cols-2 md:gap-4 gap-3'>
-                                        {new Array(4).fill(0).map((ele, i) => (
-                                            <div className='md:w-52 w-36 h-64 rounded-lg bg-gray-400 animate-pulse' key={i}>
+                                    <div className='grid grid-cols-2 md:gap-4 gap-3 w-full'>
+                                        {new Array(4).fill(0).map((_, i) => (
+                                            <div key={i} className='w-full h-fit rounded-lg bg-white flex flex-col animate-pulse overflow-hidden'>
+                                                <div className='md:h-20 h-16 w-60 bg-zinc-400 rounded-t-lg'></div>
+                                                <div className='-mt-6 flex flex-col gap-2.5 items-center justify-center pb-4'>
+                                                    <div className='md:h-24 md:w-24 w-20 h-20 p-1.5 rounded-full bg-white flex items-center justify-center'>
+                                                        <div className='rounded-full bg-zinc-400 w-full h-full'></div>
+                                                    </div>
+                                                    <div className='border border-dashed border-gray-400 w-11/12 px-1 py-1.5 rounded-md'>
+                                                        <div className='flex flex-col gap-1'>
+                                                            {new Array(4).fill(0).map((_, i) => (
+                                                                <div key={i} className='w-full h-0.5 rounded-full bg-zinc-400'></div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                    <div className='w-24 h-1 bg-zinc-400 rounded-lg'></div>
+                                                    <div className='h-8 w-24 rounded-full bg-zinc-400 mt-2'></div>
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
@@ -133,12 +148,12 @@ const Deposit = () => {
                                             <div className='grid grid-cols-2 md:gap-4 gap-3'>
                                                 {tradingPlans.map((item, i) => (
                                                     <div key={i}>
-                                                        <div className='md:w-52 w-36 h-fit rounded-lg flex flex-col text-white shantf bg-white'>
+                                                        <div className='w-full h-fit rounded-lg flex flex-col text-white shantf bg-white'>
                                                             <div className='plan_bg w-full md:h-20 h-16 rounded-t-lg'>
                                                                 <div className='uppercase font-extrabold text-center md:text-lg text-sm pt-4'>{item.title}</div>
                                                             </div>
-                                                            <div className='-mt-6 flex flex-col gap-2 items-center justify-center'>
-                                                                <div className='md:h-[5.3rem] md:w-[5.3rem] w-[4.7rem] h-[4.7rem] p-1.5 rounded-full bg-white flex items-center justify-center'>
+                                                            <div className='-mt-6 flex flex-col gap-2 items-center justify-center pb-4'>
+                                                                <div className='md:h-24 md:w-24 w-20 h-20 p-1.5 rounded-full bg-white flex items-center justify-center'>
                                                                     <div className='w-full h-full rounded-full bg-[#252525] flex flex-col gap-1 items-center justify-center'>
                                                                         <div className='italic md:text-[0.65rem] text-[0.6rem]'>from</div>
                                                                         <div className='flex items-center font-bold gap-[0.1rem] text-[#5BB4FD] md:text-base text-sm'>
@@ -154,18 +169,16 @@ const Deposit = () => {
                                                                     <span>Duration:</span>
                                                                     <span className='text-[#5BB4FD]'>{item.duration + item.duration_type}</span>
                                                                 </div>
-                                                                <div className='mb-4 mt-2'>
-                                                                    <button className='w-fit h-fit py-1.5 md:px-6 px-4 rounded-full bg-[#5BB4FD] text-white uppercase font-bold md:text-[0.65rem] text-[0.6rem]' onClick={() => { setBuyBal(item); setModal(true) }}>
-                                                                        buy now
-                                                                    </button>
-                                                                </div>
+                                                                <button className='w-fit h-fit py-1.5 md:px-6 px-4 mt-2 rounded-full bg-[#5BB4FD] text-white uppercase font-bold md:text-[0.65rem] text-[0.6rem]' onClick={() => { setBuyBal(item); setModal(true) }}>
+                                                                    buy now
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 ))}
                                             </div>
                                             :
-                                            <div className='flex flex-col -mt-4 items-center md:px-14 px-2'>
+                                            <div className='flex flex-col -mt-4 items-center md:px-16 px-6'>
                                                 <img src={noplans} className='md:h-80 h-72 w-auto'></img>
                                                 <div className='text-center text-lg'>Oops! No trading plans yet...</div>
                                             </div>
@@ -191,7 +204,7 @@ const Deposit = () => {
                             <div className='md:w-[95%] mx-auto'>
                                 {dataLoading2 ?
                                     <div className='w-full h-fit'>
-                                        <div className='h-11 bg-gray-400 animate-pulse rounded-t-lg'></div>
+                                        <div className='h-11 bg-zinc-300 animate-pulse rounded-t-lg'></div>
                                         <div className='h-24 bg-slate-300 animate-pulse rounded-b-lg'></div>
                                     </div>
                                     :

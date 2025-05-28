@@ -112,9 +112,9 @@ const Investment = () => {
                                     {new Array(2).fill(0).map((ele, i) => (
                                         <div className='flex flex-col gap-4' key={i}>
                                             <div className='w-28 h-2 bg-slate-300 animate-pulse rounded-full'></div>
-                                            <div className='flex flex-wrap gap-4 items-center justify-center'>
+                                            <div className='grid md:grid-cols-4 grid-cols-2 gap-4 items-center justify-center'>
                                                 {new Array(4).fill(0).map((ele, i) => (
-                                                    <div className='md:w-44 w-[9.5rem] h-20 rounded-[10px] bg-slate-300 animate-pulse' key={i}>
+                                                    <div className='w-full h-20 rounded-[10px] bg-slate-300 animate-pulse' key={i}>
                                                     </div>
                                                 ))}
                                             </div>
@@ -132,8 +132,8 @@ const Investment = () => {
                                                         <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('DD-MM-yyyy')}</div>
                                                         <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('h:mm')}</div>
                                                     </div>
-                                                    <div className='flex flex-wrap gap-4 items-center justify-center'>
-                                                        <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
+                                                    <div className='grid md:grid-cols-4 grid-cols-2 gap-4 items-center justify-center'>
+                                                        <div className='w-full h-full overflow-hidden rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
                                                             <div className='capitalize md:text-sm text-xs font-[600]'>amount</div>
                                                             <div className='flex justify-between items-center gap-2 font-bold'>
                                                                 <div className='flex items-center'>
@@ -143,7 +143,7 @@ const Investment = () => {
                                                                 <img src={lines} className='md:w-16 w-12 h-auto'></img>
                                                             </div>
                                                         </div>
-                                                        <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
+                                                        <div className='w-full h-full overflow-hidden rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
                                                             <div className='flex justify-between'>
                                                                 <div className='capitalize md:text-sm text-xs font-[600]'>profit/ROI</div>
                                                                 <div className={`italic md:text-xs text-[0.65rem] ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
@@ -156,7 +156,7 @@ const Investment = () => {
                                                                 <img src={lines} className='md:w-16 w-12 h-auto'></img>
                                                             </div>
                                                         </div>
-                                                        <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
+                                                        <div className='w-full h-full overflow-hidden rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 border border-[grey] bg-[#130e27]'>
                                                             <div className='flex justify-between'>
                                                                 <div className='capitalize md:text-sm text-xs font-[600]'>bonus</div>
                                                                 <div className={`italic md:text-xs text-[0.65rem] ${item.status === 'running' ? 'text-[#6f6ff5]' : 'text-[#adad40]'}`}>{item.status}</div>
@@ -171,7 +171,7 @@ const Investment = () => {
                                                                 <img src={lines} className='md:w-16 w-12 h-auto'></img>
                                                             </div>
                                                         </div>
-                                                        <div className='md:w-44 w-[9.5rem] overflow-hidden h-fit rounded-[10px] flex flex-col md:text-sm text-xs py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
+                                                        <div className='w-full h-full overflow-hidden rounded-[10px] flex flex-col md:text-sm text-xs py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
                                                             <div className='font-[600] capitalize'>trading plan</div>
                                                             <div className='flex justify-between items-center gap-2'>
                                                                 <div className='capitalize font-bold'>{item.trading_plan}</div>

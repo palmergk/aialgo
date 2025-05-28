@@ -21,11 +21,10 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
         bonus: ""
     })
 
-    const inputHandler = event => {
-        setForm({
-            ...form,
-            [event.target.name]: event.target.value
-        })
+    const inputHandler = e => {
+        const formatVal = e.target.value.replace(/\D/g, '')
+        const formatted = Number(formatVal).toLocaleString()
+        setForm({ ...form, [e.target.name]: formatted })
     }
 
     setTimeout(() => {
@@ -72,13 +71,13 @@ const UpdateInvestmentModal = ({ closeView, singleInvestment, refetchAllInvestme
     }
 
     const UpdateInvestment = async () => {
-        if (isNaN(form.profit)) return ErrorAlert('Profit amount must be a number')
-        if (isNaN(form.bonus)) return ErrorAlert('Bonus amount must be a number')
+        const pamt = parseFloat(form.profit.replace(/,/g, ''))
+        const bamt = parseFloat(form.bonus.replace(/,/g, ''))
 
         const formbody = {
             investment_id: singleInvestment.id,
-            profit: parseFloat(form.profit),
-            bonus: parseFloat(form.bonus),
+            profit: pamt,
+            bonus: bamt,
             status: status,
         }
 

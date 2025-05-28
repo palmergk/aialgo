@@ -70,7 +70,7 @@ const CreateWalletModal = ({ closeView, refetchAdminWallets, cryptocurrency, dat
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>crypto</div>
                             <div className='relative'>
-                                <div className='px-2 py-1 h-fit md:w-48 w-40 bg-white sha cursor-pointer rounded-[3px]' onClick={() => setSelect(!select)} >
+                                <div className='px-2 py-1 h-fit w-48 bg-white sha cursor-pointer rounded-[3px]' onClick={() => setSelect(!select)} >
                                     <div className='flex justify-between items-center text-[0.8rem]'>
                                         <span>{crypto.name}</span>
                                         <div className='text-sm'>{!select ? <TiArrowSortedDown /> : <TiArrowSortedUp />}</div>
