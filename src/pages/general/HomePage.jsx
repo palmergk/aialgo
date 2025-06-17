@@ -34,7 +34,7 @@ const HomePage = () => {
               </div>
               <div className='capitalize  font-bold text-[2rem] md:text-[3rem] leading-[4rem] md:leading-[5rem] '>artificial intelligence algorithm  crypto trade</div>
               <Link to='/signup'>
-                <button className='outline-0 w-fit h-fit py-1 px-6 text-[0.9rem]  rounded-full bg-orange capitalize mt-5 flex gap-1 items-center font-medium hover:bg-[#642626]'>
+                <button className='outline-0 w-fit h-fit py-1 px-6 text-[0.9rem]  rounded-full bg-orange capitalize mt-5 flex gap-1 items-center font-medium hover:bg-brown'>
                   <MdJoinRight /><span>join</span>
                 </button>
               </Link>

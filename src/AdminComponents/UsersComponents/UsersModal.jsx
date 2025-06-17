@@ -82,7 +82,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
 
     useEffect(() => {
         if (!loading2) {
-            if (suspendScreen !== 1 || fundScreen !== 1 || withdrawalScreen !== 1 || select || form.message !== '' || screen === 2 && status !== 'processing') {
+            if (suspendScreen !== 1 || fundScreen !== 1 || withdrawalScreen !== 1 || select || form.message !== '' || screen === 1 && status !== singleUser.kycUser[0]?.status) {
                 MoveToBottom()
             }
         }
@@ -198,7 +198,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                         :
                         <>
                             <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
-                            <div className='md:w-[90%] w-11/12 mx-auto md:py-8 py-4 md:text-[0.9rem] text-[0.8rem]'>
+                            <div className='w-11/12 mx-auto md:py-8 py-4 md:text-[0.9rem] text-[0.8rem]'>
                                 {singleUser.role === 'user' &&
                                     <div className="bg-semi-white rounded-md p-1 gap-10 flex items-center justify-center mb-4">
                                         {Screens.map((item, index) => (

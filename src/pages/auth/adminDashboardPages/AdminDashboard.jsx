@@ -53,7 +53,7 @@ const AdminDashboard = ({ children }) => {
 
   const logoutAccount = () => {
     Cookies.remove(CookieName)
-    navigate('/')
+    navigate('/login')
   }
 
   useEffect(() => {

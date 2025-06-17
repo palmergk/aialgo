@@ -92,7 +92,7 @@ const AboutPage = () => {
                 <div className='flex gap-2 mt-6 items-center'>
                   <div className='text-white text-sm'>Want to trade and earn like a pro?</div>
                   <Link to='/signup' onClick={MoveToTop}>
-                    <button className='outline-0 w-fit h-fit py-1 px-4 text-[0.8rem] text-white rounded-full bg-orange capitalize  flex gap-1 items-center font-medium hover:bg-[#642626] truncate'>
+                    <button className='outline-0 w-fit h-fit py-1 px-4 text-[0.8rem] text-white rounded-full bg-orange capitalize  flex gap-1 items-center font-medium hover:bg-brown truncate'>
                       <MdJoinRight /><span>join us</span>
                     </button>
                   </Link>

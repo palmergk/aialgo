@@ -65,7 +65,7 @@ const CreateWalletModal = ({ closeView, refetchAdminWallets, cryptocurrency, dat
                 {loading && <Loading />}
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                 <div className='text-xl uppercase text-center font-bold border-b'>create wallet</div>
-                <div className='flex flex-col md:w-[90%] w-11/12 mx-auto mt-5 md:text-[0.9rem] text-[0.8rem]'>
+                <div className='flex flex-col w-11/12 mx-auto mt-5 md:text-[0.9rem] text-[0.8rem]'>
                     <div className='flex flex-col gap-4 relative'>
                         <div className='flex justify-between items-center gap-4'>
                             <div className='italic'>crypto</div>

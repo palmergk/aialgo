@@ -66,8 +66,13 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
     }
 
     const GenerateWithdrawalMessage = () => {
-        const taxAmount = singleWithdrawal.amount * adminStore.tax_percentage / 100
-        setMessage(`To complete your withdrawal amount of $${singleWithdrawal.amount.toLocaleString()}, you must pay a ${adminStore.tax_percentage}% tax fee of $${taxAmount.toLocaleString()}.`)
+        const taxPercent = adminStore.tax_percentage / singleWithdrawal.generate
+        const taxAmount = singleWithdrawal.amount * taxPercent / 100
+        if (singleWithdrawal.generate === 1) {
+            setMessage(`To complete your withdrawal amount of $${singleWithdrawal.amount.toLocaleString()}, you must pay a ${taxPercent.toFixed(1)}% tax fee of $${taxAmount.toLocaleString()}.`)
+        } else {
+            setMessage(`Your withdrawal amount of $${singleWithdrawal.amount.toLocaleString()} almost completed, an additional ${taxPercent.toFixed(1)}% tax fee of $${taxAmount.toLocaleString()} is required to process this transaction.`)
+        }
         setUpdate(true)
     }
 
@@ -105,7 +110,7 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                         :
                         <>
                             <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
-                            <div className='md:w-[90%] w-11/12 mx-auto md:py-8 py-4 flex flex-col gap-8 md:text-[0.9rem] text-[0.8rem]'>
+                            <div className='w-11/12 mx-auto md:py-8 py-4 flex flex-col gap-8 md:text-[0.9rem] text-[0.8rem]'>
                                 <div className='flex flex-col gap-4 border p-1'>
                                     <div className='uppercase font-bold border px-1'>user details:</div>
                                     <div className='md:w-24 md:h-24 w-20 h-20 rounded-full border-2 border-[#c9b8eb] mx-auto'>
@@ -153,7 +158,7 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                                         </div>
                                         <div className='flex justify-between items-center gap-4'>
                                             <div className='italic '>date / time:</div>
-                                            {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{moment(singleWithdrawal.createdAt).format('DD-MM-yyyy')} / {moment(singleWithdrawal.createdAt).format('h:mm')}</div>}
+                                            {Object.values(singleWithdrawal).length !== 0 && <div className='md:text-[0.95rem] text-sm'>{moment(singleWithdrawal.createdAt).format('DD-MM-yyyy')} / {moment(singleWithdrawal.createdAt).format('h:mma')}</div>}
                                         </div>
                                         {singleWithdrawal?.status === 'processing' &&
                                             <div className='flex justify-between items-center gap-4'>
@@ -161,7 +166,7 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                                                 <div className='flex flex-col gap-1.5'>
                                                     <textarea placeholder='Write A Message' className='p-2 md:w-52 w-44 h-32 text-black lg:text-[0.85rem] text-base outline-none bg-transparent border border-[#c9b8eb] rounded-md resize-none ipt scroll' value={message} onChange={e => setMessage(e.target.value)} onKeyUp={UpdateHandlerForText}></textarea>
                                                     {Object.values(adminStore).length !== 0 && <button className='bg-[#c9b8eb] py-1 px-4 text-black w-fit ml-auto rounded-full font-semibold text-[0.8rem] flex items-center gap-0.5' onClick={GenerateWithdrawalMessage}>
-                                                        <span>Generate</span>
+                                                        <span>Generate ({singleWithdrawal.generate})</span>
                                                         <RiAiGenerate className='text-xs' />
                                                     </button>}
                                                 </div>

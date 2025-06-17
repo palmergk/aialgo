@@ -118,7 +118,7 @@ const TaxPayment = () => {
                                             </div>
                                         </div>
                                         <div className='text-[0.8rem] text-[#252525] font-semibold text-center w-11/12 border border-dashed border-[#c0c0c0] p-1 rounded-md leading-[1.2rem]'>
-                                            Reduced {adminStore?.tax_percentage}% taxation on withdrawals is the possible lowest anywhere. Our support team works in hand with users to make sure it stays this way and to continually give users the best trading <span className='italic'>experience</span>.
+                                            Reduced {adminStore?.tax_percentage}% taxation on withdrawals is the possible lowest anywhere. Our support team works in hand with users to make sure it stays this way and to continually give users the best trading experience.
                                         </div>
                                         <button className='w-fit h-fit py-1.5 md:px-6 px-4 mt-2 rounded-full bg-[#5BB4FD] text-white uppercase font-bold md:text-xs text-[0.65rem]' onClick={() => setModal(true)}>
                                             clear taxes
@@ -160,7 +160,7 @@ const TaxPayment = () => {
                                                     {currentTaxes.map((item, i) => (
                                                         <div key={i} className='w-full h-fit relative text-semi-white rounded-lg shadow-log'>
                                                             <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg flex justify-between gap-4'>
-                                                                <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                                                                <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mma')}</div>
                                                                 <div>ID: {item.gen_id}</div>
                                                             </div>
                                                             <div className='bg-[#1b1730] grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>

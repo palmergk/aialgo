@@ -15,7 +15,7 @@ const ForgotPassword = ({ closeView }) => {
     const [screen, setScreen] = useState(1)
     const [seconds, setSeconds] = useState(0)
     const [loading, setLoading] = useState(false)
-    const [pins, setPins] = useState(['', '', '', '', '', '']);
+    const [pins, setPins] = useState(['', '', '', '', '', ''])
     const checkPins = pins.join('')
     const [form, setForm] = useState({
         email: '',
@@ -138,7 +138,7 @@ const ForgotPassword = ({ closeView }) => {
                                         <input className='outline-none w-full border-b border-black lg:text-[0.85rem] text-base ipt input-off' type='email' placeholder='E.g: john14@gmail.com' name='email' value={form.email} onChange={formHandler}></input>
                                     </div>
                                     <div className='flex items-center justify-center mt-2'>
-                                        <button className='outline-none bg-orange py-2 md:px-24 h-fit md:w-fit w-full rounded-md capitalize text-[0.9rem] text-white cursor-pointer font-[550]' >find account</button>
+                                        <button className='outline-none bg-orange hover:bg-brown py-2 md:px-24 h-fit md:w-fit w-full rounded-md capitalize text-[0.9rem] text-white cursor-pointer font-[550]' >find account</button>
                                     </div>
                                 </div>
                             </form>
@@ -174,7 +174,7 @@ const ForgotPassword = ({ closeView }) => {
                                         </div>
                                     </div>
                                     <div className='flex items-center justify-center'>
-                                        <button className='outline-none bg-orange py-2 md:px-[7.5rem] h-fit md:w-fit w-full rounded-md capitalize text-[0.9rem] text-white cursor-pointer font-[550]' >verify email</button>
+                                        <button className='outline-none bg-orange hover:bg-brown py-2 md:px-[7.5rem] h-fit md:w-fit w-full rounded-md capitalize text-[0.9rem] text-white cursor-pointer font-[550]' >verify email</button>
                                     </div>
                                 </div>
                             </form>
@@ -200,7 +200,7 @@ const ForgotPassword = ({ closeView }) => {
                                         <PasswordToTextInput name='confirm_password' value={form.confirm_password} onChange={formHandler} placeholder='Re-type password' className={{ main: 'w-full !pl-0 !py-0 border-t-0 border-r-0 border-l-0 rounded-none !border-black', icon: 'text-orange top-auto !bottom-0 !right-0' }} />
                                     </div>
                                     <div className='flex items-center justify-center mt-2'>
-                                        <button className='outline-none bg-orange py-2 md:px-24 h-fit ,md:w-fit w-full rounded-md capitalize text-[0.8rem] text-white cursor-pointer font-[550]'>change password</button>
+                                        <button className='outline-none bg-orange hover:bg-brown py-2 md:px-24 h-fit ,md:w-fit w-full rounded-md capitalize text-[0.8rem] text-white cursor-pointer font-[550]'>change password</button>
                                     </div>
                                 </div>
                             </form>

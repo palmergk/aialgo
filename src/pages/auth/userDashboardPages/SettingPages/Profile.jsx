@@ -114,7 +114,6 @@ const Profile = () => {
             old_password: '',
             new_password: '',
         })
-        imgref.current.value = null
         setProfile({
             img: user.image ? `${imageurl}/profiles/${user?.image}` : avatar,
             image: user.image ? user.image : null
@@ -264,7 +263,7 @@ const Profile = () => {
                         <div>acount details</div>
                         <LuUserCircle className='text-light' />
                     </div>
-                    <div className='md:w-5/6 w-[95%] mx-auto md:text-[0.85rem] text-xs text-semi-white flex flex-col gap-6'>
+                    <div className='md:w-5/6 w-[95%] mx-auto text-sm text-semi-white flex flex-col gap-6'>
                         <div className='flex items-center justify-between'>
                             <div className='capitalize'>referral ID:</div>
                             <div className='flex gap-4 items-center'>
@@ -274,7 +273,7 @@ const Profile = () => {
                         </div>
                         <div className='bg-semi-white ml-auto -mt-4 p-1 text-xs rounded-md flex gap-2 items-center justify-center'>
                             <div className='bg-white text-center text-black py-1 px-2 rounded-md font-medium'>Refer and earn {adminStore?.referral_bonus_percentage}% commission on your referrals first deposit</div>
-                            <div className='bg-white text-center text-black py-1 px-2 rounded-md font-medium'>Your referrals: {user?.referrals}</div>
+                            <div className='bg-white text-center text-black py-1 px-2 rounded-md font-medium'>Your referrals: <span className='font-bold'>{user?.referrals}</span></div>
                         </div>
                         <div className='flex justify-between items-center capitalize'>
                             <div>full name:</div>
@@ -354,11 +353,11 @@ const Profile = () => {
                         </div>
                         {commit &&
                             <div className='flex md:gap-8 gap-4 items-center justify-center md:mt-8 mt-4'>
-                                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-light rounded-md capitalize flex items-center gap-1 font-[550]' type='button' onClick={cancelChanges}>
+                                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-light rounded-md capitalize flex items-center gap-1 font-medium' type='button' onClick={cancelChanges}>
                                     <span>cancel</span>
                                     <FaRegRectangleXmark />
                                 </button>
-                                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-light rounded-md capitalize flex items-center gap-1 font-[550]'>
+                                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-light rounded-md capitalize flex items-center gap-1 font-medium'>
                                     <span>save</span>
                                     <IoCheckbox />
                                 </button>
@@ -369,7 +368,7 @@ const Profile = () => {
                 </form>
                 <div className='relative mx-auto mt-20'>
                     {screen === 1 ?
-                        <div className='justify-center md:text-[0.85rem] text-xs text-light cursor-pointer flex items-center gap-1' onClick={() => { setScreen(2); MoveToBottom() }}>
+                        <div className='justify-center text-sm text-light cursor-pointer flex items-center gap-1' onClick={() => { setScreen(2); MoveToBottom() }}>
                             <span>Delete my account</span>
                             <RiDeleteBin2Line />
                         </div>

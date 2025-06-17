@@ -16,7 +16,7 @@ import { ADMINSTORE, PROFILE, WALLET } from '../../../store';
 import { Apis, UserGetApi, imageurl } from '../../../services/API';
 import { useAtom } from 'jotai';
 import Cookies from 'js-cookie';
-import { CookieName, MoveToTop } from '../../../utils/utils';
+import { CookieName, MoveToTop} from '../../../utils/utils';
 import { TiCancel } from "react-icons/ti";
 import { IoMdLogOut } from "react-icons/io";
 import { HiOutlineCreditCard } from "react-icons/hi2";
@@ -62,7 +62,7 @@ const Dashboard = ({ children }) => {
 
     const logoutAccount = () => {
         Cookies.remove(CookieName)
-        navigate('/')
+        navigate('/login')
     }
 
     useEffect(() => {
@@ -105,6 +105,11 @@ const Dashboard = ({ children }) => {
         }
     }, [slideShow])
 
+    useEffect(() => {
+        if (user.email_verified === 'false') {
+            navigate(`/signup?screen=2&email=${user.email}`)
+        }
+    }, [user.email_verified])
 
     return (
         <div className='bg-[#0c091a] w-full flex relative overflow-hidden'>

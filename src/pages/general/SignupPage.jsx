@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Pagelayout from '../../GeneralComponents/Pagelayout'
 import logo from '../../assets/images/logobrand.png'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { SlCamera, SlUser } from 'react-icons/sl'
 import { MdVerified } from "react-icons/md";
 import Loading from '../../GeneralComponents/Loading'
@@ -15,8 +15,11 @@ import PinForm from '../../utils/PinForm';
 
 
 const SignupPage = () => {
+  const [searchParams] = useSearchParams()
+  const vscreen = searchParams.get('screen')
+  const vemail = searchParams.get('email')
   const navigate = useNavigate()
-  const [screen, setScreen] = useState(1)
+  const [screen, setScreen] = useState(vscreen ? parseInt(vscreen) : 1)
   const [check, setCheck] = useState(false)
   const [seconds, setSeconds] = useState(0)
   const [pins, setPins] = useState(['', '', '', '', '', '']);
@@ -35,7 +38,7 @@ const SignupPage = () => {
   const [form, setForm] = useState({
     full_name: '',
     username: '',
-    email: '',
+    email: vemail ? vemail : '',
     referral_code: '',
     password: '',
     confirm_password: '',
@@ -160,6 +163,12 @@ const SignupPage = () => {
     }, 1000)
   }
 
+  useEffect(() => {
+    if (vscreen) {
+      SendOTP()
+    }
+  }, [])
+
 
   return (
     <Pagelayout>
@@ -236,7 +245,7 @@ const SignupPage = () => {
                                   <div className='text-xs capitalize'>by signing up, i agree with <Link to='/terms' className='text-orange font-[550]' onClick={MoveToTop}>terms and conditions</Link></div>
                                 </div>
                                 <div className='flex flex-col gap-2 items-center w-'>
-                                  <button className='outline-none bg-orange py-2 w-full md:px-32 h-fit md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]' type='submit'>create account</button>
+                                  <button className='outline-none bg-orange hover:bg-brown py-2 w-full md:px-32 h-fit md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]' type='submit'>create account</button>
                                   <div className='text-[#6b6a6a] text-sm font-[550]'>Already have an account?
                                     <Link to='/login' onClick={MoveToTop} className='cursor-pointer text-orange font-[550]' > Login</Link>
                                   </div>
@@ -272,7 +281,7 @@ const SignupPage = () => {
                                 }
                               </div>
                               <div className='flex items-center justify-center mt-10'>
-                                <button className='outline-none bg-orange py-2 md:px-24 h-fit w-full md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]'>verify</button>
+                                <button className='outline-none bg-orange hover:bg-brown py-2 md:px-24 h-fit w-full md:w-fit rounded-md capitalize text-sm text-white cursor-pointer font-[550]'>verify</button>
                               </div>
                             </form>
                           </div>

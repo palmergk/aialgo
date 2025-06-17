@@ -8,6 +8,7 @@ import { useAtom } from 'jotai'
 import { NOTIFICATIONS, UNREADNOTIS } from '../../store'
 import CountrySelector from '../../GeneralComponents/CountrySelector';
 import StatusSelector from '../../GeneralComponents/StatusSelector'
+import PasswordToTextInput from '../../GeneralComponents/PasswordToTextInput'
 
 
 const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
@@ -85,24 +86,21 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
         {loading && <Loading />}
         <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
         <div className='text-xl uppercase text-center font-bold border-b w-full'>create new user</div>
-        <form className='flex flex-col gap-4 md:w-[90%] w-11/12 mx-auto relative mt-5' onSubmit={CreateUser}>
+        <form className='flex flex-col gap-4 w-11/12 mx-auto relative mt-5' onSubmit={CreateUser}>
           <div className='grid grid-cols-2 md:gap-6 gap-3 items-center'>
             <div className='flex flex-col gap-1'>
               <div className='text-sm capitalize font-[550]'>full name:</div>
               <input className='outline-none border border-[#c9b8eb] w-full h-8 px-2 lg:text-sm text-base rounded-sm' value={form.full_name} name='full_name' onChange={inputHandler}></input>
-              <div></div>
             </div>
             <div className='flex flex-col gap-1'>
               <div className='text-sm capitalize font-[550]'>username:</div>
               <input className='outline-none border border-[#c9b8eb] w-full h-8 px-2 lg:text-sm text-base rounded-sm' value={form.username} name='username' onChange={inputHandler}></input>
-              <div></div>
             </div>
           </div>
           <div className='grid grid-cols-2 md:gap-6 gap-3 items-center'>
             <div className='flex flex-col gap-1'>
               <div className='text-sm capitalize font-[550]'>email:</div>
               <input className='outline-none border border-[#c9b8eb] w-full h-8 px-2 lg:text-sm text-base rounded-sm' type='email' value={form.email} name='email' onChange={inputHandler}></input>
-              <div></div>
             </div>
             <div className='flex flex-col gap-1'>
               <div className='text-sm capitalize font-[550]'>country:</div>
@@ -112,8 +110,7 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
           <div className='grid grid-cols-2 md:gap-6 gap-3 items-center'>
             <div className='flex flex-col gap-1'>
               <div className='text-sm capitalize font-[550]'>password:</div>
-              <input className='outline-none border border-[#c9b8eb] w-full h-8 px-2 lg:text-sm text-base rounded-sm' value={form.password} name='password' onChange={inputHandler}></input>
-              <div></div>
+              <PasswordToTextInput name='password' value={form.password} onChange={inputHandler} className={{ main: '!border-[#c9b8eb] rounded-sm', icon: '!text-[#9f7ae7]' }} />
             </div>
             <div className='flex flex-col gap-1'>
               <div className='text-sm capitalize font-[550]'>role:</div>

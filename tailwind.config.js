@@ -10,6 +10,7 @@ export default {
         "orange": "#E96E28",
         "semi-white": "#e0dfdf",
         "ground": "#94A3B8",
+        "brown": "#642626",
         "light": "#7665D5",
         "admin": "#0E0B1C",
         "admin-btn": "#312b57",

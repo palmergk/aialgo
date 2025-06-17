@@ -164,7 +164,7 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                 </div>
                 <div className='flex justify-between items-center gap-4'>
                     <div className='italic'>crypto image:</div>
-                    <div className='flex flex-col gap-4 items-center w-'>
+                    <div className='flex flex-col gap-4 items-center'>
                         <label className='cursor-pointer'>
                             {cryptoImg.img ?
                                 <div className='flex items-center gap-1'>
@@ -174,23 +174,23 @@ const UpdateCrypto = ({ setScreen, singleCrypto, refetchCryptocurrency, refetchA
                                     </div>
                                 </div>
                                 :
-                                <div className='w-fit h-fit border border-gray-300 rounded-lg flex flex-col gap-2 items-center justify-center p-2'>
+                                <div className='w-fit h-fit border border-[#9f7ae7] rounded-lg flex flex-col gap-2 items-center justify-center p-3'>
                                     <div className='bg-gray-300 rounded-full p-2'><FiUploadCloud /></div>
                                     <span className='text-xs'>click to add image</span>
                                 </div>
                             }
                             <input ref={imgref} type="file" onChange={handleUpload} hidden />
                         </label>
-                        <div className='w-48 h-fit border border-gray-300 overflow-x-auto scrollsdown'>
+                        <div className='w-48 h-fit border border-[#9f7ae7] overflow-x-auto scrollsdown'>
                             <div className='w-fit flex flex-col'>
-                                <div className='border-b truncate text-[0.7rem] text-center italic py-0.5'>images of the popular coins:</div>
+                                <div className='border-b border-[#9f7ae7] truncate text-[0.7rem] text-center italic py-0.5'>images of the popular coins:</div>
                                 <div className='flex items-center'>
                                     {PredefineCryptoImages.map((item, i) => (
-                                        <div key={i} className={`w-14 ${i !== PredefineCryptoImages.length - 1 && 'border-r'}`}>
+                                        <div key={i} className={`w-14 ${i !== PredefineCryptoImages.length - 1 && 'border-r border-[#9f7ae7]'}`}>
                                             <div className='py-1 px-2.5 hover:bg-zinc-200 cursor-pointer' onClick={() => handleUpload2(item)}>
                                                 <img src={item.path} className='w-full h-auto'></img>
                                             </div>
-                                            <div className='w-full border-t h-fit text-center uppercase text-[0.6rem]'>{item.abb}</div>
+                                            <div className='w-full border-t border-[#9f7ae7] h-fit text-center uppercase text-[0.6rem]'>{item.abb}</div>
                                         </div>
                                     ))}
                                 </div>

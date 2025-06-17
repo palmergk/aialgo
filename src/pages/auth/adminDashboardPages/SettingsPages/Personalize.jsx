@@ -94,7 +94,6 @@ const Personalize = () => {
       instagram: adminStore?.instagram,
       telegram: adminStore?.telegram
     })
-    imgref.current.value = null
     setProfile({
       img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
       image: user.image ? user.image : null
@@ -200,22 +199,22 @@ const Personalize = () => {
           <form className='flex flex-col gap-6 mt-10' onSubmit={SubmitForm}>
             <div className='grid md:grid-cols-2 grid-cols-1 gap-6 items-center'>
               <div className='flex flex-col gap-1.5'>
-                <div className='md:text-sm text-xs capitalize font-[550] '>full name:</div>
+                <div className='text-sm capitalize font-medium'>full name:</div>
                 <input className='outline-none border border-[#c9b8eb] w-full  px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.full_name} name='full_name' onChange={formHandler} onKeyUp={CommitHandler}></input>
               </div>
               <div className='flex flex-col gap-1.5'>
-                <div className='md:text-sm text-xs capitalize font-[550] '>username:</div>
+                <div className='text-sm capitalize font-medium'>username:</div>
                 <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.username} name='username' onChange={formHandler} onKeyUp={CommitHandler}></input>
               </div>
             </div>
             <div className='grid md:grid-cols-2 grid-cols-1 gap-6 items-center'>
               <div className='flex flex-col gap-1.5'>
-                <div className='md:text-sm text-xs capitalize font-[550] '>email:</div>
+                <div className='text-sm capitalize font-medium'>email:</div>
                 <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.email} name='email' onChange={formHandler} onKeyUp={CommitHandler}></input>
               </div>
             </div>
             <div className='flex flex-col gap-1.5'>
-              <div className='md:text-sm text-xs capitalize font-[550] '>change password:</div>
+              <div className='text-sm capitalize font-medium'>change password:</div>
               <div className='grid md:grid-cols-2 grid-cols-1 gap-6 items-center'>
                 <PasswordToTextInput name='old_password' value={form.old_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Enter old password' className={{ main: '!w-full !md:py-2 !py-1.5 !rounded-sm !border-[#c9b8eb]', icon: "!text-[#9f7ae7] !top-2.5" }} />
                 <PasswordToTextInput name='new_password' value={form.new_password} onChange={formHandler} onKeyUp={CommitHandler} placeholder='Enter new password' className={{ main: '!w-full !md:py-2 !py-1.5 !rounded-sm !border-[#c9b8eb]', icon: "!text-[#9f7ae7] !top-2.5" }} />
@@ -223,7 +222,7 @@ const Personalize = () => {
             </div>
             {user.role === 'super admin' &&
               <div className='flex flex-col gap-1.5'>
-                <div className='md:text-sm text-xs capitalize font-[550] '>company medias:</div>
+                <div className='text-sm capitalize font-medium'>company medias:</div>
                 <div className='grid md:grid-cols-3 grid-cols-2 gap-4 items-center'>
                   {Object.values(adminStore).length === 0 ?
                     <>
@@ -255,11 +254,11 @@ const Personalize = () => {
             }
             {commit &&
               <div className='flex md:gap-8 gap-4 items-center justify-center mt-4'>
-                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-[#462c7c] rounded-md capitalize flex items-center gap-1 font-[550]' type='button' onClick={cancelChanges}>
+                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-[#462c7c] rounded-md capitalize flex items-center gap-1 font-medium' type='button' onClick={cancelChanges}>
                   <span>cancel</span>
                   <FaRegRectangleXmark />
                 </button>
-                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-[#462c7c] rounded-md capitalize flex items-center gap-1 font-[550]'>
+                <button className='outline-none w-fit h-fit py-2 px-8 text-sm text-semi-white  bg-[#462c7c] rounded-md capitalize flex items-center gap-1 font-medium'>
                   <span>save</span>
                   <IoCheckbox />
                 </button>

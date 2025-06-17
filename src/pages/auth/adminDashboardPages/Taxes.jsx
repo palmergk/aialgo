@@ -108,7 +108,7 @@ const Taxes = () => {
                     {currentAllTaxes.map((item, i) => (
                       <div key={i} className='w-full h-fit relative sha rounded-lg text-black font-medium'>
                         <div className='p-4 bg-semi-white text-sm rounded-t-lg flex justify-between gap-4'>
-                          <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                          <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mma')}</div>
                           <div className='flex gap-4 items-center'>
                             <div>ID: {item.gen_id}</div>
                             <div className='hover:text-[#9f7ae7] cursor-pointer bg-white py-0.5 rounded-[3px]' onClick={() => { setSingleTax(item); setModal(true) }}><BsThreeDotsVertical /></div>

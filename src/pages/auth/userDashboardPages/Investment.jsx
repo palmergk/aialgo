@@ -130,7 +130,7 @@ const Investment = () => {
                                                 <div className='flex flex-col gap-4' key={i}>
                                                     <div className='flex gap-2 items-center'>
                                                         <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('DD-MM-yyyy')}</div>
-                                                        <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('h:mm')}</div>
+                                                        <div className='text-[grey] text-[0.8rem]'>{moment(item.createdAt).format('h:mma')}</div>
                                                     </div>
                                                     <div className='grid md:grid-cols-4 grid-cols-2 gap-4 items-center justify-center'>
                                                         <div className='w-full h-full overflow-hidden rounded-[10px] flex flex-col md:text-lg text-[0.9rem] py-2 px-2 text-semi-white gap-2 bg-[#6859bb]'>
@@ -226,7 +226,7 @@ const Investment = () => {
                                                     {currentInvestments.map((item, i) => (
                                                         <div key={i} className='w-full h-fit relative text-semi-white  rounded-lg shadow-log'>
                                                             <div className='p-4 bg-[#141220] text-sm rounded-t-lg font-medium flex justify-between gap-4'>
-                                                                <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                                                                <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mma')}</div>
                                                                 <div>ID: {item.gen_id}</div>
                                                             </div>
                                                             <div className='bg-[#1b1730] grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>

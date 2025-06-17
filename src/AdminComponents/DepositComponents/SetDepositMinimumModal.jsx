@@ -46,7 +46,7 @@ const SetDepositMinimum = ({ closeView }) => {
                 {loading && <Loading />}
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                 <div className='md:text-xl text-lg uppercase text-center font-bold border-b w-full'>set deposit minimum</div>
-                <div className='flex flex-col gap-2 md:w-[90%] w-11/12 mx-auto mt-5'>
+                <div className='flex flex-col gap-2 w-11/12 mx-auto mt-5'>
                     <div className='border px-2 py-4 rounded-md'>
                         <div className='flex gap-4 items-center justify-center'>
                             <div className='flex flex-col gap-1'>

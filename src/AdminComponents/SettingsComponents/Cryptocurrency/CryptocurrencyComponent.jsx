@@ -18,7 +18,7 @@ const CryptocurrencyComponent = ({ closeView, cryptocurrency, dataLoading, refet
                 <FaXmark className='absolute top-0 right-1 cursor-pointer text-2xl' onClick={() => closeView()} />
                 {screen === 2 && <div className='cursor-pointer absolute top-6 left-2 text-lg' onClick={() => setScreen(1)}><FaAngleLeft /></div>}
                 <div className='text-xl uppercase text-center font-bold border-b'>add crypto</div>
-                <div className='flex flex-col md:w-[90%] w-11/12 mx-auto mt-5 md:text-[0.9rem] text-[0.8rem]'>
+                <div className='flex flex-col w-11/12 mx-auto mt-5 md:text-[0.9rem] text-[0.8rem]'>
                     {screen === 1 &&
                         <>
                             <div className='flex justify-center items-center mb-2 ml-auto'>

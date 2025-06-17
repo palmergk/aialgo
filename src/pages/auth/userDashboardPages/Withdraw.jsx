@@ -235,7 +235,7 @@ const Withdraw = () => {
                                                     {currentWithdrawals.map((item, i) => (
                                                         <div key={i} className='w-full h-fit relative text-semi-white rounded-lg shadow-log'>
                                                             <div className='p-4 bg-[#141220] text-sm font-medium rounded-t-lg flex justify-between gap-4'>
-                                                                <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mm')}</div>
+                                                                <div>{moment(item.createdAt).format('DD-MM-yyyy')} / {moment(item.createdAt).format('h:mma')}</div>
                                                                 <div>ID: {item.gen_id}</div>
                                                             </div>
                                                             <div className='bg-[#1b1730] grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
