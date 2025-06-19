@@ -12,7 +12,7 @@ const PrivacyPage = () => {
                         <div className='w-[90%] mx-auto'>
                             <div className='flex flex-col gap-1 '>
                                 <span className='border-b w-full text-[1.8rem] lg:text-[2.5rem] uppercase font-bold'>privacy policy</span>
-                                <span className='text-[0.9rem] text-[#757575]'>last updated: 22nd of November 2024</span>
+                                <span className='text-[0.9rem] text-[#757575]'>last updated: 19th of June 2025</span>
                             </div>
                             <div className='flex flex-col gap-2 pt-8'>
                                 <div className='text-[1.5rem] lg:text-[1.7rem] capitalize font-bold'>general</div>

@@ -2,8 +2,16 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { CookieName } from '../utils/utils'
 
-export const URL = import.meta.env.VITE_API_URL
-export const imageurl = import.meta.env.VITE_API_URL
+export let URL;
+export let imageurl;
+
+if (window.location.origin.includes('aialgo')) {
+    URL = import.meta.env.VITE_LIVE_API_URL
+    imageurl = import.meta.env.VITE_LIVE_API_URL
+} else {
+    URL = import.meta.env.VITE_API_URL
+    imageurl = import.meta.env.VITE_API_URL
+}
 
 
 const user = 'api/user/'

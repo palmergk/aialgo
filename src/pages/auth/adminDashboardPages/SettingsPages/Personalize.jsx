@@ -4,15 +4,13 @@ import { ADMINSTORE, PROFILE } from '../../../../store'
 import Loading from '../../../../GeneralComponents/Loading'
 import { Apis, imageurl, UserPutApi } from '../../../../services/API'
 import { MdOutlineEdit, MdOutlinePhotoSizeSelectActual } from 'react-icons/md'
-import { FaRegRectangleXmark } from 'react-icons/fa6'
+import { FaRegRectangleXmark, FaXTwitter, FaInstagram } from 'react-icons/fa6'
+import { FaTelegramPlane } from "react-icons/fa";
 import { IoCheckbox } from 'react-icons/io5'
-import { PiTelegramLogoLight } from "react-icons/pi";
-import { TfiInstagram } from "react-icons/tfi";
-import { GrFacebookOption } from 'react-icons/gr';
 import avatar from '../../../../assets/images/avatar.png'
 import { ErrorAlert, SuccessAlert } from '../../../../utils/utils'
 import SettingsLayout from '../../../../AdminComponents/SettingsComponents/SettingsLayout'
-import { RiDeleteBin2Line } from 'react-icons/ri';
+import { RiDeleteBin2Line, RiFacebookFill } from 'react-icons/ri';
 import PasswordToTextInput from '../../../../GeneralComponents/PasswordToTextInput'
 
 
@@ -24,7 +22,6 @@ const Personalize = () => {
   const [select, setSelect] = useState(false)
   const imgref = useRef()
   const [loading, setLoading] = useState(false)
-
   const [profile, setProfile] = useState({
     img: user.image ? `${imageurl}/profiles/${user.image}` : avatar,
     image: user.image ? user.image : null
@@ -37,6 +34,7 @@ const Personalize = () => {
     new_password: '',
     facebook: '',
     instagram: '',
+    twitter: '',
     telegram: ''
   })
 
@@ -52,12 +50,13 @@ const Personalize = () => {
       ...form,
       facebook: adminStore?.facebook || '',
       instagram: adminStore?.instagram || '',
+      twitter: adminStore?.twitter || '',
       telegram: adminStore?.telegram || ''
     })
   }, [adminStore])
 
   const CommitHandler = () => {
-    if (form.full_name === user.full_name && form.username === user.username && form.email === user.email && form.old_password === '' && form.new_password === '' && form.facebook === adminStore.facebook && form.instagram === adminStore.instagram && form.telegram === adminStore.telegram && profile.image === user.image) {
+    if (form.full_name === user.full_name && form.username === user.username && form.email === user.email && form.old_password === '' && form.new_password === '' && form.facebook === adminStore.facebook && form.instagram === adminStore.instagram && form.twitter === adminStore.twitter && form.telegram === adminStore.telegram && profile.image === user.image) {
       setCommit(false)
     } else {
       setCommit(true)
@@ -92,6 +91,7 @@ const Personalize = () => {
       new_password: '',
       facebook: adminStore?.facebook,
       instagram: adminStore?.instagram,
+      twitter: adminStore?.twitter,
       telegram: adminStore?.telegram
     })
     setProfile({
@@ -111,6 +111,7 @@ const Personalize = () => {
           img: avatar,
           image: null
         })
+        setSelect(false)
       } else {
         ErrorAlert(response.msg)
       }
@@ -133,6 +134,7 @@ const Personalize = () => {
     formbody.append('new_password', form.new_password)
     formbody.append('facebook', form.facebook)
     formbody.append('instagram', form.instagram)
+    formbody.append('twitter', form.twitter)
     formbody.append('telegram', form.telegram)
 
     setLoading(true)
@@ -152,6 +154,7 @@ const Personalize = () => {
           new_password: '',
           facebook: response.store.facebook,
           instagram: response.store.instagram,
+          twitter: response.store.twitter,
           telegram: response.store.telegram
         })
 
@@ -236,15 +239,19 @@ const Personalize = () => {
                     :
                     <>
                       <div className='flex gap-1.5 items-center text-lg'>
-                        <GrFacebookOption />
+                        <RiFacebookFill />
                         <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.facebook} name='facebook' placeholder='Enter fb link' onChange={formHandler} onKeyUp={CommitHandler}></input>
                       </div>
                       <div className='flex gap-1.5 items-center text-lg'>
-                        <TfiInstagram />
+                        <FaInstagram />
                         <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.instagram} name='instagram' placeholder='Enter IG link' onChange={formHandler} onKeyUp={CommitHandler}></input>
                       </div>
                       <div className='flex gap-1.5 items-center text-lg'>
-                        <PiTelegramLogoLight />
+                        <FaXTwitter />
+                        <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.twitter} name='twitter' placeholder='Enter X link' onChange={formHandler} onKeyUp={CommitHandler}></input>
+                      </div>
+                      <div className='flex gap-1.5 items-center text-lg'>
+                        <FaTelegramPlane />
                         <input className='outline-none border border-[#c9b8eb] w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm ipt' type='text' value={form.telegram} name='telegram' placeholder='Enter Tg link' onChange={formHandler} onKeyUp={CommitHandler}></input>
                       </div>
                     </>

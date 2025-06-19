@@ -12,7 +12,7 @@ import PinForm from '../utils/PinForm';
 
 const ForgotPassword = ({ closeView }) => {
     const toggler = useRef()
-    const [screen, setScreen] = useState(1)
+    const [screen, setScreen] = useState(4)
     const [seconds, setSeconds] = useState(0)
     const [loading, setLoading] = useState(false)
     const [pins, setPins] = useState(['', '', '', '', '', ''])
@@ -135,7 +135,7 @@ const ForgotPassword = ({ closeView }) => {
                                 <div className='flex flex-col gap-5 mt-8'>
                                     <div className='flex flex-col gap-2 relative'>
                                         <div className='text-xs capitalize font-[600]'>enter email address</div>
-                                        <input className='outline-none w-full border-b border-black lg:text-[0.85rem] text-base ipt input-off' type='email' placeholder='E.g: john14@gmail.com' name='email' value={form.email} onChange={formHandler}></input>
+                                        <input className='outline-none w-full border-b border-black lg:text-[0.85rem] text-base ipt input-off' type='email' placeholder='example@gmail.com' name='email' value={form.email} onChange={formHandler}></input>
                                     </div>
                                     <div className='flex items-center justify-center mt-2'>
                                         <button className='outline-none bg-orange hover:bg-brown py-2 md:px-24 h-fit md:w-fit w-full rounded-md capitalize text-[0.9rem] text-white cursor-pointer font-[550]' >find account</button>
@@ -209,13 +209,13 @@ const ForgotPassword = ({ closeView }) => {
                     {screen === 4 &&
                         <div className='md:w-[85%] w-11/12 mx-auto'>
                             <div className='flex flex-col gap-2 justify-center items-center'>
-                                <div className='w-12 h-12 border-2 border-[green] rounded-full flex items-center justify-center'>
-                                    <RiVerifiedBadgeLine className='text-2xl text-[green]' />
+                                <div className='w-12 h-12 border-2 border-orange rounded-full flex items-center justify-center'>
+                                    <RiVerifiedBadgeLine className='text-2xl text-orange' />
                                 </div>
                                 <div className='text-[0.9rem] font-extrabold uppercase text-center'>password Reset</div>
                                 <div className='text-center text-[0.8rem] font-[600]'>Password change successful, you can now login with new password created</div>
-                                <div className='flex gap-1 cursor-pointer mt-4 items-center text-sm text-[green] hover:text-orange' onClick={closeView}>
-                                    <div className='font-[600]'>Back to login</div>
+                                <div className='flex gap-1 cursor-pointer mt-3 items-center text-sm text-white py-1.5 px-4 rounded-full bg-orange hover:bg-brown font-medium' onClick={closeView}>
+                                    <div>Back to login</div>
                                     <FaArrowRight />
                                 </div>
                             </div>

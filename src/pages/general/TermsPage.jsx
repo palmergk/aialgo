@@ -12,7 +12,7 @@ const TermsPage = () => {
                         <div className='w-[90%] mx-auto'>
                             <div className='flex flex-col gap-2 '>
                                 <span className='border-b w-full text-[1.8rem] lg:text-[2.5rem] uppercase font-bold'>terms & conditions</span>
-                                <span className='text-[0.9rem] text-[#757575]'>last updated: 22nd of November 2024</span>
+                                <span className='text-[0.9rem] text-[#757575]'>last updated: 19th of June 2025</span>
                             </div>
                             <div className='pt-8'>
                                 <div>

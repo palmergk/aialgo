@@ -2,16 +2,16 @@ import React, { useEffect } from 'react'
 import logo from '../assets/images/logobrand.png'
 import { Link } from 'react-router-dom';
 import { LuCopyright } from "react-icons/lu";
-import { PiTelegramLogoLight } from "react-icons/pi";
-import { TfiInstagram } from "react-icons/tfi";
 import { MoveToTop } from '../utils/utils';
-import { GrFacebookOption } from 'react-icons/gr';
 import { AiOutlineMail } from "react-icons/ai";
 import { PiHeadsetLight } from "react-icons/pi";
 import { IoTimeOutline } from "react-icons/io5";
 import { useAtom } from 'jotai';
 import { ADMINSTORE } from '../store';
 import { Apis, UserGetApi } from '../services/API';
+import { FaInstagram, FaXTwitter } from 'react-icons/fa6';
+import { FaTelegramPlane } from 'react-icons/fa';
+import { RiFacebookFill } from 'react-icons/ri';
 
 const CompanyLinks = [
   { path: 'home', url: '/' },
@@ -40,6 +40,13 @@ const Footer = () => {
     FetchAdminStore()
   }, [])
 
+  const Socials = [
+    { href: `${adminstore?.facebook}`, icon: RiFacebookFill },
+    { href: `${adminstore?.instagram}`, icon: FaInstagram },
+    { href: `${adminstore?.twitter}`, icon: FaXTwitter },
+    { href: `${adminstore?.telegram}`, icon: FaTelegramPlane },
+  ]
+
 
   return (
     <div className='bg-[#1E2833] pb-4 z-10 border-t border-[#171a1d] pt-10'>
@@ -66,21 +73,13 @@ const Footer = () => {
               </div>
             </div>
             <div className='flex gap-4 items-center mt-4'>
-              <a href={adminstore?.telegram} target="_blank" rel="noopener noreferrer">
-                <div className='h-8 w-8 bg-white rounded-full flex items-center justify-center hover:translate-y-[-0.1rem] cursor-pointer  transition-all text-[#1E2833] text-lg hover:text-orange'>
-                  <PiTelegramLogoLight />
-                </div>
-              </a>
-              <a href={adminstore?.instagram} target="_blank" rel="noopener noreferrer">
-                <div className='h-8 w-8 bg-white  rounded-full flex items-center justify-center hover:translate-y-[-0.1rem] cursor-pointer transition-all text-[#1E2833] text-lg hover:text-orange'>
-                  <TfiInstagram />
-                </div>
-              </a>
-              <a href={adminstore?.facebook} target="_blank" rel="noopener noreferrer">
-                <div className='h-8 w-8 bg-white  rounded-full flex items-center justify-center hover:translate-y-[-0.1rem] cursor-pointer transition-all text-[#1E2833] text-lg hover:text-orange'>
-                  <GrFacebookOption />
-                </div>
-              </a>
+              {Socials.map((item, i) => (
+                <a key={i} href={item.href} target="_blank" rel="noopener noreferrer">
+                  <div className='h-8 w-8 bg-white rounded-full flex items-center justify-center hover:translate-y-[-0.1rem] cursor-pointer  transition-all text-[#1E2833] text-lg hover:text-orange'>
+                    <item.icon />
+                  </div>
+                </a>
+              ))}
             </div>
           </div>
           <div className='text-ground capitalize lg:col-span-2 mt-4'>
@@ -93,9 +92,9 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className='flex gap-1 w-full h-14 bg-[#172029] items-center text-ground mt-12 px-4 text-[0.85rem]'>
+        <div className='flex gap-1 w-full h-14 bg-[#172029] items-center text-ground mt-12 px-4 text-sm'>
           <LuCopyright />
-          <div>2024, Al Algo, All rights reserved.</div>
+          <div>2025, Al Algo Trade, All rights reserved.</div>
         </div>
       </div>
     </div>

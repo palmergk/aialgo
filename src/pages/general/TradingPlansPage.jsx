@@ -75,8 +75,8 @@ const TradingPlansPage = () => {
                     ))}
                   </>
                   :
-                  <div className='flex flex-col gap-4 items-center'>
-                    <img src={noplans} className=''></img>
+                  <div className='flex flex-col gap-4 items-center justify-center col-span-3'>
+                    <img src={noplans}></img>
                     <div className='text-center text-xl'>Oops! No trading plans yet...</div>
                   </div>
                 }

@@ -169,6 +169,7 @@ const Profile = () => {
                     img: avatar,
                     image: null
                 })
+                setSelect(false)
             } else {
                 ErrorAlert(response.msg)
             }
