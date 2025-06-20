@@ -12,7 +12,7 @@ import PinForm from '../utils/PinForm';
 
 const ForgotPassword = ({ closeView }) => {
     const toggler = useRef()
-    const [screen, setScreen] = useState(4)
+    const [screen, setScreen] = useState(1)
     const [seconds, setSeconds] = useState(0)
     const [loading, setLoading] = useState(false)
     const [pins, setPins] = useState(['', '', '', '', '', ''])

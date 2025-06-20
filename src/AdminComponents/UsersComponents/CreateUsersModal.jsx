@@ -110,7 +110,7 @@ const CreateUsersModal = ({ closeView, refetchAllUsers }) => {
           <div className='grid grid-cols-2 md:gap-6 gap-3 items-center'>
             <div className='flex flex-col gap-1'>
               <div className='text-sm capitalize font-[550]'>password:</div>
-              <PasswordToTextInput name='password' value={form.password} onChange={inputHandler} className={{ main: '!border-[#c9b8eb] rounded-sm', icon: '!text-[#9f7ae7]' }} />
+              <PasswordToTextInput name='password' value={form.password} onChange={inputHandler} className={{ main: '!border-[#c9b8eb] rounded-sm !w-full', icon: '!text-[#9f7ae7]' }} />
             </div>
             <div className='flex flex-col gap-1'>
               <div className='text-sm capitalize font-[550]'>role:</div>

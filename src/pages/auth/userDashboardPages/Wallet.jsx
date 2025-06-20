@@ -136,7 +136,7 @@ const Wallet = () => {
                                         <BsCurrencyDollar />
                                         {Object.values(wallet).length !== 0 && <div className='-ml-1'>{wallet.balance.toLocaleString()}</div>}
                                     </div>
-                                    <img src={wallet3d} className='md:h-[3.3rem] h-[2.3rem] w-auto'></img>
+                                    <img src={wallet3d} className='md:h-[3.2rem] h-[2.2rem] w-auto'></img>
                                 </div>
                             </div>
                         </>
