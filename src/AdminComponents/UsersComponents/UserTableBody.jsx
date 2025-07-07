@@ -33,7 +33,7 @@ const UserTableBody = ({ item, setUserFigures, setSingleUser, setModal }) => {
             </div>
             <div className='bg-white grid md:grid-cols-2 grid-cols-1 md:gap-0 gap-2 text-xs rounded-b-lg capitalize md:p-0 p-4'>
                 <div className='flex flex-col gap-2 md:p-4 overflow-hidden'>
-                <div className='flex justify-between gap-4'>
+                    <div className='flex justify-between gap-4'>
                         <span>full name:</span>
                         <span>{item.full_name}</span>
                     </div>
@@ -43,10 +43,14 @@ const UserTableBody = ({ item, setUserFigures, setSingleUser, setModal }) => {
                     </div>
                     <div className='flex justify-between gap-4'>
                         <span>email:</span>
-                        <span className='lowercase'>{item.email}</span>
+                        <span className='normal-case'>{item.email}</span>
                     </div>
                 </div>
                 <div className='flex flex-col gap-2 md:p-4 md:border-l border-gray-100 overflow-hidden'>
+                    <div className='flex justify-between gap-4'>
+                        <span>role:</span>
+                        <span>{item.role}</span>
+                    </div>
                     <div className='flex justify-between gap-4'>
                         <span>country:</span>
                         <img src={item.country_flag} className='w-6 h-auto'></img>

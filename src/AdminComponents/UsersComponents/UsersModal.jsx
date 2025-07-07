@@ -16,6 +16,7 @@ import { LuBan } from 'react-icons/lu';
 import PasswordToTextInput from '../../GeneralComponents/PasswordToTextInput';
 import { useAtom } from 'jotai';
 import { PROFILE } from '../../store';
+import CopyButton from '../../GeneralComponents/CopyButton';
 
 
 const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => {
@@ -224,27 +225,27 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                 </div>
                                                 <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
                                                     <div className='flex justify-between items-center gap-4'>
-                                                        <div className='italic '>full name:</div>
+                                                        <div className='italic'>full name:</div>
                                                         <div className='md:text-[0.95rem] text-sm'>{singleUser?.full_name}</div>
                                                     </div>
                                                     <div className='flex justify-between items-center gap-4'>
-                                                        <div className='italic '>username:</div>
+                                                        <div className='italic'>username:</div>
                                                         <div className='md:text-[0.95rem] text-sm'>{singleUser?.username}</div>
                                                     </div>
                                                     <div className='flex justify-between items-center gap-4'>
-                                                        <div className='italic '>email:</div>
+                                                        <div className='italic'>email:</div>
                                                         <div className='md:text-[0.95rem] text-sm'>{singleUser?.email}</div>
                                                     </div>
                                                     <div className='flex justify-between items-center gap-4'>
-                                                        <div className='italic '>country:</div>
+                                                        <div className='italic'>country:</div>
                                                         <div className='md:text-[0.95rem] text-sm'>{singleUser?.country}</div>
                                                     </div>
                                                     <div className='flex justify-between items-center gap-4'>
-                                                        <div className='italic '>joined:</div>
+                                                        <div className='italic'>joined:</div>
                                                         <div className='md:text-[0.95rem] text-sm'>{moment(singleUser?.createdAt).format('DD-MM-yyyy')}</div>
                                                     </div>
                                                     <div className='flex justify-between items-center gap-4'>
-                                                        <div className='italic '>role:</div>
+                                                        <div className='italic'>role:</div>
                                                         <div className='md:text-[0.95rem] text-sm text-[#462c7c]'>{singleUser?.role}</div>
                                                     </div>
                                                 </div>
@@ -254,11 +255,11 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                     <div className='uppercase font-bold border px-1'>financial details:</div>
                                                     <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>total amount deposited:</div>
+                                                            <div className='italic'>total amount deposited:</div>
                                                             {Object.values(userFigures).length !== 0 && <div className='md:text-[0.95rem] text-sm'>${userFigures.total_deposit.toLocaleString()}</div>}
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>account balance:</div>
+                                                            <div className='italic'>account balance:</div>
                                                             {Object.values(userFigures).length !== 0 && <div className='md:text-[0.95rem] text-sm'>${userFigures.wallet_balance.toLocaleString()}</div>}
                                                         </div>
                                                     </div>
@@ -402,52 +403,66 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                 {Object.values(singleUser).length !== 0 && singleUser.kycUser.length !== 0 ?
                                                     <div className='md:w-5/6 w-11/12 mx-auto flex flex-col gap-2'>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>full name:</div>
-                                                            <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.full_name}</div>
+                                                            <div className='italic'>first name:</div>
+                                                            <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.first_name}</div>
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>gender:</div>
+                                                            <div className='italic'>last name:</div>
+                                                            <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.last_name}</div>
+                                                        </div>
+                                                        <div className='flex justify-between items-center gap-4'>
+                                                            <div className='italic'>gender:</div>
                                                             <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.gender}</div>
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>marital status:</div>
+                                                            <div className='italic'>marital status:</div>
                                                             <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.marital_status}</div>
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>country:</div>
+                                                            <div className='italic'>country:</div>
                                                             <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.country}</div>
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>date of birth:</div>
+                                                            <div className='italic'>date of birth:</div>
                                                             <div className='md:text-[0.95rem] text-sm'>{moment(singleUser.kycUser[0]?.date_of_birth).format('DD-MM-yyyy')}</div>
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>address:</div>
+                                                            <div className='italic'>address:</div>
                                                             <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.address}</div>
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>state:</div>
+                                                            <div className='italic'>state:</div>
                                                             <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.state}</div>
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>postal / zipcode:</div>
+                                                            <div className='italic'>postal / zipcode:</div>
                                                             <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.postal}</div>
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>phone number:</div>
-                                                            <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.phone_code + singleUser.kycUser[0]?.phone_number}</div>
+                                                            <div className='italic'>phone number:</div>
+                                                            <div className='flex gap-1.5 items-center'>
+                                                                <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.phone_code + singleUser.kycUser[0]?.phone_number}</div>
+                                                                <CopyButton content={singleUser.kycUser[0]?.phone_code + singleUser.kycUser[0]?.phone_number} className='!bg-[#c9b8eb] !text-black' />
+                                                            </div>
                                                         </div>
                                                         <div className='flex justify-between items-center gap-4'>
-                                                            <div className='italic '>identification number:</div>
-                                                            <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.id_number}</div>
+                                                            <div className='italic'>ID type:</div>
+                                                            <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.id_type}</div>
+                                                        </div>
+                                                        <div className='flex justify-between items-center gap-4'>
+                                                            <div className='italic'>ID number:</div>
+                                                            <div className='flex gap-1.5 items-center'>
+                                                                <div className='md:text-[0.95rem] text-sm'>{singleUser.kycUser[0]?.id_number}</div>
+                                                                <CopyButton content={singleUser.kycUser[0]?.id_number} className='!bg-[#c9b8eb] !text-black' />
+                                                            </div>
                                                         </div>
                                                         <div className='flex flex-col gap-2'>
                                                             <div className='flex justify-between items-center gap-4 mt-3'>
-                                                                <div className='italic '>front ID image:</div>
+                                                                <div className='italic'>front ID image:</div>
                                                                 <Image src={`${imageurl}/identity/${singleUser.kycUser[0]?.gen_id}/${singleUser.kycUser[0]?.front_id}`} width={200} />
                                                             </div>
                                                             <a href={`${imageurl}/identity/${singleUser.kycUser[0]?.gen_id}/${singleUser.kycUser[0]?.front_id}`} download="user valid ID">
-                                                                <button className='bg-[#c9b8eb] py-1 px-4 text-black w-fit ml-auto rounded-full font-semibold text-[0.8rem] flex items-center gap-0.5'>
+                                                                <button className='bg-[#c9b8eb] py-1.5 px-4 text-black w-fit ml-auto rounded-full font-semibold text-xs flex items-center gap-0.5'>
                                                                     <span>Download</span>
                                                                     <PiDownloadLight />
                                                                 </button>
@@ -455,11 +470,11 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                         </div>
                                                         <div className='flex flex-col gap-2'>
                                                             <div className='flex justify-between items-center gap-4 mt-3'>
-                                                                <div className='italic '>back ID image:</div>
+                                                                <div className='italic'>back ID image:</div>
                                                                 <Image src={`${imageurl}/identity/${singleUser.kycUser[0]?.gen_id}/${singleUser.kycUser[0]?.back_id}`} width={200} />
                                                             </div>
                                                             <a href={`${imageurl}/identity/${singleUser.kycUser[0]?.gen_id}/${singleUser.kycUser[0]?.back_id}`} download="user valid ID">
-                                                                <button className='bg-[#c9b8eb] py-1 px-4 text-black w-fit ml-auto rounded-full font-semibold text-[0.8rem] flex items-center gap-0.5'>
+                                                                <button className='bg-[#c9b8eb] py-1.5 px-4 text-black w-fit ml-auto rounded-full font-semibold text-xs flex items-center gap-0.5'>
                                                                     <span>Download</span>
                                                                     <PiDownloadLight />
                                                                 </button>
@@ -474,7 +489,7 @@ const UsersModal = ({ closeView, singleUser, userFigures, refetchAllUsers }) => 
                                                             }
                                                         </div>
                                                         {status === 'failed' && <div className='flex justify-between items-center gap-4 mb-6'>
-                                                            <div className='italic '>message:</div>
+                                                            <div className='italic'>message:</div>
                                                             <textarea placeholder='Provide a reason for failed verification...' className='p-2 md:w-52 w-44 h-32 text-black lg:text-[0.85rem] text-base outline-none bg-transparent border border-[#c9b8eb] rounded-md resize-none ipt scroll' name='message' value={form.message} onChange={formHandler} onKeyUp={UpdateHandlerForText}></textarea>
                                                         </div>}
                                                     </div>

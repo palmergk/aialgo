@@ -165,9 +165,9 @@ const WithdrawalsModal = ({ singleWithdrawal, closeView, refetchAllWithdrawals }
                                                 <div className='italic'>message:</div>
                                                 <div className='flex flex-col gap-1.5'>
                                                     <textarea placeholder='Write A Message' className='p-2 md:w-52 w-44 h-32 text-black lg:text-[0.85rem] text-base outline-none bg-transparent border border-[#c9b8eb] rounded-md resize-none ipt scroll' value={message} onChange={e => setMessage(e.target.value)} onKeyUp={UpdateHandlerForText}></textarea>
-                                                    {Object.values(adminStore).length !== 0 && <button className='bg-[#c9b8eb] py-1 px-4 text-black w-fit ml-auto rounded-full font-semibold text-[0.8rem] flex items-center gap-0.5' onClick={GenerateWithdrawalMessage}>
+                                                    {Object.values(adminStore).length !== 0 && <button className='bg-[#c9b8eb] py-1.5 px-4 text-black w-fit ml-auto rounded-full font-semibold text-xs flex items-center gap-0.5' onClick={GenerateWithdrawalMessage}>
                                                         <span>Generate ({singleWithdrawal.generate})</span>
-                                                        <RiAiGenerate className='text-xs' />
+                                                        <RiAiGenerate />
                                                     </button>}
                                                 </div>
                                             </div>

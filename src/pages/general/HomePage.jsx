@@ -9,6 +9,7 @@ import { MdJoinRight } from "react-icons/md";
 import CountComponent from '../../GeneralComponents/CountComponent';
 import { FAQS } from '../../utils/utils';
 import TestimonialComponent from '../../GeneralComponents/TestimonialComponent';
+import CryptoCharts from '../../GeneralComponents/CryptoCharts';
 
 
 const HomePage = () => {
@@ -26,26 +27,31 @@ const HomePage = () => {
     <Pagelayout>
       <div className='bg-[#1E2833] pb-16 text-white'>
         <div className='homeBg'>
-          <div className='w-11/12 mx-auto pt-20 grid grid-cols-3 lg:grid-cols-4'>
-            <div className='col-span-1'>
-              <div className='relative w-fit'>
-                <div className='capitalize text-orange text-[0.7rem] font-medium tracking-widest'> tech & crypto</div>
-                <MdOutlineDiversity2 className='absolute top-0 -right-8 text-lg' />
-              </div>
-              <div className='capitalize  font-bold text-[2rem] md:text-[3rem] leading-[4rem] md:leading-[5rem] '>artificial intelligence algorithm  crypto trade</div>
-              <Link to='/signup'>
-                <button className='outline-0 w-fit h-fit py-1 px-6 text-[0.9rem]  rounded-full bg-orange capitalize mt-5 flex gap-1 items-center font-medium hover:bg-brown'>
-                  <MdJoinRight /><span>join</span>
-                </button>
-              </Link>
+          <div className='w-11/12 mx-auto pt-20 relative'>
+            <div className='absolute top-4 right-0'>
+              <div id="google_translate_element"></div>
             </div>
-            <div className='lg:col-span-3 col-span-2 '>
-              <div className='w-fit h-fit border rotate-90 uppercase text-[0.85rem]  py-1 px-2 font-medium tracking-[0.5rem] relative text-ellipsis text-nowrap mt-40'>
-                <div> crypto trade made easy</div>
-                <div className='h-1 w-1 bg-white rounded-full absolute top-7 -left-[0.2rem]'></div>
-                <div className='h-1 w-1 bg-white rounded-full absolute -top-1 -left-1'></div>
-                <div className='h-1 w-1 bg-white rounded-full absolute top-7 -right-1'></div>
-                <div className='h-1 w-1 bg-white rounded-full absolute -top-1 -right-1'></div>
+            <div className='grid grid-cols-3 lg:grid-cols-4'>
+              <div className='col-span-1'>
+                <div className='relative w-fit'>
+                  <div className='capitalize text-orange text-[0.7rem] font-medium tracking-widest'> tech & crypto</div>
+                  <MdOutlineDiversity2 className='absolute top-0 -right-8 text-lg' />
+                </div>
+                <div className='capitalize  font-bold text-[2rem] md:text-[3rem] leading-[4rem] md:leading-[5rem] '>artificial intelligence algorithm  crypto trade</div>
+                <Link to='/signup'>
+                  <button className='outline-0 w-fit h-fit py-1 px-6 text-[0.9rem]  rounded-full bg-orange capitalize mt-5 flex gap-1 items-center font-medium hover:bg-brown'>
+                    <MdJoinRight /><span>join</span>
+                  </button>
+                </Link>
+              </div>
+              <div className='lg:col-span-3 col-span-2'>
+                <div className='w-fit h-fit border uppercase text-[0.85rem] rotate-90 py-1 px-2 font-medium tracking-[0.5rem] relative text-ellipsis text-nowrap mt-40'>
+                  <div> crypto trade made easy</div>
+                  <div className='h-1 w-1 bg-white rounded-full absolute top-7 -left-[0.2rem]'></div>
+                  <div className='h-1 w-1 bg-white rounded-full absolute -top-1 -left-1'></div>
+                  <div className='h-1 w-1 bg-white rounded-full absolute top-7 -right-1'></div>
+                  <div className='h-1 w-1 bg-white rounded-full absolute -top-1 -right-1'></div>
+                </div>
               </div>
             </div>
           </div>
@@ -115,7 +121,7 @@ const HomePage = () => {
             <TestimonialComponent />
           </div>
           <div className='mt-16'>
-            <coingecko-coin-heatmap-widget height="400" locale="en" top="20"></coingecko-coin-heatmap-widget>
+            <CryptoCharts />
           </div>
         </div>
       </div>

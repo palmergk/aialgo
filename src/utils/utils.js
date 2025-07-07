@@ -8,7 +8,6 @@ import us from '../assets/images/us.jfif'
 import us2 from '../assets/images/us-black.webp'
 import spain from '../assets/images/spanish.jfif'
 import uk from '../assets/images/uk.webp'
-import india from '../assets/images/india.jfif'
 
 export const ErrorAlert = (message) => {
     return toast.error(message, {
@@ -105,27 +104,28 @@ export const Testimonials = [
         name: 'henry calvin',
         image: us,
         location: 'NYC, US',
-        review: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam natus deleniti consectetur sed, expedita illo quae sapiente nihil incidunt praesentium, nemo vero esse amet reprehenderit? Architecto, culpa reiciendis! Evienet accusatinum'
+        review: 'Trading in crypto has always been risky, but this algorithmic system made things so much easier. In just a few weeks, I saw more consistent gains than I ever had manually. NYC’s fast-paced lifestyle needs tools like this.'
     },
     {
         name: 'carlos rivera',
         image: spain,
-        location: 'seville, spain',
-        review: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam natus deleniti consectetur sed, expedita illo quae sapiente nihil incidunt praesentium, nemo vero esse amet reprehenderit? Architecto, culpa reiciendis! Evienet accusatinum'
+        location: 'Seville, Spain',
+        review: 'I didn’t expect an automated trading system to understand the market so well. It’s been consistently accurate, and I no longer have to stay glued to charts all day. It’s been a huge help.'
     },
     {
         name: 'arthur allen',
         image: uk,
-        location: 'manchester, UK',
-        review: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam natus deleniti consectetur sed, expedita illo quae sapiente nihil incidunt praesentium, nemo vero esse amet reprehenderit? Architecto, culpa reiciendis! Evienet accusatinum'
+        location: 'Manchester, UK',
+        review: 'The algorithm is incredibly responsive to market shifts. I was skeptical at first, but after seeing consistent profits for months now, I’m convinced it’s the future of crypto trading. It’s taken so much guesswork out of the process.'
     },
     {
         name: 'jeremy davis',
         image: us2,
-        location: 'atlanta, US',
-        review: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam natus deleniti consectetur sed, expedita illo quae sapiente nihil incidunt praesentium, nemo vero esse amet reprehenderit? Architecto, culpa reiciendis! Evienet accusatinum'
+        location: 'Atlanta, US',
+        review: 'As someone who works full-time, I needed something reliable and low-maintenance. This system runs on autopilot and still beats my old trading strategy by a mile. It’s been a game changer for me.'
     },
-]
+];
+
 
 
 

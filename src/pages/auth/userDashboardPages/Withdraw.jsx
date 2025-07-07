@@ -34,7 +34,6 @@ const Withdraw = () => {
     const [original, setOriginal] = useState([])
     const [withdrawals, setWithdrawals] = useState([])
     const [cryptoWallets, setCryptoWallets] = useState({})
-    const [check, setCheck] = useState('')
     const [search, setSearch] = useState('')
     const [loading, setLoading] = useState(false)
     const [dataLoading, setDataLoading] = useState(true)
@@ -88,7 +87,6 @@ const Withdraw = () => {
         if (Object.values(userwallet).length === 0 || amt > userwallet.balance) return ErrorAlert('Insufficient wallet balance')
         if (Object.values(cryptoWallets).length === 0) return ErrorAlert('Choose cryptocurrency')
         if (!form.withdrawal_address) return ErrorAlert('Enter your wallet address')
-        if (!check) return ErrorAlert('Confirm you provided your correct wallet address')
 
         const formbody = {
             amount: amt,
@@ -111,7 +109,6 @@ const Withdraw = () => {
                     amount: '',
                     withdrawal_address: ''
                 })
-                setCheck(!check)
                 setCryptoWallets({})
                 setScreen(2)
             } else {
@@ -172,7 +169,7 @@ const Withdraw = () => {
                                 </Link>
                                 <div className='border-t pt-2 text-center'>Withdraw funds</div>
                             </div>
-                            <div className='flex flex-col gap-8 py-6 md:px-8 px-6 overflow-hidden'>
+                            <div className='flex flex-col gap-8 py-8 md:px-8 px-6 overflow-hidden'>
                                 <div className='grid grid-cols-4 gap-4 items-center'>
                                     <div className='flex flex-col gap-1 col-span-2'>
                                         <div className='capitalize text-[0.8rem] font-medium'>withdawal amount ($)</div>
@@ -196,15 +193,12 @@ const Withdraw = () => {
                                 </div>
                                 {Object.values(cryptoWallets).length !== 0 && <div className='flex flex-col gap-2 items-center'>
                                     <div className='text-sm text-center'>Enter your <span className=' capitalize'>{cryptoWallets.crypto_name}</span> wallet address for <span className=' capitalize'> {cryptoWallets.network}</span> Network:</div>
-                                    <input className='outline-none border bg-white lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2 border-light' name='withdrawal_address' value={form.withdrawal_address} onChange={inputHandler} type='text'></input>
-                                </div>}
-                                <div className='flex flex-col gap-1.5 items-center relative'>
-                                    <div className='flex gap-1.5 items-center'>
-                                        <input type='checkbox' value={check} checked={check} onChange={event => { setCheck(event.target.checked) }}></input>
-                                        <div className='text-[#252525] text-sm'>I provided my correct wallet address</div>
+                                    <div className='flex flex-col gap-1'>
+                                        <input className='outline-none border bg-white lg:text-[0.85rem] w-full h-8 rounded-[4px] px-2 border-light' name='withdrawal_address' value={form.withdrawal_address} onChange={inputHandler} type='text'></input>
+                                        <div className='text-xs text-brown'>Ensure the network you select matches the wallet address provided to prevent any loss of funds.</div>
                                     </div>
-                                    <button className='outline-none w-fit h-fit py-2 px-12 md:text-sm text-xs text-semi-white bg-[#252525] rounded-md capitalize font-semibold' onClick={makeWithdrawal}>confirm withdrawal</button>
-                                </div>
+                                </div>}
+                                <button className='outline-none w-fit h-fit py-2 px-12 md:text-sm text-xs text-semi-white bg-[#252525] rounded-md mx-auto capitalize font-semibold' onClick={makeWithdrawal}>confirm withdrawal</button>
                             </div>
                         </div>
                     }

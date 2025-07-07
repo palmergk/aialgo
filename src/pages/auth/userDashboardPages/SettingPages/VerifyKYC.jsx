@@ -10,6 +10,7 @@ import PhoneSelector from '../../../../GeneralComponents/PhoneSelector'
 import StatusSelector from '../../../../GeneralComponents/StatusSelector'
 import Loading from '../../../../GeneralComponents/Loading'
 import SettingsLayout from '../../../../UserComponents/SettingsLayout'
+import IDSelector from '../../../../GeneralComponents/IDSelector'
 
 const Genders = [
     "male",
@@ -32,35 +33,40 @@ const VerifyKYC = () => {
     const [, setUnreadNotis] = useAtom(UNREADNOTIS)
 
     const [kyc, setKyc] = useState({})
-    const [gender, setGender] = useState('select')
-    const [select, setSelect] = useState(false)
-    const [marital, setMarital] = useState('select')
-    const [select2, setSelect2] = useState(false)
+    const [select, setSelect] = useState({
+        gdr: false,
+        mtl: false,
+        idt: false
+    })
     const [usercountry, setUserCountry] = useState({
         name: 'select',
         flag: null
     })
-    const [phoneCode, setPhoneCode] = useState('+44')
     const [frontID, setFrontID] = useState({
         img: null,
         image: null
     })
-    const frontIdref = useRef()
     const [backID, setBackID] = useState({
         img: null,
         image: null
     })
+    const frontIdref = useRef()
     const backIdref = useRef()
     const [loading, setLoading] = useState(false)
     const [dataloading, setDataLoading] = useState(true)
     const [form, setForm] = useState({
-        full_name: '',
+        first_name: '',
+        last_name: '',
+        gender: 'select',
+        marital_status: 'select',
         date_of_birth: '',
+        address: '',
         state: '',
         postal: '',
-        address: '',
-        id_number: '',
+        phone_code: '+44',
         phone_number: '',
+        id_type: 'select',
+        id_number: '',
     })
 
     const formHandler = (event) => {
@@ -87,21 +93,23 @@ const VerifyKYC = () => {
                 const data = response.msg
                 setKyc(data)
                 setForm({
-                    full_name: data.full_name,
+                    first_name: data.first_name,
+                    last_name: data.last_name,
+                    gender: data.gender,
+                    marital_status: data.marital_status,
                     date_of_birth: data.date_of_birth,
+                    address: data.address,
                     state: data.state,
                     postal: data.postal,
-                    address: data.address,
-                    id_number: data.id_number,
+                    phone_code: data.phone_code,
                     phone_number: data.phone_number,
+                    id_type: data.id_type,
+                    id_number: data.id_number,
                 })
-                setGender(data.gender)
-                setMarital(data.marital_status)
                 setUserCountry({
                     name: data.country,
                     flag: data.country_flag
                 })
-                setPhoneCode(data.phone_code)
                 setFrontID({
                     img: `${imageurl}/identity/${data.gen_id}/${data.front_id}`,
                     image: data.front_id
@@ -134,38 +142,42 @@ const VerifyKYC = () => {
 
     const Create_Update_KYC = async () => {
 
-        if (!form.full_name) return ErrorAlert('Enter your full name')
-        if (gender === 'select') return ErrorAlert('Select a gender')
-        if (marital === 'select') return ErrorAlert('Select marital status')
+        if (!form.first_name) return ErrorAlert('Enter your first name')
+        if (!form.last_name) return ErrorAlert('Enter your last name')
+        if (form.gender === 'select') return ErrorAlert('Select a gender')
+        if (form.marital_status === 'select') return ErrorAlert('Select marital status')
         if (!form.date_of_birth) return ErrorAlert('Enter date of birth')
         if (usercountry.name === 'select') return ErrorAlert('Select country')
         if (!form.address) return ErrorAlert('Enter your address and city')
         if (!form.state) return ErrorAlert('Enter your state of residence')
         if (!form.postal) return ErrorAlert('Enter postal / zipcode')
         if (!form.phone_number) return ErrorAlert('Enter your mobile number')
-        if (!form.id_number) return ErrorAlert('Enter an identification number')
+        if (!form.id_type) return ErrorAlert('Select or Enter an ID type')
+        if (!form.id_number) return ErrorAlert('Enter identification number')
         if (!frontID.image) return ErrorAlert('Provide a valid front ID image')
         if (!backID.image) return ErrorAlert('Provide a valid back ID image')
         if (kyc.status === 'processing') return ErrorAlert(`You can't re-upload while KYC details is processing`)
         if (kyc.status === 'verified') return ErrorAlert('KYC is verified')
 
-        if (form.full_name === kyc.full_name && form.address === kyc.address && form.state === kyc.state && form.postal === kyc.postal && form.date_of_birth === kyc.date_of_birth && form.phone_number === kyc.phone_number && form.id_number === kyc.id_number && phoneCode === kyc.phone_code && gender === kyc.gender && marital === kyc.marital_status && usercountry.name === kyc.country && frontID.image === kyc.front_id && backID.image === kyc.back_id) return ErrorAlert('No changes made')
+        if (form.first_name === kyc.first_name && form.last_name === kyc.last_name && form.address === kyc.address && form.state === kyc.state && form.postal === kyc.postal && form.date_of_birth === kyc.date_of_birth && form.phone_number === kyc.phone_number && form.id_number === kyc.id_number && form.phone_code === kyc.phone_code && form.gender === kyc.gender && form.marital_status === kyc.marital_status && usercountry.name === kyc.country && frontID.image === kyc.front_id && backID.image === kyc.back_id) return ErrorAlert('No changes made')
 
         const formbody = new FormData()
         formbody.append('front_id', frontID.image)
         formbody.append('back_id', backID.image)
-        formbody.append('full_name', form.full_name)
+        formbody.append('first_name', form.first_name)
+        formbody.append('last_name', form.last_name)
+        formbody.append('gender', form.gender)
+        formbody.append('marital_status', form.marital_status)
         formbody.append('date_of_birth', form.date_of_birth)
-        formbody.append('state', form.state)
-        formbody.append('postal', form.postal)
-        formbody.append('address', form.address)
-        formbody.append('id_number', form.id_number)
-        formbody.append('phone_code', phoneCode)
-        formbody.append('phone_number', form.phone_number)
-        formbody.append('gender', gender)
-        formbody.append('marital_status', marital)
         formbody.append('country', usercountry.name)
         formbody.append('country_flag', usercountry.flag)
+        formbody.append('address', form.address)
+        formbody.append('state', form.state)
+        formbody.append('postal', form.postal)
+        formbody.append('phone_code', form.phone_code)
+        formbody.append('phone_number', form.phone_number)
+        formbody.append('id_type', form.id_type)
+        formbody.append('id_number', form.id_number)
 
         setLoading(true)
         try {
@@ -211,20 +223,22 @@ const VerifyKYC = () => {
                     </div>
                     <div className='flex flex-col gap-6 text-black md:w-3/4 w-[95%] mx-auto bg-semi-white py-6 md:px-8 px-5 rounded-md relative overflow-hidden'>
                         {loading && <Loading />}
-                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
+                        <div className='grid md:grid-cols-2 grid-cols-1 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
-                                <div className='md:text-sm text-xs capitalize font-semibold'>full name:</div>
-                                <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.full_name} name='full_name' onChange={formHandler}></input>
+                                <div className='md:text-sm text-xs capitalize font-semibold'>first name:</div>
+                                <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.first_name} name='first_name' onChange={formHandler}></input>
+                            </div>
+                            <div className='flex flex-col gap-1.5'>
+                                <div className='md:text-sm text-xs capitalize font-semibold'>last name:</div>
+                                <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.last_name} name='last_name' onChange={formHandler}></input>
                             </div>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>gender:</div>
-                                <StatusSelector Statuses={Genders} status={gender} HandleFunction={(item) => setGender(item)} select={select} toggle={() => setSelect(!select)} className="shantf !w-full" />
+                                <StatusSelector Statuses={Genders} status={form.gender} HandleFunction={(item) => setForm({ ...form, gender: item })} select={select.gdr} toggle={() => setSelect({ ...select, gdr: !select.gdr })} className="shantf !w-full" />
                             </div>
-                        </div>
-                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>marital status:</div>
-                                <StatusSelector Statuses={MaritalStatus} status={marital} HandleFunction={(item) => setMarital(item)} select={select2} toggle={() => setSelect2(!select2)} className="shantf !w-full" />
+                                <StatusSelector Statuses={MaritalStatus} status={form.marital_status} HandleFunction={(item) => setForm({ ...form, marital_status: item })} select={select.mtl} toggle={() => setSelect({ ...select, mtl: !select.mtl })} className="shantf !w-full" />
                             </div>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>date of birth:</div>
@@ -238,8 +252,6 @@ const VerifyKYC = () => {
                                     />
                                 </div>
                             </div>
-                        </div>
-                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='text-sm capitalize font-semibold'>country:</div>
                                 <CountrySelector usercountry={usercountry} setUserCountry={setUserCountry} className='shantf' />
@@ -248,8 +260,6 @@ const VerifyKYC = () => {
                                 <div className='md:text-sm text-xs capitalize font-semibold'>address & city:</div>
                                 <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.address} name='address' onChange={formHandler}></input>
                             </div>
-                        </div>
-                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>state / province:</div>
                                 <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.state} name='state' onChange={formHandler}></input>
@@ -258,21 +268,21 @@ const VerifyKYC = () => {
                                 <div className='md:text-sm text-xs capitalize font-semibold'>postal / zipcode:</div>
                                 <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.postal} name='postal' onChange={formHandler}></input>
                             </div>
-                        </div>
-                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>phone number:</div>
                                 <div className='flex gap-2 items-center'>
-                                    <PhoneSelector phoneCode={phoneCode} setPhoneCode={setPhoneCode} className='shantf' />
-                                    <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.phone_number} name='phone_number' onChange={formHandler}></input>
+                                    <PhoneSelector phoneCode={form.phone_code} HandleFunction={(item) => setForm({ ...form, phone_code: item })} className='shantf !w-16' />
+                                        <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.phone_number} name='phone_number' onChange={formHandler}></input>
                                 </div>
+                            </div>
+                            <div className='flex flex-col gap-1.5'>
+                                <div className='md:text-sm text-xs capitalize font-semibold'>government issued ID:</div>
+                                <IDSelector type={form.id_type} HandleFunction={(item) => setForm({ ...form, id_type: item })} className='shantf' />
                             </div>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>identification number:</div>
                                 <input className='outline-none bg-transparent border border-light w-full px-2 md:py-2 py-1.5 lg:text-sm text-base rounded-sm' value={form.id_number} name='id_number' onChange={formHandler}></input>
                             </div>
-                        </div>
-                        <div className='grid md:grid-cols-2 grid-cols-1 md:gap-8 gap-6 items-center'>
                             <div className='flex flex-col gap-1.5'>
                                 <div className='md:text-sm text-xs capitalize font-semibold'>front ID image:</div>
                                 <label className='cursor-pointer h-40 w-full'>

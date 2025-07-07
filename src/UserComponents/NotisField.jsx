@@ -1,7 +1,7 @@
 import React from 'react'
 import { HiCheckCircle } from "react-icons/hi2";
 import { FaXmark } from "react-icons/fa6";
-import { MdError } from 'react-icons/md';
+import { MdCancel } from 'react-icons/md';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { Apis, PostApi, UserPutApi } from '../services/API';
@@ -39,7 +39,7 @@ const NotisField = ({ item, refetchNotifications, refetchUnreadNotis, setShowNot
                     {item.status !== 'failed' ?
                         <HiCheckCircle className='text-light ' />
                         :
-                        <MdError className='text-[#c94747]' />}
+                        <MdCancel className='text-red-600' />}
                 </div>
                 <div className='font-semibold'>{item.content}</div>
                 <div className=' text-[0.7rem] text-[#3d3d3d] font-bold mt-2'>{moment(item.createdAt).fromNow()}</div>
