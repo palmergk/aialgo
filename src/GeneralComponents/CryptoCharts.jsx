@@ -89,7 +89,7 @@ const CryptoCharts = () => {
               <p className={`text-xs mb-2 ${change > 0 ? 'text-green-500' : 'text-red-500'}`}>
                 {change ? `${change.toFixed(2)}%` : '...'} (24h)
               </p>
-              <TradingViewMiniChart symbol={coin.symbol} theme="light" />
+              <TradingViewMiniChart symbol={coin.symbol} theme="dark" />
             </div>
           );
         })}
